@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Miles Retold — Postcards &amp; Passports</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&amp;family=Homemade+Apple&amp;family=Outfit:wght@300;400;500;600&amp;family=Space+Mono:wght@400;700&amp;family=Noto+Naskh+Arabic:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FBF7EF}
+a{color:#1D3557}a:hover{color:#C2185B}
+*{box-sizing:border-box}
+.dsp{font-family:'DM Serif Display',Georgia,serif;font-weight:400}
+.hand{font-family:'Homemade Apple',cursive}
+.mono{font-family:'Space Mono',monospace;text-transform:uppercase;letter-spacing:.14em}
+.perf{-webkit-mask:radial-gradient(circle at 9px 9px,transparent 6px,#000 6.5px) -9px -9px/18px 18px;mask:radial-gradient(circle at 9px 9px,transparent 6px,#000 6.5px) -9px -9px/18px 18px}
+.lined{background-image:repeating-linear-gradient(#FBF7EF 0 33px,#D9E6F0 33px 34px)}
+.tape{position:absolute;width:130px;height:34px;background:rgba(200,214,226,.7);backdrop-filter:blur(2px)}
+.pill{display:inline-flex;align-items:center;gap:10px;min-height:52px;padding:0 28px;border-radius:999px;font-family:Outfit,sans-serif;font-weight:500;font-size:16px;text-decoration:none;transition:transform .5s cubic-bezier(.3,1.5,.5,1),box-shadow .5s,background .4s}
+.pill-p{background:#1D3557;color:#FBF7EF}.pill-p:hover{color:#FBF7EF;background:#C2185B;transform:translateY(-4px) rotate(-1.5deg);box-shadow:0 16px 30px -14px rgba(29,53,87,.6)}
+.pill-g{background:#fff;color:#1D3557;border:1.5px solid #1D3557}.pill-g:hover{transform:translateY(-4px) rotate(1.5deg)}
+.nl{font-size:15px;color:#1D3557;text-decoration:none;padding:10px 16px;border-radius:999px;transition:background .4s}
+.nl:hover{background:#BFE0F7;color:#1D3557}
+.marq{display:flex;width:max-content;animation:marq 34s linear infinite}
+.rev{animation-direction:reverse}
+@keyframes marq{to{transform:translateX(-50%)}}
+.drop{animation:drop 1.2s cubic-bezier(.3,1.4,.5,1) both}
+.d1{animation-delay:.2s}.d2{animation-delay:.4s}.d3{animation-delay:.6s}.d4{animation-delay:.9s}
+@keyframes drop{from{opacity:0;transform:translateY(-60px) rotate(var(--r,0deg)) scale(1.06)}to{opacity:1;transform:rotate(var(--r,0deg))}}
+.thud{animation:thud .9s cubic-bezier(.3,1.7,.5,1) 1.2s both}
+@keyframes thud{from{opacity:0;transform:scale(2.2) rotate(-30deg)}to{opacity:1;transform:scale(1) rotate(-12deg)}}
+.sway{animation:sway 6s ease-in-out infinite;transform-origin:top center}
+@keyframes sway{0%,100%{rotate:-1.5deg}50%{rotate:1.5deg}}
+.wig{transition:transform .6s cubic-bezier(.3,1.6,.5,1)}
+.wig:hover{transform:rotate(0deg) scale(1.04) !important;z-index:5}
+.dash{stroke-dasharray:3 8;animation:dash 2s linear infinite}
+@keyframes dash{to{stroke-dashoffset:-22}}
+.tk{all:unset;cursor:pointer;position:relative;background:#fff;border-radius:18px;padding:22px 22px 20px;display:flex;flex-direction:column;gap:14px;transition:transform .6s cubic-bezier(.3,1.5,.5,1),box-shadow .5s,background .4s;box-shadow:0 1px 0 rgba(29,53,87,.08);min-height:44px}
+.tk:hover{transform:translateY(-8px)}
+.tk:focus-visible{outline:2px solid #C2185B}
+.tk.on{background:#1D3557;color:#FBF7EF;transform:translateY(-16px) rotate(-1deg);box-shadow:0 30px 50px -24px rgba(29,53,87,.6)}
+.tk .cut{position:absolute;left:-1px;right:-1px;top:62%;border-top:2px dashed rgba(29,53,87,.18)}
+.tk.on .cut{border-color:rgba(251,247,239,.25)}
+.planeTo{transition:left 1.1s cubic-bezier(.6,0,.3,1)}
+.boarding{animation:pop .7s cubic-bezier(.3,1.4,.5,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(22px) rotate(-1deg)}to{opacity:1;transform:none}}
+.spin{animation:spin 26s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+details summary{list-style:none;cursor:pointer}details summary::-webkit-details-marker{display:none}
+details .pl{transition:transform .5s}details[open] .pl{transform:rotate(45deg)}
+@supports (animation-timeline: view()){
+.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+.rvt{animation:rvt linear both;animation-timeline:view();animation-range:entry 0% cover 35%}
+}
+@keyframes rv{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+@keyframes rvt{from{opacity:0;transform:translateY(80px) rotate(8deg)}to{opacity:1;transform:rotate(var(--r,0deg))}}
+.still *{animation:none !important}
+@media (max-width:900px){
+.two,.hero{grid-template-columns:1fr !important}
+.tix{grid-template-columns:1fr 1fr !important}
+.cards3{grid-template-columns:1fr !important}
+.stamps{grid-template-columns:repeat(3,minmax(0,1fr)) !important}
+.navc{display:none !important}
+.big{font-size:58px !important}
+.sec{padding-left:22px !important;padding-right:22px !important}
+.heroart{height:520px !important}
+}
+@media (max-width:560px){.tix{grid-template-columns:1fr !important}.big{font-size:46px !important}}
+/* MOBILE TYPE SCALE */
+@media (max-width:600px){[style*="font-size: 18px"]{font-size:16px!important}[style*="font-size: 19px"]{font-size:16px!important}[style*="font-size: 20px"]{font-size:16px!important}[style*="font-size: 22px"]{font-size:20px!important}[style*="font-size: 24px"]{font-size:20px!important}[style*="font-size: 26px"]{font-size:20px!important}[style*="font-size: 28px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 34px"]{font-size:clamp(24px,7vw,30px)!important;line-height:1.12}[style*="font-size: 36px"]{font-size:clamp(24px,7vw,30px)!important;line-height:1.12}[style*="font-size: 44px"]{font-size:clamp(28px,8vw,36px)!important;line-height:1.12}[style*="font-size: 46px"]{font-size:clamp(28px,8vw,36px)!important;line-height:1.12}[style*="font-size: 56px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 60px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 62px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 66px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 70px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 76px"]{font-size:clamp(36px,10.5vw,48px)!important;line-height:1.12}[style*="font-size: 96px"]{font-size:clamp(40px,11.5vw,56px)!important;line-height:1.12}[style*="font-size: 130px"]{font-size:clamp(40px,11.5vw,56px)!important;line-height:1.12}h1{line-height:1.04!important;letter-spacing:-.01em}h2,h3{line-height:1.1!important}p,li,figcaption,label{overflow-wrap:anywhere}}
+/* END MOBILE TYPE SCALE */
+</style>
+</helmet>
+<div class="{{motionClass}}" style="font-family: Outfit, sans-serif; color: #1D3557; background: #FBF7EF; width: 100%; overflow: hidden">
+
+<!-- nav -->
+<header style="position: sticky; top: 0; z-index: 30; padding: 16px 0">
+<nav class="sec" style="max-width: 1360px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: center; gap: 16px">
+<a href="#top" style="text-decoration: none; display: flex; align-items: center; gap: 12px; background: rgba(251,247,239,.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 8px 18px 8px 8px; border-radius: 999px">
+<span class="perf" style="width: 46px; height: 46px; background: #C2185B; display: grid; place-items: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="#FBF7EF" aria-hidden="true"><path d="M21 12 3 4l3 8-3 8z"/></svg></span>
+<span class="dsp" style="font-size: 24px; color: #1D3557">Miles <em style="color: #C2185B">Retold</em></span>
+</a>
+<div class="navc" style="display: flex; gap: 4px; background: rgba(255,255,255,.8); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); padding: 6px; border-radius: 999px; box-shadow: 0 10px 30px -20px rgba(29,53,87,.4)">
+<a class="nl" href="#why">Why we started</a><a class="nl" href="#books">Books</a><a class="nl" href="#board">How to order</a><a class="nl" href="#post">Reviews</a><a class="nl" href="#stamps">195</a><a class="nl" href="#q">FAQ</a>
+</div>
+<a class="pill pill-p" href="#dm" style="min-height: 48px">DM “BOOK”</a>
+</nav>
+</header>
+
+<!-- hero -->
+<section id="top" class="sec hero" style="max-width: 1360px; margin: 0 auto; padding: 50px 40px 90px; display: grid; grid-template-columns: 1fr 1.05fr; gap: 50px; align-items: center">
+<div>
+<div class="mono drop" style="font-size: 12px; color: #C2185B; display: inline-flex; gap: 10px; align-items: center; border: 1.5px solid #C2185B; padding: 8px 14px; border-radius: 6px; --r: -2deg">Departing from · KSA &amp; Pakistan</div>
+<h1 class="dsp big drop d1" style="font-size: 96px; line-height: .95; margin: 28px 0 0; letter-spacing: -.01em">Your trip,<br><em style="color: #C2185B">retold</em> in a book.</h1>
+<p class="drop d2" style="font-size: 19px; line-height: 1.7; max-width: 500px; margin: 26px 0 0; color: #3E5470; font-weight: 300">Just 2 sisters traveling &amp; printing memories. Send us your camera roll — we’ll send back a hardcover you’ll actually flip through again.</p>
+<div class="drop d3" style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 34px">
+<a class="pill pill-p" href="#dm">Start my book <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+<a class="pill pill-g" href="#board">See how it works</a>
+</div>
+<p class="hand drop d4" style="font-size: 20px; color: #3E5470; margin: 38px 0 0; transform: rotate(-2deg)">no templates · no AI stories · just you</p>
+</div>
+<div class="heroart" style="position: relative; height: 640px">
+<div class="drop d1" style="position: absolute; left: 6%; top: 3%; width: 78%; --r: -3deg">
+<div class="perf sway" style="background: #fff; padding: 26px 26px 110px; box-shadow: 0 40px 70px -40px rgba(29,53,87,.6)">
+<img src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt="Tazmeen and Rameen, the sisters behind Miles Retold" style="display: block; width: 100%; height: 400px; object-fit: cover">
+<div class="hand" style="position: absolute; left: 0; right: 0; bottom: 40px; text-align: center; font-size: 26px; color: #1D3557">postcard from Miles Retold</div>
+</div>
+</div>
+<div class="tape" style="left: 34%; top: 0; transform: rotate(-6deg); z-index: 3"></div>
+<div class="thud" style="position: absolute; left: -2%; top: 52%; z-index: 4; border: 3px solid #1D3557; border-radius: 14px; padding: 12px 20px; background: rgba(251,247,239,.92); color: #1D3557; text-align: center">
+<div class="mono" style="font-size: 11px; display: flex; justify-content: space-between; gap: 30px"><span>0786</span><span>CBWA</span></div>
+<div class="dsp" style="font-size: 34px; letter-spacing: .06em; line-height: 1.1">ARRIVED</div>
+<div class="hand" style="font-size: 16px; border: 1.5px solid #1D3557; padding: 4px 10px; margin-top: 4px">Miles Retold</div>
+</div>
+<div class="drop d3 wig" style="position: absolute; right: 0; bottom: 6%; width: 44%; transform: rotate(6deg); z-index: 5; background: #fff; padding: 12px; box-shadow: 0 30px 60px -30px rgba(29,53,87,.6)"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="Maldives and Sri Lanka photobooks" style="display: block; width: 100%; height: 190px; object-fit: cover"></div>
+<svg style="position: absolute; right: 2%; top: 4%; z-index: 6" width="140" height="140" viewBox="0 0 140 140" aria-hidden="true" class="spin"><defs><path id="cB" d="M70 70 m-52 0 a52 52 0 1 1 104 0 a52 52 0 1 1 -104 0"/></defs><circle cx="70" cy="70" r="66" fill="#BFE0F7"/><text font-family="Space Mono" font-size="11" letter-spacing="3" fill="#1D3557"><textPath href="#cB">TRAVEL MORE ✈ WORRY LESS ✈ TRAVEL MORE ✈ WORRY LESS ✈</textPath></text></svg>
+</div>
+</section>
+
+<!-- luggage-tag ticker -->
+<div style="background: #BFE0F7; padding: 22px 0; transform: rotate(-1.5deg); margin: 0 -20px; box-shadow: 0 10px 30px -20px rgba(29,53,87,.4)">
+<div class="marq" style="gap: 18px">
+<span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">IST · Turkey</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">MLE · Maldives</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">HKG · Hong Kong</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">BCN · Barcelona</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">DXB · Dubai</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">TPE · Taiwan</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">LHR · London</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">KUL · Malaysia</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">BAH · Bahrain</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">GYD · Azerbaijan</span>
+<span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">IST · Turkey</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">MLE · Maldives</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">HKG · Hong Kong</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">BCN · Barcelona</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">DXB · Dubai</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">TPE · Taiwan</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">LHR · London</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">KUL · Malaysia</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">BAH · Bahrain</span><span class="mono" style="background: #fff; padding: 10px 18px; border-radius: 8px; font-size: 13px; white-space: nowrap">GYD · Azerbaijan</span>
+</div>
+</div>
+
+<!-- why we started -->
+<section id="why" class="sec two" style="max-width: 1360px; margin: 0 auto; padding: 150px 40px 130px; display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center">
+<div style="position: relative">
+<div class="rvt" style="--r: -3deg; transform: rotate(-3deg); background: #fff; padding: 14px; box-shadow: 0 40px 70px -40px rgba(29,53,87,.5)"><img src="/assets/8384abb23ebdfeb24e7152bf3fdd1a9b.jpg" alt="The sisters raising mocktails at a café" style="display: block; width: 100%; height: 520px; object-fit: cover"></div>
+<div class="tape" style="right: 20%; top: -14px; transform: rotate(8deg)"></div>
+<div class="lined rvt" style="--r: 4deg; position: absolute; right: -30px; bottom: -50px; width: 290px; padding: 26px 24px; transform: rotate(4deg); box-shadow: 0 30px 50px -30px rgba(29,53,87,.5); background-color: #D6ECFA">
+<div class="dsp" style="font-size: 24px">A few things about us</div>
+<ul style="margin: 12px 0 0; padding-left: 18px; font-size: 15px; line-height: 1.7; color: #3E5470">
+<li>We’ve travelled to 20 countries together.</li><li>We own a growing collection of our own travel books.</li><li>Always planning our next trip.</li><li>Slightly obsessed with organising photos.</li>
+</ul>
+</div>
+</div>
+<div>
+<div class="mono rv" style="font-size: 12px; color: #C2185B">Why we started</div>
+<h2 class="dsp rv" style="font-size: 66px; line-height: 1; margin: 18px 0 0">Thousands of photos. <em style="color: #C2185B">Almost never looked at again.</em></h2>
+<p class="rv" style="font-size: 18px; line-height: 1.8; color: #3E5470; font-weight: 300; margin: 28px 0 0">That was us. So we started turning our own trips into photobooks — and every time we flipped through one, it felt like traveling all over again. Now we do it for you, Tazmeen &amp; Rameen, from our desk to your shelf.</p>
+<p class="hand rv" style="font-size: 26px; line-height: 1.6; color: #1D3557; margin: 34px 0 0; transform: rotate(-1.5deg)">Phones don’t last forever. Stories do!</p>
+</div>
+</section>
+
+<!-- books film strip -->
+<section id="books" style="background: #1D3557; color: #FBF7EF; padding: 120px 0 110px; position: relative">
+<div class="sec" style="max-width: 1360px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px">
+<h2 class="dsp rv" style="font-size: 66px; line-height: 1; margin: 0; max-width: 720px">Every Miles Retold book is <em style="color: #BFE0F7">yours alone.</em></h2>
+<p class="rv" style="font-size: 17px; line-height: 1.7; max-width: 400px; margin: 0; opacity: .8; font-weight: 300">Designed from your own photos, customised to your story, made to be held, shared and passed down.</p>
+</div>
+<div style="margin-top: 60px; background: #0E1E33; padding: 28px 0; position: relative">
+<div style="position: absolute; left: 0; right: 0; top: 8px; height: 12px; background: repeating-linear-gradient(90deg, transparent 0 14px, #FBF7EF 14px 26px, transparent 26px 40px); opacity: .55"></div>
+<div style="position: absolute; left: 0; right: 0; bottom: 8px; height: 12px; background: repeating-linear-gradient(90deg, transparent 0 14px, #FBF7EF 14px 26px, transparent 26px 40px); opacity: .55"></div>
+<div class="marq" style="gap: 16px; animation-duration: 48s">
+<img src="/assets/d79cb5916bf021b810ad3e0168beec13.jpg" alt="Travel and wedding books" style="height: 300px; width: 420px; object-fit: cover; display: block"><img src="/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg" alt="Paris and Turkey books" style="height: 300px; width: 380px; object-fit: cover; display: block"><img src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt="Stack of books" style="height: 300px; width: 420px; object-fit: cover; display: block"><img src="/assets/44c3ed2b417e619b81afb56289c69c25.jpg" alt="Open Egypt book" style="height: 300px; width: 340px; object-fit: cover; display: block"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="Maldives book" style="height: 300px; width: 460px; object-fit: cover; display: block"><img src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt="Italy love story book" style="height: 300px; width: 460px; object-fit: cover; display: block">
+<img src="/assets/d79cb5916bf021b810ad3e0168beec13.jpg" alt="" style="height: 300px; width: 420px; object-fit: cover; display: block"><img src="/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg" alt="" style="height: 300px; width: 380px; object-fit: cover; display: block"><img src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt="" style="height: 300px; width: 420px; object-fit: cover; display: block"><img src="/assets/44c3ed2b417e619b81afb56289c69c25.jpg" alt="" style="height: 300px; width: 340px; object-fit: cover; display: block"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="" style="height: 300px; width: 460px; object-fit: cover; display: block"><img src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt="" style="height: 300px; width: 460px; object-fit: cover; display: block">
+</div>
+</div>
+<div class="sec cards3" style="max-width: 1360px; margin: 50px auto 0; padding: 0 40px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px">
+<div class="rv" style="border: 1px solid rgba(191,224,247,.3); border-radius: 18px; padding: 24px"><div class="mono" style="font-size: 11px; color: #BFE0F7">01</div><div class="dsp" style="font-size: 26px; margin-top: 10px">Travel journeys</div></div>
+<div class="rv" style="border: 1px solid rgba(191,224,247,.3); border-radius: 18px; padding: 24px"><div class="mono" style="font-size: 11px; color: #BFE0F7">02</div><div class="dsp" style="font-size: 26px; margin-top: 10px">Weddings &amp; honeymoons</div></div>
+<div class="rv" style="border: 1px solid rgba(191,224,247,.3); border-radius: 18px; padding: 24px"><div class="mono" style="font-size: 11px; color: #BFE0F7">03</div><div class="dsp" style="font-size: 26px; margin-top: 10px">Anniversaries &amp; love stories</div></div>
+<div class="rv" style="border: 1px solid rgba(191,224,247,.3); border-radius: 18px; padding: 24px"><div class="mono" style="font-size: 11px; color: #BFE0F7">04</div><div class="dsp" style="font-size: 26px; margin-top: 10px">Camera-roll revival</div></div>
+</div>
+</section>
+
+<!-- boarding passes: how to order -->
+<section id="board" style="background: #BFE0F7; padding: 140px 0 150px">
+<div class="sec" style="max-width: 1360px; margin: 0 auto; padding: 0 40px">
+<div class="mono rv" style="font-size: 12px; color: #C2185B">How to order · now boarding</div>
+<h2 class="dsp rv" style="font-size: 70px; line-height: 1; margin: 18px 0 0">Five gates from <em style="color: #C2185B">camera roll</em> to keepsake.</h2>
+<div style="position: relative; height: 60px; margin-top: 60px">
+<svg style="position: absolute; inset: 0; width: 100%; height: 60px" preserveAspectRatio="none" viewBox="0 0 1000 60" aria-hidden="true"><path class="dash" d="M10 30 L990 30" stroke="#1D3557" stroke-width="2" fill="none" vector-effect="non-scaling-stroke"/></svg>
+<div class="planeTo" style="position: absolute; top: 8px; left: {{planeLeft}}; translate: -50% 0"><svg width="44" height="44" viewBox="0 0 24 24" fill="#C2185B" aria-hidden="true"><path d="M21 12 3 4l3 8-3 8z"/></svg></div>
+</div>
+<div class="tix" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-top: 18px">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+<button class="{{s.cls}}" onClick="{{s.pick}}">
+<span class="mono" style="font-size: 11px; display: flex; justify-content: space-between; opacity: .7"><span>Gate</span><span>{{s.code}}</span></span>
+<span class="dsp" style="font-size: 56px; line-height: .9">{{s.num}}</span>
+<span style="font-size: 17px; font-weight: 500; line-height: 1.25; min-height: 44px">{{s.title}}</span>
+<span class="cut"></span>
+<span class="mono" style="font-size: 10px; opacity: .7; margin-top: 10px">{{s.tag}}</span>
+</button>
+</sc-for>
+</div>
+<div class="boarding" key="{{curKey}}" style="margin-top: 40px; background: #FBF7EF; border-radius: 28px; display: grid; grid-template-columns: 1.4fr 1fr; overflow: hidden; box-shadow: 0 40px 70px -40px rgba(29,53,87,.5)">
+<div style="padding: 48px">
+<div class="mono" style="font-size: 12px; color: #C2185B">Boarding pass · Gate {{cur.num}}</div>
+<h3 class="dsp" style="font-size: 46px; line-height: 1.05; margin: 14px 0 0">{{cur.title}}</h3>
+<p style="font-size: 17px; line-height: 1.8; color: #3E5470; font-weight: 300; margin: 18px 0 0; max-width: 560px">{{cur.body}}</p>
+<p class="hand" style="font-size: 19px; margin: 26px 0 0; color: #1D3557">{{cur.note}}</p>
+</div>
+<div style="background: #1D3557; color: #FBF7EF; padding: 40px; display: flex; flex-direction: column; justify-content: space-between; gap: 24px; border-left: 3px dashed #FBF7EF">
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 18px">
+<div><div class="mono" style="font-size: 10px; opacity: .6">From</div><div class="dsp" style="font-size: 28px">{{cur.from}}</div></div>
+<div><div class="mono" style="font-size: 10px; opacity: .6">To</div><div class="dsp" style="font-size: 28px">{{cur.to}}</div></div>
+<div><div class="mono" style="font-size: 10px; opacity: .6">Payment</div><div style="font-size: 16px">{{cur.pay}}</div></div>
+<div><div class="mono" style="font-size: 10px; opacity: .6">Revisions</div><div style="font-size: 16px">Unlimited</div></div>
+</div>
+<div style="height: 54px; background: repeating-linear-gradient(90deg, #FBF7EF 0 2px, transparent 2px 5px, #FBF7EF 5px 6px, transparent 6px 10px, #FBF7EF 10px 13px, transparent 13px 15px); opacity: .85"></div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- personal notes -->
+<section class="sec two" style="max-width: 1360px; margin: 0 auto; padding: 150px 40px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 70px; align-items: center">
+<div style="position: relative; height: 600px">
+<div class="rvt wig" style="--r: -5deg; position: absolute; left: 0; top: 0; width: 72%; transform: rotate(-5deg); background: #fff; padding: 12px; box-shadow: 0 40px 70px -40px rgba(29,53,87,.5)"><img src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt="A handwritten anniversary note over an Italy photobook" style="display: block; width: 100%; height: 340px; object-fit: cover"></div>
+<div class="rvt wig" style="--r: 6deg; position: absolute; right: 0; bottom: 0; width: 58%; transform: rotate(6deg); background: #fff; padding: 12px; box-shadow: 0 40px 70px -40px rgba(29,53,87,.5)"><img src="/assets/0ccb3d30f4e2f37224ca46c8be035a25.jpg" alt="A book wrapped in kraft paper and gold satin ribbon" style="display: block; width: 100%; height: 330px; object-fit: cover"></div>
+<div class="tape" style="left: 40%; top: 46%; transform: rotate(-12deg); z-index: 4"></div>
+</div>
+<div>
+<div class="mono rv" style="font-size: 12px; color: #C2185B">Signed, sealed, delivered</div>
+<h2 class="dsp rv" style="font-size: 62px; line-height: 1.02; margin: 18px 0 0">A real person behind <em style="color: #C2185B">every single order.</em></h2>
+<p class="rv" style="font-size: 18px; line-height: 1.8; color: #3E5470; font-weight: 300; margin: 26px 0 0">Every book is wrapped in kraft paper and gold ribbon — retied seven times if it has to be — and packed with a handwritten note, bad handwriting and all.</p>
+<p class="hand rv" style="font-size: 22px; line-height: 1.7; margin: 30px 0 0; transform: rotate(-1deg)">…because this business is personal to us.</p>
+</div>
+</section>
+
+<!-- postcards: reviews -->
+<section id="post" style="background: #E9DCC6; padding: 130px 0 150px; background-image: radial-gradient(rgba(29,53,87,.08) 1px, transparent 1px); background-size: 18px 18px; position: relative">
+<div class="sec" style="max-width: 1360px; margin: 0 auto; padding: 0 40px">
+<div style="text-align: center"><div class="mono rv" style="font-size: 12px; color: #C2185B">Postcards from our clients · real messages</div>
+<h2 class="dsp rv" style="font-size: 66px; line-height: 1; margin: 18px 0 0">Wish you were <em style="color: #C2185B">here.</em></h2></div>
+
+<div class="cards3" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; margin-top: 70px">
+<figure class="rvt wig" style="--r: -3deg; transform: rotate(-3deg); margin: 0; background: #FBF7EF; padding: 30px; display: grid; grid-template-columns: 1fr 74px; gap: 20px; box-shadow: 0 30px 50px -30px rgba(29,53,87,.5)">
+<div style="border-right: 1.5px solid rgba(29,53,87,.2); padding-right: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px"><blockquote class="hand" style="margin: 0; font-size: 16px; line-height: 1.9">You didn’t just create a photobook — you retold our memories in the most beautiful way.</blockquote><figcaption class="mono" style="font-size: 11px">— Jules · South Korea</figcaption></div>
+<div class="perf" style="width: 74px; height: 90px; overflow: hidden; background: #fff"><img src="/assets/f3364f297167ee327c5ff6991ecfdd56.jpg" alt="Jules’s South Korea book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
+</figure>
+<figure class="rvt wig" style="--r: 2deg; transform: rotate(2deg); margin: 0; background: #FBF7EF; padding: 30px; display: grid; grid-template-columns: 1fr 74px; gap: 20px; box-shadow: 0 30px 50px -30px rgba(29,53,87,.5)">
+<div style="border-right: 1.5px solid rgba(29,53,87,.2); padding-right: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px"><blockquote class="hand" style="margin: 0; font-size: 16px; line-height: 1.9">Some memories may fade with time, but now I have something beautiful to look back on.</blockquote><figcaption class="mono" style="font-size: 11px">— Keith · six city books</figcaption></div>
+<div class="perf" style="width: 74px; height: 90px; overflow: hidden; background: #fff"><img src="/assets/9f9b9c7ec3fe289da29a671ba7b77b77.jpg" alt="Keith’s illustrated city books" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
+</figure>
+<figure class="rvt wig" style="--r: -1deg; transform: rotate(-1deg); margin: 0; background: #FBF7EF; padding: 30px; display: grid; grid-template-columns: 1fr 74px; gap: 20px; box-shadow: 0 30px 50px -30px rgba(29,53,87,.5)">
+<div style="border-right: 1.5px solid rgba(29,53,87,.2); padding-right: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px"><blockquote dir="rtl" lang="ar" style="margin: 0; font-family: 'Noto Naskh Arabic', serif; font-size: 18px; line-height: 1.9">شكرا عالابداع، حبيت وانبسطت فيهم</blockquote><p style="margin: 0; font-size: 13px; line-height: 1.6; color: #3E5470; font-style: italic">“Thank you for the creativity — I loved them and they made me so happy.”</p><figcaption class="mono" style="font-size: 11px">— Lujain · translated</figcaption></div>
+<div class="perf" style="width: 74px; height: 90px; background: #C2185B; display: grid; place-items: center"><svg width="30" height="30" viewBox="0 0 24 24" fill="#FBF7EF" aria-hidden="true"><path d="M21 12 3 4l3 8-3 8z"/></svg></div>
+</figure>
+<figure class="rvt wig" style="--r: 3deg; transform: rotate(3deg); margin: 0; background: #FBF7EF; padding: 30px; display: grid; grid-template-columns: 1fr 74px; gap: 20px; box-shadow: 0 30px 50px -30px rgba(29,53,87,.5)">
+<div style="border-right: 1.5px solid rgba(29,53,87,.2); padding-right: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px"><blockquote class="hand" style="margin: 0; font-size: 16px; line-height: 1.9">Even better than I imagined… we go over them every day.</blockquote><figcaption class="mono" style="font-size: 11px">— Jiya · two travel albums</figcaption></div>
+<div class="perf" style="width: 74px; height: 90px; background: #7FB8E6; display: grid; place-items: center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1D3557" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M4 12h16M12 4c3 3 3 13 0 16M12 4c-3 3-3 13 0 16"/></svg></div>
+</figure>
+<figure class="rvt wig" style="--r: -2deg; transform: rotate(-2deg); margin: 0; background: #FBF7EF; padding: 30px; display: grid; grid-template-columns: 1fr 74px; gap: 20px; box-shadow: 0 30px 50px -30px rgba(29,53,87,.5)">
+<div style="border-right: 1.5px solid rgba(29,53,87,.2); padding-right: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px"><blockquote class="hand" style="margin: 0; font-size: 16px; line-height: 1.9">Very neat work, reasonable prices, and I love the unlimited edits.</blockquote><figcaption class="mono" style="font-size: 11px">— Nawal</figcaption></div>
+<div class="perf" style="width: 74px; height: 90px; background: #C9A15B; display: grid; place-items: center"><svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#1D3557" stroke-width="1.6" aria-hidden="true"><path d="M12 21s-7-4.5-9.3-9A5 5 0 0 1 12 6a5 5 0 0 1 9.3 6c-2.3 4.5-9.3 9-9.3 9z"/></svg></div>
+</figure>
+<figure class="rvt wig" style="--r: 1deg; transform: rotate(1deg); margin: 0; background: #FBF7EF; padding: 30px; display: grid; grid-template-columns: 1fr 74px; gap: 20px; box-shadow: 0 30px 50px -30px rgba(29,53,87,.5)">
+<div style="border-right: 1.5px solid rgba(29,53,87,.2); padding-right: 20px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px"><blockquote class="hand" style="margin: 0; font-size: 16px; line-height: 1.9">You turned our pictures into a beautiful story filled with memories and emotions.</blockquote><figcaption class="mono" style="font-size: 11px">— Dr. Nancy · family book</figcaption></div>
+<div class="perf" style="width: 74px; height: 90px; overflow: hidden; background: #fff"><img src="/assets/adfaf7713315604416f193a08d73c174.jpg" alt="Stack of personalised book spines" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
+</figure>
+</div>
+
+<div class="rvt" style="--r: -4deg; margin: 70px auto 0; max-width: 520px; transform: rotate(-4deg); background: #F7C6D6; padding: 28px 34px; text-align: center; box-shadow: 0 24px 40px -24px rgba(29,53,87,.5); position: relative">
+<div class="tape" style="left: 50%; top: -16px; translate: -50% 0; transform: rotate(3deg)"></div>
+<p class="dsp" style="margin: 0; font-size: 34px; line-height: 1.15">“I will order again and recommend you to my Saudi friends.”</p>
+<p class="hand" style="margin: 14px 0 0; font-size: 17px">…“you will be famous soon. Believe it!”</p>
+</div>
+</div>
+</section>
+
+<!-- 195 stamps -->
+<section id="stamps" class="sec" style="max-width: 1360px; margin: 0 auto; padding: 150px 40px">
+<div class="two" style="display: grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items: center">
+<div>
+<div class="mono rv" style="font-size: 12px; color: #C2185B">The 195 Project</div>
+<h2 class="dsp rv" style="font-size: 130px; line-height: .85; margin: 14px 0 0; color: #C2185B">195</h2>
+<p class="dsp rv" style="font-size: 36px; line-height: 1.1; margin: 10px 0 0">countries. One passport of stories.</p>
+<p class="rv" style="font-size: 17px; line-height: 1.8; color: #3E5470; margin: 22px 0 0; font-weight: 300">[Two lines on the 195 Project — what it is and how people join.]</p>
+</div>
+<div class="stamps" style="display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px">
+<div class="rvt wig" style="--r: -8deg; transform: rotate(-8deg); aspect-ratio: 1; border-radius: 50%; border: 2.5px solid #C2185B; color: #C2185B; display: grid; place-items: center; text-align: center"><span class="mono" style="font-size: 11px">Türkiye<br>2025</span></div>
+<div class="rvt wig" style="--r: 6deg; transform: rotate(6deg); aspect-ratio: 1; border-radius: 12px; border: 2.5px solid #1D3557; display: grid; place-items: center; text-align: center"><span class="mono" style="font-size: 11px">Maldives<br>2022</span></div>
+<div class="rvt wig" style="--r: -3deg; transform: rotate(-3deg); aspect-ratio: 1; border-radius: 50%; border: 2.5px dashed #7FB8E6; color: #2F6FA8; display: grid; place-items: center; text-align: center"><span class="mono" style="font-size: 11px">Hong Kong<br>2019</span></div>
+<div class="rvt wig" style="--r: 10deg; transform: rotate(10deg); aspect-ratio: 1; border-radius: 50%; border: 2.5px solid #C9A15B; color: #8C6A2E; display: grid; place-items: center; text-align: center"><span class="mono" style="font-size: 11px">Dubai<br>2025</span></div>
+<div class="rvt wig" style="--r: -6deg; transform: rotate(-6deg); aspect-ratio: 1; border-radius: 12px; border: 2.5px solid #C2185B; color: #C2185B; display: grid; place-items: center; text-align: center"><span class="mono" style="font-size: 11px">London<br>2024</span></div>
+<div class="rvt wig" style="--r: 4deg; transform: rotate(4deg); aspect-ratio: 1; border-radius: 50%; border: 2.5px solid #1D3557; display: grid; place-items: center; text-align: center"><span class="mono" style="font-size: 11px">Barcelona<br>2023</span></div>
+<div class="rvt wig" style="--r: -10deg; transform: rotate(-10deg); aspect-ratio: 1; border-radius: 12px; border: 2.5px dashed #C2185B; color: #C2185B; display: grid; place-items: center; text-align: center"><span class="mono" style="font-size: 11px">Malaysia<br>2025</span></div>
+<div class="rvt wig" style="--r: 7deg; transform: rotate(7deg); aspect-ratio: 1; border-radius: 50%; border: 2.5px solid #7FB8E6; color: #2F6FA8; display: grid; place-items: center; text-align: center"><span class="mono" style="font-size: 11px">Thailand<br>2023</span></div>
+<div class="rvt wig" style="--r: -4deg; transform: rotate(-4deg); aspect-ratio: 1; border-radius: 50%; border: 2.5px solid #C9A15B; color: #8C6A2E; display: grid; place-items: center; text-align: center"><span class="mono" style="font-size: 11px">Hallstatt<br>2025</span></div>
+<div class="rvt" style="--r: 0deg; aspect-ratio: 1; border-radius: 50%; border: 2.5px dashed rgba(29,53,87,.3); color: rgba(29,53,87,.55); display: grid; place-items: center; text-align: center"><span class="mono" style="font-size: 11px">Yours<br>next?</span></div>
+</div>
+</div>
+</section>
+
+<!-- faq -->
+<section id="q" style="background: #fff; padding: 120px 0">
+<div class="sec" style="max-width: 1000px; margin: 0 auto; padding: 0 40px">
+<h2 class="dsp rv" style="font-size: 60px; line-height: 1; margin: 0; text-align: center">Before you <em style="color: #C2185B">take off.</em></h2>
+<div style="margin-top: 50px; display: flex; flex-direction: column; gap: 12px">
+<details open="" style="background: #FBF7EF; border-radius: 18px; padding: 0 28px"><summary style="display: flex; justify-content: space-between; align-items: center; padding: 24px 0; font-size: 20px; font-weight: 500">How do I send my photos?<span class="pl" style="font-size: 28px; color: #C2185B">+</span></summary><p style="margin: 0 0 24px; line-height: 1.8; color: #3E5470">Through a private Google Drive link we send you. Multiple trips? Organise them into separate folders.</p></details>
+<details style="background: #FBF7EF; border-radius: 18px; padding: 0 28px"><summary style="display: flex; justify-content: space-between; align-items: center; padding: 24px 0; font-size: 20px; font-weight: 500">How does payment work?<span class="pl" style="font-size: 28px; color: #C2185B">+</span></summary><p style="margin: 0 0 24px; line-height: 1.8; color: #3E5470">50% deposit to confirm and begin designing; 50% after you approve the final design.</p></details>
+<details style="background: #FBF7EF; border-radius: 18px; padding: 0 28px"><summary style="display: flex; justify-content: space-between; align-items: center; padding: 24px 0; font-size: 20px; font-weight: 500">Can I ask for changes?<span class="pl" style="font-size: 28px; color: #C2185B">+</span></summary><p style="margin: 0 0 24px; line-height: 1.8; color: #3E5470">Unlimited revisions until you love it.</p></details>
+<details style="background: #FBF7EF; border-radius: 18px; padding: 0 28px"><summary style="display: flex; justify-content: space-between; align-items: center; padding: 24px 0; font-size: 20px; font-weight: 500">Where do you deliver?<span class="pl" style="font-size: 28px; color: #C2185B">+</span></summary><p style="margin: 0 0 24px; line-height: 1.8; color: #3E5470">Across Saudi Arabia and Pakistan. Turnaround: [X–Y working days]. Prices from [SAR — / PKR —].</p></details>
+</div>
+</div>
+</section>
+
+<!-- envelope CTA -->
+<section id="dm" style="padding: 150px 24px; text-align: center; background: #BFE0F7; position: relative; overflow: hidden">
+<div class="rv" style="max-width: 760px; margin: 0 auto; position: relative; background: #FBF7EF; padding: 70px 50px 60px; box-shadow: 0 50px 80px -40px rgba(29,53,87,.5); border: 10px solid transparent; border-image: repeating-linear-gradient(45deg, #C2185B 0 16px, #FBF7EF 16px 26px, #1D3557 26px 42px, #FBF7EF 42px 52px) 10">
+<div class="perf" style="position: absolute; right: 30px; top: 30px; width: 76px; height: 92px; background: #C2185B; display: grid; place-items: center; transform: rotate(6deg)"><svg width="32" height="32" viewBox="0 0 24 24" fill="#FBF7EF" aria-hidden="true"><path d="M21 12 3 4l3 8-3 8z"/></svg></div>
+<div class="mono" style="font-size: 12px; color: #C2185B">Par avion · Start yours</div>
+<h2 class="dsp big" style="font-size: 76px; line-height: 1; margin: 18px 0 0">DM us “BOOK”.</h2>
+<p style="font-size: 18px; line-height: 1.7; color: #3E5470; margin: 20px auto 0; max-width: 480px; font-weight: 300">If you love to travel as much as we do, you’re in the right place. We’ll take it from there.</p>
+<p style="font-family: 'Noto Naskh Arabic', serif; font-size: 22px; margin: 18px 0 0; color: #1D3557" dir="rtl">نحوّل رحلاتك إلى كتب ذكريات</p>
+<div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 34px">
+<a class="pill pill-p" href="https://instagram.com/milesretold">Message on Instagram</a>
+<a class="pill pill-g" href="#dm">WhatsApp [number]</a>
+</div>
+</div>
+</section>
+
+<footer style="background: #1D3557; color: #DCE8F3; padding: 60px 0 36px">
+<div class="sec" style="max-width: 1360px; margin: 0 auto; padding: 0 40px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 30px">
+<div><div class="dsp" style="font-size: 44px; color: #FBF7EF">Miles <em style="color: #F49AC1">Retold</em></div><p class="hand" style="font-size: 16px; margin: 14px 0 0">travel more · worry less</p></div>
+<div style="display: flex; gap: 26px; flex-wrap: wrap"><a href="https://instagram.com/milesretold" style="color: #DCE8F3">Instagram</a><a href="https://threads.net/@milesretold" style="color: #DCE8F3">Threads</a><span>KSA · Pakistan</span><span>© 2026</span></div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"motion":{"editor":"boolean","default":true,"section":"Motion"},"$preview":{"width":1440,"height":8000}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { step: 0 }; }
+  renderVals() {
+    const data = [
+      { num: '01', code: 'HLO', title: 'Say hello', tag: 'DM “BOOK”', body: 'Message us “BOOK” on Instagram. Tell us the trip, the occasion and who the book is for.', note: 'every great book starts with hello', from: 'Your DMs', to: 'Our desk', pay: '—' },
+      { num: '02', code: 'UPL', title: 'Upload your photos', tag: 'Google Drive', body: 'We send you a private Google Drive link to upload your favourite travel photos. Multiple trips? Simply organise them into separate folders.', note: 'the easier it is to share, the better your book tells your story', from: 'Camera roll', to: 'Drive', pay: '—' },
+      { num: '03', code: 'CNF', title: 'Confirm your book', tag: '50% deposit', body: 'A 50% deposit confirms your order and we begin designing your book. The remaining 50% is paid after you approve the final design.', note: 'photos received · order confirmed · design begins', from: 'Deposit', to: 'Design', pay: '50% now · 50% later' },
+      { num: '04', code: 'MGC', title: 'We create the magic', tag: 'Unlimited revisions', body: 'Your photos are thoughtfully transformed into a completely personalised photobook: story-driven layouts, made just for you — with unlimited revisions until you love it.', note: 'and yes… unlimited revisions', from: 'Photos', to: 'Story', pay: 'Balance on approval' },
+      { num: '05', code: 'DLV', title: 'Printed & delivered', tag: 'KSA · Pakistan', body: 'Approve, settle the balance, and your hardcover is printed, wrapped in gold ribbon with a handwritten note, and sent to its rightful home.', note: 'off to its new home', from: 'Our desk', to: 'Your shelf', pay: 'Paid in full' }
+    ];
+    const i = this.state.step;
+    const steps = data.map((d, k) => ({ ...d, cls: k === i ? 'tk on' : 'tk', pick: () => this.setState({ step: k }) }));
+    return { steps, cur: data[i], curKey: 'b' + i, planeLeft: (10 + i * 20) + '%', motionClass: (this.props.motion ?? true) ? '' : 'still' };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>D · Colour palette</title>
+<script src="./support.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/ba8a47ecfe93acbd68bd017714519801.svg">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&amp;family=Manrope:wght@400;500;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
+.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',monospace}
+.card{background:#fff;border:1px solid #E7DDD4;border-radius:26px;padding:28px}
+.lbl{font-size:13px;font-weight:800;color:#7D1238;margin:0 0 16px}
+.sw{border-radius:18px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;min-height:150px;transition:transform .7s cubic-bezier(.16,1,.3,1),box-shadow .7s;animation:sw .9s cubic-bezier(.16,1,.3,1) both}
+.sw:hover{transform:translateY(-6px);box-shadow:0 26px 40px -26px rgba(60,20,30,.55)}
+.sw b{font-size:15px}.sw .mono{font-size:12px;opacity:.85;margin-top:3px}.sw small{font-size:12px;opacity:.8;margin-top:6px;line-height:1.4}
+@keyframes sw{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
+.n{display:flex;align-items:center;gap:12px;font-size:13px}.n i{width:40px;height:40px;border-radius:12px;flex:none}
+.n b{display:block;font-size:14px}.n .mono{font-size:11px;color:#6B5A5F}
+.pair{border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:14px}
+.pair span{font:500 11px 'JetBrains Mono',monospace;padding:3px 7px;border-radius:6px;background:rgba(255,255,255,.18)}
+.grad{height:120px;border-radius:20px;background:linear-gradient(100deg,#9E1046,#C7323F 55%,#C4661A);background-size:200% 100%;animation:sh 8s ease-in-out infinite alternate;position:relative;overflow:hidden}
+@keyframes sh{to{background-position:100% 0}}
+.bar{display:flex;height:44px;border-radius:14px;overflow:hidden}
+.bar span{display:grid;place-items:center;font-size:12px;font-weight:800}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="width:1440px;height:990px;padding:60px 64px;background:#F6F1EA;font-family:Manrope,sans-serif;color:#1F1418;display:flex;flex-direction:column;gap:24px">
+
+<div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
+<div><p class="lbl" style="margin:0">Colour system</p><h1 class="fr" style="font-size:56px;font-weight:400;margin:8px 0 0;line-height:1">Wine &amp; Saffron <i style="color:#7D1238">— refined</i></h1></div>
+<p style="max-width:520px;color:#5C4B50;line-height:1.6;margin:0">Pulled from the Instagram feed: burgundy ribbon, sunset orange, ivory paper. One accent family, warm neutrals, and every text pairing checked to WCAG AA.</p>
+</div>
+
+<div style="display:grid;grid-template-columns:1.25fr 1fr;gap:24px;flex:1;min-height:0">
+<div style="display:flex;flex-direction:column;gap:24px">
+<div class="card">
+<p class="lbl">Brand</p>
+<div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:12px">
+<div class="sw" style="background:#7D1238;color:#FFF6F0"><b>Wine</b><span class="mono">#7D1238</span><small>Primary buttons, links, headings accent</small></div>
+<div class="sw" style="background:#5E0D2A;color:#FFF6F0;animation-delay:.06s"><b>Deep wine</b><span class="mono">#5E0D2A</span><small>Hover, dark bands</small></div>
+<div class="sw" style="background:#B8304F;color:#fff;animation-delay:.12s"><b>Rose</b><span class="mono">#B8304F</span><small>Live states, focus</small></div>
+<div class="sw" style="background:#C4661A;color:#fff;animation-delay:.18s"><b>Saffron</b><span class="mono">#C4661A</span><small>Stars, highlights</small></div>
+<div class="sw" style="background:#F2B880;color:#1F1418;animation-delay:.24s"><b>Peach</b><span class="mono">#F2B880</span><small>Text on dark, gifts</small></div>
+</div>
+<div class="grad" style="margin-top:14px"><div style="position:absolute;left:20px;bottom:16px;color:#FFF6F0"><b>Signature gradient</b> <span class="mono" style="font-size:12px;opacity:.85">#9E1046 → #C7323F → #C4661A</span></div><div style="position:absolute;right:20px;bottom:12px;color:#FFF6F0" class="fr"><span style="font-size:40px;font-weight:500">MiLes</span></div></div>
+</div>
+
+<div class="card" style="flex:1">
+<p class="lbl">Neutrals — warm, never grey</p>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px 14px">
+<div class="n"><i style="background:#1F1418"></i><div><b>Ink</b><span class="mono">#1F1418</span></div></div>
+<div class="n"><i style="background:#6B5A5F"></i><div><b>Text 2</b><span class="mono">#6B5A5F</span></div></div>
+<div class="n"><i style="background:#786669"></i><div><b>Muted</b><span class="mono">#786669</span></div></div>
+<div class="n"><i style="background:#CDBCB4"></i><div><b>Stone</b><span class="mono">#CDBCB4</span></div></div>
+<div class="n"><i style="background:#E7DDD4"></i><div><b>Line</b><span class="mono">#E7DDD4</span></div></div>
+<div class="n"><i style="background:#EFE5DA"></i><div><b>Sand</b><span class="mono">#EFE5DA</span></div></div>
+<div class="n"><i style="background:#F6F1EA;box-shadow:inset 0 0 0 1px #E7DDD4"></i><div><b>Ivory</b><span class="mono">#F6F1EA</span></div></div>
+<div class="n"><i style="background:#FFF6F0;box-shadow:inset 0 0 0 1px #E7DDD4"></i><div><b>Paper</b><span class="mono">#FFF6F0</span></div></div>
+</div>
+<p class="lbl" style="margin-top:26px">Status</p>
+<div style="display:grid;grid-template-columns:repeat(4,1fr);gap:14px">
+<div class="n"><i style="background:#2B6B55"></i><div><b>Jade · done</b><span class="mono">#2B6B55 / #E4F1EA</span></div></div>
+<div class="n"><i style="background:#B8304F"></i><div><b>Rose · live</b><span class="mono">#B8304F / #F5E4DF</span></div></div>
+<div class="n"><i style="background:#9A5A0B"></i><div><b>Amber · waiting</b><span class="mono">#9A5A0B / #FFF4E6</span></div></div>
+<div class="n"><i style="background:#E8C96E"></i><div><b>Gold · ribbon</b><span class="mono">#E8C96E</span></div></div>
+</div>
+</div>
+</div>
+
+<div style="display:flex;flex-direction:column;gap:24px">
+<div class="card">
+<p class="lbl">Balance on a page</p>
+<div class="bar"><span style="flex:60;background:#F6F1EA;color:#6B5A5F;box-shadow:inset 0 0 0 1px #E7DDD4">Ivory &amp; paper 60</span><span style="flex:22;background:#1F1418;color:#FFF6F0">Ink 22</span><span style="flex:12;background:#7D1238;color:#FFF6F0">Wine 12</span><span style="flex:6;background:#C4661A;color:#fff">6</span></div>
+<p style="font-size:13px;color:#6B5A5F;line-height:1.6;margin:12px 0 0">Saffron and rose are seasoning: stars, live dots, one highlight per screen. Wine carries every action.</p>
+</div>
+
+<div class="card" style="flex:1;display:flex;flex-direction:column">
+<p class="lbl">Text pairings · contrast</p>
+<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+<div class="pair" style="background:#F6F1EA;color:#1F1418;box-shadow:inset 0 0 0 1px #E7DDD4">Ink on ivory <span style="background:#E7DDD4">16.0 AAA</span></div>
+<div class="pair" style="background:#F6F1EA;color:#6B5A5F;box-shadow:inset 0 0 0 1px #E7DDD4">Text 2 on ivory <span style="background:#E7DDD4">5.7 AA</span></div>
+<div class="pair" style="background:#F6F1EA;color:#786669;box-shadow:inset 0 0 0 1px #E7DDD4">Muted on ivory <span style="background:#E7DDD4">4.8 AA</span></div>
+<div class="pair" style="background:#F6F1EA;color:#7D1238;box-shadow:inset 0 0 0 1px #E7DDD4">Wine on ivory <span style="background:#E7DDD4">9.3 AAA</span></div>
+<div class="pair" style="background:#7D1238;color:#FFF6F0">Paper on wine <span>9.8 AAA</span></div>
+<div class="pair" style="background:#5E0D2A;color:#F2B880">Peach on deep wine <span>7.6 AAA</span></div>
+<div class="pair" style="background:#fff;color:#B8304F;box-shadow:inset 0 0 0 1px #E7DDD4">Rose on white <span style="background:#F5E4DF">5.9 AA</span></div>
+<div class="pair" style="background:#E4F1EA;color:#2B6B55">Jade on mint <span style="background:#fff">5.4 AA</span></div>
+</div>
+<div style="margin-top:auto;padding-top:20px;border-top:1px solid #E7DDD4;margin-top:20px">
+<b style="font-size:14px">What changed</b>
+<ul style="margin:10px 0 0;padding-left:18px;font-size:13px;color:#5C4B50;line-height:1.7">
+<li>Hot pink <span class="mono">#C2185B</span> → warmer rose <span class="mono">#B8304F</span>, so it sits with wine instead of fighting it.</li>
+<li>Three slightly different gradients → one accent gradient; the logo itself stays one colour.</li>
+<li>Muted grey <span class="mono">#9A8A8E</span> (2.9:1, failed) → <span class="mono">#786669</span> (4.8:1).</li>
+<li>Success green → deeper jade; pink blush → warmer blush.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":990}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

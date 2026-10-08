@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Studio · Shipping</title>
+<script src="./support.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/ba8a47ecfe93acbd68bd017714519801.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/e8c29624c47de066f3c28cb82d08b58a.png">
+<link rel="apple-touch-icon" href="/assets/587541048aa85fdedd1d966f27a5d383.png">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F1ECE6}*{box-sizing:border-box}
+a{color:#7D1238}a:hover{color:#B8304F}
+.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.wm{background:linear-gradient(95deg,#F07AA5,#F2B880);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:10px;font:700 14px Manrope,sans-serif;cursor:pointer;transition:background .25s,transform .3s}
+.btn:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
+.bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A}
+.bs{background:#fff;border:1px solid #E7DDD4;color:#1F1418}.bs:hover{border-color:#1F1418}
+.rl{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#CDBCB4;text-decoration:none;font-weight:600;font-size:14px}
+.rl:hover{background:rgba(255,255,255,.06);color:#fff}.rl.on{background:rgba(255,255,255,.1);color:#fff}
+.fl{all:unset;cursor:pointer;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid #E7DDD4;background:#fff;min-height:20px}
+.fl.on{background:#1F1418;color:#fff;border-color:#1F1418}
+.fl:focus-visible{outline:2px solid #7D1238}
+.kc{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;background:#fff;border:1px solid #E7DDD4;border-radius:14px;padding:14px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .25s}
+.kc:hover{transform:translateY(-3px);box-shadow:0 18px 30px -20px rgba(31,20,24,.5)}
+.kc.on{border-color:#7D1238;box-shadow:0 0 0 3px rgba(125,18,56,.14)}
+.kc:focus-visible{outline:2px solid #7D1238}
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px}
+.av{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff}
+.drawer{animation:drawer .5s cubic-bezier(.2,.8,.2,1) both}@keyframes drawer{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
+.col{animation:col .6s cubic-bezier(.2,.8,.2,1) both}@keyframes col{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px}
+.av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;border:2px solid #fff;flex:none}
+.rise{animation:rise .7s cubic-bezier(.16,1,.3,1) both}@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.box{background:#fff;border:1px solid #E7DDD4;border-radius:18px}
+
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap}
+.sub{font-size:14px;color:#6B5A5F;margin-top:4px}
+.kpi4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-top:20px}
+.kpi4>div{padding:18px}.kpi4 .lb{font-size:13px;color:#6B5A5F}.kpi4 .v{font-family:Fraunces,Georgia,serif;font-size:32px;margin-top:4px;line-height:1.1}
+.fl{all:unset;box-sizing:border-box;cursor:pointer;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid #E7DDD4;background:#fff;white-space:nowrap;transition:border-color .3s,background .3s,color .3s}
+.fl:hover{border-color:#1F1418}.fl.on{background:#1F1418;color:#fff;border-color:#1F1418}.fl:focus-visible{outline:2px solid #7D1238}
+.srch{display:flex;align-items:center;gap:8px;min-height:42px;padding:0 14px;border:1px solid #E7DDD4;border-radius:12px;background:#fff;min-width:240px;flex:1;max-width:360px}
+.srch input{all:unset;flex:1;font:500 14px Manrope,sans-serif;color:#1F1418}.srch:focus-within{border-color:#7D1238;box-shadow:0 0 0 3px rgba(125,18,56,.12)}
+.bar2{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;padding:14px 18px;border-bottom:1px solid #F0E8E1}
+.tr{all:unset;box-sizing:border-box;cursor:pointer;display:grid;align-items:center;gap:14px;width:100%;min-height:64px;padding:10px 18px;border-top:1px solid #F0E8E1;transition:background .3s}
+.tr:first-child{border-top:0}.tr:hover{background:#FBF7F1}.tr.on{background:#FBF4F6;box-shadow:inset 3px 0 0 #7D1238}.tr:focus-visible{outline:2px solid #7D1238;outline-offset:-2px}
+.th{display:grid;align-items:center;gap:14px;padding:10px 18px;font-size:12px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:#786669;background:#FBF7F1;border-bottom:1px solid #F0E8E1}
+.ell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:800;padding:4px 10px;border-radius:999px;white-space:nowrap}
+.chip i{width:7px;height:7px;border-radius:50%;background:currentColor}
+.side{padding:22px;position:sticky;top:20px}
+.drawer{animation:drawer .5s cubic-bezier(.2,.8,.2,1) both}@keyframes drawer{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
+.lab{font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#6B5A5F}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:10px;font-size:13px}.mini>div{background:#F6F1EA;border-radius:12px;padding:12px}.mini>div>div{color:#6B5A5F}
+.tog{all:unset;box-sizing:border-box;cursor:pointer;width:46px;height:26px;border-radius:999px;background:#D9CCC3;position:relative;flex:none;transition:background .3s}
+.tog::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.tog.on{background:#2B6B55}.tog.on::after{transform:translateX(20px)}.tog:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
+.tabs{display:flex;gap:4px;padding:4px;background:#fff;border:1px solid #E7DDD4;border-radius:14px;width:max-content;max-width:100%;overflow:auto}
+.tab{all:unset;box-sizing:border-box;cursor:pointer;padding:9px 16px;border-radius:10px;font-weight:700;font-size:14px;white-space:nowrap;color:#6B5A5F;transition:background .3s,color .3s}
+.tab:hover{color:#1F1418}.tab.on{background:#7D1238;color:#FFF6F0}.tab:focus-visible{outline:2px solid #7D1238}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:18px;margin-top:20px;align-items:start}
+.inp{width:100%;min-height:44px;border:1px solid #E7DDD4;border-radius:10px;padding:0 12px;font:600 14px Manrope,sans-serif;background:#fff;color:#1F1418}
+.inp:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 3px rgba(125,18,56,.12)}
+.ccard{all:unset;box-sizing:border-box;cursor:pointer;display:flex;flex-direction:column;gap:12px;padding:18px;border-radius:18px;background:#fff;border:1px solid #E7DDD4;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s,border-color .3s}
+.ccard:hover{transform:translateY(-4px);box-shadow:0 24px 40px -28px rgba(60,20,30,.5)}.ccard.on{border-color:#7D1238;box-shadow:0 0 0 3px rgba(125,18,56,.14)}.ccard:focus-visible{outline:2px solid #7D1238}
+.stars{color:#C4661A;letter-spacing:2px;font-size:15px}
+.pstep{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800;border:1px solid #E7DDD4;background:#fff;color:#786669;white-space:nowrap;transition:background .3s,color .3s,border-color .3s}
+.pstep.done{background:#2B6B55;border-color:#2B6B55;color:#fff}.pstep.next{border-color:#7D1238;color:#7D1238}.pstep:focus-visible{outline:2px solid #7D1238}
+.meter{height:8px;border-radius:8px;background:#F0E8E1;overflow:hidden}.meter i{display:block;height:100%;border-radius:8px;background:linear-gradient(90deg,#7D1238,#C4661A);transition:width .7s cubic-bezier(.16,1,.3,1)}
+@media (max-width:1180px){.grid2{grid-template-columns:1fr!important}.side{position:static!important}}
+@media (max-width:900px){.kpi3{grid-template-columns:1fr!important}}
+@media (max-width:900px){.kpi4{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){.th{display:none}.tr{grid-template-columns:1fr auto!important}.tr .hs{display:none}.srch{max-width:none;min-width:0;width:100%;flex:1 1 100%}}
+
+@media (max-width:900px){.rail{display:none!important}.stack{grid-template-columns:1fr 1fr!important}}
+/* MOBILE TYPE SCALE */
+@media (max-width:600px){[style*="font-size: 24px"]{font-size:20px!important}[style*="font-size: 28px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 34px"]{font-size:clamp(24px,7vw,30px)!important;line-height:1.12}h1{line-height:1.04!important;letter-spacing:-.01em}h2,h3{line-height:1.1!important}p,li,figcaption,label{overflow-wrap:anywhere}}
+/* END MOBILE TYPE SCALE */
+/* LOGO */
+.lg .lgm{flex:none;transition:transform .8s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 10px rgba(125,18,56,.25))}
+.lg:hover .lgm{transform:rotate(-8deg) scale(1.06)}
+.lgp{transform-box:fill-box;transform-origin:center;animation:lgIn 1.3s cubic-bezier(.16,1,.3,1) .35s both}
+.lg:hover .lgp{animation:lgFly 1.1s cubic-bezier(.65,0,.35,1)}
+.lgt{animation:lgTrail 1.6s linear infinite}
+@keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
+@keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
+@keyframes lgTrail{to{stroke-dashoffset:-10.8}}
+.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
+/* END LOGO */
+</style>
+</helmet>
+<div style="font-family: Manrope, sans-serif; color: #1F1418; background: #F1ECE6; width: 100%; min-height: 960px; display: flex">
+<aside class="rail" style="width: 236px; flex: none; background: #1F1418; padding: 22px 14px; display: flex; flex-direction: column; gap: 4px">
+<div style="padding: 4px 14px 22px"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — storefront" style="display: flex; align-items: center; gap: 10px; text-decoration: none"><svg class="lgm" width="36" height="36" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#FFF6F0"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#1F1418"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#1F1418"></path><path d="M32 25v18.4" stroke="#FFF6F0" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#1F1418" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#1F1418"></path></svg><span class="fr" style="font-size: 26px; font-weight: 600; letter-spacing: -.01em; line-height: .8; color: #FFF6F0">MiLes</span></a><div style="font-size: 10px; font-weight: 800; letter-spacing: .42em; color: #CDBCB4; margin-top: 6px; padding-left: 46px">STUDIO</div></div>
+<a class="rl" href="D8-Studio.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="5" height="16" rx="1.5"></rect><rect x="10" y="4" width="5" height="11" rx="1.5"></rect><rect x="17" y="4" width="4" height="7" rx="1.5"></rect></svg>Pipeline</a>
+<a class="rl" href="D8-A1-Orders.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>All orders</a>
+<a class="rl" href="D8-A2-Customers.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.5"></circle><path d="M2 20c1-3.5 3.8-5.5 7-5.5s6 2 7 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2 .6 3.4 2.4 4 5.5"></path></svg>Customers</a>
+<a class="rl" href="D8-A3-Payments.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="6" width="18" height="13" rx="2"></rect><path d="M3 10h18"></path></svg>Payments</a>
+<a class="rl" href="D8-A4-Print.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M6 9V3h12v6M6 18H4v-7h16v7h-2M6 14h12v7H6z"></path></svg>Print queue</a>
+<a class="rl on" href="D8-A5-Shipping.dc.html" aria-current="page"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg>Shipping</a>
+<a class="rl" href="D8-A6-Reviews.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg>Reviews</a>
+<a class="rl" href="D8-A10-Calendar.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="5" width="18" height="16" rx="2"></rect><path d="M3 10h18M8 3v4M16 3v4"></path></svg>Calendar</a>
+<a class="rl" href="D8-A11-Codes.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 12l-8 8-9-9V3h8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Codes &amp; gift cards</a>
+<a class="rl" href="D8-A12-Reports.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>Reports</a>
+<a class="rl" href="D8-A7-Settings.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"></circle><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1c.6.5 1.3.9 2 1.2L10 21h4l.5-2.6c.7-.3 1.4-.7 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"></path></svg>Settings</a>
+<div style="margin-top: auto; padding: 14px; background: rgba(255,255,255,.06); border-radius: 12px; font-size: 13px; color: #CDBCB4; line-height: 1.5">Price list, couriers, payment gateways and message templates live in Settings.</div>
+<a class="rl" href="D8-A9-SignIn.dc.html" style="margin-top: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"></path></svg>Sign out</a>
+</aside>
+<div style="flex: 1; min-width: 0; padding: 24px 28px 40px">
+<div class="hd"><div><h1 class="fr" style="font-size: 34px; font-weight: 500; margin: 0">Shipping</h1><div class="sub">Couriers booked through one aggregator per country · [demo data]</div></div><div style="display: flex; gap: 8px; flex-wrap: wrap"><div class="tabs" role="tablist"><sc-for list="{{ctabs}}" as="t" hint-placeholder-count="2"><button class="{{t.cls}}" onClick="{{t.pick}}" role="tab">{{t.name}}</button></sc-for></div></div></div>
+<div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; margin-top: 20px" class="kpi3">
+<sc-for list="{{couriers}}" as="c" hint-placeholder-count="3">
+<div class="box" style="padding: 18px; display: flex; justify-content: space-between; align-items: center; gap: 12px"><div><b style="font-size: 16px">{{c.n}}</b><div style="font-size: 13px; color: #6B5A5F; margin-top: 2px">{{c.d}}</div><div class="fr" style="font-size: 28px; margin-top: 6px">{{c.count}} <span style="font-size: 14px; font-family: Manrope; color: #6B5A5F">active</span></div></div><button class="{{c.tcls}}" onClick="{{c.toggle}}" role="switch" aria-checked="{{c.on}}" aria-label="Use {{c.n}}"></button></div>
+</sc-for>
+</div>
+<section class="box" style="overflow: hidden; margin-top: 18px">
+<div class="bar2"><b style="font-size: 16px">Ready to ship</b><span style="font-size: 13px; color: #6B5A5F">Wrapped in the print queue</span></div>
+<sc-for list="{{ready}}" as="r" hint-placeholder-count="2">
+<div class="tr" style="grid-template-columns: minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr) 210px; cursor: default">
+<span class="ell"><b class="ell" style="display: block">{{r.name}}</b><span class="mono" style="font-size: 12px; color: #6B5A5F">{{r.id}}</span></span>
+<span class="hs ell" style="font-size: 14px">{{r.city}}</span>
+<span class="hs ell" style="font-size: 14px; color: #6B5A5F">{{r.book}}</span>
+<button class="{{r.bcls}}" onClick="{{r.book_}}" style="min-height: 38px; font-size: 13px">{{r.blabel}}</button>
+</div>
+</sc-for>
+</section>
+<section class="box" style="overflow: hidden; margin-top: 18px">
+<div class="bar2"><b style="font-size: 16px">On the way</b><span style="font-size: 13px; color: #6B5A5F">Customers get every update on WhatsApp</span></div>
+<sc-for list="{{moving}}" as="m" hint-placeholder-count="3">
+<div class="tr" style="grid-template-columns: minmax(0,1.2fr) minmax(0,1fr) minmax(0,1.6fr) 210px; cursor: default">
+<span class="ell"><b class="ell" style="display: block">{{m.name}}</b><span class="mono" style="font-size: 12px; color: #6B5A5F">{{m.id}} · {{m.courier}}</span></span>
+<span class="hs mono ell" style="font-size: 12px; color: #6B5A5F">{{m.track}}</span>
+<span class="hs"><span style="display: flex; gap: 4px"><sc-for list="{{m.dots}}" as="d" hint-placeholder-count="4"><span title="{{d.n}}" style="flex: 1; height: 6px; border-radius: 6px; background: {{d.c}}"></span></sc-for></span><span style="font-size: 12px; font-weight: 700; color: #4A3A3F; display: block; margin-top: 6px">{{m.status}}</span></span>
+<a class="btn bs" href="D7-Tracking.dc.html" style="min-height: 38px; font-size: 13px; text-decoration: none">Track</a>
+</div>
+</sc-for>
+</section>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":960}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { c: 'Saudi Arabia', off: {}, booked: {} }; }
+  renderVals() {
+    const st = this.state, set = (o) => this.setState(o);
+    const S = [{"n": "Awaiting deposit", "f": "D8-S1-Deposit", "d": "Order placed from the Book Builder, but the 50% deposit hasn’t been paid yet.", "act": "Resend payment link", "bulk": "Remind everyone to pay", "href": "#", "sla": "48 h", "auto": "Payment reminder on WhatsApp after 24 h", "ico": "M3 7h18v12H3zM3 11h18M7 15h3", "chk": ["Check the order details and size are right", "Payment link sent on WhatsApp", "Cancel and release the design slot after 7 days unpaid"]}, {"n": "Awaiting photos", "f": "D8-S2-Photos", "d": "Deposit is in. The customer is choosing and uploading their photos and story notes.", "act": "Send upload reminder", "bulk": "Remind everyone to upload", "href": "D4-Upload.dc.html", "sla": "7 days", "auto": "Upload reminder on day 3 and day 6", "ico": "M4 7h3l2-3h6l2 3h3v12H4zM12 10a3.5 3.5 0 1 0 0 7a3.5 3.5 0 0 0 0-7z", "chk": ["Photo count matches the page count", "Low-resolution photos flagged to the customer", "Story notes and captions received"]}, {"n": "In design", "f": "D8-S3-Design", "d": "Tazmeen or Rameen is laying out the spreads and writing captions.", "act": "Upload proof round 1", "bulk": "Open design queue", "href": "D6-Proof.dc.html", "sla": "5 days", "auto": "“Your proof is ready” when a proof is uploaded", "ico": "M4 20l4-1 11-11-3-3L5 16zM14 6l3 3", "chk": ["Cover and spine text checked", "Every photo placed once, in date order", "Spell-check captions in English and Arabic"]}, {"n": "Proof with customer", "f": "D8-S4-Proof", "d": "The customer is flipping through the proof and pinning changes.", "act": "Nudge on WhatsApp", "bulk": "Nudge everyone", "href": "D6-Proof.dc.html", "sla": "3 days", "auto": "Gentle nudge after 48 h with no reply", "ico": "M4 5h16v11H8l-4 4zM8 9h8M8 12h5", "chk": ["Proof link opened by the customer", "Comments answered within a day", "Approve button enabled once comments are resolved"]}, {"n": "Revisions", "f": "D8-S5-Revisions", "d": "Fixing the customer’s comments for the next proof round. Revisions are unlimited.", "act": "Upload next round", "bulk": "Open revision list", "href": "D6-Proof.dc.html", "sla": "2 days", "auto": "“Round N is ready” when the new proof is uploaded", "ico": "M20 12a8 8 0 1 1-2.3-5.6M20 4v5h-5", "chk": ["Every pinned comment marked fixed", "Changed spreads highlighted for the customer", "Round number updated"]}, {"n": "Awaiting balance", "f": "D8-S6-Balance", "d": "Design approved and locked. Waiting for the remaining 50% before printing.", "act": "Send balance link", "bulk": "Send all balance links", "href": "#", "sla": "48 h", "auto": "Balance reminder after 24 h", "ico": "M12 3v18M16 7H10a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6H7", "chk": ["Final PDF exported and locked", "Balance link sent", "Invoice with ZATCA QR issued (KSA)"]}, {"n": "Print & pack", "f": "D8-S7-Print", "d": "Printing, page-by-page quality check, gold ribbon and a handwritten note.", "act": "Mark wrapped · book courier", "bulk": "Book couriers for wrapped orders", "href": "#", "sla": "4 days", "auto": "“Wrapped and ready” when marked wrapped", "ico": "M6 9V3h12v6M6 18H4v-7h16v7h-2M6 14h12v7H6z", "chk": ["Print quality checked page by page", "Extra copies and gift notes added", "Courier booked: SMSA / Aramex or TCS / Leopards"]}, {"n": "Shipped", "f": "D8-S8-Shipped", "d": "With the courier. The order closes automatically on delivery.", "act": "View tracking", "bulk": "Export tracking numbers", "href": "D7-Tracking.dc.html", "sla": "—", "auto": "Review request 3 days after delivery", "ico": "M3 7h11v9H3zM14 10h4l3 3v3h-7zM7 18a2 2 0 1 0 0 .1M17 18a2 2 0 1 0 0 .1", "chk": ["Tracking number sent to the customer", "Delivery confirmed", "Review request scheduled"]}];
+    const O = [
+      ['MR-1051', 'Noor H.', 'Wedding · Square', 0, 'T', 'Created 1 day ago', 'n', '', 'KSA'],
+      ['MR-1049', 'Hamza K.', 'Travel · Turkey', 1, 'R', 'Day 6 · no photos', 'w', '', 'PK'],
+      ['MR-1050', 'Lina A.', 'Camera Roll 2025', 1, 'T', 'Day 2', 'n', 'Gift', 'KSA'],
+      ['MR-1046', 'Maha S.', 'Honeymoon · Bali', 2, 'R', 'Proof due today', 'w', 'Priority', 'KSA'],
+      ['MR-1044', 'Areeba Z.', 'Multi-City · Europe', 2, 'T', 'Overdue 1 day', 'o', '', 'PK'],
+      ['MR-1047', 'Fatima R.', 'Love Story', 2, 'T', 'Due in 3 days', 'n', '', 'KSA'],
+      ['MR-1042', 'Sara A.', 'Honeymoon · Maldives', 3, 'R', 'Round 2 sent', 'n', '', 'KSA'],
+      ['MR-1043', 'Omar F.', 'Travel · Hong Kong', 4, 'T', '5 comments to fix', 'w', '', 'KSA'],
+      ['MR-1040', 'Zara M.', 'Wedding · Portrait', 5, 'R', 'Approved yesterday', 'n', '', 'PK'],
+      ['MR-1038', 'Huda N.', 'Travel · Dubai', 6, 'T', 'Print batch Thu', 'n', '2 copies', 'KSA'],
+      ['MR-1039', 'Ayesha T.', 'Travel · Hallstatt', 6, 'R', 'Wrap today', 'n', 'Gift', 'KSA'],
+      ['MR-1035', 'Bilal Q.', 'Travel · Malaysia', 7, 'T', 'Leopards · in transit', 'n', '', 'PK']
+    ];
+    const tone = { n: ['#F6F1EA', '#4A3A3F'], w: ['#FFF4E6', '#9A5A0B'], o: ['#FFE4E9', '#A3123F'] };
+    const avBg = (w) => w === 'T' ? '#7D1238' : '#C4661A';
+    const cur = (cc) => cc === 'PK' ? 'PKR' : 'SAR';
+    const fs = (arr, cur0, key, pick) => arr.map((x) => ({ name: x, cls: cur0 === x ? 'fl on' : 'fl', pick: () => set({ [key]: x, ...(pick || {}) }) }));
+
+    const ks = st.c === 'Saudi Arabia';
+    const CO = ks ? [['SMSA Express', 'Riyadh, Jeddah, Dammam · next day', 3], ['Aramex', 'All cities · 1–3 days', 1], ['SPL (Saudi Post)', 'Remote areas · 3–5 days', 0]] : [['TCS', 'Karachi, Lahore, Islamabad · next day', 2], ['Leopards', 'All cities · 1–3 days', 1], ['PostEx', 'Cash-free · 2–4 days', 0]];
+    const R = ks ? [['MR-1039', 'Ayesha T.', 'Riyadh', 'Travel · Hallstatt', 'SMSA Express'], ['MR-1038', 'Huda N.', 'Dammam', 'Travel · Dubai × 2', 'SMSA Express']] : [['MR-1036', 'Usman A.', 'Lahore', 'Wedding · Portrait', 'TCS']];
+    const M = ks ? [['MR-1042', 'Sara A.', 'SMSA Express', 'SMSA [—]', 2], ['MR-1031', 'Dana M.', 'SMSA Express', 'SMSA [—]', 3], ['MR-1029', 'Reem K.', 'Aramex', 'ARX [—]', 1]] : [['MR-1035', 'Bilal Q.', 'Leopards', 'LCS [—]', 1], ['MR-1030', 'Sana I.', 'TCS', 'TCS [—]', 3]];
+    const SN = ['Picked up', 'In transit', 'Out for delivery', 'Delivered'];
+    return { ctabs: ['Saudi Arabia', 'Pakistan'].map((x) => ({ name: x, cls: st.c === x ? 'tab on' : 'tab', pick: () => set({ c: x }) })),
+      couriers: CO.map((c) => { const on = !st.off[c[0]]; return { n: c[0], d: c[1], count: c[2], on: on ? 'true' : 'false', tcls: on ? 'tog on' : 'tog', toggle: () => set({ off: { ...st.off, [c[0]]: on } }) }; }),
+      ready: R.map((r) => { const b = st.booked[r[0]]; return { id: r[0], name: r[1], city: r[2], book: r[3], blabel: b ? 'Booked · ' + r[4] + ' ✓' : 'Book ' + r[4], bcls: b ? 'btn bs' : 'btn bp', book_: () => set({ booked: { ...st.booked, [r[0]]: !b } }) }; }),
+      moving: M.map((m) => ({ id: m[0], name: m[1], courier: m[2], track: m[3], status: SN[m[4]], dots: SN.map((n, i) => ({ n, c: i <= m[4] ? (m[4] === 3 ? '#2B6B55' : '#7D1238') : '#F0E8E1' })) })) };
+  }
+}
+</script>
+</body>
+</html>

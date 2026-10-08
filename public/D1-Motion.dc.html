@@ -1,0 +1,706 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>D · Storefront, motion edition</title>
+<script src="./support.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/ba8a47ecfe93acbd68bd017714519801.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/e8c29624c47de066f3c28cb82d08b58a.png">
+<link rel="apple-touch-icon" href="/assets/587541048aa85fdedd1d966f27a5d383.png">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=Noto+Naskh+Arabic:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+@property --n{syntax:'<integer>';inherits:false;initial-value:0}
+body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
+a{color:#7D1238}a:hover{color:#B8304F}
+.fr{font-family:Fraunces,Georgia,serif}
+.wm{background:linear-gradient(95deg,#9E1046,#C7323F 45%,#C4661A 70%,#9E1046);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
+@keyframes sheen{50%{background-position:100% 0}}
+.ez{transition-timing-function:cubic-bezier(.16,1,.3,1)}
+
+/* curtain */
+.curtain{position:absolute;inset:0 0 auto 0;height:980px;z-index:50;background:#5E0D2A;display:grid;place-items:center;animation:lift 1.2s cubic-bezier(.76,0,.24,1) 1.5s both;pointer-events:none}
+@keyframes lift{to{transform:translateY(-100%)}}
+.cl{display:inline-block;animation:cl .9s cubic-bezier(.16,1,.3,1) both}
+@keyframes cl{from{opacity:0;transform:translateY(60%) rotate(8deg);filter:blur(6px)}to{opacity:1;transform:none;filter:none}}
+.cbar{height:2px;background:#F2B880;transform-origin:left;animation:cbar 1.3s cubic-bezier(.65,0,.35,1) .2s both}
+@keyframes cbar{from{transform:scaleX(0)}}
+
+/* headline */
+.wd{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em}
+.wi{display:inline-block;animation:wi 1.2s cubic-bezier(.16,1,.3,1) both}
+@keyframes wi{from{transform:translateY(105%) rotate(4deg)}to{transform:none}}
+.fade{animation:fade 1.1s cubic-bezier(.16,1,.3,1) both}
+@keyframes fade{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+
+/* 3D book */
+.stage{perspective:1600px}
+.turn{transform-style:preserve-3d;animation:turn 14s ease-in-out infinite}
+@keyframes turn{0%,100%{transform:rotateY(-28deg)}50%{transform:rotateY(18deg)}}
+.book{position:relative;width:320px;height:400px;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.face{position:absolute;inset:0;backface-visibility:hidden;border-radius:3px 8px 8px 3px}
+.front{transform:translateZ(22px);padding:22px;box-shadow:inset 8px 0 0 rgba(0,0,0,.08)}
+.back{transform:rotateY(180deg) translateZ(22px)}
+.spine{position:absolute;top:0;left:138px;width:44px;height:400px;transform:rotateY(-90deg) translateZ(160px);border-radius:3px}
+.edge{position:absolute;top:4px;left:140px;width:40px;height:392px;transform:rotateY(90deg) translateZ(156px);background:repeating-linear-gradient(90deg,#FBF7F0 0 2px,#E9E0D3 2px 3px)}
+.topedge{position:absolute;left:4px;top:178px;width:312px;height:44px;transform:rotateX(90deg) translateZ(198px);background:repeating-linear-gradient(0deg,#FBF7F0 0 2px,#E9E0D3 2px 3px)}
+.shadow{position:absolute;left:50%;bottom:-70px;width:340px;height:40px;translate:-50% 0;border-radius:50%;background:radial-gradient(rgba(60,20,30,.35),transparent 70%);animation:sh 14s ease-in-out infinite}
+@keyframes sh{50%{transform:scaleX(.8)}}
+.orb1{animation:orb 9s ease-in-out infinite}.orb2{animation:orb 11s ease-in-out -3s infinite reverse}.orb3{animation:orb 13s ease-in-out -6s infinite}
+@keyframes orb{0%,100%{transform:translate(0,0) rotate(-6deg)}50%{transform:translate(14px,-26px) rotate(4deg)}}
+.plane{offset-path:path('M -40 420 C 120 120, 420 520, 620 160 S 900 -20, 760 -60');offset-rotate:auto;animation:fly 9s cubic-bezier(.45,0,.55,1) 2.6s infinite}
+@keyframes fly{0%{offset-distance:0%;opacity:0}10%,85%{opacity:1}100%{offset-distance:100%;opacity:0}}
+
+/* buttons */
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:12px;min-height:58px;padding:0 30px;border-radius:999px;font:700 16px Manrope,sans-serif;text-decoration:none;transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s;isolation:isolate}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.btn:hover::before{transform:translateX(120%)}
+.btn:hover{transform:translateY(-3px) scale(1.02)}
+.btn .ar{transition:transform .5s cubic-bezier(.16,1,.3,1)}.btn:hover .ar{transform:translateX(5px)}
+.bp{background:#7D1238;color:#FFF6F0;box-shadow:0 20px 40px -20px rgba(125,18,56,.7)}.bp:hover{color:#FFF6F0;box-shadow:0 30px 60px -20px rgba(125,18,56,.8)}
+.bg{border:1.5px solid #1F1418;color:#1F1418}.bg:hover{color:#FFF6F0;background:#1F1418}
+
+/* marquee */
+.mq{display:flex;width:max-content;animation:mq 36s linear infinite}
+.mq.r{animation-direction:reverse;animation-duration:44s}
+@keyframes mq{to{transform:translateX(-50%)}}
+.mqw:hover .mq{animation-play-state:paused}
+.pill{transition:transform .5s cubic-bezier(.16,1,.3,1),background .4s,color .4s}
+.pill:hover{transform:rotate(-3deg) scale(1.08);background:#7D1238;color:#FFF6F0}
+
+/* photo wall */
+.colu{display:flex;flex-direction:column;gap:14px;animation:up 30s linear infinite}
+.colu.s2{animation-duration:38s;animation-direction:reverse}.colu.s3{animation-duration:26s}
+@keyframes up{to{transform:translateY(-50%)}}
+.colu img{width:100%;border-radius:16px;display:block;object-fit:cover;transition:transform .8s cubic-bezier(.16,1,.3,1),filter .6s;filter:saturate(.9)}
+.colu img:hover{transform:scale(1.04) rotate(-1deg);filter:saturate(1.15)}
+
+/* cards */
+.tc{transition:transform .8s cubic-bezier(.16,1,.3,1)}.tc img{transition:transform 1.4s cubic-bezier(.16,1,.3,1)}
+.tc:hover{transform:translateY(-12px) rotate(-1deg)}.tc:hover img{transform:scale(1.08)}
+
+/* counters */
+.cnt{counter-reset:n var(--n);animation:cnt 2.4s cubic-bezier(.16,1,.3,1) both}
+.cnt::after{content:counter(n)}
+@keyframes cnt{from{--n:0}to{--n:var(--to)}}
+
+.ring{animation:spin 30s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+.pulse{animation:pulse 2s infinite}@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(184,48,79,.5)}70%{box-shadow:0 0 0 12px rgba(184,48,79,0)}100%{box-shadow:0 0 0 0 rgba(184,48,79,0)}}
+
+/* scroll-driven */
+.gtrack{display:flex;gap:28px;width:max-content;padding:0 80px}
+.gstick{overflow:hidden;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(90deg,transparent,#000 6%,#000 94%,transparent)}.gstick::-webkit-scrollbar{display:none}
+.gtrack{will-change:transform;align-items:flex-start;padding-top:30px!important;padding-bottom:40px!important}
+.gtrack>a{animation:gbob 7s ease-in-out infinite}.gtrack>a:nth-child(even){animation-delay:-3.5s}
+@keyframes gbob{0%,100%{translate:0 0}50%{translate:0 -14px}}
+.gnav{all:unset;cursor:pointer;width:52px;height:52px;border-radius:50%;border:1.5px solid #1F1418;display:grid;place-items:center;transition:background .35s,color .35s,transform .5s cubic-bezier(.3,1.6,.5,1)}.gnav:hover{background:#1F1418;color:#FFF6F0;transform:scale(1.06)}.gnav:focus-visible{outline:2.5px solid #B8304F;outline-offset:3px}
+@supports (animation-timeline: view()){
+.rv{animation:rv cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 5% cover 30%}
+.rvz{animation:rvz cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 0% cover 40%}
+.par{animation:par linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+.openSec{view-timeline:--open block;height:2600px!important}
+.hdr{animation:hdr linear both;animation-timeline:scroll();animation-range:0px 240px}
+.hdr .pad{animation:hdrpad linear both;animation-timeline:scroll();animation-range:0px 240px}
+.capbox{position:relative!important;height:420px;display:block!important}
+.capbox h2{font-size:62px!important}
+.capx{position:absolute;inset:0}
+.openProg{display:block!important;animation:progY linear both;animation-timeline:--open;animation-range:contain 0% contain 85%;transform-origin:top}
+.cover{animation:open cubic-bezier(.45,0,.25,1) both;animation-timeline:--open;animation-range:contain 8% contain 55%}
+.bookIn{animation:bookIn cubic-bezier(.33,0,.2,1) both;animation-timeline:--open;animation-range:entry 30% contain 40%}
+.cap1{animation:capin linear both;animation-timeline:--open;animation-range:entry 55% contain 24%}
+.cap2{animation:capin linear both;animation-timeline:--open;animation-range:contain 24% contain 50%}
+.cap3{animation:caplast linear both;animation-timeline:--open;animation-range:contain 50% contain 62%}
+.spreadGlow{animation:glow linear both;animation-timeline:--open;animation-range:contain 30% contain 70%}
+.howSec{view-timeline:--how block;height:2600px}
+.howStick{position:sticky!important;top:0;height:100vh;max-height:960px}
+.draw{animation:draw linear both;animation-timeline:--how;animation-range:contain 6% contain 88%}
+.node{animation:node linear both;animation-timeline:--how}
+.cnt{animation-timeline:view();animation-range:entry 20% cover 45%;animation-timing-function:linear}
+}
+@keyframes rv{from{opacity:0;transform:translateY(80px)}to{opacity:1;transform:none}}
+@keyframes rvz{from{opacity:0;transform:scale(.86) rotate(-2deg)}to{opacity:1;transform:none}}
+@keyframes par{from{transform:translateY(90px)}to{transform:translateY(-90px)}}
+@keyframes open{from{transform:rotateY(0deg)}to{transform:rotateY(-168deg)}}
+@keyframes bookIn{from{transform:translateX(-170px) rotateX(18deg) scale(.82)}to{transform:translateX(0) rotateX(8deg) scale(1)}}
+@keyframes capin{0%{opacity:0;transform:translateY(40px);visibility:visible}30%,72%{opacity:1;transform:none}99%{opacity:0;transform:translateY(-24px);visibility:visible}100%{opacity:0;visibility:hidden}}
+@keyframes caplast{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
+@keyframes progY{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes hdr{to{background:rgba(246,241,234,.93);border-bottom-color:#E7DDD4;box-shadow:0 14px 30px -24px rgba(60,20,30,.45)}}
+@keyframes hdrpad{to{padding-top:10px;padding-bottom:10px}}
+.cover{transform:rotateY(-168deg)}
+.capbox{display:grid;gap:36px}
+.capbox h2{font-size:42px}
+.openProg{display:none}
+@keyframes glow{from{opacity:0}to{opacity:1}}
+@keyframes slide{to{transform:translateX(calc(-100% + 100vw))}}
+@keyframes prog{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes draw{from{stroke-dashoffset:1}to{stroke-dashoffset:0}}
+@keyframes node{from{opacity:.16;transform:scale(.72);filter:grayscale(1)}to{opacity:1;transform:none;filter:none}}
+
+.book{transition:none!important}
+/* cursor follower */
+.cur-ring,.cur-dot{position:absolute;left:0;top:0;pointer-events:none;z-index:300;border-radius:50%;will-change:transform}
+.cur-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:#7D1238;opacity:0;transition:opacity .4s}
+.cur-ring{width:42px;height:42px;margin:-21px 0 0 -21px;border:1.5px solid rgba(125,18,56,.5);opacity:0;transition:width .45s cubic-bezier(.16,1,.3,1),height .45s cubic-bezier(.16,1,.3,1),margin .45s cubic-bezier(.16,1,.3,1),background .35s,border-color .35s,opacity .4s}
+.cur-on .cur-ring,.cur-on .cur-dot{opacity:1}
+.cur-ring.big{width:86px;height:86px;margin:-43px 0 0 -43px;background:rgba(184,48,79,.09);border-color:transparent}
+.cur-ring.dark{border-color:rgba(242,184,128,.6)}
+@media (hover:none){.cur-ring,.cur-dot{display:none}}
+/* header extras */
+.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#9E1046,#C7323F,#C4661A);transform-origin:left;transform:scaleX(0)}
+.nlk{position:relative;color:#1F1418;text-decoration:none;padding:6px 0}
+.nlk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:#7D1238;transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.nlk:hover{color:#7D1238}.nlk:hover::after{transform:scaleX(1);transform-origin:left}
+.menu-btn{display:none;all:unset;cursor:pointer;width:46px;height:46px;border-radius:14px;place-items:center;background:#fff;border:1px solid #E7DDD4}
+.menu-btn:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
+.mbar{display:block;width:18px;height:2px;background:#1F1418;border-radius:2px;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .3s}
+.menu-btn.on .b1{transform:translateY(6px) rotate(45deg)}.menu-btn.on .b2{opacity:0}.menu-btn.on .b3{transform:translateY(-6px) rotate(-45deg)}
+.drawer{position:absolute;left:0;right:0;top:100%;background:#F6F1EA;border-bottom:1px solid #E7DDD4;padding:18px 22px 28px;box-shadow:0 30px 60px -30px rgba(60,20,30,.45);animation:drop .55s cubic-bezier(.16,1,.3,1) both}
+.drawer a{display:block;font-family:Fraunces,Georgia,serif;font-size:30px;color:#1F1418;text-decoration:none;padding:10px 0;border-bottom:1px solid #E7DDD4;animation:fade .7s cubic-bezier(.16,1,.3,1) both}
+@keyframes drop{from{clip-path:inset(0 0 100% 0)}to{clip-path:inset(0 0 0 0)}}
+.drawer a.btn{display:flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 26px;border-bottom:0;border-radius:999px;font:700 16px Manrope,sans-serif;line-height:1;text-align:center;color:#FFF6F0}
+/* magnetic */
+.mag{transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s;will-change:translate}
+/* reveals */
+.rvl{display:block;overflow:hidden}
+.rvc{border-radius:24px;overflow:hidden}
+/* reviews */
+.rq{display:flex;gap:18px;width:max-content;animation:mq 60s linear infinite}
+.rq.r{animation-direction:reverse;animation-duration:70s}
+.rqw:hover .rq{animation-play-state:paused}
+.rcard{width:380px;flex:none;background:#fff;border:1px solid #E7DDD4;border-radius:22px;padding:26px;transition:transform .7s cubic-bezier(.16,1,.3,1),box-shadow .7s}
+.rcard:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 30px 50px -30px rgba(60,20,30,.45)}
+/* size cards */
+.szw{perspective:1200px}
+.sz{position:relative;display:block;text-decoration:none;color:#1F1418;background:#fff;border:1px solid #E7DDD4;border-radius:26px;padding:34px 30px;transform-style:preserve-3d;transition:transform .9s cubic-bezier(.16,1,.3,1),box-shadow .9s}
+.sz:hover{transform:rotateX(6deg) rotateY(-8deg) translateY(-8px);box-shadow:0 50px 70px -40px rgba(60,20,30,.5)}
+.szb{margin:0 auto;border-radius:3px 7px 7px 3px;box-shadow:inset 6px 0 0 rgba(0,0,0,.1),0 26px 30px -18px rgba(31,20,24,.55);transform:translateZ(40px);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.sz:hover .szb{transform:translateZ(70px) rotate(-3deg)}
+/* 195 */
+.orb-a{animation:spin 60s linear infinite}.orb-b{animation:spin 38s linear infinite reverse}.orb-c{animation:spin 24s linear infinite}
+.ping{animation:ping 2.6s cubic-bezier(.16,1,.3,1) infinite}
+@keyframes ping{0%{r:4;opacity:1}100%{r:16;opacity:0}}
+/* faq */
+.faq details{border-bottom:1px solid #E7DDD4;interpolate-size:allow-keywords}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 0;font-family:Fraunces,Georgia,serif;font-size:26px;min-height:44px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:focus-visible{outline:2px solid #7D1238;outline-offset:4px}
+.faq .pl{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid #E7DDD4;display:grid;place-items:center;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s,color .4s}
+.faq details[open] .pl{transform:rotate(135deg);background:#7D1238;color:#fff;border-color:#7D1238}
+.faq details::details-content{block-size:0;overflow:hidden;transition:block-size .6s cubic-bezier(.16,1,.3,1),content-visibility .6s allow-discrete}
+.faq details[open]::details-content{block-size:auto}
+.faq p{margin:0 0 26px;max-width:640px;font-size:17px;line-height:1.75;color:#5C4B50}
+/* instagram */
+.ig{position:relative;display:block;border-radius:18px;overflow:hidden;aspect-ratio:1}
+.ig img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.ig::after{content:"";position:absolute;inset:0;background:rgba(94,13,42,.45);opacity:0;transition:opacity .5s}
+.ig:hover img{transform:scale(1.1) rotate(1.5deg)}.ig:hover::after{opacity:1}
+.ig svg{position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:2;opacity:0;transform:scale(.6);transition:opacity .5s,transform .6s cubic-bezier(.3,1.6,.5,1)}
+.ig:hover svg{opacity:1;transform:none}
+/* footer */
+.fl{color:#CDBCB4;text-decoration:none;display:inline-block;transition:color .3s,transform .4s cubic-bezier(.16,1,.3,1);padding:4px 0}
+.fl:hover{color:#F2B880;transform:translateX(4px)}
+.nin{flex:1;min-width:0;min-height:52px;border:1px solid rgba(255,246,240,.2);background:rgba(255,246,240,.05);border-radius:999px;padding:0 20px;color:#FFF6F0;font:500 15px Manrope,sans-serif}
+.nin::placeholder{color:rgba(255,246,240,.5)}.nin:focus{outline:2px solid #F2B880}
+/* floating controls */
+.dock{position:sticky;bottom:22px;height:0;z-index:70}
+.totop{position:absolute;right:26px;bottom:0;width:54px;height:54px;border-radius:50%;background:#1F1418;color:#FFF6F0;display:grid;place-items:center;text-decoration:none;box-shadow:0 18px 30px -14px rgba(31,20,24,.6);transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.totop:hover{color:#F2B880;transform:translateY(-4px)}
+.mcta{display:none}
+@supports (animation-timeline: scroll()){
+.sprog{animation:prog linear both;animation-timeline:scroll(nearest)}
+.totop{animation:totop linear both;animation-timeline:scroll(nearest);animation-range:500px 800px}
+.rvl>span{display:block;animation:rvl cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 10% cover 32%}
+.rvc{animation:rvc cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 0% cover 38%}
+.rvc img{animation:rvci cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 0% cover 50%}
+.ring195{animation:ring195 cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 20% cover 55%}
+.stg>*{animation:rv cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 0% cover 28%}
+.stg>*:nth-child(2){animation-range:entry 6% cover 32%}.stg>*:nth-child(3){animation-range:entry 12% cover 36%}.stg>*:nth-child(4){animation-range:entry 18% cover 40%}.stg>*:nth-child(5){animation-range:entry 22% cover 44%}.stg>*:nth-child(6){animation-range:entry 26% cover 48%}
+}
+@keyframes totop{from{opacity:0;transform:translateY(30px) scale(.6);pointer-events:none}to{opacity:1;transform:none;pointer-events:auto}}
+@keyframes rvl{from{transform:translateY(110%) rotate(3deg)}to{transform:none}}
+@keyframes rvc{from{clip-path:inset(18% 12% 18% 12% round 40px)}to{clip-path:inset(0 0 0 0 round 24px)}}
+@keyframes rvci{from{transform:scale(1.35)}to{transform:scale(1)}}
+@keyframes ring195{from{stroke-dashoffset:1}to{stroke-dashoffset:.897}}
+
+.tdot{position:absolute;top:40px;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#C4661A;border:3px solid #fff;box-shadow:0 0 0 1.5px #7D1238}
+.tdest{position:absolute;top:40px;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:50%;background:#F5E4DF;display:grid;place-items:center;animation:pulse 2s infinite}
+.tfill2{animation:tshine 2.4s linear infinite}@keyframes tshine{to{background-position:-200% 0}}
+.vbob{animation:vbob .9s ease-in-out infinite}@keyframes vbob{50%{transform:translateY(-3px) rotate(-2deg)}}
+.whl{transform-box:fill-box;transform-origin:center;stroke-dasharray:3 2;animation:spin .6s linear infinite}
+.puff{position:absolute;left:-6px;top:24px;width:8px;height:8px;border-radius:50%;background:rgba(125,18,56,.25);animation:puff 1.2s ease-out infinite}.puff.p2{animation-delay:.6s}
+@keyframes puff{from{transform:translate(0,0) scale(.6);opacity:.8}to{transform:translate(-22px,-6px) scale(1.8);opacity:0}}
+@supports (animation-timeline: view()){
+.trk{view-timeline:--trk block}
+.tfillw .tfill2{width:100%;transform-origin:left;animation:tgrow cubic-bezier(.33,0,.2,1) both,tshine 2.4s linear infinite;animation-timeline:--trk,auto;animation-range:entry 60% cover 55%,normal}
+.tvan{animation:tvan cubic-bezier(.33,0,.2,1) both;animation-timeline:--trk;animation-range:entry 60% cover 55%}
+.tdot{animation:tpop cubic-bezier(.3,1.7,.5,1) both;animation-timeline:--trk}
+.td0{animation-range:entry 60% entry 70%}.td1{animation-range:entry 85% cover 30%}.td2{animation-range:cover 32% cover 42%}
+.tl0,.tl1,.tl2,.tl3{animation:tlab cubic-bezier(.16,1,.3,1) both;animation-timeline:--trk}
+.tl0{animation-range:entry 60% entry 75%}.tl1{animation-range:entry 85% cover 32%}.tl2{animation-range:cover 32% cover 44%}.tl3{animation-range:cover 46% cover 56%}
+}
+@keyframes tgrow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes tvan{from{left:0%}to{left:78%}}
+@keyframes tpop{from{transform:scale(0)}to{transform:scale(1)}}
+@keyframes tlab{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+html{scroll-behavior:smooth}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:16px;top:-80px;z-index:400;background:#1F1418;color:#FFF6F0;padding:12px 18px;border-radius:12px;font-weight:700;text-decoration:none;transition:top .3s}
+.skip:focus{top:16px;color:#FFF6F0}
+.btn:focus-visible,.nlk:focus-visible,.pill:focus-visible,.ig:focus-visible,.sz:focus-visible,.tc:focus-visible,.fl:focus-visible,.totop:focus-visible,.wa:focus-visible,.lang:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:14px}
+.lang{all:unset;cursor:pointer;width:44px;height:44px;border-radius:50%;border:1px solid #E7DDD4;display:grid;place-items:center;font-family:'Noto Naskh Arabic',serif;font-size:18px;transition:background .35s,color .35s,transform .5s cubic-bezier(.3,1.6,.5,1)}
+.lang:hover{background:#1F1418;color:#FFF6F0;transform:rotate(-8deg)}
+.wa{position:absolute;left:26px;bottom:0;width:58px;height:58px;border-radius:50%;background:#2B6B55;display:grid;place-items:center;box-shadow:0 18px 30px -12px rgba(43,107,85,.7);text-decoration:none;animation:wapop .8s cubic-bezier(.3,1.7,.5,1) 3.2s both}
+.wa::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #2B6B55;animation:waring 2.4s cubic-bezier(.16,1,.3,1) 4s infinite}
+.wtip{position:absolute;left:70px;top:50%;translate:0 -50%;white-space:nowrap;background:#fff;color:#1F1418;font-weight:700;font-size:14px;padding:10px 14px;border-radius:12px;box-shadow:0 14px 30px -16px rgba(31,20,24,.5);opacity:0;transform:translateX(-10px);transition:opacity .4s,transform .6s cubic-bezier(.16,1,.3,1);pointer-events:none}
+.wa:hover .wtip,.wa:focus-visible .wtip{opacity:1;transform:none}
+@keyframes wapop{from{transform:scale(0) rotate(-30deg)}to{transform:none}}
+@keyframes waring{from{transform:scale(1);opacity:.6}to{transform:scale(1.7);opacity:0}}
+.msteps{display:none;list-style:none;margin:30px 0 0;padding:0;gap:14px}
+.msteps li{display:flex;gap:14px;align-items:flex-start;background:#fff;border:1px solid #E7DDD4;border-radius:18px;padding:16px;font-size:14px;color:#6B5A5F;animation:fade .8s cubic-bezier(.16,1,.3,1) both}
+.msteps li b{flex:none;width:36px;height:36px;border-radius:50%;background:#7D1238;color:#fff;display:grid;place-items:center}
+.msteps strong{font-size:20px;font-weight:500;color:#1F1418}
+@media (max-width:900px){.msteps{display:grid}.wa{bottom:86px;left:auto;right:26px;width:54px;height:54px}.totop{bottom:150px}.wtip{display:none}}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.openSec,.galSec,.howSec{height:auto!important}.openStick,.gstick,.howStick{position:relative!important;height:auto!important;padding-top:80px!important;padding-bottom:80px!important}.capbox{height:auto!important;display:grid!important;gap:28px}.capx{position:static!important;opacity:1!important;visibility:visible!important}.cover{transform:rotateY(-168deg)!important}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.curtain{display:none}.cur-ring,.cur-dot{display:none}}
+@media (max-width:900px){h2.fr{font-size:clamp(34px,9.5vw,64px)!important;line-height:1.05!important}.finale h2,.gtrack .fr{font-size:inherit}.tc{width:78vw!important;margin-top:0!important}.tc>div:first-child{height:340px!important}.gtrack{gap:16px!important;padding:0 20px!important}.stage{height:520px!important}.stage .book{scale:.8}.sz{padding:20px 22px!important;display:grid!important;grid-template-columns:96px 1fr;column-gap:18px;align-items:center}.sz>div:first-child{height:110px!important;grid-row:span 3}.szb{transform:none!important}.szw>a:nth-child(1) .szb{width:62px!important;height:78px!important}.szw>a:nth-child(2) .szb{width:90px!important;height:70px!important}.szw>a:nth-child(3) .szb{width:76px!important;height:76px!important}.sz>div:first-child{align-self:start}.sz>div:nth-child(2){margin-top:0!important;font-size:24px!important}.sz>div:last-child{grid-column:1 / -1;margin-top:12px!important}}
+@media (max-width:900px){.openStick{grid-template-columns:minmax(0,1fr)!important}.openBook{width:100%;height:240px!important;display:block!important;overflow:visible;transform:none!important}.openBook .bookIn{transform:scale(.5)!important;transform-origin:top left}.openSec{height:auto!important}.capbox{height:auto!important;display:grid!important;gap:28px}.capx{position:static!important;animation:none!important;opacity:1!important;visibility:visible!important;transform:none!important}.capbox h2{font-size:38px!important}.openBook{height:250px;transform:scale(.5)}.bookIn{animation:none!important}.openProg{display:none!important}}
+@media (max-width:900px){.howSec{height:auto!important}.howStick{position:relative!important;height:auto!important;max-height:none!important}}
+@media (max-width:900px){.menu-btn{display:grid!important}.mcta{display:flex;position:absolute;left:14px;right:14px;bottom:0;gap:10px;padding:10px;border-radius:20px;background:rgba(31,20,24,.92);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);align-items:center;justify-content:space-between;color:#FFF6F0}.totop{bottom:86px}.rcard{width:300px}.faq summary{font-size:21px}.g4{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media (max-width:900px){.stack{grid-template-columns:1fr!important}.pad{padding-left:22px!important;padding-right:22px!important}.h1{font-size:54px!important}.hide-m{display:none!important}.galSec{height:auto!important}.openSec{height:auto!important}.openStick{position:static!important;height:auto!important;padding:60px 0!important}.cover{animation:none!important;transform:rotateY(-168deg)!important}}
+
+.pgImg img{transform:scale(1.15);transition:none}
+@supports (animation-timeline: view()){.pgImg img{animation:pgzoom cubic-bezier(.16,1,.3,1) both;animation-timeline:--open;animation-range:contain 30% contain 70%}}
+@keyframes pgzoom{from{transform:scale(1.18)}to{transform:scale(1)}}
+/* room for hover lift + float so cards never clip */
+.gstick .gtrack{padding-top:50px!important;padding-bottom:56px!important}
+.gstick{margin-top:-24px;margin-bottom:-24px}
+/* MOBILE FIXES */
+@media (max-width:900px){
+.faqL{position:static!important}
+[style*="padding: 96px 44px"]{padding-top:60px!important;padding-bottom:60px!important}
+[style*="padding: 120px 24px 96px"]{padding:80px 22px 70px!important}
+[style*="padding: 40px 44px 64px"]{padding-top:24px!important;padding-bottom:48px!important}
+[style*="padding: 64px 44px 40px"]{padding-top:48px!important}
+.wallTxt{padding:64px 0 8px!important}
+.wallImg{height:520px!important;-webkit-mask-image:linear-gradient(transparent,#000 5%,#000 92%,transparent)!important;mask-image:linear-gradient(transparent,#000 5%,#000 92%,transparent)!important;margin-bottom:24px}
+.howStick{padding-top:24px!important;padding-bottom:40px!important}
+.galSec{padding:64px 0 8px!important}
+.gtrack{padding-bottom:16px!important}
+.gtrack>a[style*="height: 520px"]{height:380px!important}
+#love{padding-top:72px!important}
+
+.openStick{padding:64px 22px!important}
+.openBook{width:100%!important;height:230px!important;position:relative;overflow:visible}
+.openBook .bookIn{position:absolute!important;left:50%!important;top:0;margin-left:-170px;transform:scale(.5)!important;transform-origin:0 0!important}
+.dock .wa{bottom:86px!important;right:22px!important;left:auto!important}
+.dock .totop{bottom:152px!important;right:24px!important;width:48px!important;height:48px!important;box-shadow:0 0 0 1.5px rgba(255,246,240,.35),0 18px 30px -14px rgba(31,20,24,.6)!important}
+.fl{padding:11px 0!important}
+footer nav{gap:0!important}
+header a[href="D1-Motion.dc.html"]{padding:9px 0}
+.mcta{left:12px!important;right:12px!important}
+}
+/* MOBILE TYPE SCALE */
+@media (max-width:600px){[style*="font-size: 18px"]{font-size:16px!important}[style*="font-size: 19px"]{font-size:16px!important}[style*="font-size: 22px"]{font-size:20px!important}[style*="font-size: 23px"]{font-size:20px!important}[style*="font-size: 24px"]{font-size:20px!important}[style*="font-size: 26px"]{font-size:20px!important}[style*="font-size: 28px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 30px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 40px"]{font-size:clamp(24px,7vw,30px)!important;line-height:1.12}[style*="font-size: 44px"]{font-size:clamp(28px,8vw,36px)!important;line-height:1.12}[style*="font-size: 46px"]{font-size:clamp(28px,8vw,36px)!important;line-height:1.12}[style*="font-size: 54px"]{font-size:clamp(28px,8vw,36px)!important;line-height:1.12}[style*="font-size: 58px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 62px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 64px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 92px"]{font-size:clamp(36px,10.5vw,48px)!important;line-height:1.12}[style*="font-size: 96px"]{font-size:clamp(40px,11.5vw,56px)!important;line-height:1.12}[style*="font-size: 104px"]{font-size:clamp(40px,11.5vw,56px)!important;line-height:1.12}[style*="font-size: 120px"]{font-size:clamp(40px,11.5vw,56px)!important;line-height:1.12}[style*="font-size: 340px"]{font-size:clamp(90px,26vw,140px)!important;line-height:1.12}h1{line-height:1.04!important;letter-spacing:-.01em}h2,h3{line-height:1.1!important}p,li,figcaption,label{overflow-wrap:anywhere}}
+/* END MOBILE TYPE SCALE */
+
+/* LOGO */
+.lg .lgm{flex:none;transition:transform .8s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 10px rgba(125,18,56,.25))}
+.lg:hover .lgm{transform:rotate(-8deg) scale(1.06)}
+.lgp{transform-box:fill-box;transform-origin:center;animation:lgIn 1.3s cubic-bezier(.16,1,.3,1) .35s both}
+.lg:hover .lgp{animation:lgFly 1.1s cubic-bezier(.65,0,.35,1)}
+.lgt{animation:lgTrail 1.6s linear infinite}
+@keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
+@keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
+@keyframes lgTrail{to{stroke-dashoffset:-10.8}}
+.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
+/* END LOGO */
+
+.cartb{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:#1F1418;transition:background .3s,transform .5s cubic-bezier(.3,1.6,.5,1)}
+.cartb:hover{background:#fff;color:#7D1238;transform:translateY(-2px)}
+.cartb b{position:absolute;top:4px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#7D1238;color:#FFF6F0;font-size:11px;display:grid;place-items:center;animation:pop .6s cubic-bezier(.3,1.7,.5,1) .4s both}
+@keyframes pop{from{transform:scale(0)}}
+.cartb:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
+</style>
+</helmet>
+<div ref="{{setRoot}}" onMouseMove="{{onMove}}" onMouseLeave="{{onLeave}}" class="{{rootCls}}" style="position: relative; font-family: Manrope, sans-serif; color: #1F1418; background: #F6F1EA; width: 100%; overflow: clip">
+
+<!-- intro curtain -->
+<div class="curtain" aria-hidden="true">
+<div style="text-align: center">
+<div class="fr" style="font-size: 120px; font-weight: 500; color: #FFF6F0; line-height: 1">
+<span class="cl" style="animation-delay: .05s">M</span><span class="cl" style="animation-delay: .12s">i</span><span class="cl" style="animation-delay: .19s">L</span><span class="cl" style="animation-delay: .26s">e</span><span class="cl" style="animation-delay: .33s">s</span>
+</div>
+<div class="cbar" style="width: 220px; margin: 18px auto 0"></div>
+<div class="fade" style="color: #F2B880; font-size: 15px; letter-spacing: .5em; margin-top: 16px; animation-delay: .6s">RETOLD</div>
+</div>
+</div>
+
+<span id="top" style="position: absolute; top: 0"></span>
+<a class="skip" href="#main">Skip to content</a>
+<!-- header -->
+<header class="hdr" style="position: sticky; top: 0; z-index: 40; background: rgba(246,241,234,.78); backdrop-filter: blur(16px) saturate(1.2); -webkit-backdrop-filter: blur(16px) saturate(1.2); border-bottom: 1px solid transparent">
+<div class="pad" style="max-width: 1360px; margin: 0 auto; padding: 16px 44px; display: flex; align-items: center; justify-content: space-between; gap: 20px">
+<a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="text-decoration: none; display: flex; align-items: center; gap: 10px; min-height: 44px"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span style="display: flex; flex-direction: column; line-height: 1"><span class="fr" style="font-size: 28px; font-weight: 600; letter-spacing: -.01em; line-height: .8; color: #7D1238">MiLes</span><span class="rt" style="font-size: 8.4px; margin-top: 3px; color: #7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<nav class="hide-m" aria-label="Main" style="display: flex; gap: 30px; font-weight: 600; font-size: 15px"><a class="nlk" href="#books">Books</a><a class="nlk" href="#how">How it works</a><a class="nlk" href="D14-Lookbook.dc.html">Lookbook</a><a class="nlk" href="D13-Story.dc.html">Our story</a><a class="nlk" href="D16-Gifts.dc.html">Gifts</a><a class="nlk" href="D15-Help.dc.html">Help</a></nav>
+<div style="display: flex; gap: 10px; align-items: center"><a href="D7-Tracking.dc.html" class="hide-m nlk" style="font-weight: 700; font-size: 15px">Track</a><a class="lang hide-m" lang="ar" href="D23-Account.dc.html" aria-label="العربية — switch to Arabic" style="text-decoration: none; color: inherit; display: inline-grid; place-items: center">ع</a><a href="D19-Cart.dc.html" class="cartb" aria-label="Cart, 2 items"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg><b>2</b></a><a href="D11-SignIn.dc.html" style="font-weight: 700; font-size: 15px; color: #1F1418; text-decoration: none; padding: 12px 8px" class="hide-m">Sign in</a><a class="btn bp mag hide-m" href="D2-Builder.dc.html" style="min-height: 46px; padding: 0 22px; font-size: 14px">Start a book</a><button class="{{menuCls}}" onClick="{{toggleMenu}}" aria-label="Menu" aria-expanded="{{menuExp}}" style="display: none"><span style="display: grid; gap: 4px"><span class="mbar b1"></span><span class="mbar b2"></span><span class="mbar b3"></span></span></button></div>
+</div>
+<div class="sprog" aria-hidden="true"></div>
+<sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}"><nav class="drawer" aria-label="Mobile"><a href="#books" style="animation-delay: .05s">Books</a><a href="#how" style="animation-delay: .1s">How it works</a><a href="D14-Lookbook.dc.html" style="animation-delay: .15s">Lookbook</a><a href="D13-Story.dc.html" style="animation-delay: .2s">Our story</a><a href="D16-Gifts.dc.html" style="animation-delay: .25s">Gifts</a><a href="D7-Tracking.dc.html" style="animation-delay: .3s">Track an order</a><a href="D19-Cart.dc.html" style="animation-delay: .35s">Cart (2)</a><a href="D11-SignIn.dc.html" style="animation-delay: .4s">Sign in</a><a class="btn bp" href="D2-Builder.dc.html" style="margin-top: 20px; width: 100%; font-family: Manrope, sans-serif; font-size: 16px; color: #FFF6F0; animation-delay: .4s">Start a book</a></nav></sc-if>
+</header>
+
+<span id="main" style="position: relative; top: -80px"></span>
+<!-- hero -->
+<section class="pad stack" style="position: relative; max-width: 1360px; margin: 0 auto; padding: 50px 44px 40px; display: grid; grid-template-columns: 1.05fr 1fr; gap: 30px; align-items: center; min-height: 860px">
+<div aria-hidden="true" ref="{{setSpot}}" style="position: absolute; inset: -200px; pointer-events: none; background: radial-gradient(600px circle at 60% 35%, rgba(184,48,79,.11), transparent 60%)"></div>
+<div style="position: relative">
+<p class="fade" style="font-size: 16px; font-weight: 600; color: #7D1238; margin: 0; animation-delay: 1.9s">Hand-designed travel photobooks, Saudi Arabia &amp; Pakistan</p>
+<h1 class="fr h1" style="font-size: 96px; line-height: .95; font-weight: 400; margin: 22px 0 0; letter-spacing: -.025em">
+<sc-for list="{{words}}" as="w" hint-placeholder-count="5"><span class="wd"><span class="wi" style="animation-delay: {{w.d}}; font-style: {{w.it}}; color: {{w.c}}">{{w.t}}</span></span> </sc-for>
+</h1>
+<p class="fade" style="font-size: 19px; line-height: 1.7; color: #5C4B50; max-width: 500px; margin: 28px 0 0; animation-delay: 2.7s">Send us your camera roll. Two sisters design every spread by hand, you approve each page, and a linen hardcover arrives tied in gold ribbon.</p>
+<div class="fade" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 38px; animation-delay: 2.9s">
+<a class="btn bp mag" href="D2-Builder.dc.html">Design your book <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a>
+<a class="btn bg" href="#open">See inside a book</a>
+</div>
+</div>
+
+<div class="stage" style="position: relative; height: 680px; display: grid; place-items: center">
+<svg class="plane" width="34" height="34" viewBox="0 0 24 24" fill="#B8304F" aria-hidden="true" style="position: absolute; left: 0; top: 0; z-index: 9"><path d="M21 12 3 4l3 8-3 8z"></path></svg>
+<div class="orb1 fade" style="position: absolute; left: 0; top: 70px; width: 170px; padding: 8px 8px 30px; background: #fff; box-shadow: 0 30px 50px -25px rgba(60,20,30,.5); animation-delay: 2.2s; z-index: 1"><img src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt="" style="width: 100%; height: 150px; object-fit: cover; display: block"></div>
+<div class="orb2 fade" style="position: absolute; right: 0; top: 30px; width: 190px; padding: 8px; background: #fff; box-shadow: 0 30px 50px -25px rgba(60,20,30,.5); animation-delay: 2.35s; z-index: 1"><img src="/assets/44c3ed2b417e619b81afb56289c69c25.jpg" alt="" style="width: 100%; height: 130px; object-fit: cover; display: block"></div>
+<div class="orb3 fade" style="position: absolute; right: 30px; bottom: 50px; width: 160px; padding: 8px 8px 26px; background: #fff; box-shadow: 0 30px 50px -25px rgba(60,20,30,.5); animation-delay: 2.5s; z-index: 6"><img src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt="" style="width: 100%; height: 120px; object-fit: cover; display: block"></div>
+<div class="fade" style="position: relative; z-index: 5; animation-delay: 1.8s">
+<div class="turn"><div class="book" ref="{{setBook}}">
+<div class="spine" style="background: #5E7FA6"></div>
+<div class="edge"></div><div class="topedge"></div>
+<div class="face back" style="background: #6E8FB6"></div>
+<div class="face front" style="background: #7E9CC0; display: flex; flex-direction: column">
+<div style="background: #fff; padding: 9px; flex: 1; display: flex; flex-direction: column"><div style="flex: 1; overflow: hidden"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="A Maldives photobook cover" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div class="fr" style="text-align: center; font-size: 28px; letter-spacing: .14em; padding-top: 10px">MALDIVES</div><div style="text-align: center; font-size: 9px; letter-spacing: .3em; color: #6B5A5F; padding-bottom: 4px">MARCH 2022</div></div>
+<div class="fr" style="color: #fff; font-size: 10px; font-style: italic; text-align: center; margin-top: 10px">For the moments too beautiful to forget</div>
+</div>
+</div></div>
+<div class="shadow"></div>
+</div>
+<svg class="ring" width="150" height="150" viewBox="0 0 150 150" aria-hidden="true" style="position: absolute; left: 30px; bottom: 40px; z-index: 7"><defs><path id="rgD" d="M75 75 m-56 0 a56 56 0 1 1 112 0 a56 56 0 1 1 -112 0"></path></defs><circle cx="75" cy="75" r="72" fill="#1F1418"></circle><text font-family="Manrope" font-weight="700" font-size="10.5" fill="#F2B880"><textPath href="#rgD" textLength="350" lengthAdjust="spacing">UNLIMITED REVISIONS ✦ UNTIL YOU LOVE IT ✦</textPath></text><path d="M88 75 64 64l4 11-4 11z" fill="#FFF6F0"></path></svg>
+</div>
+</section>
+
+<!-- marquee ribbons -->
+<section class="mqw" style="padding: 30px 0 44px; overflow: hidden">
+<div style="transform: rotate(-2deg); background: #7D1238; padding: 20px 0; margin: 0 -40px">
+<div class="mq fr" ref="{{setR1}}" aria-hidden="true" style="gap: 50px; font-size: 46px; font-style: italic; color: #FFF6F0; white-space: nowrap; align-items: center">
+<span>Maldives</span><span style="color: #F2B880">✦</span><span>Hallstatt</span><span style="color: #F2B880">✦</span><span>Hong Kong</span><span style="color: #F2B880">✦</span><span>Barcelona</span><span style="color: #F2B880">✦</span><span>Taiwan</span><span style="color: #F2B880">✦</span><span>Boracay</span><span style="color: #F2B880">✦</span><span>Dubai</span><span style="color: #F2B880">✦</span>
+<span>Maldives</span><span style="color: #F2B880">✦</span><span>Hallstatt</span><span style="color: #F2B880">✦</span><span>Hong Kong</span><span style="color: #F2B880">✦</span><span>Barcelona</span><span style="color: #F2B880">✦</span><span>Taiwan</span><span style="color: #F2B880">✦</span><span>Boracay</span><span style="color: #F2B880">✦</span><span>Dubai</span><span style="color: #F2B880">✦</span>
+</div>
+</div>
+<div style="transform: rotate(1.5deg); margin: 18px -40px 0">
+<div class="mq r" ref="{{setR2}}" aria-hidden="true" style="gap: 14px">
+<span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">No templates</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">No AI-written stories</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">Pay half now</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">Pin comments on any page</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">Handwritten note inside</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">mada · Apple Pay · STC Pay</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">JazzCash · Easypaisa</span>
+<span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">No templates</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">No AI-written stories</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">Pay half now</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">Pin comments on any page</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">Handwritten note inside</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">mada · Apple Pay · STC Pay</span><span class="pill" style="white-space: nowrap; padding: 14px 24px; border-radius: 999px; background: #fff; border: 1px solid #E7DDD4; font-weight: 700">JazzCash · Easypaisa</span>
+</div>
+</div>
+</section>
+
+<!-- scroll-driven: the book opens -->
+<section id="open" class="openSec" aria-label="Inside a Miles Retold book" style="background: #1F1418; color: #FFF6F0; position: relative">
+<div class="openStick" style="position: sticky; top: 0; height: 940px; display: grid; grid-template-columns: 1fr 1.25fr; align-items: center; gap: 30px; max-width: 1360px; margin: 0 auto; padding: 0 44px; overflow: hidden">
+<div class="capbox">
+<div aria-hidden="true" style="position: absolute; left: -28px; top: 0; bottom: 0; width: 2px; background: rgba(255,246,240,.12); border-radius: 1px"><div class="openProg" style="width: 2px; height: 100%; background: #F2B880; border-radius: 1px"></div></div>
+<div class="cap1 capx"><p style="color: #F2B880; font-weight: 700; margin: 0">Your camera roll</p><h2 class="fr" style="font-size: 62px; line-height: 1.02; font-weight: 400; margin: 14px 0 0">Thousands of photos you never look at again.</h2></div>
+<div class="cap2 capx"><p style="color: #F2B880; font-weight: 700; margin: 0">Curated by hand</p><h2 class="fr" style="font-size: 62px; line-height: 1.02; font-weight: 400; margin: 14px 0 0">We pick the moments and lay out every spread.</h2></div>
+<div class="cap3 capx"><p style="color: #F2B880; font-weight: 700; margin: 0">Yours to keep</p><h2 class="fr" style="font-size: 62px; line-height: 1.02; font-weight: 400; margin: 14px 0 0">A book you’ll flip through for years.</h2><a class="btn bp" href="D2-Builder.dc.html" style="margin-top: 30px; background: #F2B880; color: #1F1418">Start yours <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
+</div>
+<div class="openBook" style="perspective: 2200px; display: grid; place-items: center">
+<div class="bookIn" style="position: relative; width: 680px; height: 430px; transform-style: preserve-3d">
+<div class="spreadGlow" style="position: absolute; inset: -80px; background: radial-gradient(closest-side, rgba(242,184,128,.35), transparent); filter: blur(10px)"></div>
+<div class="pgR" style="position: absolute; right: 0; top: 0; width: 340px; height: 430px; background: #FBF7F1; border-radius: 0 4px 4px 0; box-shadow: 0 60px 100px -40px rgba(0,0,0,.9); overflow: hidden">
+<div style="position: absolute; inset: 0; padding: 26px 26px 22px 30px; display: flex; flex-direction: column; gap: 12px"><div class="pgImg" style="flex: 1; min-height: 0; overflow: hidden; border-radius: 2px"><img src="/assets/ae8f12954b4a72155451fa4ddff588b7.jpg" alt="A parasail over the sea, inside the Maldives book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; color: #1F1418"><span class="fr" style="font-style: italic; font-size: 17px">Day three — the sky went pink.</span><span style="font-size: 10px; letter-spacing: .2em; color: #786669">03</span></div></div>
+<div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 46px; background: linear-gradient(90deg, rgba(0,0,0,.2), rgba(0,0,0,.05) 40%, transparent)"></div>
+</div>
+<div aria-hidden="true" style="position: absolute; right: -7px; top: 4px; width: 8px; height: 422px; border-radius: 0 3px 3px 0; background: repeating-linear-gradient(90deg, #FBF7F0 0 1px, #E2D8CA 1px 2px); transform: translateZ(-1px)"></div>
+<div class="cover" style="position: absolute; right: -2px; top: -5px; width: 344px; height: 440px; transform-origin: left center; transform-style: preserve-3d">
+<div class="cvF" style="position: absolute; inset: 0; backface-visibility: hidden; border-radius: 3px 8px 8px 3px; padding: 26px 24px 20px; display: flex; flex-direction: column; color: #FFF6F0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0,0,0,.035) 0 1px, transparent 1px 4px), #6F8FB6; box-shadow: inset 10px 0 0 rgba(0,0,0,.12), inset 12px 0 10px -6px rgba(0,0,0,.18), 0 40px 60px -30px rgba(0,0,0,.8)">
+<div style="background: #FBF7F1; padding: 9px 9px 10px; flex: 1; display: flex; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,.18)"><div style="position: relative; flex: 1; min-height: 0; overflow: hidden"><img src="/assets/ae8f12954b4a72155451fa4ddff588b7.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"><div class="fr" style="position: absolute; left: 0; right: 0; top: 14px; text-align: center; color: #fff; font-size: 30px; letter-spacing: .16em; text-shadow: 0 2px 10px rgba(0,0,0,.25)">MALDIVES</div></div><div style="text-align: center; font-size: 9px; letter-spacing: .3em; color: #6B5A5F; padding-top: 8px">— MARCH, 2022 —</div></div>
+<div class="fr" style="font-style: italic; font-size: 11px; line-height: 1.5; text-align: center; margin-top: 12px; opacity: .92">For the moments too beautiful to forget, the places too special to leave behind.</div>
+<svg width="120" height="16" viewBox="0 0 120 16" fill="none" aria-hidden="true" style="align-self: center; margin-top: 6px"><path d="M2 12c16-10 30 4 46-2s30-8 50-2" stroke="#FFF6F0" stroke-width="1" stroke-dasharray="3 3"></path><path d="M118 6l-10-3 2 3-2 3z" fill="#FFF6F0"></path></svg>
+</div>
+<div style="position: absolute; inset: 0; backface-visibility: hidden; transform: rotateY(180deg); border-radius: 8px 3px 3px 8px; background: radial-gradient(circle at 30% 20%, rgba(255,255,255,.5), transparent 60%), #EDE3D6; display: grid; place-items: center; padding: 44px; box-shadow: inset -12px 0 18px -10px rgba(0,0,0,.2)"><div style="text-align: center; color: #5C4B50"><svg width="34" height="34" viewBox="0 0 24 24" fill="#7D1238" aria-hidden="true" style="opacity: .8"><path d="M21 12 3 4l3 8-3 8z"></path></svg><div class="fr" style="font-style: italic; font-size: 22px; line-height: 1.4; margin-top: 14px">“For the moments too beautiful to forget.”</div><div style="font-size: 11px; letter-spacing: .3em; margin-top: 16px">MILES RETOLD</div></div></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- horizontal gallery -->
+<section id="books" class="galSec" style="position: relative; padding: 96px 0 24px">
+<div style="display: flex; flex-direction: column; gap: 36px">
+<div class="pad" style="max-width: 1360px; width: 100%; margin: 0 auto; padding: 0 44px; display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap">
+<h2 class="fr" style="font-size: 64px; line-height: 1; font-weight: 400; margin: 0">Pick the story you’re telling.</h2>
+<div style="display: flex; align-items: center; gap: 14px"><div style="width: 160px; height: 3px; background: #E7DDD4; border-radius: 2px; overflow: hidden"><div class="gprog" ref="{{setGP}}" style="height: 3px; background: #7D1238; transform-origin: left; transform: scaleX(0)"></div></div><button class="gnav" onClick="{{gPrev}}" aria-label="Previous books"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"></path></svg></button><button class="gnav" onClick="{{gNext}}" aria-label="Next books"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"></path></svg></button></div>
+</div>
+<div class="gstick" onMouseEnter="{{gOn}}" onMouseLeave="{{gOff}}"><div class="gtrack" ref="{{setR3}}">
+<a href="D2-Builder.dc.html" class="tc" style="width: 460px; flex: none; text-decoration: none; color: inherit"><div style="height: 520px; border-radius: 26px; overflow: hidden"><img loading="lazy" decoding="async" src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt="Travel books" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; padding: 18px 6px 0"><span class="fr" style="font-size: 30px">Travel journey</span><span style="color: #6B5A5F">from SAR [—]</span></div></a>
+<a href="D2-Builder.dc.html" class="tc" style="width: 400px; flex: none; text-decoration: none; color: inherit; margin-top: 60px"><div style="height: 460px; border-radius: 26px; overflow: hidden"><img loading="lazy" decoding="async" src="/assets/d79cb5916bf021b810ad3e0168beec13.jpg" alt="Wedding books" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; padding: 18px 6px 0"><span class="fr" style="font-size: 30px">Wedding</span><span style="color: #6B5A5F">from SAR [—]</span></div></a>
+<a href="D2-Builder.dc.html" class="tc" style="width: 480px; flex: none; text-decoration: none; color: inherit"><div style="height: 520px; border-radius: 26px; overflow: hidden"><img loading="lazy" decoding="async" src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="Honeymoon book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; padding: 18px 6px 0"><span class="fr" style="font-size: 30px">Honeymoon</span><span style="color: #6B5A5F">from SAR [—]</span></div></a>
+<a href="D2-Builder.dc.html" class="tc" style="width: 400px; flex: none; text-decoration: none; color: inherit; margin-top: 60px"><div style="height: 460px; border-radius: 26px; overflow: hidden"><img loading="lazy" decoding="async" src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt="Love story book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; padding: 18px 6px 0"><span class="fr" style="font-size: 30px">Love story</span><span style="color: #6B5A5F">from SAR [—]</span></div></a>
+<a href="D2-Builder.dc.html" class="tc" style="width: 460px; flex: none; text-decoration: none; color: inherit"><div style="height: 520px; border-radius: 26px; overflow: hidden"><img loading="lazy" decoding="async" src="/assets/44c3ed2b417e619b81afb56289c69c25.jpg" alt="Multi-city book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; padding: 18px 6px 0"><span class="fr" style="font-size: 30px">Multi-city</span><span style="color: #6B5A5F">from SAR [—]</span></div></a>
+<a href="D2-Builder.dc.html" style="width: 420px; flex: none; text-decoration: none; color: #FFF6F0; background: #7D1238; border-radius: 26px; height: 520px; padding: 40px; display: flex; flex-direction: column; justify-content: space-between" class="tc"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F2B880" stroke-width="1.3"><rect x="3" y="9" width="18" height="12" rx="1.5"></rect><path d="M3 13h18M12 9v12M12 9c-2-4-6-4-6-1.5S9 9 12 9zm0 0c2-4 6-4 6-1.5S15 9 12 9z"></path></svg><div><div class="fr" style="font-size: 40px; line-height: 1.05">Give one as a gift</div><p style="font-size: 16px; opacity: .85; line-height: 1.6">They upload their own photos. You stay a surprise until the parcel arrives.</p></div></a>
+
+<a aria-hidden="true" tabindex="-1" href="D2-Builder.dc.html" class="tc" style="width: 460px; flex: none; text-decoration: none; color: inherit"><div style="height: 520px; border-radius: 26px; overflow: hidden"><img loading="lazy" decoding="async" src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" data-alt="Travel books" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; padding: 18px 6px 0"><span class="fr" style="font-size: 30px">Travel journey</span><span style="color: #6B5A5F">from SAR [—]</span></div></a>
+<a aria-hidden="true" tabindex="-1" href="D2-Builder.dc.html" class="tc" style="width: 400px; flex: none; text-decoration: none; color: inherit; margin-top: 60px"><div style="height: 460px; border-radius: 26px; overflow: hidden"><img loading="lazy" decoding="async" src="/assets/d79cb5916bf021b810ad3e0168beec13.jpg" data-alt="Wedding books" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; padding: 18px 6px 0"><span class="fr" style="font-size: 30px">Wedding</span><span style="color: #6B5A5F">from SAR [—]</span></div></a>
+<a aria-hidden="true" tabindex="-1" href="D2-Builder.dc.html" class="tc" style="width: 480px; flex: none; text-decoration: none; color: inherit"><div style="height: 520px; border-radius: 26px; overflow: hidden"><img loading="lazy" decoding="async" src="/assets/6dc6964be6ca87733a870c819d870936.jpg" data-alt="Honeymoon book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; padding: 18px 6px 0"><span class="fr" style="font-size: 30px">Honeymoon</span><span style="color: #6B5A5F">from SAR [—]</span></div></a>
+<a aria-hidden="true" tabindex="-1" href="D2-Builder.dc.html" class="tc" style="width: 400px; flex: none; text-decoration: none; color: inherit; margin-top: 60px"><div style="height: 460px; border-radius: 26px; overflow: hidden"><img loading="lazy" decoding="async" src="/assets/40f21930485ef5903566224ed85a9273.jpg" data-alt="Love story book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; padding: 18px 6px 0"><span class="fr" style="font-size: 30px">Love story</span><span style="color: #6B5A5F">from SAR [—]</span></div></a>
+<a aria-hidden="true" tabindex="-1" href="D2-Builder.dc.html" class="tc" style="width: 460px; flex: none; text-decoration: none; color: inherit"><div style="height: 520px; border-radius: 26px; overflow: hidden"><img loading="lazy" decoding="async" src="/assets/44c3ed2b417e619b81afb56289c69c25.jpg" data-alt="Multi-city book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; padding: 18px 6px 0"><span class="fr" style="font-size: 30px">Multi-city</span><span style="color: #6B5A5F">from SAR [—]</span></div></a>
+<a aria-hidden="true" tabindex="-1" href="D2-Builder.dc.html" style="width: 420px; flex: none; text-decoration: none; color: #FFF6F0; background: #7D1238; border-radius: 26px; height: 520px; padding: 40px; display: flex; flex-direction: column; justify-content: space-between" class="tc"><svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#F2B880" stroke-width="1.3"><rect x="3" y="9" width="18" height="12" rx="1.5"></rect><path d="M3 13h18M12 9v12M12 9c-2-4-6-4-6-1.5S9 9 12 9zm0 0c2-4 6-4 6-1.5S15 9 12 9z"></path></svg><div><div class="fr" style="font-size: 40px; line-height: 1.05">Give one as a gift</div><p style="font-size: 16px; opacity: .85; line-height: 1.6">They upload their own photos. You stay a surprise until the parcel arrives.</p></div></a>
+</div></div>
+</div>
+</section>
+
+<!-- how it works: drawn path -->
+<section id="how" class="howSec" style="position: relative">
+<div class="howStick pad" style="position: relative; max-width: 1360px; margin: 0 auto; padding: 64px 44px; display: flex; flex-direction: column; justify-content: flex-start; box-sizing: border-box">
+<h2 class="fr" style="font-size: 64px; line-height: 1; font-weight: 400; margin: 0; max-width: 760px">Five steps, and you can watch every one.</h2>
+<ol class="msteps" aria-label="How it works"><li><b>1</b><span><strong class="fr">Design</strong><br>Type, size, cover, pages</span></li><li><b>2</b><span><strong class="fr">Pay half</strong><br>mada, wallets, cards</span></li><li><b>3</b><span><strong class="fr">Upload</strong><br>Straight from your phone</span></li><li><b>4</b><span><strong class="fr">Approve</strong><br>Unlimited revision rounds</span></li><li><b>5</b><span><strong class="fr">Unwrap</strong><br>Tracked to your door</span></li></ol>
+<div style="position: relative; margin-top: 70px; height: 380px; flex-shrink: 0" class="hide-m">
+<svg viewBox="0 0 1272 380" preserveAspectRatio="none" overflow="visible" style="position: absolute; inset: 0; width: 100%; height: 100%" fill="none" aria-hidden="true"><path d="M 60 300 C 200 300, 200 80, 340 80 S 500 300, 636 300 S 800 80, 932 80 S 1080 300, 1212 300" stroke="#D9CCC3" stroke-width="2" stroke-dasharray="2 10" stroke-linecap="round" vector-effect="non-scaling-stroke"></path><path class="draw" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0" d="M 60 300 C 200 300, 200 80, 340 80 S 500 300, 636 300 S 800 80, 932 80 S 1080 300, 1212 300" stroke="#7D1238" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke"></path></svg>
+<div class="node" style="position: absolute; left: calc(60 / 1272 * 100%); top: calc(300 / 380 * 100%); translate: -50% -50%; animation-range: entry 70% contain 0%"><span class="pulse" style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #7D1238; color: #fff; font-weight: 800">1</span></div>
+<div class="node" style="position: absolute; left: calc(340 / 1272 * 100%); top: calc(80 / 380 * 100%); translate: -50% -50%; animation-range: contain 21% contain 27%"><span style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #7D1238; color: #fff; font-weight: 800">2</span></div>
+<div class="node" style="position: absolute; left: 50%; top: calc(300 / 380 * 100%); translate: -50% -50%; animation-range: contain 41% contain 47%"><span style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #7D1238; color: #fff; font-weight: 800">3</span></div>
+<div class="node" style="position: absolute; left: calc(932 / 1272 * 100%); top: calc(80 / 380 * 100%); translate: -50% -50%; animation-range: contain 62% contain 68%"><span style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #7D1238; color: #fff; font-weight: 800">4</span></div>
+<div class="node" style="position: absolute; left: calc(1212 / 1272 * 100%); top: calc(300 / 380 * 100%); translate: -50% -50%; animation-range: contain 82% contain 88%"><span style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #C4661A; color: #fff; font-weight: 800">5</span></div>
+<div class="node" style="position: absolute; left: 0; top: 340px; width: 200px; animation-range: entry 75% contain 1%"><b class="fr" style="font-size: 22px; font-weight: 500">Design</b><div style="font-size: 14px; color: #6B5A5F">Type, size, cover, pages</div></div>
+<div class="node" style="position: absolute; left: calc(340 / 1272 * 100% - 100px); top: 0; width: 200px; text-align: center; animation-range: contain 22% contain 28%"><b class="fr" style="font-size: 22px; font-weight: 500">Pay half</b><div style="font-size: 14px; color: #6B5A5F">mada, wallets, cards</div></div>
+<div class="node" style="position: absolute; left: calc(50% - 100px); top: 340px; width: 200px; text-align: center; animation-range: contain 42% contain 48%"><b class="fr" style="font-size: 22px; font-weight: 500">Upload</b><div style="font-size: 14px; color: #6B5A5F">Straight from your phone</div></div>
+<div class="node" style="position: absolute; left: calc(932 / 1272 * 100% - 100px); top: 0; width: 200px; text-align: center; animation-range: contain 63% contain 69%"><b class="fr" style="font-size: 22px; font-weight: 500">Approve</b><div style="font-size: 14px; color: #6B5A5F">Unlimited revision rounds</div></div>
+<div class="node" style="position: absolute; right: 0; top: 340px; width: 200px; text-align: right; animation-range: contain 83% contain 89%"><b class="fr" style="font-size: 22px; font-weight: 500">Unwrap</b><div style="font-size: 14px; color: #6B5A5F">Tracked to your door</div></div>
+</div>
+</div>
+</section>
+
+<!-- wall of moments + counters -->
+<section style="background: #EFE5DA; overflow: hidden">
+<div class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 0 44px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center">
+<div class="wallTxt" style="padding: 110px 0">
+<h2 class="fr rv" style="font-size: 58px; line-height: 1.02; font-weight: 400; margin: 0">Two sisters. Every book, by hand.</h2>
+<p class="rv" style="font-size: 18px; line-height: 1.75; color: #5C4B50; margin: 24px 0 0">Tazmeen and Rameen started by turning their own trips into books. Now every parcel leaves their desk with a note in their own handwriting.</p>
+<div class="rv" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 44px">
+<div><div class="fr cnt" style="--to: 20; font-size: 64px; line-height: 1; color: #7D1238"></div><div style="font-size: 14px; color: #6B5A5F; margin-top: 8px">countries travelled together</div></div>
+<div><div class="fr cnt" style="--to: 17; font-size: 64px; line-height: 1; color: #7D1238"></div><div style="font-size: 14px; color: #6B5A5F; margin-top: 8px">books in one week’s batch</div></div>
+<div><div class="fr cnt" style="--to: 195; font-size: 64px; line-height: 1; color: #7D1238"></div><a href="D24-Project195.dc.html" style="display: block; font-size: 14px; color: #6B5A5F; margin-top: 8px">the 195 Project, our long game →</a></div>
+</div>
+<figure class="rv" style="margin: 44px 0 0; padding: 24px 26px; background: #fff; border-radius: 20px"><blockquote class="fr" style="margin: 0; font-size: 24px; font-style: italic">“Such a beautiful gesture by @milesretold.”</blockquote><figcaption style="font-size: 14px; color: #6B5A5F; margin-top: 10px">Lens &amp; Lights Studio, on Instagram</figcaption></figure>
+</div>
+<div class="wallImg" style="height: 880px; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; overflow: hidden; -webkit-mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent); mask-image: linear-gradient(transparent, #000 12%, #000 88%, transparent)" aria-hidden="true">
+<div class="colu"><img loading="lazy" decoding="async" src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt="" style="height: 280px"><img loading="lazy" decoding="async" src="/assets/d4b2aafa1f1446ed8701326e3284b455.jpg" alt="" style="height: 220px"><img loading="lazy" decoding="async" src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt="" style="height: 260px"><img loading="lazy" decoding="async" src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt="" style="height: 280px"><img loading="lazy" decoding="async" src="/assets/d4b2aafa1f1446ed8701326e3284b455.jpg" alt="" style="height: 220px"><img loading="lazy" decoding="async" src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt="" style="height: 260px"></div>
+<div class="colu s2"><img loading="lazy" decoding="async" src="/assets/3936155b1de2d6f9d237753228c056d0.jpg" alt="" style="height: 240px"><img loading="lazy" decoding="async" src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="" style="height: 300px"><img loading="lazy" decoding="async" src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt="" style="height: 220px"><img loading="lazy" decoding="async" src="/assets/3936155b1de2d6f9d237753228c056d0.jpg" alt="" style="height: 240px"><img loading="lazy" decoding="async" src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="" style="height: 300px"><img loading="lazy" decoding="async" src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt="" style="height: 220px"></div>
+<div class="colu s3"><img loading="lazy" decoding="async" src="/assets/8384abb23ebdfeb24e7152bf3fdd1a9b.jpg" alt="" style="height: 280px"><img loading="lazy" decoding="async" src="/assets/b305aa7d0c1ed679fe60219a9e088e10.jpg" alt="" style="height: 260px"><img loading="lazy" decoding="async" src="/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg" alt="" style="height: 220px"><img loading="lazy" decoding="async" src="/assets/8384abb23ebdfeb24e7152bf3fdd1a9b.jpg" alt="" style="height: 280px"><img loading="lazy" decoding="async" src="/assets/b305aa7d0c1ed679fe60219a9e088e10.jpg" alt="" style="height: 260px"><img loading="lazy" decoding="async" src="/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg" alt="" style="height: 220px"></div>
+</div>
+</div>
+</section>
+
+<!-- reviews -->
+<section id="love" style="padding: 110px 0 56px; overflow: hidden">
+<div class="pad" style="max-width: 1360px; margin: 0 auto; padding: 0 44px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
+<h2 class="fr" style="font-size: 64px; line-height: 1; font-weight: 400; margin: 0; max-width: 760px"><span class="rvl"><span>Books that went to</span></span><span class="rvl"><span><em style="color: #7D1238">their rightful homes.</em></span></span></h2>
+<a class="btn bg rv" href="D15-Help.dc.html#reviews">Read all reviews</a>
+</div>
+<p class="sr">Client review: “Such a beautiful gesture by @milesretold.” — Lens &amp; Lights Studio, on Instagram.</p>
+<div class="rqw" aria-hidden="true" style="margin-top: 60px; display: grid; gap: 18px">
+<div class="rq"><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #1F1418">“Such a beautiful gesture by @milesretold.”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>Lens &amp; Lights Studio</b><span style="color: #6B5A5F"> · On Instagram</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #1F1418">“Such a beautiful gesture by @milesretold.”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>Lens &amp; Lights Studio</b><span style="color: #6B5A5F"> · On Instagram</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure></div>
+<div class="rq r"><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #1F1418">“Such a beautiful gesture by @milesretold.”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>Lens &amp; Lights Studio</b><span style="color: #6B5A5F"> · On Instagram</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #1F1418">“Such a beautiful gesture by @milesretold.”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>Lens &amp; Lights Studio</b><span style="color: #6B5A5F"> · On Instagram</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure><figure class="rcard" style="margin: 0"><div style="display: flex; gap: 3px; color: #C4661A" aria-label="5 stars"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></div><blockquote class="fr" style="margin: 16px 0 0; font-size: 23px; line-height: 1.35; color: #786669">“[Client review — copy from the Reviews highlight]”</blockquote><figcaption style="margin-top: 18px; font-size: 14px"><b>[Client name]</b><span style="color: #6B5A5F"> · [Book · e.g. Honeymoon]</span></figcaption></figure></div>
+</div>
+</section>
+
+<!-- sizes -->
+<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 40px 44px 70px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
+<h2 class="fr" style="font-size: 64px; line-height: 1; font-weight: 400; margin: 0"><span class="rvl"><span>Three sizes.</span></span><span class="rvl"><span><em style="color: #7D1238">One linen hardcover.</em></span></span></h2>
+<p class="rv" style="font-size: 17px; line-height: 1.7; color: #5C4B50; max-width: 420px; margin: 0">Every book is hand-designed, printed on [paper stock] and bound in linen with a photo-framed cover. Pick the shape that suits your photos.</p>
+</div>
+<div class="stack stg szw" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 56px">
+<a class="sz" href="D2-Builder.dc.html"><div style="height: 210px; display: grid; place-items: center"><div class="szb" style="width: 128px; height: 160px; background: #7E9CC0"></div></div><div class="fr" style="font-size: 30px; margin-top: 26px">Portrait</div><div style="color: #6B5A5F; margin-top: 4px">8 × 10 in · most popular for travel</div><div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; padding-top: 18px; border-top: 1px solid #F0E8E1"><span style="color: #6B5A5F">from</span><b class="fr" style="font-size: 26px; font-weight: 500">SAR [—]</b></div></a>
+<a class="sz" href="D2-Builder.dc.html"><div style="height: 210px; display: grid; place-items: center"><div class="szb" style="width: 190px; height: 146px; background: #D9A3AE"></div></div><div class="fr" style="font-size: 30px; margin-top: 26px">Landscape</div><div style="color: #6B5A5F; margin-top: 4px">11 × 8.5 in · panoramas &amp; wide spreads</div><div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; padding-top: 18px; border-top: 1px solid #F0E8E1"><span style="color: #6B5A5F">from</span><b class="fr" style="font-size: 26px; font-weight: 500">SAR [—]</b></div></a>
+<a class="sz" href="D2-Builder.dc.html"><div style="height: 210px; display: grid; place-items: center"><div class="szb" style="width: 156px; height: 156px; background: #E8C96E"></div></div><div class="fr" style="font-size: 30px; margin-top: 26px">Square</div><div style="color: #6B5A5F; margin-top: 4px">10 × 10 in · weddings &amp; love stories</div><div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; padding-top: 18px; border-top: 1px solid #F0E8E1"><span style="color: #6B5A5F">from</span><b class="fr" style="font-size: 26px; font-weight: 500">SAR [—]</b></div></a>
+</div>
+</section>
+
+<!-- tracking teaser -->
+<section class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 40px 44px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center">
+<div><h2 class="fr rv" style="font-size: 54px; line-height: 1.02; font-weight: 400; margin: 0">Always know where your book is.</h2><p class="rv" style="font-size: 18px; line-height: 1.7; color: #5C4B50; margin: 20px 0 30px">From your first photo to the courier’s knock, every step shows up in your account and on WhatsApp.</p><a class="btn bg rv" href="D7-Tracking.dc.html">Track an order</a></div>
+<div class="rvz" style="background: #fff; border-radius: 28px; padding: 30px; box-shadow: 0 50px 80px -50px rgba(60,20,30,.5)">
+<div style="display: flex; justify-content: space-between; align-items: center"><b>Order MR-1042</b><span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: #B8304F"><span class="pulse" style="width: 9px; height: 9px; border-radius: 50%; background: #B8304F"></span>Out for delivery</span></div>
+<div class="trk" style="position: relative; height: 80px; margin-top: 26px">
+<div style="position: absolute; left: 0; right: 0; top: 39px; border-top: 2px dashed #CBB8AD"></div>
+<div class="tfillw" style="position: absolute; left: 0; top: 37px; height: 6px; width: 78%; border-radius: 3px; overflow: hidden"><div class="tfill2" style="height: 100%; border-radius: 3px; background: linear-gradient(90deg, #7D1238, #B8304F, #C4661A); background-size: 200% 100%"></div></div>
+<span class="tdot td0" style="left: 0%"></span><span class="tdot td1" style="left: 26%"></span><span class="tdot td2" style="left: 52%"></span>
+<div class="tvan" style="position: absolute; left: 78%; top: 18px; translate: -50% 0"><div class="vbob" style="width: 44px; height: 44px; border-radius: 50%; background: #7D1238; display: grid; place-items: center; box-shadow: 0 10px 20px -8px rgba(125,18,56,.7)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"></path><circle class="whl" cx="7" cy="18" r="2"></circle><circle class="whl" cx="17" cy="18" r="2"></circle></svg></div><span class="puff" aria-hidden="true"></span><span class="puff p2" aria-hidden="true"></span></div>
+<span class="tdest" style="left: 100%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7D1238" stroke-width="2"><path d="M4 11l8-7 8 7v9H4z"></path></svg></span>
+</div>
+<div class="tlab" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; font-size: 13px; color: #6B5A5F"><span class="tl0">Designed</span><span class="tl1">Approved</span><span class="tl2">Printed</span><span class="tl3" style="color: #1F1418; font-weight: 700">On its way</span></div>
+</div>
+</section>
+
+<!-- 195 project -->
+<section style="background: #1F1418; color: #FFF6F0; overflow: hidden">
+<div class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 96px 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center">
+<div style="position: relative; aspect-ratio: 1; max-width: 540px; width: 100%; justify-self: center">
+<svg viewBox="0 0 400 400" style="position: absolute; inset: 0; width: 100%; height: 100%" fill="none" aria-hidden="true">
+<g class="orb-a" style="transform-origin: 200px 200px"><circle cx="200" cy="200" r="190" stroke="#F2B880" stroke-opacity=".22" stroke-dasharray="1 7"></circle><circle cx="390" cy="200" r="5" fill="#F2B880"></circle></g>
+<g class="orb-b" style="transform-origin: 200px 200px"><ellipse cx="200" cy="200" rx="160" ry="62" stroke="#B8304F" stroke-opacity=".45"></ellipse><circle cx="360" cy="200" r="4" fill="#B8304F"></circle></g>
+<g class="orb-c" style="transform-origin: 200px 200px"><ellipse cx="200" cy="200" rx="62" ry="160" stroke="#F2B880" stroke-opacity=".25"></ellipse></g>
+<circle cx="200" cy="200" r="120" stroke="rgba(255,246,240,.08)" stroke-width="8"></circle>
+<circle class="ring195" cx="200" cy="200" r="120" stroke="url(#g195)" stroke-width="8" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset=".897" transform="rotate(-90 200 200)"></circle>
+<defs><linearGradient id="g195" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2B880"></stop><stop offset="1" stop-color="#B8304F"></stop></linearGradient></defs>
+<circle cx="118" cy="132" r="4" fill="#F2B880"></circle><circle class="ping" cx="118" cy="132" r="4" stroke="#F2B880" fill="none"></circle>
+<circle cx="276" cy="250" r="4" fill="#B8304F"></circle><circle class="ping" cx="276" cy="250" r="4" stroke="#B8304F" fill="none" style="animation-delay: 1.3s"></circle>
+</svg>
+<div style="position: absolute; inset: 0; display: grid; place-items: center; text-align: center"><div><div class="fr" style="font-size: 92px; line-height: 1; color: #F2B880"><span class="cnt" style="--to: 20"></span><span style="font-size: 40px; color: rgba(255,246,240,.4)">/195</span></div><div style="font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,246,240,.6); margin-top: 10px">countries so far</div></div></div>
+</div>
+<div>
+<p class="rv" style="color: #F2B880; font-weight: 700; margin: 0">The 195 Project</p>
+<h2 class="fr" style="font-size: 62px; line-height: 1.02; font-weight: 400; margin: 14px 0 0"><span class="rvl"><span>Every country on Earth,</span></span><span class="rvl"><span><em style="color: #F2B880">one book at a time.</em></span></span></h2>
+<p class="rv" style="font-size: 18px; line-height: 1.75; color: rgba(255,246,240,.75); margin: 24px 0 0">[Two lines from the sisters on what the 195 Project is, and how followers can be part of it.]</p>
+<a class="btn rv" href="https://instagram.com/milesretold" style="margin-top: 32px; border: 1.5px solid rgba(255,246,240,.4); color: #FFF6F0">Follow the journey</a>
+</div>
+</div>
+</section>
+
+<!-- faq -->
+<section class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 96px 44px 90px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start">
+<div class="faqL" style="position: sticky; top: 120px">
+<h2 class="fr" style="font-size: 62px; line-height: 1; font-weight: 400; margin: 0"><span class="rvl"><span>Good to</span></span><span class="rvl"><span><em style="color: #7D1238">know.</em></span></span></h2>
+<p class="rv" style="color: #5C4B50; font-size: 17px; line-height: 1.7; margin: 20px 0 26px">Still wondering? We answer every message ourselves.</p>
+<a class="btn bg rv" href="D15-Help.dc.html">Visit the help centre</a>
+</div>
+<div class="faq">
+<details open=""><summary>How do I send my photos?<span class="pl" aria-hidden="true">+</span></summary><p>After you pay the deposit you upload straight from your phone in your account — one folder per trip. Prefer Google Drive? Paste a link instead.</p></details>
+<details><summary>How does payment work?<span class="pl" aria-hidden="true">+</span></summary><p>Pay 50% to confirm your order and book a design slot. The other 50% is due only after you approve the final design. In Saudi Arabia: mada, Apple Pay, STC Pay and cards. In Pakistan: JazzCash, Easypaisa, cards and bank transfer.</p></details>
+<details><summary>How many changes can I ask for?<span class="pl" aria-hidden="true">+</span></summary><p>As many as you like. Pin a comment on any page of your proof and we revise until you love it.</p></details>
+<details><summary>How long does it take?<span class="pl" aria-hidden="true">+</span></summary><p>Your account shows an estimated proof date as soon as your photos arrive. Printing and delivery take [X–Y working days] after you approve.</p></details>
+<details><summary>Can I give a book as a gift?<span class="pl" aria-hidden="true">+</span></summary><p>Yes — send a gift card by WhatsApp. They upload their own photos, and you stay a surprise until the parcel arrives.</p></details>
+</div>
+</section>
+
+<!-- instagram -->
+<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 0 44px 84px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap"><h2 class="fr rv" style="font-size: 44px; font-weight: 400; margin: 0">Follow along <a href="https://instagram.com/milesretold" style="color: #7D1238; font-style: italic">@milesretold</a></h2><span class="rv" style="color: #6B5A5F">Unboxings, new covers and our own trips</span></div>
+<div class="stg g4" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-top: 34px">
+<a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#fff"></circle></svg></a><a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/d4b2aafa1f1446ed8701326e3284b455.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#fff"></circle></svg></a><a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#fff"></circle></svg></a><a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/3936155b1de2d6f9d237753228c056d0.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#fff"></circle></svg></a><a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#fff"></circle></svg></a><a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="#fff"></circle></svg></a>
+</div>
+</section>
+
+<!-- finale -->
+<section style="position: relative; background: #5E0D2A; color: #FFF6F0; padding: 120px 24px 96px; text-align: center; overflow: hidden">
+<div class="par fr" aria-hidden="true" style="position: absolute; left: 50%; top: 40%; translate: -50% -50%; font-size: 340px; font-style: italic; white-space: nowrap; color: rgba(255,246,240,.05)">again &amp; again</div>
+<h2 class="fr rv" style="position: relative; font-size: 104px; line-height: .95; font-weight: 300; margin: 0 auto; max-width: 1000px">Your trip deserves more than a camera roll.</h2>
+<div class="rv" style="position: relative; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 50px"><a class="btn mag" href="D2-Builder.dc.html" style="background: #F2B880; color: #1F1418">Design your book <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a class="btn" href="https://instagram.com/milesretold" style="border: 1.5px solid rgba(255,246,240,.5); color: #FFF6F0">Message us on Instagram</a></div>
+<p class="rv" style="position: relative; font-family: 'Noto Naskh Arabic', serif; font-size: 24px; color: #F2B880; margin: 40px 0 0" dir="rtl" lang="ar">نحوّل رحلاتك إلى كتب ذكريات</p>
+</section>
+
+<footer style="background: #1F1418; color: #CDBCB4; font-size: 15px">
+<div class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 64px 44px 40px; display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px">
+<div><a class="lg" href="#top" aria-label="Miles Retold — back to top" style="display: inline-flex; align-items: center; gap: 14px; text-decoration: none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#FFF6F0"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#1F1418"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#1F1418"></path><path d="M32 25v18.4" stroke="#FFF6F0" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#1F1418" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#1F1418"></path></svg><span style="display: flex; flex-direction: column; line-height: 1"><span class="fr" style="font-size: 42px; font-weight: 600; letter-spacing: -.01em; line-height: .8; color: #FFF6F0">MiLes</span><span class="rt" style="font-size: 12.6px; margin-top: 4px; color: #FFF6F0"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a><p style="line-height: 1.7; margin: 14px 0 22px; max-width: 360px">Customised travel photobooks and memory keepsakes, designed by hand in Saudi Arabia &amp; Pakistan.</p>
+<label for="nl" style="display: block; color: #FFF6F0; font-weight: 700; margin-bottom: 10px">New covers &amp; offers, once a month</label>
+<div style="display: flex; gap: 8px; max-width: 420px"><input id="nl" class="nin" type="email" placeholder="you@example.com"><button class="btn" onClick="{{do_join}}" style="min-height: 52px; padding: 0 22px; background: #F2B880; color: #1F1418; border: 0; cursor: pointer">{{lb_join}}</button></div></div>
+<nav aria-label="Shop" style="display: grid; gap: 8px; align-content: start"><b style="color: #FFF6F0; margin-bottom: 6px">Shop</b><a class="fl" href="D2-Builder.dc.html">Design a book</a><a class="fl" href="D14-Lookbook.dc.html">Lookbook</a><a class="fl" href="D16-Gifts.dc.html">Gift cards</a><a class="fl" href="D21-Books.dc.html">Book types</a><a class="fl" href="D24-Project195.dc.html">The 195 Project</a></nav>
+<nav aria-label="Your order" style="display: grid; gap: 8px; align-content: start"><b style="color: #FFF6F0; margin-bottom: 6px">Your order</b><a class="fl" href="D11-SignIn.dc.html">Sign in</a><a class="fl" href="D7-Tracking.dc.html">Track an order</a><a class="fl" href="D15-Help.dc.html">Help centre</a><a class="fl" href="D15-Help.dc.html#contact">Contact us</a></nav>
+<nav aria-label="Studio" style="display: grid; gap: 8px; align-content: start"><b style="color: #FFF6F0; margin-bottom: 6px">Studio</b><a class="fl" href="D13-Story.dc.html">Our story</a><a class="fl" href="https://instagram.com/milesretold">Instagram</a><a class="fl" href="https://threads.net/@milesretold">Threads</a><span style="padding: 4px 0">WhatsApp [number]</span></nav>
+</div>
+<div class="pad" style="max-width: 1360px; margin: 0 auto; padding: 22px 44px 34px; border-top: 1px solid rgba(205,188,180,.15); display: flex; justify-content: space-between; gap: 14px; flex-wrap: wrap; font-size: 13px"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a class="fl" href="D15-Help.dc.html#terms">Terms</a> · <a class="fl" href="D15-Help.dc.html#privacy">Privacy</a> · <a class="fl" href="D15-Help.dc.html#refunds">Refund policy</a></span><span lang="ar" dir="rtl" style="font-family: 'Noto Naskh Arabic', serif; color: #F2B880">العربية</span></div>
+</footer>
+<div class="dock" aria-label="Quick actions">
+<a class="wa" href="https://wa.me/" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"></path><path d="M9 9.5c.3 2 2.5 4.2 4.5 4.5l1-1.2 2 .9c-.2 1.3-1.3 2-2.6 1.8-3-.5-5.6-3.1-6-6-.2-1.3.5-2.4 1.8-2.6l.9 2z" fill="#fff" stroke="none"></path></svg><span class="wtip">Questions? Chat with us</span></a>
+<a class="totop" href="#top" aria-label="Back to top"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></a>
+<div class="mcta"><span style="padding-left: 8px; font-size: 14px"><b>Pay 50% now</b><br><span style="opacity: .7">rest after you approve</span></span><a class="btn" href="D2-Builder.dc.html" style="min-height: 48px; padding: 0 20px; background: #F2B880; color: #1F1418; font-size: 15px">Start a book</a></div>
+</div>
+<div class="{{ringCls}}" ref="{{setRing}}" aria-hidden="true"></div><div class="cur-dot" ref="{{setDot}}" aria-hidden="true"></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":14800}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { menu: false, big: false, dark: false, cur: false };
+    this.x1 = 0; this.x2 = 0; this.dir = 1; this.boost = 0; this.lastY = null; this.pt = 0;
+    this.tg = { x: .6, y: .35 }; this.cc = { x: .6, y: .35 };
+    this.pT = { x: -200, y: -200 }; this.pR = { x: -200, y: -200 };
+    this.mag = null; this.mT = { x: 0, y: 0 }; this.mC = { x: 0, y: 0 }; this.gx = 0; this.gJump = 0; this.gHover = false; }
+  componentDidMount() {
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    this.onScroll = (e) => {
+      const t = e.target;
+      const y = (!t || t === document || t === document.documentElement || t === document.body) ? (window.scrollY || document.documentElement.scrollTop) : t.scrollTop;
+      if (this.lastY !== null) { const d = y - this.lastY; if (Math.abs(d) > 0.5) { this.dir = d > 0 ? 1 : -1; this.boost = Math.min(900, Math.max(this.boost, Math.abs(d) * 9)); } }
+      this.lastY = y;
+    };
+    document.addEventListener('scroll', this.onScroll, { capture: true, passive: true });
+    const step = (el, x) => { if (!el) return x; const half = el.scrollWidth / 2 || 1; x = ((x % half) - half) % half; const sk = Math.max(-7, Math.min(7, this.boost / 110)) * -this.dir; el.style.transform = 'translate3d(' + x.toFixed(2) + 'px,0,0) skewX(' + sk.toFixed(2) + 'deg)'; return x; };
+    const tick = (t) => {
+      const dt = this.pt ? Math.min(0.05, (t - this.pt) / 1000) : 0.016; this.pt = t;
+      this.boost *= Math.pow(0.03, dt);
+      const v = (70 + this.boost) * this.dir * dt;
+      this.x1 = step(this.r1, this.x1 - v);
+      this.x2 = step(this.r2, this.x2 + v);
+      const gv = this.gHover ? 0 : (42 + this.boost * .5) * dt; this.gx -= gv + this.gJump * Math.min(1, dt * 6); this.gJump -= this.gJump * Math.min(1, dt * 6);
+      if (this.r3) { const half = this.r3.scrollWidth / 2 || 1; this.gx = ((this.gx % half) - half) % half; this.r3.style.transform = 'translate3d(' + this.gx.toFixed(2) + 'px,0,0)'; if (this.gp) this.gp.style.transform = 'scaleX(' + (-this.gx / half).toFixed(4) + ')'; }
+      const k = 1 - Math.pow(0.002, dt), kr = 1 - Math.pow(0.00001, dt);
+      const c = this.cc; c.x += (this.tg.x - c.x) * k; c.y += (this.tg.y - c.y) * k;
+      if (this.bookEl) this.bookEl.style.transform = 'rotateX(' + ((0.4 - c.y) * 14).toFixed(3) + 'deg) rotateY(' + ((c.x - 0.6) * 30).toFixed(3) + 'deg)';
+      if (this.spotEl) this.spotEl.style.background = 'radial-gradient(600px circle at ' + (c.x * 100).toFixed(2) + '% ' + (c.y * 100).toFixed(2) + '%, rgba(184,48,79,.11), transparent 60%)';
+      this.pR.x += (this.pT.x - this.pR.x) * kr; this.pR.y += (this.pT.y - this.pR.y) * kr;
+      if (this.ringEl) this.ringEl.style.transform = 'translate3d(' + this.pR.x.toFixed(1) + 'px,' + this.pR.y.toFixed(1) + 'px,0)';
+      if (this.dotEl) this.dotEl.style.transform = 'translate3d(' + this.pT.x.toFixed(1) + 'px,' + this.pT.y.toFixed(1) + 'px,0)';
+      this.mC.x += (this.mT.x - this.mC.x) * k; this.mC.y += (this.mT.y - this.mC.y) * k;
+      if (this.mag) { this.mag.style.translate = this.mC.x.toFixed(2) + 'px ' + this.mC.y.toFixed(2) + 'px'; if (!this.magOn && Math.abs(this.mC.x) + Math.abs(this.mC.y) < 0.05) { this.mag.style.translate = ''; this.mag = null; } }
+      this.raf = requestAnimationFrame(tick);
+    };
+    this.raf = requestAnimationFrame(tick);
+  }
+  componentWillUnmount() { if (this.onScroll) document.removeEventListener('scroll', this.onScroll, { capture: true }); if (this.raf) cancelAnimationFrame(this.raf); }
+  renderVals() {
+    const __fx = this.state.__fx || {};
+    const __A = {
+      do_join: () => this.setState({ __fx: { ...__fx, join: !__fx.join } }), lb_join: __fx.join ? 'You’re in ✓' : 'Join',
+    };
+    const st = this.state;
+    const W = [['Every', ''], ['trip', ''], ['deserves', ''], ['a', ''], ['hardcover.', 'italic']];
+    return { ...__A,
+      words: W.map((w, i) => ({ t: w[0], it: w[1] || 'normal', c: w[1] ? '#7D1238' : '#1F1418', d: (1.75 + i * 0.09) + 's' })),
+      rootCls: st.cur ? 'cur-on' : '',
+      ringCls: 'cur-ring' + (st.big ? ' big' : '') + (st.dark ? ' dark' : ''),
+      menuOpen: st.menu, menuExp: st.menu ? 'true' : 'false', menuCls: st.menu ? 'menu-btn on' : 'menu-btn',
+      toggleMenu: () => this.setState({ menu: !st.menu }),
+      setRoot: (el) => { this.rootEl = el; },
+      setBook: (el) => { this.bookEl = el; },
+      setSpot: (el) => { this.spotEl = el; },
+      setRing: (el) => { this.ringEl = el; },
+      setDot: (el) => { this.dotEl = el; },
+      setR3: (el) => { this.r3 = el; },
+      setGP: (el) => { this.gp = el; },
+      gOn: () => { this.gHover = true; }, gOff: () => { this.gHover = false; },
+      gNext: () => { this.gJump += 480; }, gPrev: () => { this.gJump -= 480; },
+      setR1: (el) => { this.r1 = el; if (el) el.style.animation = 'none'; },
+      setR2: (el) => { this.r2 = el; if (el) el.style.animation = 'none'; },
+      onLeave: () => { this.tg = { x: .6, y: .35 }; this.mT = { x: 0, y: 0 }; this.magOn = false; if (this.state.cur) this.setState({ cur: false }); },
+      onMove: (e) => {
+        const root = this.rootEl || e.currentTarget; const r = root.getBoundingClientRect();
+        const sc = r.width / (root.offsetWidth || r.width) || 1;
+        this.pT = { x: (e.clientX - r.left) / sc, y: (e.clientY - r.top) / sc };
+        const hy = this.pT.y / 980; if (hy <= 1) this.tg = { x: this.pT.x / (root.offsetWidth || 1), y: hy };
+        const hit = e.target && e.target.closest ? e.target.closest('a,button,summary,label,input') : null;
+        const dark = !!(e.target && e.target.closest && e.target.closest('#open, footer, .dark-zone'));
+        const m = e.target && e.target.closest ? e.target.closest('.mag') : null;
+        if (m) { const b = m.getBoundingClientRect(); if (this.mag && this.mag !== m) this.mag.style.translate = ''; this.mag = m; this.magOn = true; this.mT = { x: (e.clientX - (b.left + b.width / 2)) / sc * 0.28, y: (e.clientY - (b.top + b.height / 2)) / sc * 0.4 }; }
+        else { this.magOn = false; this.mT = { x: 0, y: 0 }; }
+        if (!!hit !== st.big || dark !== st.dark || !st.cur) this.setState({ big: !!hit, dark, cur: true });
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

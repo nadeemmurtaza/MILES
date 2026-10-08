@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>D · Order tracking</title>
+<script src="./support.js"></script>
+<link rel="icon" type="image/svg+xml" href="/assets/ba8a47ecfe93acbd68bd017714519801.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/e8c29624c47de066f3c28cb82d08b58a.png">
+<link rel="apple-touch-icon" href="/assets/587541048aa85fdedd1d966f27a5d383.png">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
+a{color:#7D1238}a:hover{color:#B8304F}
+.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.wm{background:linear-gradient(95deg,#9E1046,#C7323F 50%,#C4661A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:12px;font:700 14px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),background .25s}
+.bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A;color:#FFF6F0;transform:translateY(-2px)}
+.bs{background:#fff;color:#1F1418;border:1px solid #E7DDD4}.bs:hover{border-color:#1F1418;color:#1F1418}
+.box{background:#fff;border:1px solid #E7DDD4;border-radius:22px}
+.ring{animation:ring 2s infinite}@keyframes ring{0%{box-shadow:0 0 0 0 rgba(184,48,79,.45)}70%{box-shadow:0 0 0 14px rgba(184,48,79,0)}100%{box-shadow:0 0 0 0 rgba(184,48,79,0)}}
+.ev{animation:ev .7s cubic-bezier(.2,.8,.2,1) both}@keyframes ev{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
+.van{animation:van 3.5s ease-in-out infinite alternate}@keyframes van{from{left:0%}to{left:calc(100% - 44px)}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:900px){.stack{grid-template-columns:1fr!important}.pad{padding-left:18px!important;padding-right:18px!important}}
+/* MOBILE TYPE SCALE */
+@media (max-width:600px){[style*="font-size: 20px"]{font-size:16px!important}[style*="font-size: 22px"]{font-size:20px!important}[style*="font-size: 28px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 30px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 52px"]{font-size:clamp(28px,8vw,36px)!important;line-height:1.12}h1{line-height:1.04!important;letter-spacing:-.01em}h2,h3{line-height:1.1!important}p,li,figcaption,label{overflow-wrap:anywhere}}
+/* END MOBILE TYPE SCALE */
+
+/* LOGO */
+.lg .lgm{flex:none;transition:transform .8s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 10px rgba(125,18,56,.25))}
+.lg:hover .lgm{transform:rotate(-8deg) scale(1.06)}
+.lgp{transform-box:fill-box;transform-origin:center;animation:lgIn 1.3s cubic-bezier(.16,1,.3,1) .35s both}
+.lg:hover .lgp{animation:lgFly 1.1s cubic-bezier(.65,0,.35,1)}
+.lgt{animation:lgTrail 1.6s linear infinite}
+@keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
+@keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
+@keyframes lgTrail{to{stroke-dashoffset:-10.8}}
+.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
+/* END LOGO */
+</style>
+</helmet>
+<div style="font-family: Manrope, sans-serif; color: #1F1418; background: #F6F1EA; width: 100%; min-height: 1450px">
+<header style="background: #fff; border-bottom: 1px solid #E7DDD4">
+<div class="pad" style="max-width: 1180px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
+<a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="text-decoration: none; display: flex; align-items: center; gap: 10px; min-height: 44px"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span style="display: flex; flex-direction: column; line-height: 1"><span class="fr" style="font-size: 26px; font-weight: 600; letter-spacing: -.01em; line-height: .8; color: #7D1238">MiLes</span><span class="rt" style="font-size: 7.8px; margin-top: 2px; color: #7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<a href="D5-Portal.dc.html" style="font-weight: 700; font-size: 14px">Sign in for full details</a>
+</div>
+</header>
+
+<main class="pad" style="max-width: 1180px; margin: 0 auto; padding: 40px 32px 80px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap">
+<div><div style="font-size: 13px; color: #6B5A5F">Order <span class="mono">MR-1042</span> · Honeymoon · Maldives</div><h1 class="fr" style="font-size: 52px; line-height: 1.05; font-weight: 500; margin: 10px 0 0">{{headline}}</h1><p style="font-size: 17px; color: #6B5A5F; margin: 10px 0 0">{{sub}}</p></div>
+<div style="text-align: right"><div style="font-size: 13px; color: #6B5A5F">{{etaLabel}}</div><div class="fr" style="font-size: 30px">{{eta}}</div></div>
+</div>
+
+<sc-if value="{{showVan}}" hint-placeholder-val="{{ false }}">
+<div class="box" style="margin-top: 28px; padding: 24px 28px">
+<div style="display: flex; justify-content: space-between; font-size: 13px; color: #6B5A5F; font-weight: 700"><span>Studio · Riyadh</span><span>You · Riyadh</span></div>
+<div style="position: relative; height: 44px; margin-top: 12px"><div style="position: absolute; left: 0; right: 0; top: 21px; border-top: 2px dashed #CBB8AD"></div><div class="van" style="position: absolute; top: 0; width: 44px; height: 44px; border-radius: 50%; background: #7D1238; display: grid; place-items: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></div></div>
+<div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 18px; padding-top: 18px; border-top: 1px solid #F0E8E1"><span style="font-size: 14px">Courier <b>SMSA Express</b> · tracking no. <span class="mono">[—]</span></span><span style="flex: 1"></span><a class="btn bs" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Reschedule delivery</a><a class="btn bs" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Open courier site</a></div>
+</div>
+</sc-if>
+
+<div class="stack" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 24px; margin-top: 28px; align-items: start">
+<ol class="box" style="list-style: none; margin: 0; padding: 30px 30px 10px">
+<sc-for list="{{events}}" as="e" hint-placeholder-count="9">
+<li class="ev" style="display: grid; grid-template-columns: 40px 1fr; gap: 16px; animation-delay: {{e.delay}}">
+<div style="display: flex; flex-direction: column; align-items: center"><span class="{{e.dotCls}}" style="width: 28px; height: 28px; border-radius: 50%; background: {{e.dot}}; border: 2px solid {{e.ring}}; display: grid; place-items: center; flex: none"><sc-if value="{{e.done}}" hint-placeholder-val="{{ true }}"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.2"><path d="M5 12l5 5 9-10"></path></svg></sc-if></span><span style="flex: 1; width: 2px; background: {{e.line}}; min-height: 30px"></span></div>
+<div style="padding-bottom: 26px"><div style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap"><b style="font-size: 17px; color: {{e.tc}}">{{e.name}}</b><span style="font-size: 13px; color: #6B5A5F">{{e.when}}</span></div><div style="font-size: 14px; color: #6B5A5F; margin-top: 4px; line-height: 1.55">{{e.desc}}</div>
+<sc-if value="{{e.cta}}" hint-placeholder-val="{{ false }}"><a class="btn bp" href="{{e.href}}" style="margin-top: 12px; min-height: 44px">{{e.cta}}</a></sc-if></div>
+</li>
+</sc-for>
+</ol>
+
+<div style="display: flex; flex-direction: column; gap: 16px">
+<div class="box" style="padding: 24px; display: flex; gap: 16px; align-items: center"><div style="width: 70px; height: 88px; background: #7E9CC0; border-radius: 3px 7px 7px 3px; padding: 6px; flex: none"><div style="background: #fff; height: 100%; padding: 3px"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="" style="width: 100%; height: 70%; object-fit: cover; display: block"></div></div><div><b class="fr" style="font-size: 20px; font-weight: 500">Maldives · March 2022</b><div style="font-size: 13px; color: #6B5A5F; margin-top: 4px">Portrait 8 × 10 · 40 pages<br>Delivering to Al Olaya, Riyadh</div></div></div>
+<div class="box" style="padding: 24px"><b>Get updates on WhatsApp</b><p style="font-size: 14px; color: #6B5A5F; margin: 6px 0 14px; line-height: 1.6">We message +966 •• ••• 4567 at every step. Reply any time to reach the studio.</p><a class="btn bs" href="D15-Help.dc.html#contact" style="width: 100%">Message the studio</a></div>
+<div style="background: #1F1418; color: #FFF6F0; border-radius: 22px; padding: 24px"><div class="fr" style="font-size: 22px">Loving it already?</div><p style="font-size: 14px; opacity: .8; margin: 8px 0 14px; line-height: 1.6">Order extra copies now and they ship in the same parcel.</p><a class="btn" href="D19-Cart.dc.html" style="background: #F2B880; color: #1F1418">Add a copy</a></div>
+</div>
+</div>
+</main>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"stage":{"editor":"enum","options":["Order confirmed","Photos received","Designing","Proof ready","Approved","In print","Wrapped","Shipped","Delivered"],"default":"Shipped","section":"Preview"},"$preview":{"width":1440,"height":1450}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const E = [
+      { name: 'Order confirmed', when: '14 Sep, 9:12 pm', desc: 'Deposit received. Your design slot is booked.', h: 'Your order is confirmed', s: 'Next: upload your photos.' },
+      { name: 'Photos received', when: '15 Sep', desc: '85 photos in 2 trips. Everything printable.', h: 'We have your photos', s: 'Design starts within [X] days.', cta: 'Add more photos', href: 'D4-Upload.dc.html' },
+      { name: 'Designing your book', when: '16 Sep', desc: 'Rameen is laying out your spreads and writing captions.', h: 'Your book is being designed', s: 'We’ll message you when the first proof is ready.' },
+      { name: 'Proof ready', when: '2 Oct · round 2', desc: 'Two rounds of revisions. Unlimited until you love it.', h: 'Your proof is ready', s: 'Review it and pin any changes.', cta: 'Review proof', href: 'D6-Proof.dc.html' },
+      { name: 'Approved & balance paid', when: '3 Oct', desc: 'Design locked and sent to print.', h: 'Approved — off to print', s: 'Thank you! Printing starts next.' },
+      { name: 'In print', when: '4 Oct', desc: 'Printed on [paper], hardcover linen binding.', h: 'Your book is printing', s: 'Quality-checked page by page.' },
+      { name: 'Wrapped by hand', when: '6 Oct', desc: 'Gold ribbon and a handwritten note from Tazmeen.', h: 'Wrapped and ready', s: 'Handing it to the courier next.' },
+      { name: 'Shipped', when: '7 Oct, 2:40 pm', desc: 'With SMSA Express. Out for delivery today.', h: 'On its way to you', s: 'Out for delivery today.' },
+      { name: 'Delivered', when: '—', desc: 'Signed for at your door.', h: 'Delivered — enjoy!', s: 'We’d love a photo of the unboxing.', cta: 'Leave a review', href: 'D15-Help.dc.html#reviews' }
+    ];
+    const at = Math.max(0, E.findIndex((e) => e.name.startsWith((this.props.stage ?? 'Shipped').split(' ')[0])));
+    const events = E.map((e, i) => {
+      const done = i < at || (i === at && i === E.length - 1), cur = i === at;
+      return { ...e, done, when: i <= at ? e.when : 'Pending', cta: cur ? (e.cta || '') : '', href: e.href || '#',
+        dot: done ? '#2B6B55' : (cur ? '#B8304F' : '#fff'), ring: done ? '#2B6B55' : (cur ? '#B8304F' : '#D9CCC3'),
+        dotCls: cur && !done ? 'ring' : '', line: i < at ? '#2B6B55' : '#E7DDD4', tc: i <= at ? '#1F1418' : '#8E7C80', delay: (i * 0.07) + 's' };
+    });
+    const cur = E[at];
+    return { events, headline: cur.h, sub: cur.s, showVan: at === 7, etaLabel: at === 8 ? 'Delivered on' : 'Estimated delivery', eta: at >= 7 ? 'Today' : '[date]' };
+  }
+}
+</script>
+</body>
+</html>

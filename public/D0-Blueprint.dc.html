@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>D · Service blueprint</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F1EA}
+</style>
+</helmet>
+<div style="position: relative; width: 2764px; height: 1380px; background: #F6F1EA; font-family: Manrope, sans-serif; color: #1F1418; font-size: 13px; line-height: 18px">
+
+<!-- lane bands -->
+<div style="position: absolute; left: 40px; top: 240px; width: 2684px; height: 168px; background: #FFFFFF; border-radius: 16px"></div>
+<div style="position: absolute; left: 40px; top: 408px; width: 2684px; height: 168px; background: #F5E4DF; border-radius: 16px"></div>
+<div style="position: absolute; left: 40px; top: 576px; width: 2684px; height: 168px; background: #FFFFFF; border-radius: 16px"></div>
+<div style="position: absolute; left: 40px; top: 744px; width: 2684px; height: 168px; background: #EEE6DC; border-radius: 16px"></div>
+<div style="position: absolute; left: 40px; top: 912px; width: 2684px; height: 168px; background: #FFFFFF; border-radius: 16px"></div>
+
+<!-- arrows along the status lane -->
+<svg width="51" height="8" viewBox="0 0 51 8" preserveAspectRatio="none" style="position: absolute; left: 524px; top: 488px; width: 51px; height: 8px; overflow: visible; fill: none; stroke: #7D1238; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-1" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7D1238" stroke="none" style="stroke: none; fill: #7D1238; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 47 4" marker-end="url(#dc-arrow-head-filled-1)"></path></svg>
+<svg width="51" height="8" viewBox="0 0 51 8" preserveAspectRatio="none" style="position: absolute; left: 796px; top: 488px; width: 51px; height: 8px; overflow: visible; fill: none; stroke: #7D1238; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-2" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7D1238" stroke="none" style="stroke: none; fill: #7D1238; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 47 4" marker-end="url(#dc-arrow-head-filled-2)"></path></svg>
+<svg width="51" height="8" viewBox="0 0 51 8" preserveAspectRatio="none" style="position: absolute; left: 1068px; top: 488px; width: 51px; height: 8px; overflow: visible; fill: none; stroke: #7D1238; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-3" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7D1238" stroke="none" style="stroke: none; fill: #7D1238; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 47 4" marker-end="url(#dc-arrow-head-filled-3)"></path></svg>
+<svg width="51" height="8" viewBox="0 0 51 8" preserveAspectRatio="none" style="position: absolute; left: 1340px; top: 488px; width: 51px; height: 8px; overflow: visible; fill: none; stroke: #7D1238; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-4" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7D1238" stroke="none" style="stroke: none; fill: #7D1238; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 47 4" marker-end="url(#dc-arrow-head-filled-4)"></path></svg>
+<svg width="51" height="8" viewBox="0 0 51 8" preserveAspectRatio="none" style="position: absolute; left: 1612px; top: 488px; width: 51px; height: 8px; overflow: visible; fill: none; stroke: #7D1238; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-5" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7D1238" stroke="none" style="stroke: none; fill: #7D1238; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 47 4" marker-end="url(#dc-arrow-head-filled-5)"></path></svg>
+<svg width="51" height="8" viewBox="0 0 51 8" preserveAspectRatio="none" style="position: absolute; left: 1884px; top: 488px; width: 51px; height: 8px; overflow: visible; fill: none; stroke: #7D1238; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-6" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7D1238" stroke="none" style="stroke: none; fill: #7D1238; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 47 4" marker-end="url(#dc-arrow-head-filled-6)"></path></svg>
+<svg width="51" height="8" viewBox="0 0 51 8" preserveAspectRatio="none" style="position: absolute; left: 2156px; top: 488px; width: 51px; height: 8px; overflow: visible; fill: none; stroke: #7D1238; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-7" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7D1238" stroke="none" style="stroke: none; fill: #7D1238; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 47 4" marker-end="url(#dc-arrow-head-filled-7)"></path></svg>
+<svg width="51" height="8" viewBox="0 0 51 8" preserveAspectRatio="none" style="position: absolute; left: 2428px; top: 488px; width: 51px; height: 8px; overflow: visible; fill: none; stroke: #7D1238; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round"><defs><marker id="dc-arrow-head-filled-8" orient="auto" markerWidth="5" markerHeight="5" refX="2" refY="2" overflow="visible"><path d="M0 0 L4 2 L0 4 Z" fill="#7D1238" stroke="none" style="stroke: none; fill: #7D1238; fill: context-stroke"></path></marker></defs><path d="M 0 4 L 47 4" marker-end="url(#dc-arrow-head-filled-8)"></path></svg>
+
+<!-- title -->
+<div style="position: absolute; left: 64px; top: 64px; font-family: Fraunces, Georgia, serif; font-size: 44px; line-height: 52px; font-weight: 500">Miles Retold — how an order moves, end to end</div>
+<div style="position: absolute; left: 64px; top: 128px; width: 1400px; font-size: 16px; line-height: 24px; color: #6B5A5F">Nine stages, five lanes. The wine lane is the single status a customer sees in their portal, on WhatsApp and on the tracking page; every other lane is what makes that status true.</div>
+
+<!-- stage headers -->
+<div style="position: absolute; left: 304px; top: 196px; width: 220px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; color: #7D1238">01 · DISCOVER</div>
+<div style="position: absolute; left: 576px; top: 196px; width: 220px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; color: #7D1238">02 · CHECKOUT</div>
+<div style="position: absolute; left: 848px; top: 196px; width: 220px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; color: #7D1238">03 · UPLOAD</div>
+<div style="position: absolute; left: 1120px; top: 196px; width: 220px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; color: #7D1238">04 · DESIGN</div>
+<div style="position: absolute; left: 1392px; top: 196px; width: 220px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; color: #7D1238">05 · PROOF</div>
+<div style="position: absolute; left: 1664px; top: 196px; width: 220px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; color: #7D1238">06 · APPROVE</div>
+<div style="position: absolute; left: 1936px; top: 196px; width: 220px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; color: #7D1238">07 · PRINT &amp; PACK</div>
+<div style="position: absolute; left: 2208px; top: 196px; width: 220px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; color: #7D1238">08 · SHIP</div>
+<div style="position: absolute; left: 2480px; top: 196px; width: 220px; font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: .08em; color: #7D1238">09 · AFTER-CARE</div>
+
+<!-- lane: customer does -->
+<div style="position: absolute; left: 304px; top: 264px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Picks book type, size, cover and pages in the Book Builder; sees a live price</div>
+<div style="position: absolute; left: 576px; top: 264px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Creates an account (phone OTP) and pays the 50% deposit</div>
+<div style="position: absolute; left: 848px; top: 264px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Uploads photos into one folder per trip and adds story notes</div>
+<div style="position: absolute; left: 1120px; top: 264px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Waits; can still add notes or late photos until design starts</div>
+<div style="position: absolute; left: 1392px; top: 264px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Flips through spreads and pins comments on the exact spot</div>
+<div style="position: absolute; left: 1664px; top: 264px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Taps “Approve”, then pays the remaining 50%</div>
+<div style="position: absolute; left: 1936px; top: 264px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; color: #786669; background: #FFFFFF; border: 1px dashed #E7DDD4; border-radius: 12px">Nothing to do</div>
+<div style="position: absolute; left: 2208px; top: 264px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Follows the parcel on the tracking page or WhatsApp</div>
+<div style="position: absolute; left: 2480px; top: 264px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Leaves a review, orders extra copies, shares a referral code</div>
+
+<!-- lane: status customer sees -->
+<div style="position: absolute; left: 304px; top: 432px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #7D1238; color: #FFF6F0; border-radius: 12px"><span><b>Draft</b><br>Saved cart, not yet paid</span></div>
+<div style="position: absolute; left: 576px; top: 432px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #7D1238; color: #FFF6F0; border-radius: 12px"><span><b>Order confirmed</b><br>Deposit paid · order no. issued</span></div>
+<div style="position: absolute; left: 848px; top: 432px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #7D1238; color: #FFF6F0; border-radius: 12px"><span><b>Photos received</b><br>Shown once upload is marked done</span></div>
+<div style="position: absolute; left: 1120px; top: 432px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #7D1238; color: #FFF6F0; border-radius: 12px"><span><b>Designing your book</b><br>With an estimated proof date</span></div>
+<div style="position: absolute; left: 1392px; top: 432px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #7D1238; color: #FFF6F0; border-radius: 12px"><span><b>Proof ready · round n</b><br>Action needed: review</span></div>
+<div style="position: absolute; left: 1664px; top: 432px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #7D1238; color: #FFF6F0; border-radius: 12px"><span><b>Approved</b><br>Action needed: pay balance</span></div>
+<div style="position: absolute; left: 1936px; top: 432px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #7D1238; color: #FFF6F0; border-radius: 12px"><span><b>In print</b><br>Then “Wrapping your book”</span></div>
+<div style="position: absolute; left: 2208px; top: 432px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #7D1238; color: #FFF6F0; border-radius: 12px"><span><b>Shipped → Delivered</b><br>Courier events mirrored live</span></div>
+<div style="position: absolute; left: 2480px; top: 432px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #7D1238; color: #FFF6F0; border-radius: 12px"><span><b>Delivered</b><br>Review &amp; reorder prompts</span></div>
+
+<!-- lane: studio -->
+<div style="position: absolute; left: 304px; top: 600px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Answers DMs and WhatsApp; can send a custom quote link</div>
+<div style="position: absolute; left: 576px; top: 600px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Gets a new-order alert; order lands in “Awaiting photos”</div>
+<div style="position: absolute; left: 848px; top: 600px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Checks count and quality; asks for replacements if needed</div>
+<div style="position: absolute; left: 1120px; top: 600px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Curates, lays out story spreads, writes captions</div>
+<div style="position: absolute; left: 1392px; top: 600px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Resolves each pin, uploads the next round (unlimited)</div>
+<div style="position: absolute; left: 1664px; top: 600px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Locks the design; exports the print-ready PDF</div>
+<div style="position: absolute; left: 1936px; top: 600px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Prints, checks quality, wraps in gold ribbon, writes the note</div>
+<div style="position: absolute; left: 2208px; top: 600px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Books the courier from the studio app; hands over parcel</div>
+<div style="position: absolute; left: 2480px; top: 600px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Reposts unboxings (with consent); adds review to site</div>
+
+<!-- lane: system -->
+<div style="position: absolute; left: 304px; top: 768px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Saves the draft; WhatsApp nudge if the cart sits for 24h</div>
+<div style="position: absolute; left: 576px; top: 768px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Gateway webhook confirms; KSA orders get a ZATCA invoice with QR</div>
+<div style="position: absolute; left: 848px; top: 768px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Resumable uploads to cloud storage; reminders on day 3 and 7</div>
+<div style="position: absolute; left: 1120px; top: 768px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Turnaround clock per order; overdue flags on the board</div>
+<div style="position: absolute; left: 1392px; top: 768px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">WhatsApp + email on every round; keeps version history</div>
+<div style="position: absolute; left: 1664px; top: 768px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Sends the balance payment link; issues the final invoice</div>
+<div style="position: absolute; left: 1936px; top: 768px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Print queue batches by size; QC checklist per book</div>
+<div style="position: absolute; left: 2208px; top: 768px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Label + tracking via a shipping aggregator; courier webhooks</div>
+<div style="position: absolute; left: 2480px; top: 768px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Review request on day 3; reorder and referral codes</div>
+
+<!-- lane: money -->
+<div style="position: absolute; left: 304px; top: 936px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Price shown in SAR or PKR by location</div>
+<div style="position: absolute; left: 576px; top: 936px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFF4E6; border: 1px solid #E9CDA8; border-radius: 12px"><span><b>50% deposit</b><br>KSA: mada, Apple Pay, STC Pay, cards · PK: JazzCash, Easypaisa, cards, Raast</span></div>
+<div style="position: absolute; left: 848px; top: 936px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; color: #786669; background: #FFFFFF; border: 1px dashed #E7DDD4; border-radius: 12px">—</div>
+<div style="position: absolute; left: 1120px; top: 936px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; color: #786669; background: #FFFFFF; border: 1px dashed #E7DDD4; border-radius: 12px">—</div>
+<div style="position: absolute; left: 1392px; top: 936px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; color: #786669; background: #FFFFFF; border: 1px dashed #E7DDD4; border-radius: 12px">Revisions are free</div>
+<div style="position: absolute; left: 1664px; top: 936px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFF4E6; border: 1px solid #E9CDA8; border-radius: 12px"><span><b>50% balance</b><br>Same methods; BNPL (Tabby / Tamara) optional in KSA</span></div>
+<div style="position: absolute; left: 1936px; top: 936px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; color: #786669; background: #FFFFFF; border: 1px dashed #E7DDD4; border-radius: 12px">—</div>
+<div style="position: absolute; left: 2208px; top: 936px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Shipping charged at checkout, prepaid (no cash on delivery)</div>
+<div style="position: absolute; left: 2480px; top: 936px; width: 220px; height: 120px; box-sizing: border-box; padding: 14px; display: flex; align-items: center; background: #FFFFFF; border: 1px solid #E7DDD4; border-radius: 12px">Extra copies at reprint price; referral credit</div>
+
+<!-- lane labels -->
+<div style="position: absolute; left: 64px; top: 304px; width: 200px; font-weight: 700; font-size: 15px; line-height: 20px">Customer does</div>
+<div style="position: absolute; left: 64px; top: 472px; width: 200px; font-weight: 700; font-size: 15px; line-height: 20px; color: #7D1238">Status they see</div>
+<div style="position: absolute; left: 64px; top: 640px; width: 200px; font-weight: 700; font-size: 15px; line-height: 20px">Studio (Tazmeen &amp; Rameen)</div>
+<div style="position: absolute; left: 64px; top: 808px; width: 200px; font-weight: 700; font-size: 15px; line-height: 20px">System does automatically</div>
+<div style="position: absolute; left: 64px; top: 976px; width: 200px; font-weight: 700; font-size: 15px; line-height: 20px">Money</div>
+
+<!-- exceptions -->
+<div style="position: absolute; left: 64px; top: 1132px; font-family: Fraunces, Georgia, serif; font-size: 26px; line-height: 32px; font-weight: 500">Exception paths</div>
+<div style="position: absolute; left: 304px; top: 1196px; width: 492px; height: 120px; box-sizing: border-box; padding: 16px; display: flex; align-items: center; background: #FFF4E6; border: 1px solid #E9CDA8; border-radius: 12px"><span><b>Waiting for photos</b><br>No upload 3 days after deposit → reminder; day 7 → studio calls; day 30 → order paused</span></div>
+<div style="position: absolute; left: 848px; top: 1196px; width: 492px; height: 120px; box-sizing: border-box; padding: 16px; display: flex; align-items: center; background: #FFF4E6; border: 1px solid #E9CDA8; border-radius: 12px"><span><b>Payment failed</b><br>Order stays Draft; retry link by WhatsApp; studio can mark a bank transfer as paid by hand</span></div>
+<div style="position: absolute; left: 1392px; top: 1196px; width: 492px; height: 120px; box-sizing: border-box; padding: 16px; display: flex; align-items: center; background: #FFF4E6; border: 1px solid #E9CDA8; border-radius: 12px"><span><b>Cancellation</b><br>Before design starts → deposit refunded. After → [policy to confirm with the client]</span></div>
+<div style="position: absolute; left: 1936px; top: 1196px; width: 492px; height: 120px; box-sizing: border-box; padding: 16px; display: flex; align-items: center; background: #FFF4E6; border: 1px solid #E9CDA8; border-radius: 12px"><span><b>Delivery failed</b><br>Courier webhook flags it → customer reschedules from the tracking page</span></div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":2764,"height":1380}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

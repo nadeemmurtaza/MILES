@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Miles Retold — Midnight Atlas</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;1,6..96,400;1,6..96,500&amp;family=Figtree:wght@300;400;500;600&amp;family=Mrs+Saint+Delafield&amp;family=Noto+Naskh+Arabic:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#140810}
+a{color:#F2B880}a:hover{color:#F4E6DA}
+*{box-sizing:border-box}
+.bd{font-family:'Bodoni Moda',Didot,Georgia,serif}
+.sig{font-family:'Mrs Saint Delafield',cursive}
+.lb{font-family:Figtree,sans-serif;font-size:12px;letter-spacing:.3em;text-transform:uppercase;font-weight:500}
+.gt{background:linear-gradient(100deg,#F3B76B 0%,#E8892B 30%,#D33D5E 65%,#B0124F 100%);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 8s ease-in-out infinite}
+@keyframes sheen{0%,100%{background-position:0% 0}50%{background-position:100% 0}}
+.outline{color:transparent;-webkit-text-stroke:1px rgba(244,230,218,.35)}
+.bt{display:inline-flex;align-items:center;gap:14px;min-height:56px;padding:0 32px;border-radius:999px;font-family:Figtree,sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;text-decoration:none;font-weight:600;position:relative;overflow:hidden;transition:transform .6s cubic-bezier(.2,.8,.2,1),box-shadow .6s}
+.bt-p{background:linear-gradient(100deg,#E8892B,#C2185B);color:#FFF4EA}
+.bt-p:hover{color:#FFF4EA;transform:translateY(-3px);box-shadow:0 20px 50px -18px rgba(232,137,43,.7)}
+.bt-g{border:1px solid rgba(244,230,218,.3);color:#F4E6DA}
+.bt-g:hover{color:#F4E6DA;border-color:#F2B880;transform:translateY(-3px)}
+.nv{font-family:Figtree,sans-serif;font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:rgba(244,230,218,.75);text-decoration:none;transition:color .4s}
+.nv:hover{color:#F2B880}
+.kb{animation:kb 22s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.18) translate(-2%,-3%)}}
+.orb{filter:blur(80px);animation:orb 16s ease-in-out infinite alternate}
+@keyframes orb{to{transform:translate(80px,-60px) scale(1.2)}}
+.rise{animation:rise 1.6s cubic-bezier(.2,.8,.2,1) both}
+.d1{animation-delay:.2s}.d2{animation-delay:.45s}.d3{animation-delay:.7s}.d4{animation-delay:1s}
+@keyframes rise{from{opacity:0;transform:translateY(100%)}to{opacity:1;transform:none}}
+.fade{animation:fade 2s ease both}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.mask{overflow:hidden;display:block}
+.scrollcue{animation:cue 2.2s ease-in-out infinite}
+@keyframes cue{0%{transform:translateY(-100%)}100%{transform:translateY(200%)}}
+.arch{border-radius:999px 999px 18px 18px;overflow:hidden;position:relative}
+.arch img{transition:transform 1.6s cubic-bezier(.2,.8,.2,1),filter 1s}
+.archcard:hover .arch img{transform:scale(1.08);filter:saturate(1.15)}
+.archcard .cap2{transition:transform .8s cubic-bezier(.2,.8,.2,1),opacity .8s;transform:translateY(14px);opacity:.75}
+.archcard:hover .cap2{transform:none;opacity:1}
+.marq{display:flex;width:max-content;animation:marq 50s linear infinite}
+@keyframes marq{to{transform:translateX(-50%)}}
+.orbit{animation:spin 50s linear infinite}.orbit2{animation:spin 30s linear infinite reverse}
+@keyframes spin{to{transform:rotate(360deg)}}
+.rit{all:unset;cursor:pointer;display:grid;grid-template-columns:90px 1fr auto;gap:24px;align-items:center;padding:30px 0;border-bottom:1px solid rgba(244,230,218,.12);width:100%;min-height:44px}
+.rit:focus-visible{outline:2px solid #F2B880}
+.rit .t{font-family:'Bodoni Moda',serif;font-size:34px;color:rgba(244,230,218,.55);transition:color .5s}
+.rit:hover .t,.rit.on .t{color:#F4E6DA}
+.rit .k{font-family:'Bodoni Moda',serif;font-style:italic;font-size:22px;color:rgba(242,184,128,.5)}
+.rit.on .k{color:#F2B880}
+.rit .ic{transition:transform .6s}.rit.on .ic{transform:rotate(45deg)}
+.open{animation:open .8s cubic-bezier(.2,.8,.2,1) both}
+@keyframes open{from{opacity:0;transform:translateY(-12px)}to{opacity:1;transform:none}}
+.fill{transition:height 1s cubic-bezier(.6,0,.3,1)}
+.qt{animation:qt 1s cubic-bezier(.2,.8,.2,1) both}
+@keyframes qt{from{opacity:0;transform:translateY(30px);filter:blur(10px)}to{opacity:1;transform:none;filter:none}}
+.arrow{all:unset;cursor:pointer;width:56px;height:56px;border-radius:50%;border:1px solid rgba(244,230,218,.3);display:grid;place-items:center;transition:background .4s,border-color .4s}
+.arrow:hover{background:rgba(242,184,128,.12);border-color:#F2B880}
+.arrow:focus-visible{outline:2px solid #F2B880}
+@supports (animation-timeline: view()){
+.rv{animation:rv linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+.clip{animation:clip linear both;animation-timeline:view();animation-range:entry 0% cover 45%}
+.par{animation:par linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+}
+@keyframes rv{from{opacity:0;transform:translateY(70px)}to{opacity:1;transform:none}}
+@keyframes clip{from{clip-path:inset(30% 20% 30% 20% round 24px);opacity:.3}to{clip-path:inset(0 0 0 0 round 0);opacity:1}}
+@keyframes par{from{transform:translateY(80px)}to{transform:translateY(-80px)}}
+.still *{animation:none !important}
+@media (max-width:900px){
+.two,.cols{grid-template-columns:1fr !important}
+.arches{grid-template-columns:1fr 1fr !important}
+.nums{grid-template-columns:1fr 1fr !important}
+.navside{display:none !important}
+.mega{font-size:72px !important}
+.sec{padding-left:22px !important;padding-right:22px !important}
+.rit{grid-template-columns:56px 1fr auto !important}
+}
+@media (max-width:560px){.arches{grid-template-columns:1fr !important}.mega{font-size:54px !important}}
+/* MOBILE TYPE SCALE */
+@media (max-width:600px){[style*="font-size: 18px"]{font-size:16px!important}[style*="font-size: 26px"]{font-size:20px!important}[style*="font-size: 28px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 34px"]{font-size:clamp(24px,7vw,30px)!important;line-height:1.12}[style*="font-size: 36px"]{font-size:clamp(24px,7vw,30px)!important;line-height:1.12}[style*="font-size: 44px"]{font-size:clamp(28px,8vw,36px)!important;line-height:1.12}[style*="font-size: 50px"]{font-size:clamp(28px,8vw,36px)!important;line-height:1.12}[style*="font-size: 54px"]{font-size:clamp(28px,8vw,36px)!important;line-height:1.12}[style*="font-size: 60px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 62px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 64px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 70px"]{font-size:clamp(32px,9vw,42px)!important;line-height:1.12}[style*="font-size: 80px"]{font-size:clamp(36px,10.5vw,48px)!important;line-height:1.12}[style*="font-size: 90px"]{font-size:clamp(36px,10.5vw,48px)!important;line-height:1.12}[style*="font-size: 120px"]{font-size:clamp(40px,11.5vw,56px)!important;line-height:1.12}[style*="font-size: 150px"]{font-size:clamp(40px,11.5vw,56px)!important;line-height:1.12}[style*="font-size: 180px"]{font-size:clamp(40px,11.5vw,56px)!important;line-height:1.12}h1{line-height:1.04!important;letter-spacing:-.01em}h2,h3{line-height:1.1!important}p,li,figcaption,label{overflow-wrap:anywhere}}
+/* END MOBILE TYPE SCALE */
+</style>
+</helmet>
+<div class="{{motionClass}}" style="font-family: Figtree, sans-serif; color: #F4E6DA; background: #140810; width: 100%; overflow: hidden">
+
+<!-- hero -->
+<section id="top" style="position: relative; min-height: 940px; overflow: hidden">
+<div class="orb" style="position: absolute; width: 520px; height: 520px; border-radius: 50%; background: #B0124F; opacity: .45; left: -120px; top: 200px"></div>
+<div class="orb" style="position: absolute; width: 460px; height: 460px; border-radius: 50%; background: #E8892B; opacity: .3; right: -100px; top: 40px; animation-delay: -6s"></div>
+<header class="sec" style="position: relative; z-index: 5; max-width: 1360px; margin: 0 auto; padding: 30px 48px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px">
+<div class="navside" style="display: flex; gap: 34px"><a class="nv" href="#origin">Origin</a><a class="nv" href="#collection">Collection</a><a class="nv" href="#ritual">The Ritual</a></div>
+<a href="#top" style="text-decoration: none; text-align: center; line-height: 1"><span class="bd gt" style="font-size: 36px; font-weight: 500">MiLes</span><span style="display: block; font-family: 'Bodoni Moda', serif; font-size: 10px; letter-spacing: .7em; color: #F2B880; margin-top: 4px; padding-left: .7em">RETOLD</span></a>
+<div style="display: flex; gap: 34px; justify-content: flex-end; align-items: center"><a class="nv navside" href="#voices">Voices</a><a class="nv navside" href="#p195">195</a><a class="bt bt-g" href="#begin" style="min-height: 46px; padding: 0 22px; font-size: 11px">Begin</a></div>
+</header>
+<div class="sec" style="position: relative; z-index: 3; max-width: 1360px; margin: 0 auto; padding: 60px 48px 0; display: grid; grid-template-columns: 1fr; justify-items: center; text-align: center">
+<div class="lb fade" style="color: #F2B880">Customised travel photobooks · KSA &amp; Pakistan</div>
+<h1 class="bd mega" style="font-size: 150px; line-height: .92; font-weight: 400; margin: 30px 0 0; letter-spacing: -.02em">
+<span class="mask"><span class="rise d1" style="display: block">Every mile,</span></span>
+<span class="mask"><span class="rise d2 gt" style="display: block; font-style: italic">retold.</span></span>
+</h1>
+</div>
+<div class="fade" style="position: relative; z-index: 2; width: min(760px, 86%); margin: -40px auto 0; height: 420px; animation-delay: .6s">
+<div class="arch" style="height: 100%; box-shadow: 0 60px 120px -40px rgba(176,18,79,.55)"><img class="kb" src="/assets/d79cb5916bf021b810ad3e0168beec13.jpg" alt="A spread of Miles Retold travel and wedding photobooks" style="display: block; width: 100%; height: 100%; object-fit: cover; opacity: .9"></div>
+</div>
+<div class="sec" style="position: relative; z-index: 4; max-width: 1360px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: flex-end; gap: 30px; flex-wrap: wrap; transform: translateY(-120px)">
+<p class="rise d3" style="max-width: 340px; font-size: 17px; line-height: 1.75; color: rgba(244,230,218,.8); margin: 0; font-weight: 300; text-align: left">Your camera roll, transformed into a hand-designed hardcover. No templates. No AI-generated stories.</p>
+<div class="rise d4" style="display: flex; gap: 12px; flex-wrap: wrap"><a class="bt bt-p" href="#begin">Begin your chapter</a><a class="bt bt-g" href="#ritual">The ritual</a></div>
+</div>
+<div style="position: absolute; left: 50%; bottom: 30px; translate: -50% 0; width: 1px; height: 70px; background: rgba(244,230,218,.15); overflow: hidden"><div class="scrollcue" style="width: 1px; height: 30px; background: #F2B880"></div></div>
+</section>
+
+<!-- numbers -->
+<section style="border-top: 1px solid rgba(244,230,218,.1); border-bottom: 1px solid rgba(244,230,218,.1)">
+<div class="sec nums" style="max-width: 1360px; margin: 0 auto; padding: 50px 48px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 30px">
+<div class="rv"><div class="bd gt" style="font-size: 64px; line-height: 1">20</div><div class="lb" style="font-size: 10px; color: rgba(244,230,218,.6); margin-top: 12px">Countries, together</div></div>
+<div class="rv"><div class="bd gt" style="font-size: 64px; line-height: 1">17</div><div class="lb" style="font-size: 10px; color: rgba(244,230,218,.6); margin-top: 12px">Books in one batch</div></div>
+<div class="rv"><div class="bd gt" style="font-size: 64px; line-height: 1">∞</div><div class="lb" style="font-size: 10px; color: rgba(244,230,218,.6); margin-top: 12px">Revisions until you love it</div></div>
+<div class="rv"><div class="bd gt" style="font-size: 64px; line-height: 1">1</div><div class="lb" style="font-size: 10px; color: rgba(244,230,218,.6); margin-top: 12px">Handwritten note, every order</div></div>
+</div>
+</section>
+
+<!-- chapter I origin -->
+<section id="origin" class="sec two" style="max-width: 1360px; margin: 0 auto; padding: 160px 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 90px; align-items: center">
+<div>
+<div style="display: flex; align-items: baseline; gap: 22px"><span class="bd outline" style="font-size: 150px; line-height: .8">I</span><span class="lb" style="color: #F2B880">Chapter one · Origin</span></div>
+<h2 class="bd rv" style="font-size: 62px; line-height: 1.04; font-weight: 400; margin: 40px 0 0">Two sisters, a thousand photos, and <em class="gt">a book that changed everything.</em></h2>
+<p class="rv" style="font-size: 18px; line-height: 1.85; color: rgba(244,230,218,.75); font-weight: 300; margin: 30px 0 0">Tazmeen &amp; Rameen’s phones were full of travel photos they almost never looked at again. So they began turning their own trips into photobooks — and every time they flipped through one, it felt like traveling all over again.</p>
+<p class="bd rv" style="font-size: 26px; font-style: italic; line-height: 1.45; color: #F2B880; margin: 34px 0 0">“Books you’ll treasure today — and your family will treasure tomorrow.”</p>
+<div class="sig rv" style="font-size: 54px; color: #F4E6DA; margin-top: 18px">Tazmeen &amp; Rameen</div>
+</div>
+<div style="position: relative; height: 680px">
+<div class="clip" style="position: absolute; right: 0; top: 0; width: 78%; height: 560px; border-radius: 24px; overflow: hidden"><img class="par" src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt="Tazmeen and Rameen" style="display: block; width: 100%; height: 125%; object-fit: cover; margin-top: -10%"></div>
+<div class="rv" style="position: absolute; left: 0; bottom: 0; width: 46%; height: 300px; border-radius: 18px; overflow: hidden; border: 1px solid rgba(242,184,128,.4); box-shadow: 0 40px 80px -30px rgba(0,0,0,.8)"><img src="/assets/3936155b1de2d6f9d237753228c056d0.jpg" alt="Writing a personal note" style="display: block; width: 100%; height: 100%; object-fit: cover"></div>
+</div>
+</section>
+
+<!-- chapter II collection -->
+<section id="collection" style="background: #1C0B15; padding: 150px 0">
+<div class="sec" style="max-width: 1360px; margin: 0 auto; padding: 0 48px">
+<div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 24px">
+<div><div style="display: flex; align-items: baseline; gap: 22px"><span class="bd outline" style="font-size: 150px; line-height: .8">II</span><span class="lb" style="color: #F2B880">Chapter two · The collection</span></div>
+<h2 class="bd rv" style="font-size: 62px; line-height: 1.04; font-weight: 400; margin: 34px 0 0; max-width: 760px">Made to be held, shared, <em class="gt">and passed down.</em></h2></div>
+</div>
+<div class="arches" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 24px; margin-top: 70px">
+<a href="#begin" class="archcard rv" style="text-decoration: none; color: inherit"><div class="arch" style="height: 440px"><img src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt="Travel journey books" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div class="cap2" style="padding-top: 22px"><div class="lb" style="font-size: 10px; color: #F2B880">No. 01</div><div class="bd" style="font-size: 28px; margin-top: 8px">Travel Journeys</div></div></a>
+<a href="#begin" class="archcard rv" style="text-decoration: none; color: inherit; margin-top: 60px"><div class="arch" style="height: 440px"><img src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt="Love story book with note" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div class="cap2" style="padding-top: 22px"><div class="lb" style="font-size: 10px; color: #F2B880">No. 02</div><div class="bd" style="font-size: 28px; margin-top: 8px">Weddings &amp; Love Stories</div></div></a>
+<a href="#begin" class="archcard rv" style="text-decoration: none; color: inherit"><div class="arch" style="height: 440px"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="Maldives honeymoon book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div class="cap2" style="padding-top: 22px"><div class="lb" style="font-size: 10px; color: #F2B880">No. 03</div><div class="bd" style="font-size: 28px; margin-top: 8px">Honeymoons</div></div></a>
+<a href="#begin" class="archcard rv" style="text-decoration: none; color: inherit; margin-top: 60px"><div class="arch" style="height: 440px"><img src="/assets/9f9b9c7ec3fe289da29a671ba7b77b77.jpg" alt="Illustrated poster-style city covers" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div class="cap2" style="padding-top: 22px"><div class="lb" style="font-size: 10px; color: #F2B880">No. 04</div><div class="bd" style="font-size: 28px; margin-top: 8px">Illustrated City Editions</div></div></a>
+</div>
+</div>
+<div style="margin-top: 110px; overflow: hidden"><div class="marq bd" style="gap: 60px; font-size: 80px; font-style: italic; white-space: nowrap"><span class="outline">No templates</span><span class="gt">✦</span><span class="outline">No AI stories</span><span class="gt">✦</span><span class="outline">Just your memories</span><span class="gt">✦</span><span class="outline">No templates</span><span class="gt">✦</span><span class="outline">No AI stories</span><span class="gt">✦</span><span class="outline">Just your memories</span><span class="gt">✦</span></div></div>
+</section>
+
+<!-- chapter III ritual -->
+<section id="ritual" class="sec cols" style="max-width: 1360px; margin: 0 auto; padding: 160px 48px; display: grid; grid-template-columns: .9fr 1.3fr; gap: 80px; align-items: start">
+<div style="position: sticky; top: 40px">
+<div style="display: flex; align-items: baseline; gap: 22px"><span class="bd outline" style="font-size: 150px; line-height: .8">III</span><span class="lb" style="color: #F2B880">The ritual</span></div>
+<h2 class="bd" style="font-size: 60px; line-height: 1.04; font-weight: 400; margin: 34px 0 0">How a book <em class="gt">comes to life.</em></h2>
+<p style="font-size: 17px; line-height: 1.8; color: rgba(244,230,218,.7); font-weight: 300; margin: 24px 0 0">Five quiet steps. You do the remembering — we do the rest.</p>
+<div style="margin-top: 40px; display: flex; gap: 18px; align-items: center">
+<div style="width: 3px; height: 160px; background: rgba(244,230,218,.12); border-radius: 3px; overflow: hidden"><div class="fill" style="width: 3px; height: {{fillH}}; background: linear-gradient(#F3B76B,#C2185B)"></div></div>
+<div><div class="bd gt" style="font-size: 90px; line-height: 1">{{cur.num}}</div><div class="lb" style="font-size: 10px; color: rgba(244,230,218,.6)">of 05</div></div>
+</div>
+</div>
+<div style="border-top: 1px solid rgba(244,230,218,.12)">
+<sc-for list="{{steps}}" as="s" hint-placeholder-count="5">
+<div>
+<button class="{{s.cls}}" onClick="{{s.pick}}" aria-expanded="{{s.exp}}">
+<span class="k">{{s.num}}</span>
+<span class="t">{{s.title}}</span>
+<svg class="ic" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#F2B880" stroke-width="1.3" aria-hidden="true"><path d="M12 4v16M4 12h16"/></svg>
+</button>
+<sc-if value="{{s.isOpen}}" hint-placeholder-val="{{ false }}">
+<div class="open" style="padding: 0 0 36px 114px">
+<p style="font-size: 17px; line-height: 1.85; color: rgba(244,230,218,.75); font-weight: 300; margin: 0; max-width: 560px">{{s.body}}</p>
+<div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 22px">
+<sc-for list="{{s.points}}" as="p" hint-placeholder-count="3"><span style="border: 1px solid rgba(242,184,128,.35); color: #F2B880; border-radius: 999px; padding: 9px 16px; font-size: 13px">{{p}}</span></sc-for>
+</div>
+</div>
+</sc-if>
+</div>
+</sc-for>
+<div style="margin-top: 40px; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid rgba(242,184,128,.3); border-radius: 24px; overflow: hidden">
+<div style="padding: 30px; border-right: 1px solid rgba(242,184,128,.3)"><div class="bd gt" style="font-size: 54px; line-height: 1">50%</div><div class="lb" style="font-size: 10px; margin-top: 10px">Deposit</div><div style="font-size: 14px; color: rgba(244,230,218,.65); margin-top: 6px">to confirm and begin designing</div></div>
+<div style="padding: 30px"><div class="bd gt" style="font-size: 54px; line-height: 1">50%</div><div class="lb" style="font-size: 10px; margin-top: 10px">Balance</div><div style="font-size: 14px; color: rgba(244,230,218,.65); margin-top: 6px">after you approve the final design</div></div>
+</div>
+</div>
+</section>
+
+<!-- chapter IV finishing touch -->
+<section style="position: relative; height: 760px; overflow: hidden">
+<img class="par" src="/assets/0ccb3d30f4e2f37224ca46c8be035a25.jpg" alt="A book wrapped in kraft paper and gold satin ribbon" style="position: absolute; inset: -80px 0; width: 100%; height: calc(100% + 160px); object-fit: cover; opacity: .55">
+<div style="position: absolute; inset: 0; background: linear-gradient(90deg, rgba(20,8,16,.95) 0%, rgba(20,8,16,.75) 45%, rgba(20,8,16,.2) 100%)"></div>
+<div class="sec" style="position: relative; max-width: 1360px; margin: 0 auto; padding: 0 48px; height: 100%; display: flex; flex-direction: column; justify-content: center">
+<div style="display: flex; align-items: baseline; gap: 22px"><span class="bd outline" style="font-size: 150px; line-height: .8">IV</span><span class="lb" style="color: #F2B880">The finishing touch</span></div>
+<p class="bd rv" style="font-size: 50px; line-height: 1.2; font-style: italic; margin: 40px 0 0; max-width: 760px">“Every time I pack an order, I write a personal note myself — because I want my clients to know there is a real person behind it.”</p>
+<p class="rv" style="font-size: 16px; color: rgba(244,230,218,.7); margin: 26px 0 0">Kraft paper · gold ribbon · a handwritten note, every time.</p>
+</div>
+</section>
+
+<!-- chapter V voices -->
+<section id="voices" class="sec" style="max-width: 1100px; margin: 0 auto; padding: 160px 48px; text-align: center">
+<div style="display: inline-flex; align-items: baseline; gap: 22px"><span class="bd outline" style="font-size: 150px; line-height: .8">V</span><span class="lb" style="color: #F2B880">Voices</span></div>
+<div class="qt" key="{{qKey}}" style="margin-top: 50px; min-height: 380px">
+<sc-if value="{{q.ar}}" hint-placeholder-val="{{ false }}"><p dir="rtl" lang="ar" style="font-family: 'Noto Naskh Arabic', serif; font-size: 26px; line-height: 1.8; color: #F2B880; margin: 0 0 22px">{{q.ar}}</p></sc-if>
+<p class="bd" style="font-size: 44px; line-height: 1.25; margin: 0; color: {{q.color}}">“{{q.text}}”</p>
+<p class="lb" style="color: #F2B880; margin: 34px 0 0">{{q.who}}</p>
+</div>
+<div style="display: flex; justify-content: center; align-items: center; gap: 22px; margin-top: 40px">
+<button class="arrow" onClick="{{prevQ}}" aria-label="Previous review"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4E6DA" stroke-width="1.5"><path d="M19 12H5M11 6l-6 6 6 6"/></svg></button>
+<span class="lb" style="font-size: 11px; color: rgba(244,230,218,.6)">{{qPos}}</span>
+<button class="arrow" onClick="{{nextQ}}" aria-label="Next review"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#F4E6DA" stroke-width="1.5"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
+</div>
+</section>
+
+<!-- 195 -->
+<section id="p195" style="background: #1C0B15; padding: 150px 0; overflow: hidden">
+<div class="sec two" style="max-width: 1360px; margin: 0 auto; padding: 0 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center">
+<div style="position: relative; aspect-ratio: 1; width: 100%; max-width: 580px">
+<svg class="orbit" viewBox="0 0 400 400" style="position: absolute; inset: 0; width: 100%; height: 100%" fill="none" aria-hidden="true"><circle cx="200" cy="200" r="190" stroke="#F2B880" stroke-opacity=".25" stroke-dasharray="1 7"/><circle cx="390" cy="200" r="6" fill="#E8892B"/></svg>
+<svg class="orbit2" viewBox="0 0 400 400" style="position: absolute; inset: 0; width: 100%; height: 100%" fill="none" aria-hidden="true"><ellipse cx="200" cy="200" rx="160" ry="70" stroke="#C2185B" stroke-opacity=".4"/><ellipse cx="200" cy="200" rx="70" ry="160" stroke="#C2185B" stroke-opacity=".25"/><circle cx="360" cy="200" r="5" fill="#C2185B"/></svg>
+<div style="position: absolute; inset: 0; display: grid; place-items: center"><div class="bd gt" style="font-size: 180px; line-height: 1">195</div></div>
+</div>
+<div>
+<div class="lb rv" style="color: #F2B880">The 195 Project</div>
+<h2 class="bd rv" style="font-size: 62px; line-height: 1.04; font-weight: 400; margin: 24px 0 0">Every country on Earth. <em class="gt">One story at a time.</em></h2>
+<p class="rv" style="font-size: 17px; line-height: 1.85; color: rgba(244,230,218,.72); font-weight: 300; margin: 26px 0 0">[Two lines on the 195 Project — what it is and how people can be part of it.]</p>
+<a class="bt bt-g rv" href="#p195" style="margin-top: 34px">Follow the project</a>
+</div>
+</div>
+</section>
+
+<!-- begin -->
+<section id="begin" style="position: relative; padding: 180px 24px 160px; text-align: center; overflow: hidden">
+<div class="orb" style="position: absolute; width: 700px; height: 400px; border-radius: 50%; background: #B0124F; opacity: .35; left: 50%; top: 40%; translate: -50% -50%"></div>
+<div style="position: relative">
+<div class="sig rv" style="font-size: 70px; color: #F2B880">your story, next</div>
+<h2 class="bd mega rv" style="font-size: 120px; line-height: .95; font-weight: 400; margin: 10px 0 0">Begin your <em class="gt">chapter.</em></h2>
+<p class="rv" style="font-size: 18px; line-height: 1.7; color: rgba(244,230,218,.75); max-width: 520px; margin: 30px auto 0; font-weight: 300">DM “BOOK” and we’ll take it from there. Delivering across Saudi Arabia &amp; Pakistan.</p>
+<p class="rv" style="font-family: 'Noto Naskh Arabic', serif; font-size: 26px; color: #F2B880; margin: 22px 0 0" dir="rtl">نحوّل رحلاتك إلى كتب ذكريات</p>
+<div class="rv" style="display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 44px"><a class="bt bt-p" href="https://instagram.com/milesretold">DM “BOOK” on Instagram</a><a class="bt bt-g" href="#begin">WhatsApp [number]</a></div>
+</div>
+</section>
+
+<footer style="border-top: 1px solid rgba(244,230,218,.1); padding: 50px 0">
+<div class="sec" style="max-width: 1360px; margin: 0 auto; padding: 0 48px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 24px">
+<div class="bd gt" style="font-size: 34px">MiLes <span style="font-size: 12px; letter-spacing: .5em">RETOLD</span></div>
+<p class="bd" style="font-style: italic; font-size: 16px; color: rgba(244,230,218,.6); margin: 0; max-width: 460px">For the moments too beautiful to forget — again &amp; again.</p>
+<div style="display: flex; gap: 24px; font-size: 14px"><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span style="color: rgba(244,230,218,.5)">© 2026</span></div>
+</div>
+</footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"motion":{"editor":"boolean","default":true,"section":"Motion"},"$preview":{"width":1440,"height":7600}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { step: 0, q: 0 }; }
+  renderVals() {
+    const data = [
+      { num: '01', title: 'Say hello', body: 'Send “BOOK” on Instagram. Tell us the trip, the occasion and who it’s for — we reply personally.', points: ['Choose your book', 'Share the occasion'] },
+      { num: '02', title: 'Share your photos', body: 'We send a private Google Drive link. Upload your favourites; multiple trips go in separate folders. The easier it is to share, the better your book tells your story.', points: ['Private Drive link', 'One folder per trip'] },
+      { num: '03', title: 'Confirm your book', body: 'A 50% deposit confirms your order and design begins. The remaining 50% is paid after you approve the final design.', points: ['Photos received', 'Order confirmed', 'Design begins'] },
+      { num: '04', title: 'We create the magic', body: 'Your photos are thoughtfully transformed into a completely personalised photobook — story-driven layouts, and unlimited revisions until you love it.', points: ['Thoughtful design', 'Story-driven layouts', 'Unlimited revisions'] },
+      { num: '05', title: 'Delivered, by hand', body: 'Approve and settle the balance. Your hardcover is printed, wrapped in gold ribbon with a handwritten note, and delivered across KSA or Pakistan.', points: ['Premium hardcover', 'Gold ribbon & note'] }
+    ];
+    const quotes = [
+      { text: 'You didn’t just create a photobook — you retold our memories in the most beautiful way.', who: 'Jules · South Korea', color: '#F4E6DA', ar: '' },
+      { text: 'Honestly, I don’t know whether to talk about how beautiful the albums are, how kind you are to deal with, or your patience — all leading to an absolutely wonderful result.', who: 'Lujain · translated from Arabic', color: '#F4E6DA', ar: 'بصراحة ما بعرف احكي عن جمال الالبومات والا لطف تعاملك والا صبرك لنتيجة اكتر من رائعة' },
+      { text: 'Some memories may fade with time, but now I have something beautiful to look back on and relive them again and again.', who: 'Keith · six city books', color: '#F4E6DA', ar: '' },
+      { text: 'You didn’t just print our pictures — you turned them into a beautiful story filled with memories and emotions.', who: 'Dr. Nancy · family photobook', color: '#F4E6DA', ar: '' },
+      { text: 'The book turned out SO beautiful in real life — the details are everything.', who: 'Zainab · a gift for her husband', color: '#F4E6DA', ar: '' },
+      { text: 'They turned out even better than I imagined. We go over them every day.', who: 'Jiya · two travel albums', color: '#F4E6DA', ar: '' }
+    ];
+    const i = this.state.step, q = this.state.q;
+    const steps = data.map((d, k) => ({ ...d, isOpen: k === i, exp: k === i ? 'true' : 'false', cls: k === i ? 'rit on' : 'rit', pick: () => this.setState({ step: k }) }));
+    return {
+      steps, cur: data[i], fillH: ((i + 1) * 20) + '%',
+      q: quotes[q], qKey: 'q' + q, qPos: '0' + (q + 1) + ' / 0' + quotes.length,
+      nextQ: () => this.setState({ q: (q + 1) % quotes.length }),
+      prevQ: () => this.setState({ q: (q + quotes.length - 1) % quotes.length }),
+      motionClass: (this.props.motion ?? true) ? '' : 'still'
+    };
+  }
+}
+</script>
+</body>
+</html>
