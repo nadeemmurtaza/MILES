@@ -149,12 +149,22 @@
       for (var i = 0; i < 4; i++) if (d.indexOf(ARROWS[i]) === 0) { var sv = p.closest('svg'); if (sv && !sv.hasAttribute('data-mirror')) sv.setAttribute('data-mirror', ''); return; }
     });
   }
+  /* Fields read each value in its own direction: a Latin name, a phone number or an e-mail stays left-to-right
+     (so "Sara A." keeps its full stop and "+966 55 123 4567" is not reordered), Arabic text runs right-to-left. */
+  function fixFieldDir(on) {
+    [].forEach.call(document.querySelectorAll('input, textarea'), function (i) {
+      if (/^(checkbox|radio|range|hidden|file|submit|button|color)$/.test(i.type)) return;
+      if (on && !i.hasAttribute('dir')) { i.setAttribute('dir', 'auto'); i.setAttribute('data-ar-dir', ''); }
+      else if (!on && i.hasAttribute('data-ar-dir')) { i.removeAttribute('data-ar-dir'); i.removeAttribute('dir'); }
+    });
+  }
   function applyAll() {
     if (lang !== 'ar' || !dict) return;
     applying = true;
     try {
       mirrorIcons();
       translateNode(document.body, new WeakSet());
+      fixFieldDir(true);
       var t = document.title, ta = tr(t);
       if (ta && !document.documentElement.__titleEn) { document.documentElement.__titleEn = t; document.title = ta; }
     } finally { applying = false; if (window.__milesObs) window.__milesObs.takeRecords(); }
@@ -189,22 +199,26 @@
       if (b.getAttribute('aria-label') !== label && b.classList.contains('sh-lang')) b.setAttribute('aria-label', label);
     });
   }
-  function ensureArabicFont() {
+  function ensureArabicFont() {   // the @font-face rules live in site.css; this just starts the downloads before the first Arabic paint
     if (document.getElementById('miles-ar-font')) return;
-    var l = document.createElement('link');
-    l.id = 'miles-ar-font'; l.rel = 'stylesheet';
-    l.href = 'https://fonts.googleapis.com/css2?family=Noto+Kufi+Arabic:wght@400;500;600;700&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap';
-    document.head.appendChild(l);
+    ['plex-arabic-400', 'plex-arabic-600', 'amiri-400'].forEach(function (f, i) {
+      var l = document.createElement('link');
+      if (i === 0) l.id = 'miles-ar-font';
+      l.rel = 'preload'; l.as = 'font'; l.type = 'font/woff2'; l.crossOrigin = 'anonymous';
+      l.href = '/fonts/' + f + '.woff2';
+      document.head.appendChild(l);
+    });
   }
   function setLang(next) {
     lang = next;
     LS.set('miles.lang', lang);
+    try { document.dispatchEvent(new CustomEvent('miles:lang', { detail: lang })); } catch (e) {}
     if (lang === 'ar') {
       ensureArabicFont();
       loadDict(function () { setLangUI(); applyAll(); });
     } else {
       applying = true;
-      try { restoreAll(document.body); if (document.documentElement.__titleEn) { document.title = document.documentElement.__titleEn; document.documentElement.__titleEn = null; } }
+      try { restoreAll(document.body); fixFieldDir(false); if (document.documentElement.__titleEn) { document.title = document.documentElement.__titleEn; document.documentElement.__titleEn = null; } }
       finally { applying = false; }
       setLangUI();
     }

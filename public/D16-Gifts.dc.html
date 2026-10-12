@@ -14,7 +14,7 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Noto+Naskh+Arabic:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 a{color:#7D1238}a:hover{color:#B8304F}
@@ -188,9 +188,14 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1600}}'>
 class Component extends DCLogic {
-  constructor(p){ super(p); this.state = { cur: 'SAR', a: 1, t: 0, flip: false, hov: false, to: 'Mariam', from: 'Sara', msg: 'For your next trip — so it never gets lost in your camera roll.', ch: 0 }; }
+  constructor(p){ super(p); this.state = { cur: 'SAR', a: 1, t: 0, flip: false, hov: false, to: null, from: null, msg: null, ch: 0, lg: 0 }; }
+  componentDidMount() { document.addEventListener('miles:lang', () => this.setState({ lg: (this.state.lg || 0) + 1 })); }
   renderVals() {
     const st = this.state, set = (o) => this.setState(o);
+    // sample recipient / sender / note follow the site language until the visitor types their own
+    let ar = false; try { ar = localStorage.getItem('miles.lang') === 'ar'; } catch (e) {}
+    const D = ar ? { to: 'مريم', from: 'سارة', msg: 'لرحلتك القادمة — لئلا تضيع بين صور هاتفك.' } : { to: 'Mariam', from: 'Sara', msg: 'For your next trip — so it never gets lost in your camera roll.' };
+    const vTo = st.to == null ? D.to : st.to, vFrom = st.from == null ? D.from : st.from, vMsg = st.msg == null ? D.msg : st.msg;
     const A = st.cur === 'SAR' ? [['[—]', 'One small book'], ['[—]', 'Most popular'], ['[—]', 'Large book'], ['Custom', 'Any amount']] : [['[—]', 'One small book'], ['[—]', 'Most popular'], ['[—]', 'Large book'], ['Custom', 'Any amount']];
     const T = [{ name: 'Wine', bg: 'linear-gradient(135deg,#7D1238,#9E1046 60%,#C4661A)', fg: '#FFF6F0' }, { name: 'Dusty blue', bg: 'linear-gradient(135deg,#5E7FA6,#7E9CC0)', fg: '#FFF6F0' }, { name: 'Ivory', bg: 'linear-gradient(135deg,#F3EBDD,#E4D5C6)', fg: '#1F1418' }, { name: 'Midnight', bg: 'linear-gradient(135deg,#1F1418,#3A2830)', fg: '#F2B880' }];
     const C = ['WhatsApp', 'Email'];
@@ -201,7 +206,7 @@ class Component extends DCLogic {
       themes: T.map((x, i) => ({ ...x, cls: i === st.t ? 'th on' : 'th', pick: () => set({ t: i, flip: false }) })),
       bg: T[st.t].bg, fg: T[st.t].fg, amtLabel: amt, amtKey: 'a' + st.a + st.cur,
       sarCls: st.cur === 'SAR' ? 'chip on' : 'chip', pkrCls: st.cur === 'PKR' ? 'chip on' : 'chip', toSar: () => set({ cur: 'SAR' }), toPkr: () => set({ cur: 'PKR' }),
-      to: st.to || 'someone special', from: st.from || 'you', msg: st.msg, left: 140 - st.msg.length,
+      to: vTo || 'someone special', from: vFrom || 'you', msg: vMsg, left: 140 - vMsg.length,
       setTo: (e) => set({ to: e.target.value }), setFrom: (e) => set({ from: e.target.value }), setMsg: (e) => set({ msg: e.target.value, flip: true }), showBack: () => set({ flip: true }),
       flipDeg: flipped ? '180deg' : '0deg', flip: () => set({ flip: !st.flip }), flipKey: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); set({ flip: !st.flip }); } }, flipLabel: flipped ? 'Show the front' : 'Show the message',
       hoverOn: () => {}, hoverOff: () => {},

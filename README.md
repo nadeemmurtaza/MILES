@@ -16,6 +16,8 @@ The language button (and Account → Language) switches the whole site between E
 
 * Source strings and translations: `i18n-src/` — `keys.json` (English, numbered), `part-*.json` (first-pass Arabic by index), `fix-*.json` (professional-register Arabic, applied over the parts — edit these), `extra.json` (strings built in code), `scoped.json` (per-page overrides), `patterns.json` (strings with live values; `@1[zero|one|two|few|many]` picks the Arabic plural form for capture 1). Rebuild with `node scripts/build-i18n.mjs`.
 * Build: `node scripts/build-i18n.mjs` → `public/i18n/ar.js`.
+* Type: **IBM Plex Sans Arabic** for text and **Amiri** for display, both SIL Open Font License, self-hosted in `public/fonts/` (Arabic glyphs only; licences alongside). Latin letters, digits and prices stay Manrope / Fraunces so they look the same in both languages. The `@font-face` rules and the `--ar-font` / `--ar-display` stacks are at the top and in the "Arabic / right-to-left" block of `public/site.css` — to use a commercially licensed face instead, change those two variables and the `@font-face` sources.
+* Arabic never gets italics or letter-spacing (both break the script); `public/site.css` switches them off under `html.is-ar`.
 * A sentence is matched as a whole (live values and inline elements are `{0}`, `{1}` slots), so Arabic word order is kept while the page's own bindings keep working.
 
 ## Preview locally

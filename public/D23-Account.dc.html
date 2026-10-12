@@ -14,7 +14,7 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;family=Noto+Naskh+Arabic:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 a{color:#7D1238}a:hover{color:#B8304F}
@@ -226,8 +226,8 @@ class Component extends DCLogic {
       hasUndo: !!st.undo, undoName: st.undo ? A[st.undo.i][0] : '',
       doUndo: () => { const u = st.undo; if (!u) return; const a = st.addrs.slice(); a.splice(Math.min(u.pos, a.length), 0, u.i); set({ addrs: a, undo: null }); },
       ccs: ['Saudi Arabia', 'Pakistan'].map((n) => ({ n, cls: st.cc === n ? 'on' : '', pick: () => set({ cc: n }) })), fields: F.map((f) => ({ l: f[0], p: f[1] })), add: () => set({ addrs: [0, 1], undo: null }),
-      langs: [['en', 'English', 'Left to right', 'ltr', 'Fraunces, serif'], ['ar', 'العربية', 'من اليمين إلى اليسار', 'rtl', '\'Noto Naskh Arabic\', serif']].map((l) => ({ big: l[1], d: l[2], dir: l[3], f: l[4], on: st.lang === l[0] ? 'true' : 'false', cls: st.lang === l[0] ? 'pm on' : 'pm', pick: () => { set({ lang: l[0] }); try { if (window.milesI18n) window.milesI18n.setLang(l[0]); } catch (e) {} } })),
-      dir: st.lang === 'ar' ? 'rtl' : 'ltr', pf: st.lang === 'ar' ? '\'Noto Naskh Arabic\', serif' : 'Fraunces, serif', pv: st.lang === 'ar' ? 'كل رحلة تستحق كتاباً.' : 'Every trip deserves a hardcover.',
+      langs: [['en', 'English', 'Left to right', 'ltr', 'Fraunces, serif'], ['ar', 'العربية', 'من اليمين إلى اليسار', 'rtl', 'Amiri, serif']].map((l) => ({ big: l[1], d: l[2], dir: l[3], f: l[4], on: st.lang === l[0] ? 'true' : 'false', cls: st.lang === l[0] ? 'pm on' : 'pm', pick: () => { set({ lang: l[0] }); try { if (window.milesI18n) window.milesI18n.setLang(l[0]); } catch (e) {} } })),
+      dir: st.lang === 'ar' ? 'rtl' : 'ltr', pf: st.lang === 'ar' ? 'Amiri, serif' : 'Fraunces, serif', pv: st.lang === 'ar' ? 'كل رحلة تستحق كتاباً.' : 'Every trip deserves a hardcover.',
       curs: ['SAR', 'PKR'].map((n) => ({ n, cls: st.cur === n ? 'on' : '', pick: () => set({ cur: n }) })),
       notes: NT.map((t, i) => { const w = st.n['w' + i], e = st.n['e' + i]; return { t, wo: w ? 'true' : 'false', wc: w ? 'tog on' : 'tog', w: () => set({ n: { ...st.n, ['w' + i]: !w } }), eo: e ? 'true' : 'false', ec: e ? 'tog on' : 'tog', e: () => set({ n: { ...st.n, ['e' + i]: !e } }) }; }) };
   }
