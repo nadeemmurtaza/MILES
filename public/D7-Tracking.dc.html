@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
-<title>D · Order tracking</title>
+<script src="/chrome.js" defer></script>
+<title>Miles Retold · Track your order</title>
 <script src="./support.js"></script>
 <link rel="icon" type="image/svg+xml" href="/assets/ba8a47ecfe93acbd68bd017714519801.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="/assets/e8c29624c47de066f3c28cb82d08b58a.png">
@@ -23,6 +24,10 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A;color:#FFF6F0;transform:translateY(-2px)}
 .bs{background:#fff;color:#1F1418;border:1px solid #E7DDD4}.bs:hover{border-color:#1F1418;color:#1F1418}
 .box{background:#fff;border:1px solid #E7DDD4;border-radius:22px}
+.inp{width:100%;min-height:52px;border:1.5px solid #E7DDD4;border-radius:14px;padding:0 16px;font:500 16px Manrope,sans-serif;color:#1F1418;background:#fff;box-sizing:border-box}
+.inp:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 3px rgba(125,18,56,.12)}
+.inp.bad{border-color:#A3123F}
+.lk label{display:block;font-size:13px;font-weight:700;margin:0 0 6px}
 .ring{animation:ring 2s infinite}@keyframes ring{0%{box-shadow:0 0 0 0 rgba(184,48,79,.45)}70%{box-shadow:0 0 0 14px rgba(184,48,79,0)}100%{box-shadow:0 0 0 0 rgba(184,48,79,0)}}
 .ev{animation:ev .7s cubic-bezier(.2,.8,.2,1) both}@keyframes ev{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
 .van{animation:van 3.5s ease-in-out infinite alternate}@keyframes van{from{left:0%}to{left:calc(100% - 44px)}}
@@ -47,14 +52,49 @@ a{color:#7D1238}a:hover{color:#B8304F}
 </style>
 </helmet>
 <div style="font-family: Manrope, sans-serif; color: #1F1418; background: #F6F1EA; width: 100%; min-height: 100vh; min-height: 100svh">
-<header style="background: #fff; border-bottom: 1px solid #E7DDD4">
-<div class="pad" style="max-width: 1180px; margin: 0 auto; padding: 14px 32px; display: flex; align-items: center; justify-content: space-between; gap: 16px">
-<a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="text-decoration: none; display: flex; align-items: center; gap: 10px; min-height: 44px"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span style="display: flex; flex-direction: column; line-height: 1"><span class="fr" style="font-size: 26px; font-weight: 600; letter-spacing: -.01em; line-height: .8; color: #7D1238">MiLes</span> <span class="rt" style="font-size: 7.8px; margin-top: 2px; color: #7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
-<a href="D5-Portal.dc.html" style="font-weight: 700; font-size: 14px">Sign in for full details</a>
+<!--chrome:header-->
+<header class="sh" data-chrome="header">
+<div class="sh-in">
+<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-size:28px;font-weight:600;letter-spacing:-.01em;line-height:.8;color:#7D1238">MiLes</span> <span class="rt" style="font-size:8.4px;margin-top:3px;color:#7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<nav class="sh-nav" aria-label="Main"><a href="D21-Books.dc.html">Books</a><a href="D1-Motion.dc.html#how">How it works</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D13-Story.dc.html">Our story</a><a href="D16-Gifts.dc.html">Gifts</a><a href="D15-Help.dc.html">Help</a></nav>
+<div class="sh-tools">
+<a class="sh-track" href="D7-Tracking.dc.html">Track</a>
+<button class="sh-lang" type="button" data-lang-toggle aria-label="العربية — switch to Arabic"><span lang="ar">ع</span></button>
+<a class="sh-cart" href="D19-Cart.dc.html" data-cart aria-label="Cart"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg><b data-cart-count>4</b></a>
+<a class="sh-acct" href="D11-SignIn.dc.html" data-auth-link>Sign in</a>
+<a class="sh-cta" href="D2-Builder.dc.html">Start a book</a>
+<details class="sh-menu"><summary class="sh-burger" aria-label="Menu"><span class="sh-bars"><i></i><i></i><i></i></span></summary>
+<div class="sh-drawer"><nav aria-label="Mobile"><a href="D21-Books.dc.html">Books</a><a href="D1-Motion.dc.html#how">How it works</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D13-Story.dc.html">Our story</a><a href="D16-Gifts.dc.html">Gifts</a><a href="D15-Help.dc.html">Help</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><button type="button" class="sh-lang-m" data-lang-toggle>العربية</button><a class="sh-cta" href="D2-Builder.dc.html">Start a book</a></nav></div>
+</details>
+</div>
 </div>
 </header>
+<!--/chrome:header-->
+
 
 <main class="pad" style="max-width: 1180px; margin: 0 auto; padding: 40px 32px 80px">
+<sc-if value="{{showLookup}}" hint-placeholder-val="{{ true }}">
+<section class="lk" aria-labelledby="lk-h" style="max-width: 560px; margin: clamp(8px, 4svh, 56px) auto 0">
+<p style="font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: #7D1238; margin: 0">Order tracking</p>
+<h1 id="lk-h" class="fr" style="font-size: clamp(36px, 7vw, 52px); line-height: 1.05; font-weight: 500; margin: 10px 0 0">Track your order</h1>
+<p style="font-size: 17px; line-height: 1.6; color: #5C4B50; margin: 12px 0 0">Enter the order number from your confirmation message. No account needed.</p>
+<div class="box" style="margin-top: 26px; padding: clamp(20px, 4vw, 32px)">
+<div><label for="lk-order">Order number</label><input id="lk-order" class="{{orderCls}}" inputmode="text" autocomplete="off" autocapitalize="characters" placeholder="MR-1042" value="{{q}}" onInput="{{setQ}}" onKeyDown="{{key}}" aria-describedby="lk-err"></div>
+<div style="margin-top: 16px"><label for="lk-contact">Phone or email used on the order</label><input id="lk-contact" class="{{contactCls}}" autocomplete="email" placeholder="+966 5x xxx xxxx or you@example.com" value="{{contact}}" onInput="{{setContact}}" onKeyDown="{{key}}" aria-describedby="lk-err"></div>
+<p id="lk-err" role="alert" style="font-size: 14px; line-height: 1.5; color: #A3123F; min-height: 21px; margin: 12px 0 0">{{err}}</p>
+<button class="btn bp" onClick="{{submit}}" style="width: 100%; min-height: 54px; margin-top: 6px">Track order</button>
+<p style="font-size: 13px; color: #6B5A5F; margin: 12px 0 0; text-align: center">Demo order: <span class="mono">MR-1042</span></p>
+</div>
+<div class="box" style="margin-top: 16px; padding: 22px clamp(20px, 4vw, 32px); display: flex; gap: 16px; align-items: center; justify-content: space-between; flex-wrap: wrap">
+<div style="flex: 1; min-width: 200px"><b style="font-size: 16px">Have an account?</b><div style="font-size: 14px; color: #5C4B50; margin-top: 2px">Sign in to see every order, proofs and receipts in one place.</div></div>
+<a class="btn bs" href="{{acctHref}}" style="min-width: 140px">{{acctLabel}}</a>
+</div>
+<p style="font-size: 14px; color: #6B5A5F; margin: 18px 0 0; text-align: center">Can’t find your order number? <a href="D15-Help.dc.html#contact">Contact us</a></p>
+</section>
+</sc-if>
+
+<sc-if value="{{showResult}}" hint-placeholder-val="{{ false }}">
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px"><button class="btn bs" onClick="{{again}}" style="min-height: 40px; padding: 0 14px; font-size: 13px">← Track another order</button><a class="btn bs" href="{{acctHref}}" style="min-height: 40px; padding: 0 14px; font-size: 13px">{{acctFull}}</a></div>
 <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap">
 <div><div style="font-size: 13px; color: #6B5A5F">Order <span class="mono">MR-1042</span> · Honeymoon · Maldives</div><h1 class="fr" style="font-size: 52px; line-height: 1.05; font-weight: 500; margin: 10px 0 0">{{headline}}</h1><p style="font-size: 17px; color: #6B5A5F; margin: 10px 0 0">{{sub}}</p></div>
 <div style="text-align: right"><div style="font-size: 13px; color: #6B5A5F">{{etaLabel}}</div><div class="fr" style="font-size: 30px">{{eta}}</div></div>
@@ -85,12 +125,50 @@ a{color:#7D1238}a:hover{color:#B8304F}
 <div style="background: #1F1418; color: #FFF6F0; border-radius: 22px; padding: 24px"><div class="fr" style="font-size: 22px">Loving it already?</div><p style="font-size: 14px; opacity: .8; margin: 8px 0 14px; line-height: 1.6">Order extra copies now and they ship in the same parcel.</p><a class="btn" href="D19-Cart.dc.html" style="background: #F2B880; color: #1F1418">Add a copy</a></div>
 </div>
 </div>
+</sc-if>
 </main>
+<!--chrome:footer-->
+<footer class="sf" data-chrome="footer">
+<div class="sf-top">
+<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="display:inline-flex;align-items:center;gap:14px;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-size:42px;font-weight:600;letter-spacing:-.01em;line-height:.8;color:#FFF6F0">MiLes</span> <span class="rt" style="font-size:12.6px;margin-top:4px;color:#FFF6F0"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<p>Customised travel photobooks and memory keepsakes, designed by hand in Saudi Arabia &amp; Pakistan.</p>
+<form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
+<nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
+<nav aria-label="Your order"><b>Your order</b><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help centre</a><a href="D15-Help.dc.html#contact">Contact us</a></nav>
+<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span>WhatsApp [number]</span></nav>
+</div>
+<div class="sf-bot"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
+</footer>
+<!--/chrome:footer-->
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"stage":{"editor":"enum","options":["Order confirmed","Photos received","Designing","Proof ready","Approved","In print","Wrapped","Shipped","Delivered"],"default":"Shipped","section":"Preview"},"$preview":{"width":1440,"height":1450}}'>
 class Component extends DCLogic {
+  constructor(p) {
+    super(p);
+    const m = /[?&]order=([^&]+)/i.exec(location.search || '');
+    this.state = { found: !!(m && /^MR-?1042$/i.test(decodeURIComponent(m[1]))), q: m ? decodeURIComponent(m[1]).toUpperCase() : '', contact: '', err: '', tried: false };
+  }
   renderVals() {
+    const st = this.state, set = (o) => this.setState(o);
+    const signedIn = !!(window.milesAuth && window.milesAuth.signedIn());
+    const go = () => {
+      const q = st.q.trim().toUpperCase().replace(/^MR\s*-?\s*/, 'MR-');
+      if (!q) return set({ tried: true, err: 'Enter your order number, for example MR-1042.' });
+      if (!/^MR-\d{4}$/.test(q)) return set({ tried: true, q, err: 'Order numbers look like MR-1042 (the letters MR, then four digits).' });
+      if (!st.contact.trim()) return set({ tried: true, q, err: 'Add the phone number or email you used for this order.' });
+      if (q !== 'MR-1042') return set({ tried: true, q, err: 'We couldn’t find ' + q + ' with those details. Check the number in your confirmation message, or sign in to see all your orders.' });
+      set({ found: true, q, err: '', tried: true });
+    };
+    const lk = {
+      showLookup: !st.found, showResult: st.found, q: st.q, contact: st.contact, err: st.err,
+      orderCls: 'inp' + (st.tried && !/^MR-\d{4}$/.test(st.q.trim().toUpperCase().replace(/^MR\s*-?\s*/, 'MR-')) ? ' bad' : ''),
+      contactCls: 'inp' + (st.tried && !st.contact.trim() ? ' bad' : ''),
+      setQ: (e) => set({ q: e.target.value, err: '' }), setContact: (e) => set({ contact: e.target.value, err: '' }),
+      key: (e) => { if (e.key === 'Enter') { e.preventDefault(); go(); } },
+      submit: go, again: () => set({ found: false, err: '', tried: false, contact: '' }),
+      acctHref: signedIn ? 'D5-Portal.dc.html' : 'D11-SignIn.dc.html', acctLabel: signedIn ? 'My account' : 'Sign in', acctFull: signedIn ? 'My account' : 'Sign in for full details'
+    };
     const E = [
       { name: 'Order confirmed', when: '14 Sep, 9:12 pm', desc: 'Deposit received. Your design slot is booked.', h: 'Your order is confirmed', s: 'Next: upload your photos.' },
       { name: 'Photos received', when: '15 Sep', desc: '85 photos in 2 trips. Everything printable.', h: 'We have your photos', s: 'Design starts within [X] days.', cta: 'Add more photos', href: 'D4-Upload.dc.html' },
@@ -110,7 +188,7 @@ class Component extends DCLogic {
         dotCls: cur && !done ? 'ring' : '', line: i < at ? '#2B6B55' : '#E7DDD4', tc: i <= at ? '#1F1418' : '#6B5A5F', delay: (i * 0.07) + 's' };
     });
     const cur = E[at];
-    return { events, headline: cur.h, sub: cur.s, showVan: at === 7, etaLabel: at === 8 ? 'Delivered on' : 'Estimated delivery', eta: at >= 7 ? 'Today' : '[date]' };
+    return { ...lk, events, headline: cur.h, sub: cur.s, showVan: at === 7, etaLabel: at === 8 ? 'Delivered on' : 'Estimated delivery', eta: at >= 7 ? 'Today' : '[date]' };
   }
 }
 </script>
