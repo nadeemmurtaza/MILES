@@ -1,5 +1,7 @@
 # Miles Retold — storefront (variant D)
 
+> All design rules for this project (principles, the human-vs-AI checklist, logo/type/shadow/colour rules, brief) and how each is applied: **[DESIGN-RULES.md](DESIGN-RULES.md)**.
+
 Static site served from `public/` (Cloudflare Workers static assets via `wrangler.jsonc`, or Vercel via `public/vercel.json`).
 `/` redirects to the storefront (`D1-Motion`), `/studio` to the studio back-office. `archive/` holds the older concepts and is not deployed.
 

@@ -11,10 +11,10 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&amp;family=Manrope:wght@400;500;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&amp;family=Manrope:wght@400;500;700;800&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',monospace}
+.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:Manrope,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .card{background:#fff;border:1px solid #E7DDD4;border-radius:26px;padding:28px}
 .lbl{font-size:13px;font-weight:800;color:#7D1238;margin:0 0 16px}
 .sw{border-radius:18px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;min-height:150px;transition:transform .7s cubic-bezier(.16,1,.3,1),box-shadow .7s;animation:sw .9s cubic-bezier(.16,1,.3,1) both}
@@ -24,7 +24,7 @@ body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 .n{display:flex;align-items:center;gap:12px;font-size:13px}.n i{width:40px;height:40px;border-radius:12px;flex:none}
 .n b{display:block;font-size:14px}.n .mono{font-size:11px;color:#6B5A5F}
 .pair{border-radius:14px;padding:12px 14px;display:flex;justify-content:space-between;align-items:center;font-weight:700;font-size:14px}
-.pair span{font:500 11px 'JetBrains Mono',monospace;padding:3px 7px;border-radius:6px;background:rgba(255,255,255,.18)}
+.pair span{font:500 11px Manrope,sans-serif;padding:3px 7px;border-radius:6px;background:rgba(255,255,255,.18)}
 .grad{height:120px;border-radius:20px;background:linear-gradient(100deg,#9E1046,#C7323F 55%,#C4661A);background-size:200% 100%;animation:sh 8s ease-in-out infinite alternate;position:relative;overflow:hidden}
 @keyframes sh{to{background-position:100% 0}}
 .bar{display:flex;height:44px;border-radius:14px;overflow:hidden}

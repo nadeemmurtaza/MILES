@@ -39,7 +39,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 }
 
 /* Shared "Removed · Undo" bar: destructive removals are undoable instead of asking for confirmation. */
-.undo-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 18px;border-radius:14px;background:#1F1418;color:#FFF6F0;font-size:14px;line-height:1.4}
+.undo-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 18px;border-radius:12px;background:#1F1418;color:#FFF6F0;font-size:14px;line-height:1.4}
 .undo-bar button{all:unset;cursor:pointer;font-weight:800;color:#F2B880;text-decoration:underline;text-underline-offset:3px;padding:6px 4px;min-height:24px}
 .undo-bar button:focus-visible{outline:2px solid #F2B880;outline-offset:2px;border-radius:4px}
 
@@ -48,8 +48,15 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
    scripts/sync-chrome.mjs from /shared). Edit /shared, not pages.
    ============================================================ */
 .sh .fr,.sf .fr{font-family:Fraunces,Georgia,serif}
-.sh .rt,.sf .rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
+.sh .rt,.sf .rt,.lg .rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 .sh-wm{display:flex;flex-direction:column;line-height:1}
+/* Horizontal logo balance: the wordmark (MiLes + RETOLD) is split into four equal units; the icon is six units tall (one unit above and one
+   below the wordmark) and the gap between icon and wordmark is one unit. --fs is the size of "MiLes"; the wordmark measures about 1.12 x --fs. */
+.lg{--fs:28px;--u:calc(var(--fs)*.28);gap:var(--u)}
+.lg .lgm{width:calc(var(--u)*6);height:calc(var(--u)*6)}
+.lg .sh-wm .fr{font-size:var(--fs)}
+.lg .rt{font-size:calc(var(--fs)*.3);margin-top:calc(var(--fs)*.107)}
+.lg .sh-wm .fr,.sf .sh-wm .fr{font-family:Fraunces,Georgia,serif}
 .lg .lgm{flex:none;transition:transform .8s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 10px rgba(125,18,56,.25))}
 .lg:hover .lgm{transform:rotate(-8deg) scale(1.06)}
 .lgp{transform-box:fill-box;transform-origin:center;animation:lgIn 1.3s cubic-bezier(.16,1,.3,1) .35s both}
@@ -73,6 +80,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   --surface:#FFFFFF; --ink:#1F1418; --ink-2:#5C4B50; --muted:#6B5A5F; --line:#E7DDD4; --line-2:#CBB8AD;   /* 30 */
   --accent:#7D1238; --accent-deep:#5E0D2A; --accent-tint:#F5E4DF; --on-accent:#FFF6F0; --gold:#F2B880;   /* 10 (gold only on dark) */
   --ok:#2B6B55; --ok-tint:#E4F1EA; --warn:#9A5A0B; --warn-tint:#FFF4E6; --err:#A3123F;                    /* status */
+  /* shape + rhythm: a short radius scale and an 8-based vertical rhythm for sections */
+  --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:24px; --r-pill:999px;
+  --sp-section-s:64px; --sp-section-m:80px; --sp-section-l:96px; --sp-section-xl:120px;
+  /* soft shadows: tinted, long and blurred, never pure black */
+  --shadow-sm:0 6px 16px -4px rgba(60,20,30,.20); --shadow-md:0 18px 30px -20px rgba(31,20,24,.5); --shadow-lg:0 34px 60px -34px rgba(60,20,30,.45);
 }
 
 /* --- header --- */
@@ -86,7 +98,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @keyframes shBar{to{background:rgba(246,241,234,.94);border-bottom-color:#E7DDD4;box-shadow:0 14px 30px -24px rgba(60,20,30,.45)}}
 @keyframes shPad{to{padding-top:10px;padding-bottom:10px}}
 .sh-in{max-width:1360px;margin:0 auto;padding:16px 44px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.sh-logo{text-decoration:none;display:flex;align-items:center;gap:10px;min-height:44px;flex:none}
+.sh-logo{text-decoration:none;display:flex;align-items:center;min-height:44px;flex:none}
 .sh-nav{display:flex;gap:30px;font-weight:600;font-size:15px}
 .sh-nav a,.sh-track{position:relative;color:#1F1418;text-decoration:none;padding:6px 0}
 .sh-nav a::after,.sh-track::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:#7D1238;transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
@@ -96,24 +108,24 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .sh-track{font-weight:700;font-size:15px}
 .sh-acct{font-weight:700;font-size:15px;color:#1F1418;text-decoration:none;padding:12px 8px}
 .sh-acct:hover{color:#7D1238}
-.sh-lang{all:unset;cursor:pointer;width:44px;height:44px;border-radius:50%;border:1px solid #E7DDD4;display:grid;place-items:center;font-family:'Miles Arabic UI','IBM Plex Sans Arabic',Manrope,sans-serif;font-weight:600;font-size:18px;color:#1F1418;transition:background .35s,color .35s,transform .5s cubic-bezier(.3,1.6,.5,1)}
+.sh-lang{all:unset;cursor:pointer;width:46px;height:46px;border-radius:50%;border:1px solid #E7DDD4;display:grid;place-items:center;font-family:'Miles Arabic UI','IBM Plex Sans Arabic',Manrope,sans-serif;font-weight:600;font-size:18px;color:#1F1418;transition:background .35s,color .35s,transform .5s cubic-bezier(.3,1.6,.5,1)}
 .sh-lang:hover{background:#1F1418;color:#FFF6F0;transform:rotate(-8deg)}
 .sh-lang:focus-visible,.sh-cart:focus-visible,.sh-burger:focus-visible,.sh-cta:focus-visible,.sh-acct:focus-visible,.sh-nav a:focus-visible,.sh-track:focus-visible{outline:2.5px solid #7D1238;outline-offset:3px;border-radius:12px}
 .sh-cart{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:#1F1418;text-decoration:none;transition:background .3s,transform .5s cubic-bezier(.3,1.6,.5,1)}
 .sh-cart:hover{background:#fff;color:#7D1238;transform:translateY(-2px)}
 .sh-cart b{position:absolute;top:4px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#7D1238;color:#FFF6F0;font-size:11px;display:grid;place-items:center}
 .sh-cart b[hidden]{display:none}
-.sh-cta{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 24px;border-radius:999px;background:#7D1238;color:#FFF6F0;font:700 15px Manrope,system-ui,sans-serif;text-decoration:none;box-shadow:0 12px 24px -12px rgba(125,18,56,.6);transition:background .3s,transform .4s cubic-bezier(.16,1,.3,1)}
+.sh-cta{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 24px;border-radius:999px;background:#7D1238;color:#FFF6F0;font:700 15px Manrope,system-ui,sans-serif;text-decoration:none;box-shadow:0px 12px 24px -12px rgba(125,18,56,0.40);transition:background .3s,transform .4s cubic-bezier(.16,1,.3,1)}
 .sh-cta:hover{background:#5E0D2A;color:#FFF6F0;transform:translateY(-2px)}
 .sh-menu{display:none;position:relative}
-.sh-burger{all:unset;cursor:pointer;width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:#fff;border:1px solid #E7DDD4;list-style:none}
+.sh-burger{all:unset;cursor:pointer;width:46px;height:46px;border-radius:12px;display:grid;place-items:center;background:#fff;border:1px solid #E7DDD4;list-style:none}
 .sh-burger::-webkit-details-marker{display:none}
 .sh-bars{display:grid;gap:4px}
 .sh-bars i{display:block;width:18px;height:2px;background:#1F1418;border-radius:2px;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .3s}
 .sh-menu[open] .sh-bars i:nth-child(1){transform:translateY(6px) rotate(45deg)}
 .sh-menu[open] .sh-bars i:nth-child(2){opacity:0}
 .sh-menu[open] .sh-bars i:nth-child(3){transform:translateY(-6px) rotate(-45deg)}
-.sh-drawer{position:absolute;right:0;top:calc(100% + 12px);width:min(320px,calc(100vw - 32px));background:#fff;border:1px solid #E7DDD4;border-radius:20px;padding:10px;box-shadow:0 30px 60px -30px rgba(60,20,30,.5)}
+.sh-drawer{position:absolute;right:0;top:calc(100% + 12px);width:min(320px,calc(100vw - 32px));background:#fff;border:1px solid #E7DDD4;border-radius:16px;padding:10px;box-shadow:0 30px 60px -30px rgba(60,20,30,.5)}
 .sh-drawer nav{display:grid;gap:2px}
 .sh-drawer a,.sh-lang-m{display:flex;align-items:center;min-height:48px;padding:0 14px;border-radius:12px;color:#1F1418;text-decoration:none;font-weight:600;font-size:16px}
 .sh-lang-m{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;min-height:48px;padding:0 14px;border-radius:12px;font-weight:600;font-size:16px;font-family:'Miles Arabic UI','IBM Plex Sans Arabic',Manrope,sans-serif}
@@ -163,7 +175,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media (max-width:900px){.sf-top{grid-template-columns:repeat(2,minmax(0,1fr));padding:48px 22px 28px}.sf-brand{grid-column:1/-1}.sf-bot{padding:20px 22px 28px}}
 @media (max-width:520px){.sf-top{grid-template-columns:minmax(0,1fr)}.sf a{padding:11px 0}.sf-brand,.sf-nl{min-width:0}.sf p,.sf label{overflow-wrap:anywhere}}
 /* very small phones: keep the header on one row */
-@media (max-width:360px){.sh-in{gap:8px;padding:10px 12px}.sh-logo{gap:6px}.sh-logo svg{width:30px;height:30px}.sh-logo .sh-wm .fr{font-size:22px!important}.sh-logo .sh-wm .rt{font-size:6.6px!important}.sh-tools{gap:4px}}
+@media (max-width:360px){.sh-in{gap:8px;padding:10px 12px}.sh-logo{--fs:22px}.sh-tools{gap:4px}}
 
 /* ============ Arabic / right-to-left ============ */
 /* Type: IBM Plex Sans Arabic for text, Amiri for display (self-hosted, /fonts). Latin, digits and prices keep Manrope / Fraunces

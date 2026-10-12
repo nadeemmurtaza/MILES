@@ -13,11 +13,11 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F1ECE6}*{box-sizing:border-box}
 a{color:#7D1238}a:hover{color:#B8304F}
-.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:Manrope,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .wm{background:linear-gradient(95deg,#F07AA5,#F2B880);-webkit-background-clip:text;background-clip:text;color:transparent}
 .btn{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:10px;font:700 14px Manrope,sans-serif;cursor:pointer;transition:background .25s,transform .3s}
 .btn:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
@@ -49,7 +49,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .sc:hover{transform:translateY(-6px);box-shadow:0 30px 50px -30px rgba(60,20,30,.5);border-color:#CDBCB4;color:#1F1418}
 .sc:hover::before{opacity:1}
 .sc:focus-visible{outline:2.5px solid #B8304F;outline-offset:3px}
-.sc .num{font:500 13px 'JetBrains Mono',monospace;color:#786669}
+.sc .num{font:500 13px Manrope,sans-serif;color:#786669}
 .sc .ic{width:40px;height:40px;border-radius:12px;background:#F6F1EA;display:grid;place-items:center;color:#7D1238;transition:background .4s,color .4s,transform .6s cubic-bezier(.3,1.6,.5,1)}
 .sc:hover .ic{background:#7D1238;color:#FFF6F0;transform:rotate(-8deg)}
 .sc .cnt{font-family:Fraunces,Georgia,serif;font-size:52px;line-height:.9;font-weight:500}

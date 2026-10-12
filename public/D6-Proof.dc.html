@@ -15,25 +15,25 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#2A1D22}*{box-sizing:border-box}
 a{color:#F2B880}a:hover{color:#fff}
-.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:Manrope,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .btn{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:12px;font:700 14px Manrope,sans-serif;cursor:pointer;text-decoration:none;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .25s}
 .btn:focus-visible{outline:2px solid #F2B880;outline-offset:2px}
-.bp{background:#F2B880;color:#1F1418}.bp:hover{color:#1F1418;transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(242,184,128,.7)}
+.bp{background:#F2B880;color:#1F1418}.bp:hover{color:#1F1418;transform:translateY(-2px);box-shadow:0px 14px 30px -14px rgba(242,184,128,0.50)}
 .bg{border:1px solid rgba(255,255,255,.2);color:#FFF6F0}.bg:hover{color:#fff;border-color:#fff}
 .bw{background:#7D1238;color:#FFF6F0}.bw:hover{background:#5E0D2A;color:#FFF6F0}
-.rd{all:unset;cursor:pointer;padding:8px 14px;border-radius:10px;font-weight:700;font-size:13px;color:#CBB8AD}.rd.on{background:rgba(255,255,255,.12);color:#fff}
+.rd{all:unset;cursor:pointer;padding:8px 14px;border-radius:12px;font-weight:700;font-size:13px;color:#CBB8AD}.rd.on{background:rgba(255,255,255,.12);color:#fff}
 .rd:focus-visible{outline:2px solid #F2B880}
-.pin{all:unset;cursor:pointer;position:absolute;width:32px;height:32px;border-radius:50% 50% 50% 4px;display:grid;place-items:center;font:800 13px Manrope,sans-serif;color:#fff;transform:translate(-50%,-100%) rotate(0deg);box-shadow:0 6px 16px -4px rgba(0,0,0,.6);transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
+.pin{all:unset;cursor:pointer;position:absolute;width:32px;height:32px;border-radius:50% 50% 50% 4px;display:grid;place-items:center;font:800 13px Manrope,sans-serif;color:#fff;transform:translate(-50%,-100%) rotate(0deg);box-shadow:0px 6px 16px -4px rgba(14,6,10,0.60);transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
 .pin:hover,.pin.on{transform:translate(-50%,-100%) scale(1.2)}
 .pin:focus-visible{outline:2px solid #fff}
-.cm{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:12px;width:100%;padding:14px;border-radius:14px;transition:background .25s;min-height:44px}
+.cm{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:12px;width:100%;padding:14px;border-radius:12px;transition:background .25s;min-height:44px}
 .cm:hover{background:#F6F1EA}.cm.on{background:#F5E4DF}
 .cm:focus-visible{outline:2px solid #7D1238}
-.tn{all:unset;cursor:pointer;flex:none;width:96px;height:62px;border-radius:6px;overflow:hidden;display:flex;gap:2px;background:#fff;padding:3px;opacity:.55;transition:opacity .3s,transform .3s}
+.tn{all:unset;cursor:pointer;flex:none;width:96px;height:62px;border-radius:8px;overflow:hidden;display:flex;gap:2px;background:#fff;padding:3px;opacity:.55;transition:opacity .3s,transform .3s}
 .tn:hover{opacity:.9}.tn.on{opacity:1;outline:2px solid #F2B880;outline-offset:2px}
 .tn img{flex:1;min-width:0;object-fit:cover}
 .flip{animation:flip .7s cubic-bezier(.2,.8,.2,1) both;transform-origin:center}@keyframes flip{from{opacity:0;transform:perspective(1400px) rotateY(-12deg) translateX(30px)}to{opacity:1;transform:none}}
@@ -63,7 +63,7 @@ a{color:#F2B880}a:hover{color:#fff}
 <!--chrome:header-->
 <header class="sh sh--dark" data-chrome="header">
 <div class="sh-in">
-<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-size:28px;font-weight:600;letter-spacing:-.01em;line-height:.8;color:#7D1238">MiLes</span> <span class="rt" style="font-size:8.4px;margin-top:3px;color:#7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:#7D1238">MiLes</span> <span class="rt" style="color:#7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
 <nav class="sh-nav" aria-label="Main"><a href="D21-Books.dc.html">Books</a><a href="D1-Motion.dc.html#how">How it works</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D13-Story.dc.html">Our story</a><a href="D16-Gifts.dc.html">Gifts</a><a href="D15-Help.dc.html">Help</a></nav>
 <div class="sh-tools">
 <a class="sh-track" href="D7-Tracking.dc.html">Track</a>
@@ -97,7 +97,7 @@ a{color:#F2B880}a:hover{color:#fff}
 </div>
 <div style="position: relative; display: flex; align-items: center; gap: 14px">
 <button class="btn bg" onClick="{{prev}}" aria-label="Previous spread"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6"></path></svg></button>
-<div style="flex: 1; min-width: 0; position: relative; aspect-ratio: 2 / 1.25; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: #FBF7F1; border-radius: 6px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); perspective: 2600px; transform-style: preserve-3d">
+<div style="flex: 1; min-width: 0; position: relative; aspect-ratio: 2 / 1.25; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: #FBF7F1; border-radius: 8px; box-shadow: 0px 40px 80px -30px rgba(14,6,10,0.60); perspective: 2600px; transform-style: preserve-3d">
 <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 40px; translate: -50% 0; background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.12) 48%, rgba(0,0,0,.18) 50%, rgba(0,0,0,.12) 52%, rgba(0,0,0,0)); z-index: 2"></div>
 <div style="padding: 6%; display: flex; flex-direction: column; gap: 4%"><img src="{{sp.left}}" alt="Left page photo" style="width: 100%; flex: 1; min-height: 0; object-fit: cover; display: block"><div class="fr" style="color: #1F1418; font-size: 18px; font-style: italic">{{sp.caption}}</div></div>
 <div style="padding: 6% 6% 6% 4%"><img src="{{sp.right}}" alt="Right page photo" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
@@ -111,7 +111,7 @@ a{color:#F2B880}a:hover{color:#fff}
 </div>
 </section>
 
-<aside style="background: #fff; color: #1F1418; border-radius: 20px; overflow: hidden">
+<aside style="background: #fff; color: #1F1418; border-radius: 16px; overflow: hidden">
 <div style="padding: 20px 20px 12px; border-bottom: 1px solid #E7DDD4"><b style="font-size: 17px">Comments</b><div style="font-size: 13px; color: #6B5A5F; margin-top: 2px">{{openCount}} open · {{fixedCount}} fixed</div></div>
 <div style="padding: 8px; display: flex; flex-direction: column; gap: 2px; max-height: min(520px, 62vh); max-height: min(520px, 62svh); overflow: auto">
 <sc-for list="{{comments}}" as="c" hint-placeholder-count="3">
@@ -133,7 +133,7 @@ a{color:#F2B880}a:hover{color:#fff}
 <!-- approve modal -->
 <sc-if value="{{showApprove}}" hint-placeholder-val="{{ false }}">
 <div class="scrim" style="position: absolute; inset: 0; background: rgba(20,12,15,.7); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); display: grid; place-items: start center; padding-top: 160px; z-index: 20">
-<div class="modal" role="dialog" aria-modal="true" aria-labelledby="apt" style="width: min(560px, 92%); background: #fff; color: #1F1418; border-radius: 24px; padding: 32px; box-shadow: 0 50px 100px -30px rgba(0,0,0,.8)">
+<div class="modal" role="dialog" aria-modal="true" aria-labelledby="apt" style="width: min(560px, 92%); background: #fff; color: #1F1418; border-radius: 24px; padding: 32px; box-shadow: 0px 50px 100px -30px rgba(14,6,10,0.60)">
 <h2 id="apt" class="fr" style="font-size: 30px; font-weight: 500; margin: 0">Ready to print?</h2>
 <p style="font-size: 15px; color: #6B5A5F; line-height: 1.6; margin: 10px 0 20px">Once approved, the design is locked and goes to print. Please check:</p>
 <div style="display: grid; gap: 12px; font-size: 15px">
@@ -141,7 +141,7 @@ a{color:#F2B880}a:hover{color:#fff}
 <label style="display: flex; gap: 12px; align-items: center"><input type="checkbox" checked="" style="width: 22px; height: 22px; accent-color: #7D1238">The cover title and photo are right</label>
 <label style="display: flex; gap: 12px; align-items: center"><input type="checkbox" style="width: 22px; height: 22px; accent-color: #7D1238">I’ve looked at all 20 spreads</label>
 </div>
-<div style="margin-top: 22px; background: #F5E4DF; border-radius: 14px; padding: 16px; display: flex; justify-content: space-between; align-items: center"><span><b>Balance due now</b><br><span style="font-size: 13px; color: #6B5A5F">mada •• 4417 saved · or choose another method</span></span><b class="fr" style="font-size: 28px; color: #7D1238">SAR 160</b></div>
+<div style="margin-top: 22px; background: #F5E4DF; border-radius: 12px; padding: 16px; display: flex; justify-content: space-between; align-items: center"><span><b>Balance due now</b><br><span style="font-size: 13px; color: #6B5A5F">mada •• 4417 saved · or choose another method</span></span><b class="fr" style="font-size: 28px; color: #7D1238">SAR 160</b></div>
 <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap"><a class="btn bw" href="D20-Balance.dc.html" style="flex: 1">Approve &amp; pay SAR 160</a><button class="btn" onClick="{{closeApprove}}" style="border: 1px solid #E7DDD4; color: #1F1418">Keep reviewing</button></div>
 </div>
 </div>
@@ -149,7 +149,7 @@ a{color:#F2B880}a:hover{color:#fff}
 <!--chrome:footer-->
 <footer class="sf" data-chrome="footer">
 <div class="sf-top">
-<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="display:inline-flex;align-items:center;gap:14px;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-size:42px;font-weight:600;letter-spacing:-.01em;line-height:.8;color:#FFF6F0">MiLes</span> <span class="rt" style="font-size:12.6px;margin-top:4px;color:#FFF6F0"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="--fs:42px;display:inline-flex;align-items:center;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:#FFF6F0">MiLes</span> <span class="rt" style="color:#FFF6F0"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
 <p>Customised travel photobooks and memory keepsakes, designed by hand in Saudi Arabia &amp; Pakistan.</p>
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>

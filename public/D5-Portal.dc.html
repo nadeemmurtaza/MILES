@@ -15,22 +15,22 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 a{color:#7D1238}a:hover{color:#7D1238}
-.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:Manrope,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .wm{background:linear-gradient(90deg,#7D1238,#5E0D2A);-webkit-background-clip:text;background-clip:text;color:transparent}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:12px;font:700 14px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .25s}
-.bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A;color:#FFF6F0;transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(125,18,56,.6)}
+.bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A;color:#FFF6F0;transform:translateY(-2px);box-shadow:0px 14px 30px -14px rgba(125,18,56,0.50)}
 .bs{background:#fff;color:#1F1418;border:1px solid #E7DDD4}.bs:hover{border-color:#1F1418;color:#1F1418;transform:translateY(-2px)}
-.box{background:#fff;border:1px solid #E7DDD4;border-radius:20px}
+.box{background:#fff;border:1px solid #E7DDD4;border-radius:16px}
 .sn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:12px;font-weight:600;font-size:15px;color:#5C4B50;transition:background .25s;min-height:46px}
 .sn:hover{background:#F6F1EA}.sn.on{background:#1F1418;color:#fff}
 .sn:focus-visible{outline:2px solid #7D1238}
 .st{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;font-size:12px;font-weight:800}
 .dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 1.8s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(125,18,56,.5)}70%{box-shadow:0 0 0 8px rgba(125,18,56,0)}100%{box-shadow:0 0 0 0 rgba(125,18,56,0)}}
+@keyframes pulse{0%{box-shadow:0px 6px 16px -4px rgba(125,18,56,0.24)}70%{box-shadow:0 0 0 8px rgba(125,18,56,0)}100%{box-shadow:0 0 0 0 rgba(125,18,56,0)}}
 .view{animation:view .6s cubic-bezier(.2,.8,.2,1) both}@keyframes view{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .fillbar{animation:fillbar 1.4s cubic-bezier(.2,.8,.2,1) both}@keyframes fillbar{from{width:0}}
 table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font-size:12px;color:#6B5A5F;font-weight:700;padding:10px 12px;border-bottom:1px solid #E7DDD4}td{padding:14px 12px;border-bottom:1px solid #E7DDD4}
@@ -58,7 +58,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <!--chrome:header-->
 <header class="sh" data-chrome="header">
 <div class="sh-in">
-<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-size:28px;font-weight:600;letter-spacing:-.01em;line-height:.8;color:#7D1238">MiLes</span> <span class="rt" style="font-size:8.4px;margin-top:3px;color:#7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:#7D1238">MiLes</span> <span class="rt" style="color:#7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
 <nav class="sh-nav" aria-label="Main"><a href="D21-Books.dc.html">Books</a><a href="D1-Motion.dc.html#how">How it works</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D13-Story.dc.html">Our story</a><a href="D16-Gifts.dc.html">Gifts</a><a href="D15-Help.dc.html">Help</a></nav>
 <div class="sh-tools">
 <a class="sh-track" href="D7-Tracking.dc.html">Track</a>
@@ -89,7 +89,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <div class="view" style="display: flex; flex-direction: column; gap: 20px">
 <h1 class="fr" style="font-size: 40px; font-weight: 500; margin: 0">Welcome back, Sara</h1>
 
-<div style="background: #7D1238; color: #FFF6F0; border-radius: 22px; padding: 24px 28px; display: flex; gap: 22px; align-items: center; flex-wrap: wrap; box-shadow: 0 30px 50px -30px rgba(125,18,56,.7)">
+<div style="background: #7D1238; color: #FFF6F0; border-radius: 24px; padding: 24px 28px; display: flex; gap: 22px; align-items: center; flex-wrap: wrap; box-shadow: 0px 30px 50px -30px rgba(125,18,56,0.50)">
 <span class="st" style="background: rgba(255,255,255,.14); color: #F5E4DF"><span class="dot"></span>Action needed</span>
 <div style="flex: 1; min-width: 260px"><div class="fr" style="font-size: 24px">Proof round 2 of your Maldives book is ready</div><div style="opacity: .8; font-size: 14px; margin-top: 4px">Rameen fixed your 3 comments and added the sunset spread. Approve to send it to print.</div></div>
 <a class="btn" href="D6-Proof.dc.html" style="background: #fff; color: #7D1238">Review proof</a>
@@ -97,7 +97,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 
 <div class="box" style="padding: 26px">
 <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap">
-<div style="width: 92px; height: 114px; background: #7E9CC0; border-radius: 3px 8px 8px 3px; padding: 8px; flex: none; box-shadow: 0 14px 24px -12px rgba(31,20,24,.5)"><div style="background: #fff; height: 100%; padding: 3px"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="" style="width: 100%; height: 72%; object-fit: cover; display: block"></div></div>
+<div style="width: 92px; height: 114px; background: #7E9CC0; border-radius: 3px 8px 8px 3px; padding: 8px; flex: none; box-shadow: 0px 14px 24px -12px rgba(31,20,24,0.40)"><div style="background: #fff; height: 100%; padding: 3px"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="" style="width: 100%; height: 72%; object-fit: cover; display: block"></div></div>
 <div style="flex: 1; min-width: 240px">
 <div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap"><span class="mono" style="font-size: 13px; color: #6B5A5F">MR-1042</span><span class="st" style="background: #F5E4DF; color: #7D1238"><span class="dot"></span>Proof ready · round 2</span></div>
 <div class="fr" style="font-size: 26px; margin-top: 6px">Honeymoon · Maldives</div>
@@ -117,11 +117,11 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <div class="box" style="padding: 24px">
 <div style="display: flex; justify-content: space-between; align-items: center"><b style="font-size: 17px">Past books</b><a href="D23-Account.dc.html" style="font-size: 14px; font-weight: 700">Account settings</a></div>
 <div style="display: flex; flex-direction: column; margin-top: 10px">
-<div style="display: flex; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid #E7DDD4"><img src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt="" style="width: 56px; height: 56px; border-radius: 10px; object-fit: cover"><div style="flex: 1"><b>London · April 2024</b><div style="font-size: 13px; color: #6B5A5F">Delivered 2 May · <span class="mono">MR-0877</span></div></div><a class="btn bs" href="D19-Cart.dc.html" style="min-height: 44px">Order a copy</a></div>
-<div style="display: flex; gap: 14px; align-items: center; padding: 14px 0"><img src="/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg" alt="" style="width: 56px; height: 56px; border-radius: 10px; object-fit: cover"><div style="flex: 1"><b>Paris · July 2023</b><div style="font-size: 13px; color: #6B5A5F">Delivered · review left</div></div><a class="btn bs" href="D19-Cart.dc.html" style="min-height: 44px">Order a copy</a></div>
+<div style="display: flex; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid #E7DDD4"><img src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt="" style="width: 56px; height: 56px; border-radius: 12px; object-fit: cover"><div style="flex: 1"><b>London · April 2024</b><div style="font-size: 13px; color: #6B5A5F">Delivered 2 May · <span class="mono">MR-0877</span></div></div><a class="btn bs" href="D19-Cart.dc.html" style="min-height: 44px">Order a copy</a></div>
+<div style="display: flex; gap: 14px; align-items: center; padding: 14px 0"><img src="/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg" alt="" style="width: 56px; height: 56px; border-radius: 12px; object-fit: cover"><div style="flex: 1"><b>Paris · July 2023</b><div style="font-size: 13px; color: #6B5A5F">Delivered · review left</div></div><a class="btn bs" href="D19-Cart.dc.html" style="min-height: 44px">Order a copy</a></div>
 </div>
 </div>
-<div style="background: #1F1418; color: #FFF6F0; border-radius: 20px; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px">
+<div style="background: #1F1418; color: #FFF6F0; border-radius: 16px; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px">
 <div><div style="font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #F2B880">Share the love</div><div class="fr" style="font-size: 24px; margin-top: 10px">Give friends a welcome discount on their first book — get credit back.</div></div>
 <div style="display: flex; gap: 8px; align-items: center; background: rgba(255,255,255,.08); border-radius: 12px; padding: 6px 6px 6px 14px"><span class="mono" style="flex: 1; font-size: 15px">SARA-MILES</span><button class="btn" onClick="{{do_copy}}" style="background: #F2B880; color: #1F1418; min-height: 40px">{{lb_copy}}</button></div>
 </div>
@@ -168,7 +168,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <!-- ADDRESSES / SETTINGS -->
 <sc-if value="{{isSet}}" hint-placeholder-val="{{ false }}">
 <div class="view stack" style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px">
-<div class="box" style="padding: 24px"><b style="font-size: 17px">Saved addresses</b><div style="margin-top: 14px; padding: 16px; border: 1.5px solid #7D1238; border-radius: 14px"><b>Home · Riyadh</b><div style="font-size: 14px; color: #6B5A5F; margin-top: 4px; line-height: 1.5">National Address RRRD2929<br>Al Olaya, Riyadh</div></div><a class="btn bs" href="D23-Account.dc.html" style="margin-top: 12px">Manage addresses</a></div>
+<div class="box" style="padding: 24px"><b style="font-size: 17px">Saved addresses</b><div style="margin-top: 14px; padding: 16px; border: 1.5px solid #7D1238; border-radius: 12px"><b>Home · Riyadh</b><div style="font-size: 14px; color: #6B5A5F; margin-top: 4px; line-height: 1.5">National Address RRRD2929<br>Al Olaya, Riyadh</div></div><a class="btn bs" href="D23-Account.dc.html" style="margin-top: 12px">Manage addresses</a></div>
 <div class="box" style="padding: 24px"><b style="font-size: 17px">Notifications</b><div style="display: grid; gap: 12px; margin-top: 14px; font-size: 15px"><label style="display: flex; gap: 10px; align-items: center; font-weight: 500; font-size: 15px"><input type="checkbox" checked="" style="width: 20px; height: 20px; accent-color: #7D1238">WhatsApp updates</label><label style="display: flex; gap: 10px; align-items: center; font-weight: 500; font-size: 15px"><input type="checkbox" checked="" style="width: 20px; height: 20px; accent-color: #7D1238">Email receipts &amp; invoices</label><label style="display: flex; gap: 10px; align-items: center; font-weight: 500; font-size: 15px"><input type="checkbox" style="width: 20px; height: 20px; accent-color: #7D1238">Offers &amp; new designs</label></div><div style="margin-top: 18px"><b style="font-size: 14px">Language</b><div style="display: flex; gap: 8px; margin-top: 8px"><button type="button" class="btn bp" data-lang-set="en">English</button><button type="button" class="btn bs" lang="ar" data-lang-set="ar">العربية</button></div></div></div>
 </div>
 </sc-if>
@@ -177,7 +177,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <!--chrome:footer-->
 <footer class="sf" data-chrome="footer">
 <div class="sf-top">
-<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="display:inline-flex;align-items:center;gap:14px;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-size:42px;font-weight:600;letter-spacing:-.01em;line-height:.8;color:#FFF6F0">MiLes</span> <span class="rt" style="font-size:12.6px;margin-top:4px;color:#FFF6F0"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="--fs:42px;display:inline-flex;align-items:center;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:#FFF6F0">MiLes</span> <span class="rt" style="color:#FFF6F0"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
 <p>Customised travel photobooks and memory keepsakes, designed by hand in Saudi Arabia &amp; Pakistan.</p>
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>

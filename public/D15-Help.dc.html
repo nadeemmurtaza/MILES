@@ -15,11 +15,11 @@
 <body>
 <x-dc>
 <helmet>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 a{color:#7D1238}a:hover{color:#7D1238}
-.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:Manrope,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
 .wm{background:linear-gradient(95deg,#7D1238,#5E0D2A 50%,#7D1238);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
 @keyframes sheen{50%{background-position:100% 0}}
 .eyb{font-size:13px;font-weight:700;color:#7D1238;margin:0}
@@ -28,14 +28,14 @@ a{color:#7D1238}a:hover{color:#7D1238}
 .btn:hover::before{transform:translateX(120%)}.btn:hover{transform:translateY(-3px)}
 .btn:focus-visible{outline:2px solid #7D1238;outline-offset:3px}
 .btn .ar{transition:transform .5s cubic-bezier(.16,1,.3,1)}.btn:hover .ar{transform:translateX(5px)}
-.bp{background:#7D1238;color:#FFF6F0;box-shadow:0 18px 36px -20px rgba(125,18,56,.7)}.bp:hover{color:#FFF6F0;background:#5E0D2A}
+.bp{background:#7D1238;color:#FFF6F0;box-shadow:0px 18px 36px -20px rgba(125,18,56,0.50)}.bp:hover{color:#FFF6F0;background:#5E0D2A}
 .bg{border:1.5px solid #1F1418;color:#1F1418;background:transparent}.bg:hover{color:#FFF6F0;background:#1F1418}
 .bs{background:#fff;color:#1F1418;border:1px solid #E7DDD4}.bs:hover{color:#1F1418;border-color:#1F1418}
 .nlk{position:relative;color:#1F1418;text-decoration:none;padding:6px 0;font-weight:600;font-size:15px}
 .nlk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:#7D1238;transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .nlk:hover{color:#7D1238}.nlk:hover::after,.nlk.on::after{transform:scaleX(1);transform-origin:left}.nlk.on{color:#7D1238}
 .sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#7D1238,#5E0D2A);transform-origin:left;transform:scaleX(0)}
-.inp{width:100%;min-height:54px;border:1.5px solid #E7DDD4;border-radius:14px;padding:0 16px;font:500 16px Manrope,sans-serif;background:#fff;color:#1F1418;transition:border-color .3s,box-shadow .3s}
+.inp{width:100%;min-height:54px;border:1.5px solid #E7DDD4;border-radius:12px;padding:0 16px;font:500 16px Manrope,sans-serif;background:#fff;color:#1F1418;transition:border-color .3s,box-shadow .3s}
 .inp:hover{border-color:#CBB8AD}.inp:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12)}
 textarea.inp{padding:14px 16px;min-height:130px;resize:vertical}
 label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
@@ -74,14 +74,14 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 .srch{position:relative}
 .srch svg{position:absolute;left:22px;top:50%;translate:0 -50%;pointer-events:none}
 .srch input{width:100%;min-height:68px;border:1.5px solid #E7DDD4;border-radius:999px;padding:0 24px 0 60px;font:500 18px Manrope,sans-serif;background:#fff;transition:border-color .3s,box-shadow .4s}
-.srch input:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 6px rgba(125,18,56,.1),0 30px 50px -30px rgba(60,20,30,.4)}
+.srch input:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 6px rgba(125,18,56,.1), 0 30px 50px -30px rgba(60,20,30,.4)}
 .qa{all:unset;box-sizing:border-box;cursor:pointer;width:100%;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;font-family:Fraunces,Georgia,serif;font-size:22px;min-height:44px}
 .qa:focus-visible{outline:2px solid #7D1238;outline-offset:4px}
 .qa .pl{flex:none;width:38px;height:38px;border-radius:50%;border:1px solid #E7DDD4;display:grid;place-items:center;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s,color .4s}
 .qa.on .pl{transform:rotate(135deg);background:#7D1238;color:#fff;border-color:#7D1238}
 .ans{animation:ans .6s cubic-bezier(.16,1,.3,1) both}@keyframes ans{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:none}}
 .qrow{border-bottom:1px solid #E7DDD4;animation:tin .6s cubic-bezier(.16,1,.3,1) both}@keyframes tin{from{opacity:0;transform:translateY(16px)}}
-.ch{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid #E7DDD4;border-radius:20px;padding:22px;text-decoration:none;color:#1F1418;transition:transform .7s cubic-bezier(.16,1,.3,1),box-shadow .7s,border-color .4s}
+.ch{display:flex;gap:16px;align-items:center;background:#fff;border:1px solid #E7DDD4;border-radius:16px;padding:22px;text-decoration:none;color:#1F1418;transition:transform .7s cubic-bezier(.16,1,.3,1),box-shadow .7s,border-color .4s}
 .ch:hover{color:#1F1418;transform:translateY(-6px);border-color:#7D1238;box-shadow:0 30px 50px -30px rgba(60,20,30,.4)}
 .ch .ic{width:52px;height:52px;border-radius:16px;display:grid;place-items:center;flex:none;transition:transform .6s cubic-bezier(.3,1.6,.5,1)}
 .ch:hover .ic{transform:rotate(-8deg) scale(1.1)}
@@ -89,7 +89,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 @keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 .inp.bad{border-color:#A3123F;background:#F5E4DF}
 .sent{animation:okpop .8s cubic-bezier(.3,1.7,.5,1) both}@keyframes okpop{from{transform:scale(.6);opacity:0}}
-.pol{background:#fff;border:1px solid #E7DDD4;border-radius:22px;padding:26px}
+.pol{background:#fff;border:1px solid #E7DDD4;border-radius:24px;padding:26px}
 mark{background:#F5E4DF;color:#7D1238;border-radius:4px;padding:0 2px}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -121,7 +121,7 @@ mark{background:#F5E4DF;color:#7D1238;border-radius:4px;padding:0 2px}
 <!--chrome:header-->
 <header class="sh" data-chrome="header">
 <div class="sh-in">
-<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-size:28px;font-weight:600;letter-spacing:-.01em;line-height:.8;color:#7D1238">MiLes</span> <span class="rt" style="font-size:8.4px;margin-top:3px;color:#7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:#7D1238">MiLes</span> <span class="rt" style="color:#7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
 <nav class="sh-nav" aria-label="Main"><a href="D21-Books.dc.html">Books</a><a href="D1-Motion.dc.html#how">How it works</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D13-Story.dc.html">Our story</a><a href="D16-Gifts.dc.html">Gifts</a><a href="D15-Help.dc.html">Help</a></nav>
 <div class="sh-tools">
 <a class="sh-track" href="D7-Tracking.dc.html">Track</a>
@@ -149,7 +149,7 @@ mark{background:#F5E4DF;color:#7D1238;border-radius:4px;padding:0 2px}
 <div style="position: sticky; top: 100px"><h2 class="fr" style="font-size: 44px; font-weight: 400; margin: 0">{{catTitle}}</h2><p style="color: #5C4B50; margin: 12px 0 0" aria-live="polite">{{resultLine}}</p></div>
 <div key="{{listKey}}">
 <sc-for list="{{qs}}" as="x" hint-placeholder-count="6"><div class="qrow" style="animation-delay: {{x.d}}"><button class="{{x.cls}}" onClick="{{x.toggle}}" aria-expanded="{{x.exp}}"><span>{{x.q}}</span><span class="pl" aria-hidden="true">+</span></button><sc-if value="{{x.open}}" hint-placeholder-val="{{ false }}"><p class="ans" style="margin: 0 0 24px; font-size: 16px; line-height: 1.75; color: #5C4B50; max-width: 680px">{{x.a}}</p></sc-if></div></sc-for>
-<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}"><div class="swap" style="background: #fff; border: 1px dashed #CBB8AD; border-radius: 22px; padding: 34px; text-align: center"><div class="fr" style="font-size: 26px">No answers for “{{q}}” yet</div><p style="color: #5C4B50; margin: 8px 0 18px">Ask us directly — we reply within a few hours.</p><a class="btn bp" href="#contact">Message the studio</a></div></sc-if>
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}"><div class="swap" style="background: #fff; border: 1px dashed #CBB8AD; border-radius: 24px; padding: 34px; text-align: center"><div class="fr" style="font-size: 26px">No answers for “{{q}}” yet</div><p style="color: #5C4B50; margin: 8px 0 18px">Ask us directly — we reply within a few hours.</p><a class="btn bp" href="#contact">Message the studio</a></div></sc-if>
 </div>
 </section>
 <section id="contact" style="background: #fff; border-top: 1px solid #E7DDD4; border-bottom: 1px solid #E7DDD4">
@@ -162,7 +162,7 @@ mark{background:#F5E4DF;color:#7D1238;border-radius:4px;padding:0 2px}
 <a class="ch" href="https://instagram.com/milesretold"><span class="ic" style="background: #F5E4DF"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7D1238" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></span><span><b>Instagram DM</b><br><span style="font-size: 14px; color: #6B5A5F">@milesretold · send “BOOK”</span></span></a>
 </div>
 </div>
-<div style="background: #F6F1EA; border-radius: 28px; padding: 34px">
+<div style="background: #F6F1EA; border-radius: 24px; padding: 34px">
 <sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}"><div>
 <div class="stack" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px">
 <div><label class="lb" for="cn">Your name</label><input id="cn" class="{{nameCls}}" placeholder="Sara A."><sc-if value="{{showErr}}" hint-placeholder-val="{{ false }}"><div class="err">Please add your name</div></sc-if></div>
@@ -177,13 +177,13 @@ mark{background:#F5E4DF;color:#7D1238;border-radius:4px;padding:0 2px}
 </div>
 </div>
 </section>
-<section id="reviews" class="pad" style="max-width: 1360px; margin: 0 auto; padding: 100px 44px 40px">
+<section id="reviews" class="pad" style="max-width: 1360px; margin: 0 auto; padding: 96px 44px 40px">
 <h2 class="fr" style="font-size: 52px; font-weight: 400; margin: 0"><span class="rvl"><span>Client reviews</span></span></h2>
 <div class="stack stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 420px)); gap: 18px; margin-top: 34px">
 <figure class="pol lift" style="margin: 0"><blockquote class="fr" style="margin: 0; font-size: 22px">“Such a beautiful gesture by @milesretold.”</blockquote><figcaption style="margin-top: 14px; font-size: 14px"><b>Lens &amp; Lights Studio</b> · Instagram</figcaption></figure>
 </div>
 </section>
-<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 60px 44px 120px">
+<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 64px 44px 120px">
 <h2 class="fr" style="font-size: 52px; font-weight: 400; margin: 0"><span class="rvl"><span>Policies</span></span></h2>
 <div class="stack stg" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 34px">
 <div id="refunds" class="pol"><b class="fr" style="font-size: 24px; font-weight: 500">Refunds &amp; cancellations</b><p style="color: #5C4B50; line-height: 1.7">Your 50% deposit books your design slot, and the other 50% is only due after you approve your final design. If you need to change or cancel an order, message us and we’ll sort it out together.</p></div>
@@ -194,7 +194,7 @@ mark{background:#F5E4DF;color:#7D1238;border-radius:4px;padding:0 2px}
 <!--chrome:footer-->
 <footer class="sf" data-chrome="footer">
 <div class="sf-top">
-<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="display:inline-flex;align-items:center;gap:14px;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-size:42px;font-weight:600;letter-spacing:-.01em;line-height:.8;color:#FFF6F0">MiLes</span> <span class="rt" style="font-size:12.6px;margin-top:4px;color:#FFF6F0"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="--fs:42px;display:inline-flex;align-items:center;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:#FFF6F0">MiLes</span> <span class="rt" style="color:#FFF6F0"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
 <p>Customised travel photobooks and memory keepsakes, designed by hand in Saudi Arabia &amp; Pakistan.</p>
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
