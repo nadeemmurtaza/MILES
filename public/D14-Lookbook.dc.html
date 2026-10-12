@@ -133,7 +133,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 </header>
 <!--/chrome:header-->
 
-<main style="display: contents"><section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 80px 44px 40px">
+<main style="display: contents"><section class="pad" style="max-width: 1360px; margin: 0 auto; padding: var(--sp-section-m) 44px 40px">
 <p class="eyb in">Lookbook</p>
 <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
 <h1 class="fr h1" style="font-size: 84px; line-height: .96; font-weight: 400; margin: 16px 0 0; letter-spacing: -.02em"><span class="wd"><span class="wi" style="animation-delay: .1s">Books</span></span> <span class="wd"><span class="wi" style="animation-delay: .18s">we’ve</span></span> <span class="wd"><span class="wi" style="animation-delay: .26s; font-style: italic; color: var(--accent)">made.</span></span></h1>
@@ -144,7 +144,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <span style="margin-left: auto; font-size: 14px; color: var(--muted)"><span class="cnt" key="{{fKey}}"><b>{{count}}</b></span> books</span>
 </div>
 </section>
-<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 10px 44px 120px">
+<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 10px 44px var(--sp-section-xl)">
 <div class="grid" key="{{fKey}}">
 <sc-for list="{{tiles}}" as="t" hint-placeholder-count="9"><button class="tile" onClick="{{t.open}}" style="animation-delay: {{t.d}}" aria-label="Open {{t.title}}"><img src="{{t.src}}" alt="" style="height: {{t.h}}"><span class="cap"><span style="display: block; font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--gold)">{{t.cat}}</span><span class="fr" style="display: block; font-size: 24px; margin-top: 4px">{{t.title}}</span></span></button></sc-for>
 </div>

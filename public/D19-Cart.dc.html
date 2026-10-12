@@ -132,6 +132,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 .qty span{min-width:28px;text-align:center;font-weight:800}
 .tog{all:unset;box-sizing:border-box;cursor:pointer;width:48px;height:28px;border-radius:999px;background:var(--line-2);position:relative;flex:none;transition:background .3s}
 .tog::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:var(--surface);box-shadow:0px 6px 16px -4px color-mix(in srgb, var(--shadow-deep) 20%, transparent);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.tog::before{content:"";position:absolute;inset:-8px -4px}
 .tog.on{background:var(--accent)}.tog.on::after{transform:translateX(20px)}.tog:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .seg{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:var(--surface);border:1px solid var(--line);max-width:100%;overflow-x:auto;scrollbar-width:none}
 .seg button{all:unset;cursor:pointer;padding:9px 18px;border-radius:999px;font-weight:700;font-size:14px;color:var(--muted);transition:background .3s,color .3s;white-space:nowrap}
@@ -141,7 +142,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 .pm:hover{border-color:var(--line-2);transform:translateY(-2px)}.pm.on{border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 10%, transparent)}.pm:focus-visible{outline:2px solid var(--accent)}
 .pm .rd{width:20px;height:20px;border-radius:50%;border:2px solid var(--line-2);flex:none;display:grid;place-items:center}.pm.on .rd{border-color:var(--accent)}.pm.on .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent)}
 @media (max-width:700px){.citem{grid-template-columns:64px minmax(0,1fr)!important;padding:16px!important;gap:14px!important;align-items:start!important}.citem .cover{width:62px!important}.cprice{grid-column:2;text-align:left!important}}
-@media (max-width:900px){.wrap{padding:36px 20px 70px}.two{grid-template-columns:minmax(0,1fr)!important}.two>aside{position:static!important}}
+@media (max-width:900px){.wrap{padding:32px 20px 64px}.two{grid-template-columns:minmax(0,1fr)!important}.two>aside{position:static!important}}
 </style>
 </helmet>
 <div style="position: relative; font-family: Manrope, sans-serif; color: var(--ink); background: var(--canvas); width: 100%; overflow: clip">
@@ -197,7 +198,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 </div>
 </sc-if>
 <sc-if value="{{isEmpty}}" hint-placeholder-val="{{ false }}">
-<div class="card swap" style="margin-top: 30px; padding: 70px 30px; text-align: center"><div class="flo" style="display: inline-block"><svg width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="var(--line-2)" stroke-width="1.2" stroke-linecap="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg></div>
+<div class="card swap" style="margin-top: 30px; padding: var(--sp-section-s) 30px; text-align: center"><div class="flo" style="display: inline-block"><svg width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="var(--line-2)" stroke-width="1.2" stroke-linecap="round"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"></path><path d="M9 8V6a3 3 0 0 1 6 0v2"></path></svg></div>
 <h2 class="fr" style="font-size: 40px; font-weight: 400; margin: 16px 0 0">Your cart is empty</h2><p style="color: var(--ink-2); max-width: 420px; margin: 10px auto 26px; line-height: 1.6">Every book starts with one trip. Pick a book type and we’ll design it with you.</p>
 <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap"><a class="btn bp" href="D21-Books.dc.html">Browse books</a><button class="btn bs" onClick="{{restore}}">Restore demo items</button></div></div>
 </sc-if>

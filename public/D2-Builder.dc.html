@@ -37,6 +37,8 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 .tg::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:var(--surface);transition:left .3s cubic-bezier(.2,.8,.2,1)}
 .tg.on{background:var(--accent)}.tg.on::after{left:23px}
 .tg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tg::before{content:"";position:absolute;inset:-8px -4px}
+@media (max-width:900px){html .cur,html .vw{min-height:44px;display:inline-flex;align-items:center}}
 .inp{width:100%;min-height:48px;border:1px solid var(--line);border-radius:12px;padding:0 14px;font:500 15px Manrope,sans-serif;background:var(--surface);color:var(--ink)}
 .inp:focus{outline:2px solid var(--accent);outline-offset:1px}
 .cur{all:unset;cursor:pointer;padding:8px 14px;border-radius:12px;font-weight:700;font-size:13px;min-height:20px}
@@ -109,9 +111,9 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 </div>
 </nav>
 
-<main class="pad stack" style="max-width: 1320px; margin: 0 auto; padding: 44px 40px 80px; display: grid; grid-template-columns: 1.35fr 1fr; gap: 44px; align-items: start">
+<main class="pad stack" style="max-width: 1320px; margin: 0 auto; padding: 48px 40px var(--sp-section-m); display: grid; grid-template-columns: 1.35fr 1fr; gap: 44px; align-items: start">
 <div class="secs" style="display: flex; flex-direction: column; gap: 40px">
-<div><div class="eyb">Book builder</div><h1 class="fr" style="font-size: 50px; line-height: 1.05; font-weight: 500; margin: 12px 0 0">Design your book</h1><p style="color: var(--muted); font-size: 16px; margin: 12px 0 0">Everything can change later with the studio — this just reserves your slot and price.</p></div>
+<div><div class="eyb">Book builder</div><h1 class="fr" style="font-size: 50px; line-height: 1.05; font-weight: 400; margin: 12px 0 0">Design your book</h1><p style="color: var(--muted); font-size: 16px; margin: 12px 0 0">Everything can change later with the studio — this just reserves your slot and price.</p></div>
 
 <section>
 <h2 style="font-size: 18px; margin: 0 0 14px"><span class="mono" style="color: var(--accent); margin-right: 10px">01</span>What are we making?</h2>
@@ -171,7 +173,7 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 <aside class="sticky" style="position: sticky; top: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: 24px; overflow: hidden">
 <div onMouseMove="{{onTilt}}" onMouseLeave="{{onLeave}}" style="background: radial-gradient(circle at 50% 38%, var(--paper), #E4D5C6); padding: 28px 24px 22px; display: flex; flex-direction: column; align-items: center; gap: 14px; perspective: 1500px">
 <div style="height: 360px; width: 100%; display: grid; place-items: center">
-<div class="idle">
+<div class="idle" style="translate: {{fitX}} 0; scale: {{fitK}}">
 <div class="b3" style="width: {{bw}}; height: {{bh}}; transform: rotateX({{rx}}) rotateY({{ry}})">
 <div class="b3f" style="left: {{spL}}; top: 0; width: {{bt}}; height: {{bh}}; background: {{coverHex}}; filter: brightness(.82); border-radius: 3px; transform: rotateY(-90deg) translateZ({{halfW}})"></div>
 <div class="b3f" style="left: {{spL}}; top: 3px; width: {{bt}}; height: {{bhIn}}; background: repeating-linear-gradient(90deg, var(--paper) 0 2px, var(--line) 2px 3px); transform: rotateY(90deg) translateZ({{halfWin}})"></div>
@@ -191,7 +193,7 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 <div class="bshadow"></div>
 <div style="display: flex; gap: 4px; background: color-mix(in srgb, var(--surface) 70%, transparent); padding: 4px; border-radius: 999px" role="group" aria-label="Preview angle"><sc-for list="{{views}}" as="v" hint-placeholder-count="3"><button class="{{v.cls}}" onClick="{{v.pick}}">{{v.name}}</button></sc-for></div>
 </div>
-<div style="padding: 26px">
+<div style="padding: 24px">
 <div style="display: flex; justify-content: space-between; align-items: baseline"><b class="fr" style="font-size: 22px; font-weight: 500">{{typeName}}</b></div>
 <div style="font-size: 14px; color: var(--muted); margin-top: 4px">{{sizeName}} · {{coverName}} linen · {{pages}} pages</div>
 <div style="display: grid; gap: 10px; margin-top: 20px; font-size: 14px">
@@ -227,6 +229,8 @@ class Component extends DCLogic {
     const TY = ['travel', 'wedding', 'honeymoon', 'love-story', 'multi-city', 'camera-roll'], TT = ['Turkey', 'Our Wedding', 'Maldives', 'Our Story', 'Europe', '2025'], SZ = ['portrait', 'landscape', 'square'];
     const ti = TY.indexOf(q.get('type')), si = SZ.indexOf(q.get('size'));
     this.state = { t: ti >= 0 ? ti : 0, s: si >= 0 ? si : 0, c: 0, pages: 40, copies: 0, gift: false, rush: false, cur: window.milesPricing ? window.milesPricing.cur() : 'SAR', title: ti >= 0 ? TT[ti] : 'Maldives', dates: 'March 2022', view: 0, px: .5, py: .5 }; this._t = 0; }
+  componentDidMount() { this._rz = () => this.setState({ vw: window.innerWidth }); window.addEventListener('resize', this._rz); }
+  componentWillUnmount() { window.removeEventListener('resize', this._rz); }
   renderVals() {
     const st = this.state, set = (o) => this.setState(o);
     const P = window.milesPricing;   // sample price list (public/pricing.js)
@@ -255,6 +259,9 @@ class Component extends DCLogic {
     const tiltY = (st.px - .5) * 26, tiltX = (.5 - st.py) * 14;
     const VIEWS = [{ name: 'Cover', ry: -26, open: 0 }, { name: 'Spine', ry: 64, open: 0 }, { name: 'Open', ry: -6, open: -158 }];
     const vw = VIEWS[st.view];
+    // fit the 3D book inside its stage: the open spread is about twice as wide as the closed book, so scale it down and re-centre it on narrow screens
+    const iw = st.vw || window.innerWidth, asideW = iw <= 900 ? iw - 40 : (Math.min(iw, 1320) - 80 - 44) / 2.35, availW = asideW - 48;
+    const kk = Math.min(1, availW / (st.view === 2 ? W * 1.97 : W * 1.12)), ox = st.view === 2 ? Math.round(W * 0.465 * kk) : 0;
     const px = (n) => n + 'px';
     const pageAdd = (st.pages - P.pagesMin) / P.pageStep * P.pageStepPrice;
     const book = size.base + pageAdd;
@@ -266,7 +273,7 @@ class Component extends DCLogic {
     if (st.gift) lines.push({ label: 'Gift message & delivery', amt: 'Included' });
     return {
       bw: px(W), bh: px(H), bt: px(TH), spL: px((W - TH) / 2), halfW: px(W / 2), halfWin: px(W / 2 - 3), bhIn: px(H - 6), bwIn: px(W - 6), tpT: px((H - TH) / 2), halfHin: px(H / 2 - 3), halfT: px(TH / 2), pageZ: px(TH / 2 - 1),
-      rx: (8 + tiltX).toFixed(1) + 'deg', ry: (vw.ry + tiltY).toFixed(1) + 'deg', openDeg: vw.open + 'deg',
+      fitK: kk.toFixed(3), fitX: ox + 'px', rx: (8 + tiltX).toFixed(1) + 'deg', ry: (vw.ry + tiltY).toFixed(1) + 'deg', openDeg: vw.open + 'deg',
       inscription: st.gift ? 'A gift, with love — open slowly.' : 'For the moments too beautiful to forget.',
       views: VIEWS.map((v, i) => ({ name: v.name, cls: i === st.view ? 'vw on' : 'vw', pick: () => set({ view: i }) })),
       onTilt: (e) => { const n = Date.now(); if (n - this._t < 40) return; this._t = n; const r = e.currentTarget.getBoundingClientRect(); set({ px: (e.clientX - r.left) / r.width, py: (e.clientY - r.top) / r.height }); },

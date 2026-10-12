@@ -36,6 +36,24 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font-size:12px;color:var(--muted);font-weight:700;padding:10px 12px;border-bottom:1px solid var(--line)}td{padding:14px 12px;border-bottom:1px solid var(--line)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:900px){.stack{grid-template-columns:minmax(0,1fr)!important}.pad{padding-left:16px!important;padding-right:16px!important}.side{flex-direction:row!important;overflow-x:auto}}
+
+.tl{display:none}
+@media (max-width:700px){
+.side{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px!important;overflow:visible!important}
+.side .sn{justify-content:center;text-align:center;min-height:48px;padding:8px 12px;line-height:1.2}
+.side .sn:not(.on):not([data-signout]){background:var(--surface);border:1px solid var(--line)}
+.side .sn[data-signout]{grid-column:1/-1;margin-top:0!important}
+.est{text-align:left!important}
+.stg9{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:16px 10px!important}
+.stg9>div>div:last-child{font-size:12px!important}
+.box:has(>table){padding:8px 16px!important;overflow:visible!important}
+table,thead,tbody,tr,td{display:block}
+thead tr{position:absolute;left:-9999px}
+tr{padding:12px 0;border-bottom:1px solid var(--line)}tbody tr:last-child{border-bottom:0}
+td{display:flex;justify-content:space-between;align-items:center;gap:16px;border:0;padding:6px 0}
+td:empty{display:none}
+.tl{display:block;color:var(--muted);font-weight:700;font-size:12px}
+}
 /* MOBILE TYPE SCALE */
 @media (max-width:600px){[style*="font-size: 22px"]{font-size:20px!important}[style*="font-size: 24px"]{font-size:20px!important}[style*="font-size: 26px"]{font-size:20px!important}[style*="font-size: 28px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 30px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 40px"]{font-size:clamp(24px,7vw,30px)!important;line-height:1.12}h1{line-height:1.04!important;letter-spacing:-.01em}h2,h3{line-height:1.1!important}p,li,figcaption,label{overflow-wrap:anywhere}}
 /* END MOBILE TYPE SCALE */
@@ -75,10 +93,10 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <!--/chrome:header-->
 
 
-<div class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 28px 32px 80px; display: grid; grid-template-columns: 240px 1fr; gap: 28px; align-items: start">
+<div class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 32px 32px var(--sp-section-m); display: grid; grid-template-columns: 240px 1fr; gap: 28px; align-items: start">
 <nav class="side" style="display: flex; flex-direction: column; gap: 4px" aria-label="Account">
 <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
-<button class="{{t.cls}}" onClick="{{t.pick}}">{{t.name}}<sc-if value="{{t.badge}}" hint-placeholder-val="{{ false }}"><span style="margin-left: auto; background: var(--accent); color: var(--surface); font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 999px">{{t.badge}}</span></sc-if></button>
+<button class="{{t.cls}}" onClick="{{t.pick}}">{{t.name}}<sc-if value="{{t.badge}}" hint-placeholder-val="{{ false }}"><span style="margin-left: auto; background: var(--accent); color: var(--surface); font-size: 12px; font-weight: 800; padding: 2px 7px; border-radius: 999px">{{t.badge}}</span></sc-if></button>
 </sc-for>
 <a class="sn" href="D1-Motion.dc.html" data-signout style="margin-top: 8px; text-decoration: none; color: var(--muted)">Sign out</a>
 </nav>
@@ -87,7 +105,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <!-- OVERVIEW -->
 <sc-if value="{{isOverview}}" hint-placeholder-val="{{ true }}">
 <div class="view" style="display: flex; flex-direction: column; gap: 20px">
-<h1 class="fr" style="font-size: 40px; font-weight: 500; margin: 0">Welcome back, Sara</h1>
+<h1 class="fr" style="font-size: 40px; font-weight: 400; margin: 0">Welcome back, Sara</h1>
 
 <div style="background: var(--accent); color: var(--on-accent); border-radius: 24px; padding: 24px 28px; display: flex; gap: 22px; align-items: center; flex-wrap: wrap; box-shadow: 0px 30px 50px -30px color-mix(in srgb, var(--accent) 50%, transparent)">
 <span class="st" style="background: color-mix(in srgb, var(--surface) 14%, transparent); color: var(--accent-tint)"><span class="dot"></span>Action needed</span>
@@ -95,7 +113,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <a class="btn" href="D6-Proof.dc.html" style="background: var(--surface); color: var(--accent)">Review proof</a>
 </div>
 
-<div class="box" style="padding: 26px">
+<div class="box" style="padding: 24px">
 <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap">
 <div style="width: 92px; height: 114px; background: #7E9CC0; border-radius: 3px 8px 8px 3px; padding: 8px; flex: none; box-shadow: 0px 14px 24px -12px color-mix(in srgb, var(--ink) 40%, transparent)"><div style="background: var(--surface); height: 100%; padding: 3px"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="" style="width: 100%; height: 72%; object-fit: cover; display: block"></div></div>
 <div style="flex: 1; min-width: 240px">
@@ -103,10 +121,10 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <div class="fr" style="font-size: 26px; margin-top: 6px">Honeymoon · Maldives</div>
 <div style="font-size: 14px; color: var(--muted); margin-top: 4px">Portrait 8 × 10 · Dusty blue · 40 pages · ordered 14 Sep</div>
 </div>
-<div style="text-align: right"><div style="font-size: 12px; color: var(--muted)">Estimated delivery</div><div class="fr" style="font-size: 22px">29 Oct</div></div>
+<div class="est" style="text-align: right"><div style="font-size: 12px; color: var(--muted)">Estimated delivery</div><div class="fr" style="font-size: 22px">29 Oct</div></div>
 </div>
-<div style="margin-top: 26px; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px">
-<sc-for list="{{stages}}" as="s" hint-placeholder-count="9"><div><div style="height: 6px; border-radius: 3px; background: var(--canvas-2); overflow: hidden"><div class="fillbar" style="height: 6px; width: {{s.w}}; background: {{s.c}}; animation-delay: {{s.delay}}"></div></div><div style="font-size: 11px; font-weight: 700; margin-top: 8px; color: {{s.tc}}; line-height: 1.3">{{s.name}}</div></div></sc-for>
+<div class="stg9" style="margin-top: 24px; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px">
+<sc-for list="{{stages}}" as="s" hint-placeholder-count="9"><div><div style="height: 6px; border-radius: 3px; background: var(--canvas-2); overflow: hidden"><div class="fillbar" style="height: 6px; width: {{s.w}}; background: {{s.c}}; animation-delay: {{s.delay}}"></div></div><div style="font-size: 12px; font-weight: 700; margin-top: 8px; color: {{s.tc}}; line-height: 1.3">{{s.name}}</div></div></sc-for>
 </div>
 <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--line)">
 <a class="btn bs" href="D7-Tracking.dc.html?order=MR-1042">Track order</a><a class="btn bs" href="D4-Upload.dc.html">Photos (85)</a><a class="btn bs" href="D22-Order.dc.html">Order details</a><a class="btn bs" href="D22-Order.dc.html">Deposit receipt</a>
@@ -121,7 +139,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <div style="display: flex; gap: 14px; align-items: center; padding: 14px 0"><img src="/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg" alt="" style="width: 56px; height: 56px; border-radius: 12px; object-fit: cover"><div style="flex: 1"><b>Paris · July 2023</b><div style="font-size: 13px; color: var(--muted)">Delivered · review left</div></div><a class="btn bs" href="D19-Cart.dc.html" style="min-height: 44px">Order a copy</a></div>
 </div>
 </div>
-<div style="background: var(--ink); color: var(--on-accent); border-radius: 16px; padding: 26px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px">
+<div style="background: var(--ink); color: var(--on-accent); border-radius: 16px; padding: 24px; display: flex; flex-direction: column; justify-content: space-between; gap: 18px">
 <div><div style="font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: var(--gold)">Share the love</div><div class="fr" style="font-size: 24px; margin-top: 10px">Give friends a welcome discount on their first book — get credit back.</div></div>
 <div style="display: flex; gap: 8px; align-items: center; background: color-mix(in srgb, var(--surface) 8%, transparent); border-radius: 12px; padding: 6px 6px 6px 14px"><span class="mono" style="flex: 1; font-size: 15px">SARA-MILES</span><button class="btn" onClick="{{do_copy}}" style="background: var(--gold); color: var(--ink); min-height: 40px">{{lb_copy}}</button></div>
 </div>
@@ -132,7 +150,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <!-- PAYMENTS -->
 <sc-if value="{{isPay}}" hint-placeholder-val="{{ false }}">
 <div class="view" style="display: flex; flex-direction: column; gap: 20px">
-<h1 class="fr" style="font-size: 40px; font-weight: 500; margin: 0">Payments &amp; invoices</h1>
+<h1 class="fr" style="font-size: 40px; font-weight: 400; margin: 0">Payments &amp; invoices</h1>
 <div class="stack" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px">
 <div class="box" style="padding: 20px"><div style="font-size: 13px; color: var(--muted)">Paid on MR-1042</div><div class="fr" style="font-size: 30px; margin-top: 6px">SAR 185</div></div>
 <div class="box" style="padding: 20px; border-color: #E9CDA8; background: var(--paper)"><div style="font-size: 13px; color: var(--warn)">Due after approval</div><div class="fr" style="font-size: 30px; margin-top: 6px">SAR 160</div></div>
@@ -142,9 +160,9 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <table>
 <thead><tr><th>Date</th><th>Order</th><th>Description</th><th>Method</th><th>Amount</th><th>Status</th><th><span style="position: absolute; left: -9999px">Invoice</span></th></tr></thead>
 <tbody>
-<tr><td>—</td><td class="mono">MR-1042</td><td>Balance (50%)</td><td>—</td><td>SAR 160</td><td><span class="st" style="background: var(--warn-tint); color: var(--warn)">Due after approval</span></td><td></td></tr>
-<tr><td>14 Sep 2026</td><td class="mono">MR-1042</td><td>Deposit (50%) + shipping</td><td>mada •• 4417</td><td>SAR 185</td><td><span class="st" style="background: var(--ok-tint); color: var(--ok)">Paid</span></td><td><a href="D22-Order.dc.html">Tax invoice</a></td></tr>
-<tr><td>28 Apr 2024</td><td class="mono">MR-0877</td><td>London book · paid in full</td><td>Apple Pay</td><td>SAR 345</td><td><span class="st" style="background: var(--ok-tint); color: var(--ok)">Paid</span></td><td><a href="D22-Order.dc.html">Tax invoice</a></td></tr>
+<tr><td><span class="tl">Date</span><span>—</span></td><td class="mono"><span class="tl">Order</span><span>MR-1042</span></td><td><span class="tl">Description</span><span>Balance (50%)</span></td><td><span class="tl">Method</span><span>—</span></td><td><span class="tl">Amount</span><span>SAR 160</span></td><td><span class="tl">Status</span><span><span class="st" style="background: var(--warn-tint); color: var(--warn)">Due after approval</span></span></td><td></td></tr>
+<tr><td><span class="tl">Date</span><span>14 Sep 2026</span></td><td class="mono"><span class="tl">Order</span><span>MR-1042</span></td><td><span class="tl">Description</span><span>Deposit (50%) + shipping</span></td><td><span class="tl">Method</span><span>mada •• 4417</span></td><td><span class="tl">Amount</span><span>SAR 185</span></td><td><span class="tl">Status</span><span><span class="st" style="background: var(--ok-tint); color: var(--ok)">Paid</span></span></td><td><a href="D22-Order.dc.html">Tax invoice</a></td></tr>
+<tr><td><span class="tl">Date</span><span>28 Apr 2024</span></td><td class="mono"><span class="tl">Order</span><span>MR-0877</span></td><td><span class="tl">Description</span><span>London book · paid in full</span></td><td><span class="tl">Method</span><span>Apple Pay</span></td><td><span class="tl">Amount</span><span>SAR 345</span></td><td><span class="tl">Status</span><span><span class="st" style="background: var(--ok-tint); color: var(--ok)">Paid</span></span></td><td><a href="D22-Order.dc.html">Tax invoice</a></td></tr>
 </tbody>
 </table>
 </div>
@@ -157,8 +175,8 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <div class="view box" style="padding: 0; overflow: hidden">
 <div style="padding: 18px 24px; border-bottom: 1px solid var(--line); display: flex; gap: 12px; align-items: center"><img src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt="" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover"><div><b>Tazmeen &amp; Rameen</b><div style="font-size: 13px; color: var(--muted)">Usually reply within a few hours · also on WhatsApp</div></div></div>
 <div style="padding: 24px; display: flex; flex-direction: column; gap: 14px; background: var(--paper); min-height: 360px">
-<div style="align-self: flex-start; max-width: 70%; background: var(--surface); border: 1px solid var(--line); border-radius: 16px 16px 16px 4px; padding: 12px 16px; font-size: 15px; line-height: 1.5">Your photos are gorgeous! Quick question — should the parasailing photo be the cover or the opening spread?<div style="font-size: 11px; color: var(--muted); margin-top: 6px">Rameen · 16 Sep</div></div>
-<div style="align-self: flex-end; max-width: 70%; background: var(--accent); color: var(--on-accent); border-radius: 16px 16px 4px 16px; padding: 12px 16px; font-size: 15px; line-height: 1.5">The cover please! It was our favourite day.<div style="font-size: 11px; opacity: .7; margin-top: 6px">You · 16 Sep</div></div>
+<div style="align-self: flex-start; max-width: 70%; background: var(--surface); border: 1px solid var(--line); border-radius: 16px 16px 16px 4px; padding: 12px 16px; font-size: 15px; line-height: 1.5">Your photos are gorgeous! Quick question — should the parasailing photo be the cover or the opening spread?<div style="font-size: 12px; color: var(--muted); margin-top: 6px">Rameen · 16 Sep</div></div>
+<div style="align-self: flex-end; max-width: 70%; background: var(--accent); color: var(--on-accent); border-radius: 16px 16px 4px 16px; padding: 12px 16px; font-size: 15px; line-height: 1.5">The cover please! It was our favourite day.<div style="font-size: 12px; opacity: .7; margin-top: 6px">You · 16 Sep</div></div>
 <div style="align-self: center; font-size: 12px; color: var(--muted); background: var(--accent-tint); padding: 6px 12px; border-radius: 999px">Proof round 2 shared · 2 Oct</div>
 </div>
 <div style="padding: 14px; border-top: 1px solid var(--line); display: flex; gap: 10px"><label for="msg" style="position: absolute; left: -9999px">Message</label><input id="msg" placeholder="Write a message…" style="flex: 1; min-height: 48px; border: 1px solid var(--line); border-radius: 12px; padding: 0 14px; font: 500 15px Manrope, sans-serif"><button class="btn bp" onClick="{{do_send}}">{{lb_send}}</button></div>

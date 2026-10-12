@@ -69,7 +69,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 @keyframes rvc{from{clip-path:inset(16% 10% 16% 10% round 40px)}to{clip-path:inset(0 0 0 0 round 24px)}}
 @keyframes rvci{from{transform:scale(1.3)}to{transform:scale(1)}}
 @keyframes par{from{transform:translateY(70px)}to{transform:translateY(-70px)}}
-@media (max-width:900px){.stack{grid-template-columns:1fr!important}.pad{padding-left:20px!important;padding-right:20px!important}.hide-m{display:none!important}.h1{font-size:52px!important}}
+@media (max-width:900px){.stkh{position:static!important}.stack{grid-template-columns:1fr!important}.pad{padding-left:20px!important;padding-right:20px!important}.hide-m{display:none!important}.h1{font-size:52px!important}}
 
 .srch{position:relative}
 .srch svg{position:absolute;left:22px;top:50%;translate:0 -50%;pointer-events:none}
@@ -89,7 +89,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 @keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
 .inp.bad{border-color:var(--err);background:var(--accent-tint)}
 .sent{animation:okpop .8s cubic-bezier(.3,1.7,.5,1) both}@keyframes okpop{from{transform:scale(.6);opacity:0}}
-.pol{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:26px}
+.pol{background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px}
 mark{background:var(--accent-tint);color:var(--accent);border-radius:4px;padding:0 2px}
 
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -138,22 +138,22 @@ mark{background:var(--accent-tint);color:var(--accent);border-radius:4px;padding
 <!--/chrome:header-->
 
 <main style="display: contents"><section style="background: var(--canvas-2)">
-<div class="pad" style="max-width: 900px; margin: 0 auto; padding: 90px 44px 80px; text-align: center">
+<div class="pad" style="max-width: 900px; margin: 0 auto; padding: var(--sp-section-l) 44px var(--sp-section-m); text-align: center">
 <p class="eyb in">Help centre</p>
-<h1 class="fr h1" style="font-size: 76px; line-height: 1; font-weight: 400; margin: 16px 0 0"><span class="wd"><span class="wi" style="animation-delay: .1s">How</span></span> <span class="wd"><span class="wi" style="animation-delay: .16s">can</span></span> <span class="wd"><span class="wi" style="animation-delay: .22s">we</span></span> <span class="wd"><span class="wi" style="animation-delay: .28s; font-style: italic; color: var(--accent)">help?</span></span></h1>
+<h1 class="fr h1 h1-hero" style="font-size: 76px; line-height: 1; font-weight: 400; margin: 16px 0 0"><span class="wd"><span class="wi" style="animation-delay: .1s">How</span></span> <span class="wd"><span class="wi" style="animation-delay: .16s">can</span></span> <span class="wd"><span class="wi" style="animation-delay: .22s">we</span></span> <span class="wd"><span class="wi" style="animation-delay: .28s; font-style: italic; color: var(--accent)">help?</span></span></h1>
 <div class="srch in d3" style="margin-top: 36px"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg><label for="q" style="position: absolute; left: -9999px">Search help</label><input id="q" value="{{q}}" onInput="{{onQ}}" placeholder="Try “payment”, “revisions” or “delivery”" autocomplete="off"></div>
 <div class="in d4" role="group" aria-label="Topics" style="display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; margin-top: 22px"><sc-for list="{{cats}}" as="c" hint-placeholder-count="5"><button class="{{c.cls}}" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}">{{c.name}}</button></sc-for></div>
 </div>
 </section>
-<section class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 80px 44px; display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: start">
-<div style="position: sticky; top: 100px"><h2 class="fr" style="font-size: 44px; font-weight: 400; margin: 0">{{catTitle}}</h2><p style="color: var(--ink-2); margin: 12px 0 0" aria-live="polite">{{resultLine}}</p></div>
+<section class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: var(--sp-section-m) 44px; display: grid; grid-template-columns: 1fr 2fr; gap: 60px; align-items: start">
+<div class="stkh" style="position: sticky; top: 100px"><h2 class="fr" style="font-size: 44px; font-weight: 400; margin: 0">{{catTitle}}</h2><p style="color: var(--ink-2); margin: 12px 0 0" aria-live="polite">{{resultLine}}</p></div>
 <div key="{{listKey}}">
 <sc-for list="{{qs}}" as="x" hint-placeholder-count="6"><div class="qrow" style="animation-delay: {{x.d}}"><button class="{{x.cls}}" onClick="{{x.toggle}}" aria-expanded="{{x.exp}}"><span>{{x.q}}</span><span class="pl" aria-hidden="true">+</span></button><sc-if value="{{x.open}}" hint-placeholder-val="{{ false }}"><p class="ans" style="margin: 0 0 24px; font-size: 16px; line-height: 1.75; color: var(--ink-2); max-width: 680px">{{x.a}}</p></sc-if></div></sc-for>
 <sc-if value="{{empty}}" hint-placeholder-val="{{ false }}"><div class="swap" style="background: var(--surface); border: 1px dashed var(--line-2); border-radius: 24px; padding: 34px; text-align: center"><div class="fr" style="font-size: 26px">No answers for “{{q}}” yet</div><p style="color: var(--ink-2); margin: 8px 0 18px">Ask us directly — we reply within a few hours.</p><a class="btn bp" href="#contact">Message the studio</a></div></sc-if>
 </div>
 </section>
 <section id="contact" style="background: var(--surface); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line)">
-<div class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 100px 44px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start">
+<div class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: var(--sp-section-l) 44px; display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: start">
 <div>
 <h2 class="fr" style="font-size: 56px; line-height: 1; font-weight: 400; margin: 0"><span class="rvl"><span>Talk to</span></span><span class="rvl"><span><em style="color: var(--accent)">the sisters.</em></span></span></h2>
 <p class="rv" style="color: var(--ink-2); font-size: 17px; line-height: 1.7; margin: 18px 0 30px">No bots, no call centre — every message is answered by Tazmeen or Rameen.</p>
@@ -166,24 +166,24 @@ mark{background:var(--accent-tint);color:var(--accent);border-radius:4px;padding
 <sc-if value="{{notSent}}" hint-placeholder-val="{{ true }}"><div>
 <div class="stack" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px">
 <div><label class="lb" for="cn">Your name</label><input id="cn" class="{{nameCls}}" placeholder="Sara A."><sc-if value="{{showErr}}" hint-placeholder-val="{{ false }}"><div class="err">Please add your name</div></sc-if></div>
-<div><label class="lb" for="cp">WhatsApp or email</label><input id="cp" class="inp" placeholder="+966 5x xxx xxxx"></div>
+<div><label class="lb" for="cp">WhatsApp or email</label><input id="cp" class="{{contactCls}}" placeholder="+966 5x xxx xxxx"><sc-if value="{{showErrC}}" hint-placeholder-val="{{ false }}"><div class="err">Please add a WhatsApp number or email</div></sc-if></div>
 <div style="grid-column: 1 / -1"><label class="lb" for="co">Order number (optional)</label><input id="co" class="inp" placeholder="MR-1042"></div>
 <div style="grid-column: 1 / -1"><label class="lb" for="ct">What’s it about?</label><div style="display: flex; gap: 8px; flex-wrap: wrap"><sc-for list="{{topics}}" as="t" hint-placeholder-count="4"><button class="{{t.cls}}" onClick="{{t.pick}}" aria-pressed="{{t.pressed}}">{{t.name}}</button></sc-for></div></div>
 <div style="grid-column: 1 / -1"><label class="lb" for="cm">Message</label><textarea id="cm" class="inp" placeholder="Tell us a little about your trip or question…"></textarea></div>
 </div>
-<div style="display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap"><button class="btn bp" onClick="{{trySend}}" style="flex: 1">Send message</button><button class="btn bs" onClick="{{fakeOk}}">Preview sent state</button></div>
+<div style="display: flex; gap: 10px; margin-top: 18px; flex-wrap: wrap"><button class="btn bp" onClick="{{trySend}}" style="flex: 1">Send message</button></div>
 </div></sc-if>
 <sc-if value="{{isSent}}" hint-placeholder-val="{{ false }}"><div class="sent" style="text-align: center; padding: 40px 10px"><span style="display: inline-grid; place-items: center; width: 80px; height: 80px; border-radius: 50%; background: var(--ok)"><svg width="38" height="38" viewBox="0 0 24 24" fill="none" stroke="var(--surface)" stroke-width="2.6"><path d="M5 12l5 5 9-10"></path></svg></span><div class="fr" style="font-size: 32px; margin-top: 18px">Message sent</div><p style="color: var(--ink-2); margin: 8px 0 20px">We’ll reply on WhatsApp within a few hours.</p><button class="btn bs" onClick="{{reset}}">Send another</button></div></sc-if>
 </div>
 </div>
 </section>
-<section id="reviews" class="pad" style="max-width: 1360px; margin: 0 auto; padding: 96px 44px 40px">
+<section id="reviews" class="pad" style="max-width: 1360px; margin: 0 auto; padding: var(--sp-section-l) 44px 40px">
 <h2 class="fr" style="font-size: 52px; font-weight: 400; margin: 0"><span class="rvl"><span>Client reviews</span></span></h2>
 <div class="stack stg" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 420px)); gap: 18px; margin-top: 34px">
 <figure class="pol lift" style="margin: 0"><blockquote class="fr" style="margin: 0; font-size: 22px">“Such a beautiful gesture by @milesretold.”</blockquote><figcaption style="margin-top: 14px; font-size: 14px"><b>Lens &amp; Lights Studio</b> · Instagram</figcaption></figure>
 </div>
 </section>
-<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 64px 44px 120px">
+<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: var(--sp-section-s) 44px var(--sp-section-xl)">
 <h2 class="fr" style="font-size: 52px; font-weight: 400; margin: 0"><span class="rvl"><span>Policies</span></span></h2>
 <div class="stack stg" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; margin-top: 34px">
 <div id="refunds" class="pol"><b class="fr" style="font-size: 24px; font-weight: 500">Refunds &amp; cancellations</b><p style="color: var(--ink-2); line-height: 1.7">Your 50% deposit books your design slot, and the other 50% is only due after you approve your final design. If you need to change or cancel an order, message us and we’ll sort it out together.</p></div>
@@ -209,7 +209,7 @@ mark{background:var(--accent-tint);color:var(--accent);border-radius:4px;padding
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":3300}}'>
 class Component extends DCLogic {
-  constructor(p){ super(p); this.state = { q: '', cat: 'All', open: 0, topic: 0, sent: false, err: false }; }
+  constructor(p){ super(p); this.state = { q: '', cat: 'All', open: 0, topic: 0, sent: false, err: false, errC: false }; }
   renderVals() {
     const st = this.state, set = (o) => this.setState(o);
     const Q = [
@@ -238,8 +238,8 @@ class Component extends DCLogic {
       qs: list.map((x, i) => ({ q: x[1], a: x[2], open: i === st.open, exp: i === st.open ? 'true' : 'false', cls: i === st.open ? 'qa on' : 'qa', d: (i * 0.05).toFixed(2) + 's', toggle: () => set({ open: i === st.open ? -1 : i }) })),
       empty: list.length === 0,
       topics: topics.map((t, i) => ({ name: t, cls: i === st.topic ? 'chip on' : 'chip', pressed: i === st.topic ? 'true' : 'false', pick: () => set({ topic: i }) })),
-      notSent: !st.sent, isSent: st.sent, showErr: st.err, nameCls: st.err ? 'inp bad' : 'inp',
-      trySend: () => set({ err: true }), fakeOk: () => set({ sent: true, err: false }), reset: () => set({ sent: false })
+      notSent: !st.sent, isSent: st.sent, showErr: st.err, nameCls: st.err ? 'inp bad' : 'inp', showErrC: st.errC, contactCls: st.errC ? 'inp bad' : 'inp',
+      trySend: () => { const v = (id) => ((document.getElementById(id) || {}).value || '').trim(); const noName = !v('cn'), noContact = !v('cp'); set({ err: noName, errC: noContact, sent: !noName && !noContact }); }, reset: () => set({ sent: false, err: false, errC: false })
     };
   }
 }

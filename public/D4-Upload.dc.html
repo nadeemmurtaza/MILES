@@ -38,6 +38,7 @@ label{font-size:13px;font-weight:700}
 .bar{height:6px;border-radius:3px;background:color-mix(in srgb, var(--surface) 40%, transparent);overflow:hidden}
 .bar span{display:block;height:100%;background:var(--surface);animation:grow 2.6s cubic-bezier(.4,0,.2,1) infinite}
 @keyframes grow{from{width:8%}to{width:96%}}
+.star::before{content:"";position:absolute;inset:-6px}
 .star{all:unset;cursor:pointer;position:absolute;top:6px;right:6px;width:32px;height:32px;border-radius:50%;background:color-mix(in srgb, var(--ink) 45%, transparent);display:grid;place-items:center;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
 .star:hover{transform:scale(1.12)}.star:focus-visible{outline:2px solid var(--surface)}
 .ok{position:absolute;left:6px;bottom:6px;width:22px;height:22px;border-radius:50%;background:var(--ok);display:grid;place-items:center}
@@ -99,7 +100,7 @@ label{font-size:13px;font-weight:700}
 </div>
 </div>
 
-<main class="pad stack" style="max-width: 1320px; margin: 0 auto; padding: 28px 40px 80px; display: grid; grid-template-columns: 260px 1fr 330px; gap: 24px; align-items: start">
+<main class="pad stack" style="max-width: 1320px; margin: 0 auto; padding: 32px 40px var(--sp-section-m); display: grid; grid-template-columns: 260px 1fr 330px; gap: 24px; align-items: start">
 
 <!-- folders -->
 <nav class="box" style="padding: 12px" aria-label="Trips">
@@ -114,7 +115,7 @@ label{font-size:13px;font-weight:700}
 <!-- photos -->
 <section style="display: flex; flex-direction: column; gap: 18px">
 <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap">
-<div><h1 class="fr" style="font-size: 40px; font-weight: 500; margin: 0">{{folderName}}</h1><div style="font-size: 14px; color: var(--muted); margin-top: 4px">{{folderCount}} of about 88 recommended for 40 pages</div></div>
+<div><h1 class="fr" style="font-size: 40px; font-weight: 400; margin: 0">{{folderName}}</h1><div style="font-size: 14px; color: var(--muted); margin-top: 4px">{{folderCount}} of about 88 recommended for 40 pages</div></div>
 <div style="width: 260px; max-width: 100%"><div style="height: 8px; border-radius: 4px; background: var(--canvas-2); overflow: hidden"><div style="height: 8px; width: {{pct}}; background: linear-gradient(90deg, var(--accent), var(--accent-deep)); border-radius: 4px; transition: width .6s"></div></div></div>
 </div>
 
@@ -129,7 +130,7 @@ label{font-size:13px;font-weight:700}
 <sc-for list="{{photos}}" as="p" hint-placeholder-count="10">
 <div class="th"><img src="{{p.src}}" alt="{{p.alt}}">
 <sc-if value="{{p.uploading}}" hint-placeholder-val="{{ false }}"><div style="position: absolute; inset: 0; background: color-mix(in srgb, var(--ink) 55%, transparent); display: flex; flex-direction: column; justify-content: flex-end; padding: 10px; color: var(--surface); font-size: 12px; font-weight: 700">Uploading<div class="bar" style="margin-top: 6px"><span></span></div></div></sc-if>
-<sc-if value="{{p.lowres}}" hint-placeholder-val="{{ false }}"><div style="position: absolute; left: 6px; right: 6px; bottom: 6px; background: var(--warn-tint); color: var(--warn); border-radius: 8px; padding: 5px 8px; font-size: 11px; font-weight: 700">Low resolution · may print soft</div></sc-if>
+<sc-if value="{{p.lowres}}" hint-placeholder-val="{{ false }}"><div style="position: absolute; left: 6px; right: 6px; bottom: 6px; background: var(--warn-tint); color: var(--warn); border-radius: 8px; padding: 5px 8px; font-size: 12px; font-weight: 700">Low resolution · may print soft</div></sc-if>
 <sc-if value="{{p.done}}" hint-placeholder-val="{{ true }}"><span class="ok"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--surface)" stroke-width="3.2"><path d="M5 12l5 5 9-10"></path></svg></span></sc-if>
 <button class="star" onClick="{{p.toggle}}" aria-label="Must include" aria-pressed="{{p.pressed}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="{{p.fill}}" stroke="var(--surface)" stroke-width="1.8"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"></path></svg></button>
 </div>

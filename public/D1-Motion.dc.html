@@ -99,7 +99,7 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 /* scroll-driven */
 .gtrack{display:flex;gap:28px;width:max-content;padding:0 80px}
 .gstick{overflow:hidden;scrollbar-width:none;-webkit-mask-image:linear-gradient(90deg,transparent,var(--black) 6%,var(--black) 94%,transparent);mask-image:linear-gradient(90deg,transparent,var(--black) 6%,var(--black) 94%,transparent)}.gstick::-webkit-scrollbar{display:none}
-.gtrack{will-change:transform;align-items:flex-start;padding-top:30px!important;padding-bottom:40px!important}
+.gtrack{will-change:transform;align-items:flex-start;padding-top:32px!important;padding-bottom:40px!important}
 .gtrack>a{animation:gbob 7s ease-in-out infinite}.gtrack>a:nth-child(even){animation-delay:-3.5s}
 @keyframes gbob{0%,100%{translate:0 0}50%{translate:0 -14px}}
 .gnav{all:unset;cursor:pointer;width:52px;height:52px;border-radius:50%;border:1.5px solid var(--ink);display:grid;place-items:center;transition:background .35s,color .35s,transform .5s cubic-bezier(.3,1.6,.5,1)}.gnav:hover{background:var(--ink);color:var(--on-accent);transform:scale(1.06)}.gnav:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px}
@@ -200,7 +200,7 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 .rq{display:flex;gap:18px;width:max-content;animation:mq 60s linear infinite}
 .rq.r{animation-direction:reverse;animation-duration:70s}
 .rqw:hover .rq{animation-play-state:paused}
-.rcard{width:380px;flex:none;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:26px;transition:transform .7s cubic-bezier(.16,1,.3,1),box-shadow .7s}
+.rcard{width:380px;flex:none;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:24px;transition:transform .7s cubic-bezier(.16,1,.3,1),box-shadow .7s}
 .rcard:hover{transform:translateY(-8px) rotate(-1deg);box-shadow:0 30px 50px -30px color-mix(in srgb, var(--shadow-tint) 45%, transparent)}
 .rcard.rb{width:300px;padding:0;overflow:hidden}.rcard.rb img{width:100%;height:230px;object-fit:cover;display:block}.rcard.rb figcaption{display:flex;justify-content:space-between;align-items:baseline;gap:12px;padding:16px 20px 18px}.rcard.rb b{font-size:20px;font-weight:500}.rcard.rb span{font-size:13px;color:var(--muted);white-space:nowrap}
 /* size cards */
@@ -215,7 +215,7 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 @keyframes ping{0%{r:4;opacity:1}100%{r:16;opacity:0}}
 /* faq */
 .faq details{border-bottom:1px solid var(--line);interpolate-size:allow-keywords}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:26px 0;font-family:Fraunces,Georgia,serif;font-size:26px;min-height:44px}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;font-family:Fraunces,Georgia,serif;font-size:26px;min-height:44px}
 .faq summary::-webkit-details-marker{display:none}
 .faq summary:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
 .faq .pl{flex:none;width:40px;height:40px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s,color .4s}
@@ -314,10 +314,8 @@ html{scroll-behavior:smooth}
 /* MOBILE FIXES */
 @media (max-width:900px){
 .faqL{position:static!important}
-[style*="padding: 96px 44px"]{padding-top:60px!important;padding-bottom:60px!important}
-[style*="padding: 120px 24px 96px"]{padding:80px 22px 70px!important}
-[style*="padding: 40px 44px 64px"]{padding-top:24px!important;padding-bottom:48px!important}
-[style*="padding: 64px 44px 40px"]{padding-top:48px!important}
+[style*="padding: 40px 44px var(--sp-section-s)"]{padding-top:24px!important;padding-bottom:48px!important}
+[style*="padding: var(--sp-section-s) 44px 40px"]{padding-top:48px!important}
 .wallTxt{padding:64px 0 8px!important}
 .wallImg{height:520px!important;-webkit-mask-image:linear-gradient(transparent,var(--black) 5%,var(--black) 92%,transparent)!important;mask-image:linear-gradient(transparent,var(--black) 5%,var(--black) 92%,transparent)!important;margin-bottom:24px}
 .howStick{padding-top:24px!important;padding-bottom:40px!important}
@@ -438,7 +436,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 <div aria-hidden="true" ref="{{setSpot}}" style="position: absolute; inset: -200px; pointer-events: none; background: radial-gradient(600px circle at 60% 35%, color-mix(in srgb, var(--accent) 11%, transparent), transparent 60%)"></div>
 <div style="position: relative">
 <p class="fade" style="font-size: 16px; font-weight: 600; color: var(--accent); margin: 0; animation-delay: 1.9s">Hand-designed travel photobooks, Saudi Arabia &amp; Pakistan</p>
-<h1 class="fr h1" style="font-size: clamp(48px, min(6.4vw, 10.4svh), 96px); line-height: .95; font-weight: 400; margin: clamp(10px, 2svh, 22px) 0 0; letter-spacing: -.025em">
+<h1 class="fr h1 h1-hero" style="font-size: clamp(48px, min(6.4vw, 10.4svh), 96px); line-height: .95; font-weight: 400; margin: clamp(10px, 2svh, 22px) 0 0; letter-spacing: -.025em">
 <sc-for list="{{words}}" as="w" hint-placeholder-count="5"><span class="wd"><span class="wi" style="animation-delay: {{w.d}}; font-style: {{w.it}}; color: {{w.c}}">{{w.t}}</span></span> </sc-for>
 </h1>
 <p class="fade" style="font-size: clamp(15px, 2.4svh, 19px); line-height: 1.6; color: var(--ink-2); max-width: 500px; margin: clamp(14px, 2.8svh, 28px) 0 0; animation-delay: 2.7s">Send us your camera roll. Two sisters design every spread by hand, you approve each page, and a linen hardcover arrives tied in gold ribbon.</p>
@@ -470,7 +468,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 </section>
 
 <!-- marquee ribbons -->
-<section class="mqw" style="padding: 30px 0 44px; overflow: hidden">
+<section class="mqw" style="padding: 32px 0 48px; overflow: hidden">
 <div style="transform: rotate(-2deg); background: var(--accent); padding: 20px 0; margin: 0 -40px">
 <div class="mq fr" ref="{{setR1}}" aria-hidden="true" style="gap: 50px; font-size: 46px; font-style: italic; color: var(--on-accent); white-space: nowrap; align-items: center">
 <span>Maldives</span><span style="color: var(--gold)">✦</span><span>Hallstatt</span><span style="color: var(--gold)">✦</span><span>Hong Kong</span><span style="color: var(--gold)">✦</span><span>Barcelona</span><span style="color: var(--gold)">✦</span><span>Taiwan</span><span style="color: var(--gold)">✦</span><span>Boracay</span><span style="color: var(--gold)">✦</span><span>Dubai</span><span style="color: var(--gold)">✦</span>
@@ -502,12 +500,12 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 <div class="bookIn" style="position: relative; width: 680px; height: 430px; transform-style: preserve-3d">
 <div class="spreadGlow" style="position: absolute; inset: -80px; background: radial-gradient(closest-side, color-mix(in srgb, var(--gold) 35%, transparent), transparent); filter: blur(10px)"></div>
 <div class="pgR" style="position: absolute; right: 0; top: 0; width: 340px; height: 430px; background: var(--paper); border-radius: 0 4px 4px 0; box-shadow: 0px 60px 100px -40px color-mix(in srgb, var(--shadow-deep) 60%, transparent); overflow: hidden">
-<div style="position: absolute; inset: 0; padding: 26px 26px 22px 30px; display: flex; flex-direction: column; gap: 12px"><div class="pgImg" style="flex: 1; min-height: 0; overflow: hidden; border-radius: 2px"><img src="/assets/ae8f12954b4a72155451fa4ddff588b7.jpg" alt="A parasail over the sea, inside the Maldives book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; color: var(--ink)"><span class="fr" style="font-style: italic; font-size: 17px">Day three — the sky went pink.</span><span style="font-size: 10px; letter-spacing: .2em; color: var(--ink-2)">03</span></div></div>
+<div style="position: absolute; inset: 0; padding: 24px 26px 22px 30px; display: flex; flex-direction: column; gap: 12px"><div class="pgImg" style="flex: 1; min-height: 0; overflow: hidden; border-radius: 2px"><img src="/assets/ae8f12954b4a72155451fa4ddff588b7.jpg" alt="A parasail over the sea, inside the Maldives book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; color: var(--ink)"><span class="fr" style="font-style: italic; font-size: 17px">Day three — the sky went pink.</span><span style="font-size: 10px; letter-spacing: .2em; color: var(--ink-2)">03</span></div></div>
 <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 46px; background: linear-gradient(90deg, color-mix(in srgb, var(--black) 20%, transparent), color-mix(in srgb, var(--black) 5%, transparent) 40%, transparent)"></div>
 </div>
 <div aria-hidden="true" style="position: absolute; right: -7px; top: 4px; width: 8px; height: 422px; border-radius: 0 3px 3px 0; background: repeating-linear-gradient(90deg, var(--paper) 0 1px, var(--line) 1px 2px); transform: translateZ(-1px)"></div>
 <div class="cover" style="position: absolute; right: -2px; top: -5px; width: 344px; height: 440px; transform-origin: left center; transform-style: preserve-3d">
-<div class="cvF" style="position: absolute; inset: 0; backface-visibility: hidden; border-radius: 3px 8px 8px 3px; padding: 26px 24px 20px; display: flex; flex-direction: column; color: var(--on-accent); background: repeating-linear-gradient(0deg, color-mix(in srgb, var(--surface) 4%, transparent) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, color-mix(in srgb, var(--black) 3.5%, transparent) 0 1px, transparent 1px 4px), #6F8FB6; box-shadow: inset 13px 0 17px -8px color-mix(in srgb, var(--shadow-tint) 20%, transparent), inset 12px 0px 10px -6px color-mix(in srgb, var(--shadow-deep) 18%, transparent), 0px 40px 60px -30px color-mix(in srgb, var(--shadow-deep) 60%, transparent)">
+<div class="cvF" style="position: absolute; inset: 0; backface-visibility: hidden; border-radius: 3px 8px 8px 3px; padding: 24px 24px 20px; display: flex; flex-direction: column; color: var(--on-accent); background: repeating-linear-gradient(0deg, color-mix(in srgb, var(--surface) 4%, transparent) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, color-mix(in srgb, var(--black) 3.5%, transparent) 0 1px, transparent 1px 4px), #6F8FB6; box-shadow: inset 13px 0 17px -8px color-mix(in srgb, var(--shadow-tint) 20%, transparent), inset 12px 0px 10px -6px color-mix(in srgb, var(--shadow-deep) 18%, transparent), 0px 40px 60px -30px color-mix(in srgb, var(--shadow-deep) 60%, transparent)">
 <div style="background: var(--paper); padding: 9px 9px 10px; flex: 1; display: flex; flex-direction: column; box-shadow: 0px 6px 24px -4px color-mix(in srgb, var(--shadow-deep) 18%, transparent)"><div style="position: relative; flex: 1; min-height: 0; overflow: hidden"><img src="/assets/ae8f12954b4a72155451fa4ddff588b7.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"><div class="fr" style="position: absolute; left: 0; right: 0; top: 14px; text-align: center; color: var(--surface); font-size: 30px; letter-spacing: .16em; text-shadow: 0px 2px 10px 0px color-mix(in srgb, var(--shadow-deep) 25%, transparent)">MALDIVES</div></div><div style="text-align: center; font-size: 9px; letter-spacing: .3em; color: var(--muted); padding-top: 8px">— MARCH, 2022 —</div></div>
 <div class="fr" style="font-style: italic; font-size: 11px; line-height: 1.5; text-align: center; margin-top: 12px; opacity: .92">For the moments too beautiful to forget, the places too special to leave behind.</div>
 <svg width="120" height="16" viewBox="0 0 120 16" fill="none" aria-hidden="true" style="align-self: center; margin-top: 6px"><path d="M2 12c16-10 30 4 46-2s30-8 50-2" stroke="var(--on-accent)" stroke-width="1" stroke-dasharray="3 3"></path><path d="M118 6l-10-3 2 3-2 3z" fill="var(--on-accent)"></path></svg>
@@ -546,7 +544,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 
 <!-- how it works: drawn path -->
 <section id="how" class="howSec" style="position: relative">
-<div class="howStick pad" style="position: relative; max-width: 1360px; margin: 0 auto; padding: 64px 44px; display: flex; flex-direction: column; justify-content: flex-start; box-sizing: border-box">
+<div class="howStick pad" style="position: relative; max-width: 1360px; margin: 0 auto; padding: var(--sp-section-s) 44px; display: flex; flex-direction: column; justify-content: flex-start; box-sizing: border-box">
 <h2 class="fr" style="font-size: clamp(34px, min(4.4vw, 8.6svh), 64px); line-height: 1; font-weight: 400; margin: 0; max-width: 760px">Five steps, and you can watch every one.</h2>
 <ol class="msteps" aria-label="How it works"><li><b>1</b><span><strong class="fr">Design</strong><br>Type, size, cover, pages</span></li><li><b>2</b><span><strong class="fr">Pay half</strong><br>mada, wallets, cards</span></li><li><b>3</b><span><strong class="fr">Upload</strong><br>Straight from your phone</span></li><li><b>4</b><span><strong class="fr">Approve</strong><br>Unlimited revision rounds</span></li><li><b>5</b><span><strong class="fr">Unwrap</strong><br>Tracked to your door</span></li></ol>
 <div class="arcStage hide-m"><div class="arc">
@@ -587,7 +585,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 </section>
 
 <!-- reviews -->
-<section id="love" style="padding: 110px 0 56px; overflow: hidden">
+<section id="love" style="padding: var(--sp-section-xl) 0 56px; overflow: hidden">
 <div class="pad" style="max-width: 1360px; margin: 0 auto; padding: 0 44px; display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
 <h2 class="fr" style="font-size: clamp(34px, min(4.4vw, 8.6svh), 64px); line-height: 1; font-weight: 400; margin: 0; max-width: 760px"><span class="rvl"><span>Books that went to</span></span><span class="rvl"><span><em style="color: var(--accent)">their rightful homes.</em></span></span></h2>
 <a class="btn bg rv" href="D14-Lookbook.dc.html">See the lookbook</a>
@@ -600,7 +598,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 </section>
 
 <!-- sizes -->
-<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 40px 44px 64px">
+<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 40px 44px var(--sp-section-s)">
 <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; flex-wrap: wrap">
 <h2 class="fr" style="font-size: clamp(34px, min(4.4vw, 8.6svh), 64px); line-height: 1; font-weight: 400; margin: 0"><span class="rvl"><span>Three sizes.</span></span><span class="rvl"><span><em style="color: var(--accent)">One linen hardcover.</em></span></span></h2>
 <p class="rv" style="font-size: 17px; line-height: 1.7; color: var(--ink-2); max-width: 420px; margin: 0">Every book is hand-designed, printed to order and bound in linen with a photo-framed cover. Pick the shape that suits your photos.</p>
@@ -613,9 +611,9 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 </section>
 
 <!-- tracking teaser -->
-<section class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 40px 44px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center">
+<section class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 40px 44px var(--sp-section-s); display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center">
 <div><h2 class="fr rv" style="font-size: 54px; line-height: 1.02; font-weight: 400; margin: 0">Always know where your book is.</h2><p class="rv" style="font-size: 18px; line-height: 1.7; color: var(--ink-2); margin: 20px 0 30px">From your first photo to the courier’s knock, every step shows up in your account and on WhatsApp.</p><a class="btn bg rv" href="D7-Tracking.dc.html">Track an order</a></div>
-<div class="rvz" style="background: var(--surface); border-radius: 24px; padding: 30px; box-shadow: 0 50px 80px -50px color-mix(in srgb, var(--shadow-tint) 50%, transparent)">
+<div class="rvz" style="background: var(--surface); border-radius: 24px; padding: 32px; box-shadow: 0 50px 80px -50px color-mix(in srgb, var(--shadow-tint) 50%, transparent)">
 <div style="display: flex; justify-content: space-between; align-items: center"><b>Order MR-1042</b><span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: var(--accent)"><span class="pulse" style="width: 9px; height: 9px; border-radius: 50%; background: var(--accent)"></span>Out for delivery</span></div>
 <div class="trk" style="position: relative; height: 80px; margin-top: 26px">
 <div style="position: absolute; left: 0; right: 0; top: 39px; border-top: 2px dashed var(--line-2)"></div>
@@ -630,7 +628,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 
 <!-- 195 project -->
 <section style="background: var(--ink); color: var(--on-accent); overflow: hidden">
-<div class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 96px 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center">
+<div class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: var(--sp-section-l) 44px; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center">
 <div style="position: relative; aspect-ratio: 1; max-width: 540px; width: 100%; justify-self: center">
 <svg viewBox="0 0 400 400" style="position: absolute; inset: 0; width: 100%; height: 100%" fill="none" aria-hidden="true">
 <g class="orb-a" style="transform-origin: 200px 200px"><circle cx="200" cy="200" r="190" stroke="var(--gold)" stroke-opacity=".22" stroke-dasharray="1 7"></circle><circle cx="390" cy="200" r="5" fill="var(--gold)"></circle></g>
@@ -647,14 +645,14 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 <div>
 <p class="rv" style="color: var(--gold); font-weight: 700; margin: 0">The 195 Project</p>
 <h2 class="fr" style="font-size: 62px; line-height: 1.02; font-weight: 400; margin: 14px 0 0"><span class="rvl"><span>Every country on Earth,</span></span><span class="rvl"><span><em style="color: var(--gold)">one book at a time.</em></span></span></h2>
-<p class="rv" style="font-size: 18px; line-height: 1.75; color: color-mix(in srgb, var(--on-accent) 75%, transparent); margin: 24px 0 0">[Two lines from the sisters on what the 195 Project is, and how followers can be part of it.]</p>
+<p class="rv" style="font-size: 18px; line-height: 1.75; color: color-mix(in srgb, var(--on-accent) 75%, transparent); margin: 24px 0 0">There are 195 countries. Every time one of you comes home from a country we’ve never made a book for, it lights up here.</p>
 <a class="btn rv" href="https://instagram.com/milesretold" style="margin-top: 32px; border: 1.5px solid color-mix(in srgb, var(--on-accent) 40%, transparent); color: var(--on-accent)">Follow the journey</a>
 </div>
 </div>
 </section>
 
 <!-- faq -->
-<section class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 96px 44px 96px; display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start">
+<section class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: var(--sp-section-l) 44px var(--sp-section-l); display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start">
 <div class="faqL" style="position: sticky; top: 120px">
 <h2 class="fr" style="font-size: 62px; line-height: 1; font-weight: 400; margin: 0"><span class="rvl"><span>Good to</span></span><span class="rvl"><span><em style="color: var(--accent)">know.</em></span></span></h2>
 <p class="rv" style="color: var(--ink-2); font-size: 17px; line-height: 1.7; margin: 20px 0 26px">Still wondering? We answer every message ourselves.</p>
@@ -670,7 +668,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 </section>
 
 <!-- instagram -->
-<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 0 44px 84px">
+<section class="pad" style="max-width: 1360px; margin: 0 auto; padding: 0px 44px var(--sp-section-m)">
 <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap"><h2 class="fr rv" style="font-size: 44px; font-weight: 400; margin: 0">Follow along <a href="https://instagram.com/milesretold" style="color: var(--accent); font-style: italic">@milesretold</a></h2><span class="rv" style="color: var(--muted)">Unboxings, new covers and our own trips</span></div>
 <div class="stg g4" style="display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 12px; margin-top: 34px">
 <a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--surface)" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="var(--surface)"></circle></svg></a><a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/d4b2aafa1f1446ed8701326e3284b455.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--surface)" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="var(--surface)"></circle></svg></a><a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--surface)" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="var(--surface)"></circle></svg></a><a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/3936155b1de2d6f9d237753228c056d0.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--surface)" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="var(--surface)"></circle></svg></a><a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--surface)" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="var(--surface)"></circle></svg></a><a class="ig" href="https://instagram.com/milesretold" aria-label="Open on Instagram"><img loading="lazy" decoding="async" src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt=""><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="var(--surface)" stroke-width="1.6" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.5" cy="6.5" r="1" fill="var(--surface)"></circle></svg></a>
@@ -678,7 +676,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 </section>
 
 <!-- finale -->
-<section style="position: relative; background: var(--accent-deep); color: var(--on-accent); padding: 120px 24px 96px; text-align: center; overflow: hidden">
+<section style="position: relative; background: var(--accent-deep); color: var(--on-accent); padding: var(--sp-section-xl) 24px var(--sp-section-l); text-align: center; overflow: hidden">
 <div class="par fr" aria-hidden="true" style="position: absolute; left: 50%; top: 40%; translate: -50% -50%; font-size: 340px; font-style: italic; white-space: nowrap; color: color-mix(in srgb, var(--on-accent) 5%, transparent)">again &amp; again</div>
 <h2 class="fr rv" style="position: relative; font-size: 104px; line-height: .95; font-weight: 300; margin: 0 auto; max-width: 1000px">Your trip deserves more than a camera roll.</h2>
 <div class="rv" style="position: relative; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; margin-top: 50px"><a class="btn mag" href="D2-Builder.dc.html" style="background: var(--gold); color: var(--ink)">Design your book <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a class="btn" href="https://instagram.com/milesretold" style="border: 1.5px solid color-mix(in srgb, var(--on-accent) 50%, transparent); color: var(--on-accent)">Message us on Instagram</a></div>

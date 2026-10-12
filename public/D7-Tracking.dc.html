@@ -73,11 +73,11 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 <!--/chrome:header-->
 
 
-<main class="pad" style="max-width: 1180px; margin: 0 auto; padding: 40px 32px 80px">
+<main class="pad" style="max-width: 1180px; margin: 0 auto; padding: 40px 32px var(--sp-section-m)">
 <sc-if value="{{showLookup}}" hint-placeholder-val="{{ true }}">
 <section class="lk" aria-labelledby="lk-h" style="max-width: 560px; margin: clamp(8px, 4svh, 56px) auto 0">
 <p style="font-size: 13px; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; color: var(--accent); margin: 0">Order tracking</p>
-<h1 id="lk-h" class="fr" style="font-size: clamp(36px, 7vw, 52px); line-height: 1.05; font-weight: 500; margin: 10px 0 0">Track your order</h1>
+<h1 id="lk-h" class="fr" style="font-size: clamp(36px, 7vw, 52px); line-height: 1.05; font-weight: 400; margin: 10px 0 0">Track your order</h1>
 <p style="font-size: 17px; line-height: 1.6; color: var(--ink-2); margin: 12px 0 0">Enter the order number from your confirmation message. No account needed.</p>
 <div class="box" style="margin-top: 26px; padding: clamp(20px, 4vw, 32px)">
 <div><label for="lk-order">Order number</label><input id="lk-order" class="{{orderCls}}" inputmode="text" autocomplete="off" autocapitalize="characters" placeholder="MR-1042" value="{{q}}" onInput="{{setQ}}" onKeyDown="{{key}}" aria-describedby="lk-err"></div>
@@ -97,7 +97,7 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 <sc-if value="{{showResult}}" hint-placeholder-val="{{ false }}">
 <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 18px"><button class="btn bs" onClick="{{again}}" style="min-height: 40px; padding: 0 14px; font-size: 13px">← Track another order</button><a class="btn bs" href="{{acctHref}}" style="min-height: 40px; padding: 0 14px; font-size: 13px">{{acctFull}}</a></div>
 <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap">
-<div><div style="font-size: 13px; color: var(--muted)">Order <span class="mono">MR-1042</span> · Honeymoon · Maldives</div><h1 class="fr" style="font-size: 52px; line-height: 1.05; font-weight: 500; margin: 10px 0 0">{{headline}}</h1><p style="font-size: 17px; color: var(--muted); margin: 10px 0 0">{{sub}}</p></div>
+<div><div style="font-size: 13px; color: var(--muted)">Order <span class="mono">MR-1042</span> · Honeymoon · Maldives</div><h1 class="fr" style="font-size: 52px; line-height: 1.05; font-weight: 400; margin: 10px 0 0">{{headline}}</h1><p style="font-size: 17px; color: var(--muted); margin: 10px 0 0">{{sub}}</p></div>
 <div style="text-align: right"><div style="font-size: 13px; color: var(--muted)">{{etaLabel}}</div><div class="fr" style="font-size: 30px">{{eta}}</div></div>
 </div>
 

@@ -88,6 +88,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   /* soft shadows: tinted, long and blurred, never pure black */
   --shadow-sm:0 6px 16px -4px rgba(60,20,30,.20); --shadow-md:0 18px 30px -20px rgba(31,20,24,.5); --shadow-lg:0 34px 60px -34px rgba(60,20,30,.45);
 }
+/* on phones the same four steps, shorter (still multiples of 8) */
+@media (max-width:700px){:root{--sp-section-s:40px;--sp-section-m:48px;--sp-section-l:56px;--sp-section-xl:64px}}
 
 /* --- header --- */
 .sh{position:sticky;top:0;z-index:40;background:color-mix(in srgb, var(--canvas) 82%, transparent);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border-bottom:1px solid transparent;font-family:Manrope,system-ui,sans-serif;color:var(--ink);box-sizing:border-box}
@@ -115,7 +117,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .sh-lang:focus-visible,.sh-cart:focus-visible,.sh-burger:focus-visible,.sh-cta:focus-visible,.sh-acct:focus-visible,.sh-nav a:focus-visible,.sh-track:focus-visible{outline:2.5px solid var(--accent);outline-offset:3px;border-radius:12px}
 .sh-cart{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:var(--ink);text-decoration:none;transition:background .3s,transform .5s cubic-bezier(.3,1.6,.5,1)}
 .sh-cart:hover{background:var(--surface);color:var(--accent);transform:translateY(-2px)}
-.sh-cart b{position:absolute;top:4px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-size:11px;display:grid;place-items:center}
+.sh-cart b{position:absolute;top:4px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:var(--accent);color:var(--on-accent);font-size:12px;display:grid;place-items:center}
 .sh-cart b[hidden]{display:none}
 .sh-cta{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 24px;border-radius:999px;background:var(--accent);color:var(--on-accent);font:700 15px Manrope,system-ui,sans-serif;text-decoration:none;box-shadow:0px 12px 24px -12px color-mix(in srgb, var(--accent) 40%, transparent);transition:background .3s,transform .4s cubic-bezier(.16,1,.3,1)}
 .sh-cta:hover{background:var(--accent-deep);color:var(--on-accent);transform:translateY(-2px)}
@@ -174,6 +176,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .sf-bot{max-width:1360px;margin:0 auto;padding:22px 44px 34px;border-top:1px solid rgba(205,188,180,.15);display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;font-size:13px}
 .sf-lang{all:unset;cursor:pointer;color:var(--gold);font-family:'Miles Arabic UI','IBM Plex Sans Arabic',Manrope,sans-serif;font-weight:600;font-size:15px;padding:6px 4px}
 .sf-lang:focus-visible{outline:2.5px solid var(--gold);outline-offset:3px;border-radius:8px}
+/* phones: one headline scale for every page title, hero pages a step larger; compact bars opt out with .h1-compact */
+@media (max-width:700px){
+body:has(.sh) h1.fr:not(.h1-compact){font-size:clamp(32px,9vw,40px)!important;line-height:1.1!important;letter-spacing:-.01em}
+body:has(.sh) h1.fr.h1-hero{font-size:clamp(40px,11.5vw,52px)!important;line-height:1.04!important}
+body:has(.sh) h2.fr:not(.h2-card):not(.capx h2){font-size:clamp(28px,8.6vw,34px)!important;line-height:1.1!important}
+}
+/* touch: every control is at least 44px tall on phones */
+@media (max-width:900px){.sf-lang{display:inline-flex;align-items:center;min-height:44px}html .seg button{min-height:44px;display:inline-flex;align-items:center}html .seg{flex-wrap:wrap;overflow:visible;border-radius:var(--r-xl)}}
 @media (max-width:900px){.sf-top{grid-template-columns:repeat(2,minmax(0,1fr));padding:48px 22px 28px}.sf-brand{grid-column:1/-1}.sf-bot{padding:20px 22px 28px}}
 @media (max-width:520px){.sf-top{grid-template-columns:minmax(0,1fr)}.sf a{padding:11px 0}.sf-brand,.sf-nl{min-width:0}.sf p,.sf label{overflow-wrap:anywhere}}
 /* very small phones: keep the header on one row */
