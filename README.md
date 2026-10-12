@@ -13,6 +13,14 @@ The customer pages (D1–D7, D11–D16, D19–D25) share a single header and foo
 * Needs `parse5`: `npm i --no-save parse5`.
 * Behaviour (language switch, cart count, signed-in label, newsletter form) lives in `public/chrome.js`.
 
+## Studio (admin) pages on phones
+The studio pages (`public/D8-*.dc.html`: pipeline, stage pages, orders, customers, payments, print queue, shipping, reviews, calendar, codes, reports, settings, team, sign-in) have their own dark sidebar (`aside.rail`), not the customer header.
+
+* Run `node scripts/sync-studio.mjs` — it stamps `<link rel="stylesheet" href="/studio.css">` and `<script src="/studio.js" defer></script>` into the `<head>` of every studio page between `<!--studio:chrome-->` markers (safe to re-run; no dependencies). Run it after adding a studio page.
+* At 900px and below, `public/studio.js` adds a sticky top bar (logo -> pipeline, the page title, a 44px menu button) and turns the page's **own** sidebar into a slide-in drawer, so there is one list of navigation links to maintain (the `<aside class="rail">` in each page). It waits for the x-dc runtime to render the sidebar, never moves framework nodes, and does nothing above 900px. Esc, the scrim and the close button close it; focus moves into the drawer and back; the page behind does not scroll.
+* **Settings → Team members** (`public/D8-A7b-Team.dc.html`): the team list (Tazmeen and Rameen are the two owners), an add-a-member form (name, WhatsApp number or email, role) with validation, resend / cancel-invite with Undo, and a "who can open what" summary per role (Owner, Designer, Print & shipping, Customer support, Finance). It is a prototype: no invitation is sent and nothing is stored. The Settings page links to it from the header and from its Team tab.
+* `public/studio.css` holds the phone rules the studio pages share (swipeable filter strips with an edge fade, table rows that become labelled cards, 44px targets, stat-card and tracker layouts). Colours, radii and shadows there and in the pages are the `var(--token)`s from `site.css`; `node scripts/check-palette.mjs` checks the studio pages too.
+
 ## Arabic (RTL)
 The language button (and Account → Language) switches the whole site between English and Arabic; the choice is remembered.
 

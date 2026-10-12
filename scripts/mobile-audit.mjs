@@ -29,7 +29,7 @@ const PROBE=function(){
   const leaves=[];
   const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
   let n; while((n=walker.nextNode())){ const t=n.nodeValue; if(!t.trim())continue; const e=n.parentElement; if(!e||/^(SCRIPT|STYLE|NOSCRIPT|TEMPLATE)$/.test(e.tagName))continue; const cs=getComputedStyle(e); if(!vis(e,cs))continue; let hid=false; for(let p=e.parentElement;p;p=p.parentElement){ const c=getComputedStyle(p); if(!vis(p,c)){hid=true;break;} } if(hid)continue;
-    if(e.closest('.lg,.curtain,.skip,a[href="#main"]'))continue; {const dt=e.closest('details:not([open])'); if(dt&&!e.closest('summary'))continue;} const rg=document.createRange(); rg.selectNodeContents(n); const rects=[...rg.getClientRects()].filter(r=>r.width>1&&r.height>1).map(r=>({left:r.left,right:r.right,top:r.top+r.height*.2,bottom:r.bottom-r.height*.2,width:r.width,height:r.height*.6})); if(!rects.length)continue;
+    if(e.closest('.lg,.curtain,.skip,a[href="#main"],.st-bar,header.sh'))continue; {const dt=e.closest('details:not([open])'); if(dt&&!e.closest('summary'))continue;} const rg=document.createRange(); rg.selectNodeContents(n); const rects=[...rg.getClientRects()].filter(r=>r.width>1&&r.height>1).map(r=>({left:r.left,right:r.right,top:r.top+r.height*.2,bottom:r.bottom-r.height*.2,width:r.width,height:r.height*.6})); if(!rects.length)continue;
     leaves.push({e,rects,fixed:fixedAnc(e),clip:clipOf(e),scroller:scrollerOf(e)}); }
   // outside viewport / clipped
   const seen=new Set();
