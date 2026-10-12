@@ -26,7 +26,7 @@ a{color:var(--accent)}a:hover{color:var(--accent-deep)}
 .btn{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--r-md);font:700 14px Manrope,sans-serif;cursor:pointer;transition:background .25s,transform .3s}
 .btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
 .bp{background:var(--accent);color:var(--on-accent)}.bp:hover{background:var(--accent-deep)}
-.bs{background:var(--surface);border:1px solid var(--line);color:var(--ink)}.bs:hover{border-color:var(--ink)}
+.bs{background:var(--surface);border:1px solid var(--line);color:var(--ink)}.bs:hover{border-color:var(--ink)}.ba{color:var(--accent);border-color:var(--accent)}
 .rl{display:flex;align-items:center;gap:12px;padding:12px 12px;border-radius:var(--r-md);color:var(--line-2);text-decoration:none;font-weight:600;font-size:14px}
 .rl:hover{background:color-mix(in srgb, var(--surface) 6%, transparent);color:var(--surface)}.rl.on{background:color-mix(in srgb, var(--surface) 10%, transparent);color:var(--surface)}
 .fl{all:unset;cursor:pointer;padding:8px 12px;border-radius:var(--r-pill);font-weight:700;font-size:13px;border:1px solid var(--line);background:var(--surface);min-height:20px}
@@ -185,7 +185,7 @@ class Component extends DCLogic {
     const SN = ['Picked up', 'In transit', 'Out for delivery', 'Delivered'];
     return { ctabs: ['Saudi Arabia', 'Pakistan'].map((x) => ({ name: x, cls: st.c === x ? 'tab on' : 'tab', pick: () => set({ c: x }) })),
       couriers: CO.map((c) => { const on = !st.off[c[0]]; return { n: c[0], d: c[1], count: c[2], on: on ? 'true' : 'false', tcls: on ? 'tog on' : 'tog', toggle: () => set({ off: { ...st.off, [c[0]]: on } }) }; }),
-      ready: R.map((r) => { const b = st.booked[r[0]]; return { id: r[0], name: r[1], city: r[2], book: r[3], blabel: b ? 'Booked · ' + r[4] + ' ✓' : 'Book ' + r[4], bcls: b ? 'btn bs' : 'btn bp', book_: () => set({ booked: { ...st.booked, [r[0]]: !b } }) }; }),
+      ready: R.map((r) => { const b = st.booked[r[0]]; return { id: r[0], name: r[1], city: r[2], book: r[3], blabel: b ? 'Booked · ' + r[4] + ' ✓' : 'Book ' + r[4], bcls: b ? 'btn bs' : 'btn bs ba', book_: () => set({ booked: { ...st.booked, [r[0]]: !b } }) }; }),
       moving: M.map((m) => ({ id: m[0], name: m[1], courier: m[2], track: m[3], status: SN[m[4]], dots: SN.map((n, i) => ({ n, c: i <= m[4] ? (m[4] === 3 ? 'var(--ok)' : 'var(--accent)') : 'var(--canvas-2)' })) })) };
   }
 }

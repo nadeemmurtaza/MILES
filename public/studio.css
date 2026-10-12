@@ -6,6 +6,9 @@
    2. shared phone fixes for the patterns every studio page repeats
    3. per-page-family fixes (pipeline, stage pages, order page, print queue, reports, calendar)                              */
 
+/* numbers line up in columns and stat cards (DESIGN-RULES: tabular figures) */
+body { font-variant-numeric: tabular-nums; }
+
 /* ================= 1. mobile chrome ================= */
 .st-bar, .st-scrim, .st-close { display: none; }
 
@@ -218,9 +221,9 @@
 
 /* ---- pipeline (D8-Studio): stacked avatars keep their initials readable (smaller overlap, surface ring); cards never overflow ---- */
 @media (max-width: 900px) {
-  body .avs { margin-left: auto; padding-left: 6px; }
+  body .avs { margin-left: auto; padding-left: 4px; }
   body .avs .av { width: 32px; height: 32px; font-size: 12px; border: 2px solid var(--surface); }
-  body .avs .av + .av { margin-left: -6px; }
+  body .avs .av + .av { margin-left: -4px; }
   body .crow, body .frow { flex-wrap: wrap; row-gap: 8px; }
   body .sc .tag { white-space: nowrap; }
 }
