@@ -154,7 +154,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <main class="wrap">
 <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap"><div><p class="eyb">System states</p><h1 class="fr" style="font-size: 52px; font-weight: 400; margin: 10px 0 0; line-height: 1">When something goes wrong</h1></div>
 <div class="seg" role="tablist" aria-label="State"><sc-for list="{{tabs}}" as="t" hint-placeholder-count="5"><button class="{{t.cls}}" onClick="{{t.pick}}" role="tab" aria-selected="{{t.on}}">{{t.n}}</button></sc-for></div></div>
-<div class="card swap" key="{{k}}" style="margin-top: 26px; padding: 70px 40px; text-align: center; min-height: 560px; display: grid; place-items: center">
+<div class="card swap" key="{{k}}" style="margin-top: 26px; padding: 70px 40px; text-align: center; min-height: min(560px, 70vh); min-height: min(560px, 70svh); display: grid; place-items: center">
 <div style="max-width: 560px">
 <div class="flo" style="display: inline-grid; place-items: center; width: 132px; height: 132px; border-radius: 50%; background: {{bg}}; color: {{c}}"><svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"><path d="{{ico}}"></path></svg></div>
 <div class="mono" style="font-size: 13px; color: #786669; margin-top: 22px">{{code}}</div>
