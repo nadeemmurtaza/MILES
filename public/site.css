@@ -144,6 +144,9 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .is-ar body,.is-ar input,.is-ar textarea,.is-ar select,.is-ar button{font-family:var(--ar-font)}
 .is-ar .fr,.is-ar h1,.is-ar h2,.is-ar h3{font-family:'Noto Naskh Arabic','Noto Kufi Arabic',serif;letter-spacing:0!important}
 .is-ar .rt{letter-spacing:.28em}
+/* Arabic has no italic (the browser would slant it and clip the dots) and needs more vertical room than the revealing-word masks give */
+.is-ar em,.is-ar i,.is-ar [style*="italic"]{font-style:normal!important}
+.is-ar .wd{padding:.28em .08em .14em;margin:-.28em -.08em -.14em}
 .is-ar [data-mirror]{scale:-1 1}
 .is-ar .sh-logo,.is-ar .lg,.is-ar .mono,.is-ar [dir="ltr"]{direction:ltr}
 .is-ar .sf a:hover{transform:translateX(-4px)}

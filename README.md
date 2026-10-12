@@ -14,7 +14,7 @@ The customer pages (D1–D7, D11–D16, D19–D25) share a single header and foo
 ## Arabic (RTL)
 The language button (and Account → Language) switches the whole site between English and Arabic; the choice is remembered.
 
-* Source strings and translations: `i18n-src/` — `keys.json` (English, numbered), `part-*.json` (Arabic by index), `extra.json` (strings built in code), `scoped.json` (per-page overrides), `patterns.json` (strings with live values).
+* Source strings and translations: `i18n-src/` — `keys.json` (English, numbered), `part-*.json` (first-pass Arabic by index), `fix-*.json` (professional-register Arabic, applied over the parts — edit these), `extra.json` (strings built in code), `scoped.json` (per-page overrides), `patterns.json` (strings with live values; `@1[zero|one|two|few|many]` picks the Arabic plural form for capture 1). Rebuild with `node scripts/build-i18n.mjs`.
 * Build: `node scripts/build-i18n.mjs` → `public/i18n/ar.js`.
 * A sentence is matched as a whole (live values and inline elements are `{0}`, `{1}` slots), so Arabic word order is kept while the page's own bindings keep working.
 

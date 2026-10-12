@@ -2,6 +2,7 @@
 /* Builds public/i18n/ar.js from i18n-src/:
  *   keys.json      - the English source strings, in a fixed order (the numbered index)
  *   part-*.json    - { "<index>": "<Arabic>" } translations, written against that index
+ *   fix-*.json     - { "<index>": "<Arabic>" } professional-register overrides, applied over part-*.json
  *   extra.json     - { "<English>": "<Arabic>" } strings that are not in keys.json (e.g. words built in JS)
  *   scoped.json    - { "<PageName>": { "<English>": "<Arabic>" } } overrides that apply on one page only
  *   patterns.json  - [ ["<regex>", "<Arabic with $1 $2>"] ] for strings with live values
@@ -14,7 +15,7 @@ const SRC = path.join(ROOT, 'i18n-src');
 const read = (f, d) => { try { return JSON.parse(fs.readFileSync(path.join(SRC, f), 'utf8')); } catch { return d; } };
 const keys = read('keys.json', []);
 const exact = {};
-for (const f of fs.readdirSync(SRC).filter((f) => /^part-.*\.json$/.test(f)).sort()) {
+for (const f of fs.readdirSync(SRC).filter((f) => /^(part|fix)-.*\.json$/.test(f)).sort((a, b) => (a.startsWith('part') ? 0 : 1) - (b.startsWith('part') ? 0 : 1) || a.localeCompare(b))) {
   const part = read(f, {});
   for (const [i, ar] of Object.entries(part)) {
     const k = keys[+i];

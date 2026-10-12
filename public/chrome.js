@@ -52,7 +52,12 @@
     for (var i = 0; i < dict.re.length; i++) {
       var m = k.match(dict.re[i][0]);
       if (m) {
-        return dict.re[i][1].replace(/\$(\d)/g, function (_, n) {
+        // "@1[zero|one|two|few|many]" picks the Arabic number form for capture 1 ("#" = the number)
+        return dict.re[i][1].replace(/@(\d)\[([^\]]*)\]/g, function (_, n, forms) {
+          var num = parseInt(m[+n], 10), f = forms.split('|'), r = num % 100;
+          var form = num === 0 ? 0 : num === 1 ? 1 : num === 2 ? 2 : (r >= 3 && r <= 10) ? 3 : 4;
+          return (f[form] != null && f[form] !== '' ? f[form] : f[4] || f[f.length - 1]).replace('#', num);
+        }).replace(/\$(\d)/g, function (_, n) {
           var part = m[+n] || '';
           var t = lookup(part);
           return t != null ? t : part;     // translate captured words too
