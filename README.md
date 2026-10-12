@@ -20,5 +20,15 @@ The language button (and Account → Language) switches the whole site between E
 * Arabic never gets italics or letter-spacing (both break the script); `public/site.css` switches them off under `html.is-ar`.
 * A sentence is matched as a whole (live values and inline elements are `{0}`, `{1}` slots), so Arabic word order is kept while the page's own bindings keep working.
 
+## Sample data to confirm with the studio
+Nothing on the customer pages shows `[brackets]` any more, but some content is sample wording or numbers until Tazmeen & Rameen confirm it:
+
+* **Prices** — all in `public/pricing.js` (builder, cart, checkout, balance, order, gift cards and book pages read it). Change a number there and every page follows. PKR = SAR × `rate`. The chosen currency is remembered (`miles.cur`) across pages.
+* **Contact details** — the footer and Help page no longer show a WhatsApp number, e-mail address, CR number or VAT number (none were confirmed). Add them back where you see "Message us" / the invoice line: Help page contact cards (`public/D15-Help.dc.html`, the WhatsApp card links to the form until a `https://wa.me/<number>` link is set) and `shared/footer.html` (then `node scripts/sync-chrome.mjs`).
+* **Policies** — the three summaries on the Help page (refunds, terms, privacy) are plain-language drafts built only from facts already on the site (50% deposit, pay the rest after approval, made to order). The studio should review or replace them.
+* **Reviews** — only the one real quote (Lens & Lights Studio) is shown; the home page rail shows real books from the lookbook instead of review cards. Add real client quotes to `D15-Help.dc.html` (#reviews) when available.
+* **Sample order** — MR-1042 (dates 14 Sep → 29 Oct estimated delivery, SMSA tracking no.) is demo data used by the tracking, portal, balance and order pages.
+* **Deep links** — `D2-Builder.dc.html?type=honeymoon&size=landscape` opens the builder with that choice made (`type`: travel, wedding, honeymoon, love-story, multi-city, camera-roll; `size`: portrait, landscape, square). The home page, Books page and Lookbook use these.
+
 ## Preview locally
 `npx wrangler dev` (serves `public/` with the same redirect/headers rules as production).

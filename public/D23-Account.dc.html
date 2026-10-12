@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
+<script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
 <title>Miles Retold · Account settings</title>
 <script src="./support.js"></script>
@@ -175,7 +176,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <button class="btn bp" onClick="{{save}}" style="margin-top: 24px">{{saveLabel}}</button></div></sc-if>
 <sc-if value="{{isAddr}}" hint-placeholder-val="{{ false }}"><div style="display: grid; gap: 14px">
 <sc-if value="{{hasUndo}}" hint-placeholder-val="{{ false }}"><div class="undo-bar" role="status"><span>Removed the “{{undoName}}” address.</span><button onClick="{{doUndo}}">Undo</button></div></sc-if>
-<sc-for list="{{addrs}}" as="a" hint-placeholder-count="2"><div class="card" style="padding: 22px; display: flex; justify-content: space-between; gap: 16px; align-items: flex-start"><div><div style="display: flex; gap: 10px; align-items: center"><b>{{a.n}}</b><sc-if value="{{a.def}}" hint-placeholder-val="{{ false }}"><span class="tagc" style="background: #E4F1EA; color: #2B6B55"><i></i>Default</span></sc-if></div><p style="margin: 8px 0 0; color: #4A3A3F; line-height: 1.6">{{a.t}}</p></div><div style="display: flex; gap: 8px"><button class="btn bs" onClick="{{a.mk}}" style="min-height: 40px; padding: 0 14px; font-size: 13px">Make default</button><button class="btn bs" onClick="{{a.rm}}" style="min-height: 40px; padding: 0 14px; font-size: 13px">Remove</button></div></div></sc-for>
+<sc-for list="{{addrs}}" as="a" hint-placeholder-count="2"><div class="card" style="padding: 22px; display: flex; justify-content: space-between; gap: 16px; align-items: flex-start"><div><div style="display: flex; gap: 10px; align-items: center"><b>{{a.n}}</b><sc-if value="{{a.def}}" hint-placeholder-val="{{ false }}"><span class="tagc" style="background: #E4F1EA; color: #2B6B55"><i></i>Default</span></sc-if></div><p style="margin: 8px 0 0; color: #4A3A3F; line-height: 1.6">{{a.t}}</p></div><div style="display: flex; gap: 8px"><sc-if value="{{a.nd}}" hint-placeholder-val="{{ true }}"><button class="btn bs" onClick="{{a.mk}}" style="min-height: 40px; padding: 0 14px; font-size: 13px">Make default</button></sc-if><button class="btn bs" onClick="{{a.rm}}" style="min-height: 40px; padding: 0 14px; font-size: 13px">Remove</button></div></div></sc-for>
 <div class="card" style="padding: 26px"><b style="font-size: 18px">Add an address</b>
 <div class="seg" role="group" aria-label="Country" style="margin-top: 14px"><sc-for list="{{ccs}}" as="c" hint-placeholder-count="2"><button class="{{c.cls}}" onClick="{{c.pick}}">{{c.n}}</button></sc-for></div>
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px" class="two"><sc-for list="{{fields}}" as="f" hint-placeholder-count="4"><div><label class="lb">{{f.l}}</label><input class="inp" placeholder="{{f.p}}"></div></sc-for></div>
@@ -201,9 +202,9 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
 <nav aria-label="Your order"><b>Your order</b><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help centre</a><a href="D15-Help.dc.html#contact">Contact us</a></nav>
-<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span>WhatsApp [number]</span></nav>
+<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a></nav>
 </div>
-<div class="sf-bot"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
+<div class="sf-bot"><span>© 2026 Miles Retold</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
 </footer>
 <!--/chrome:footer-->
 
@@ -211,7 +212,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1100}}'>
 class Component extends DCLogic {
-  constructor(p){ super(p); this.state = { tab: 'Profile', saved: false, def: 0, undo: null, addrs: [0, 1], cc: 'Saudi Arabia', lang: (() => { try { return localStorage.getItem('miles.lang') === 'ar' ? 'ar' : 'en'; } catch (e) { return 'en'; } })(), cur: 'SAR', n: { w0: true, w1: true, w2: true, w3: true, w4: false, e0: true, e1: false, e2: true, e3: false, e4: true } }; }
+  constructor(p){ super(p); this.state = { tab: 'Profile', saved: false, def: 0, undo: null, addrs: [0, 1], cc: 'Saudi Arabia', lang: (() => { try { return localStorage.getItem('miles.lang') === 'ar' ? 'ar' : 'en'; } catch (e) { return 'en'; } })(), cur: window.milesPricing ? window.milesPricing.cur() : 'SAR', n: { w0: true, w1: true, w2: true, w3: true, w4: false, e0: true, e1: false, e2: true, e3: false, e4: true } }; }
   renderVals() {
     const st = this.state, set = (o) => this.setState(o);
 
@@ -222,13 +223,13 @@ class Component extends DCLogic {
     return { tab, tabs: ['Profile', 'Addresses', 'Language', 'Notifications'].map((n) => ({ n, cls: tab === n ? 'sidel on' : 'sidel', cur: tab === n ? 'page' : 'false', pick: () => set({ tab: n }) })),
       isProfile: tab === 'Profile', isAddr: tab === 'Addresses', isLang: tab === 'Language', isNote: tab === 'Notifications',
       save: () => set({ saved: true }), saveLabel: st.saved ? 'Saved ✓' : 'Save changes',
-      addrs: st.addrs.map((i) => ({ n: A[i][0], t: A[i][1], def: st.def === i, mk: () => set({ def: i }), rm: () => set({ addrs: st.addrs.filter((x) => x !== i), undo: { i, pos: st.addrs.indexOf(i) } }) })),
+      addrs: st.addrs.map((i) => ({ n: A[i][0], t: A[i][1], def: st.def === i, nd: st.def !== i, mk: () => set({ def: i }), rm: () => { const left = st.addrs.filter((x) => x !== i); set({ addrs: left, def: st.def === i && left.length ? left[0] : st.def, undo: { i, pos: st.addrs.indexOf(i), wasDef: st.def } }); } })),
       hasUndo: !!st.undo, undoName: st.undo ? A[st.undo.i][0] : '',
-      doUndo: () => { const u = st.undo; if (!u) return; const a = st.addrs.slice(); a.splice(Math.min(u.pos, a.length), 0, u.i); set({ addrs: a, undo: null }); },
+      doUndo: () => { const u = st.undo; if (!u) return; const a = st.addrs.slice(); a.splice(Math.min(u.pos, a.length), 0, u.i); set({ addrs: a, def: u.wasDef != null ? u.wasDef : st.def, undo: null }); },
       ccs: ['Saudi Arabia', 'Pakistan'].map((n) => ({ n, cls: st.cc === n ? 'on' : '', pick: () => set({ cc: n }) })), fields: F.map((f) => ({ l: f[0], p: f[1] })), add: () => set({ addrs: [0, 1], undo: null }),
       langs: [['en', 'English', 'Left to right', 'ltr', 'Fraunces, serif'], ['ar', 'العربية', 'من اليمين إلى اليسار', 'rtl', 'Amiri, serif']].map((l) => ({ big: l[1], d: l[2], dir: l[3], f: l[4], on: st.lang === l[0] ? 'true' : 'false', cls: st.lang === l[0] ? 'pm on' : 'pm', pick: () => { set({ lang: l[0] }); try { if (window.milesI18n) window.milesI18n.setLang(l[0]); } catch (e) {} } })),
       dir: st.lang === 'ar' ? 'rtl' : 'ltr', pf: st.lang === 'ar' ? 'Amiri, serif' : 'Fraunces, serif', pv: st.lang === 'ar' ? 'كل رحلة تستحق كتاباً.' : 'Every trip deserves a hardcover.',
-      curs: ['SAR', 'PKR'].map((n) => ({ n, cls: st.cur === n ? 'on' : '', pick: () => set({ cur: n }) })),
+      curs: ['SAR', 'PKR'].map((n) => ({ n, cls: st.cur === n ? 'on' : '', pick: () => { try { window.milesPricing.setCur(n); } catch (e) {} set({ cur: n }); } })),
       notes: NT.map((t, i) => { const w = st.n['w' + i], e = st.n['e' + i]; return { t, wo: w ? 'true' : 'false', wc: w ? 'tog on' : 'tog', w: () => set({ n: { ...st.n, ['w' + i]: !w } }), eo: e ? 'true' : 'false', ec: e ? 'tog on' : 'tog', e: () => set({ n: { ...st.n, ['e' + i]: !e } }) }; }) };
   }
 }

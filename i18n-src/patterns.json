@@ -110,5 +110,9 @@
 [
 "^We couldn’t find (MR-\\w+) with those details\\. Check the number in your confirmation message, or sign in to see all your orders\\.$",
 "لم نعثر على الطلب $1 بهذه البيانات. يُرجى التحقق من الرقم الوارد في رسالة التأكيد، أو تسجيل الدخول لعرض جميع طلباتك."
+],
+[
+"^from ((?:SAR|PKR) [\\d,]+)$",
+"ابتداءً من $1"
 ]
 ]

@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
+<script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
 <title>Miles Retold · Books</title>
 <script src="./support.js"></script>
@@ -171,14 +172,14 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <div style="position: relative; aspect-ratio: 1.05; border-radius: 28px; overflow: hidden; background: {{tint}}"><img src="{{img}}" alt="{{name}} photobook" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover"><span class="tagc" style="position: absolute; left: 18px; top: 18px; background: rgba(255,255,255,.9); color: #1F1418">{{badge}}</span></div>
 <div><p class="eyb">{{kicker}}</p><h1 class="fr" style="font-size: 64px; font-weight: 400; line-height: 1; margin: 12px 0 0">{{name}}</h1><p style="font-size: 18px; color: #5C4B50; line-height: 1.7; margin: 18px 0 0">{{desc}}</p>
 <ul style="list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px"><sc-for list="{{incl}}" as="i" hint-placeholder-count="4"><li style="display: flex; gap: 12px; align-items: center"><span style="width: 24px; height: 24px; border-radius: 50%; background: #F5E4DF; color: #7D1238; display: grid; place-items: center; flex: none"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"></path></svg></span>{{i.t}}</li></sc-for></ul>
-<div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px"><a class="btn bp" href="D2-Builder.dc.html">Start this book <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a class="btn bs" href="D14-Lookbook.dc.html">See real books</a></div>
-<div style="font-size: 14px; color: #6B5A5F; margin-top: 14px">From SAR [—] · PKR [—] · ready in about [X] weeks</div></div>
+<div style="display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px"><a class="btn bp" href="{{startHref}}">Start this book <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a><a class="btn bs" href="D14-Lookbook.dc.html">See real books</a></div>
+<div style="font-size: 14px; color: #6B5A5F; margin-top: 14px">From {{fromSar}} · {{fromPkr}}</div></div>
 </div>
 </section>
 <section style="background: #fff; border-top: 1px solid #E7DDD4; border-bottom: 1px solid #E7DDD4"><div class="wrap" style="padding-top: 56px; padding-bottom: 56px">
 <h2 class="fr" style="font-size: 40px; font-weight: 400; margin: 0">Choose a size</h2>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr)); gap: 16px; margin-top: 24px">
-<sc-for list="{{sizes}}" as="z" hint-placeholder-count="3"><button class="{{z.cls}}" onClick="{{z.pick}}" aria-pressed="{{z.on}}"><span style="display: grid; place-items: end center; height: 130px"><span class="cover" style="width: {{z.w}}; height: {{z.h}}; background: {{tint}}"></span></span><b style="font-size: 17px; margin-top: 14px; display: block">{{z.n}}</b><span style="font-size: 13px; color: #6B5A5F">{{z.d}}</span><span class="fr" style="font-size: 20px; margin-top: 8px; display: block">SAR [—]</span></button></sc-for>
+<sc-for list="{{sizes}}" as="z" hint-placeholder-count="3"><button class="{{z.cls}}" onClick="{{z.pick}}" aria-pressed="{{z.on}}"><span style="display: grid; place-items: end center; height: 130px"><span class="cover" style="width: {{z.w}}; height: {{z.h}}; background: {{tint}}"></span></span><b style="font-size: 17px; margin-top: 14px; display: block">{{z.n}}</b><span style="font-size: 13px; color: #6B5A5F">{{z.d}}</span><span class="fr" style="font-size: 20px; margin-top: 8px; display: block">{{z.price}}</span></button></sc-for>
 </div></div></section>
 <section class="wrap" style="padding-top: 56px">
 <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap"><h2 class="fr" style="font-size: 40px; font-weight: 400; margin: 0">Inside a {{lower}} book</h2><a href="D14-Lookbook.dc.html" style="font-weight: 700">Open the lookbook →</a></div>
@@ -193,9 +194,9 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
 <nav aria-label="Your order"><b>Your order</b><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help centre</a><a href="D15-Help.dc.html#contact">Contact us</a></nav>
-<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span>WhatsApp [number]</span></nav>
+<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a></nav>
 </div>
-<div class="sf-bot"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
+<div class="sf-bot"><span>© 2026 Miles Retold</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
 </footer>
 <!--/chrome:footer-->
 
@@ -216,9 +217,12 @@ class Component extends DCLogic {
     const Z = [['Portrait 8 × 10', '40 pages · most popular', '70px', '88px'], ['Square 8 × 8', '32 pages', '78px', '78px'], ['Landscape 11 × 8.5', '60 pages', '104px', '80px'], ['Mini 6 × 6', '24 pages · gifts', '56px', '56px']];
     const G = [['/assets/44c3ed2b417e619b81afb56289c69c25.jpg', 'Open book spread', '1.6'], ['/assets/d79cb5916bf021b810ad3e0168beec13.jpg', 'Collage of trips', '0.8'], ['/assets/40f21930485ef5903566224ed85a9273.jpg', 'Handwritten notes', '0.8']];
     const t = T[st.t];
-    return { types: T.map((x, i) => ({ n: x[0], on: st.t === i ? 'true' : 'false', cls: st.t === i ? 'chip on' : 'chip', pick: () => set({ t: i }) })),
+    const P = window.milesPricing;   // sample price list (public/pricing.js); each tile is priced by shape and page count
+    const Zp = [P.book('portrait', 40), P.book('square', 32), P.book('landscape', 60), P.book('mini', 24)];
+    const slug = ['travel', 'wedding', 'camera-roll', 'love-story'][st.t], zs = ['portrait', 'square', 'landscape', null][st.z];
+    return { startHref: 'D2-Builder.dc.html?type=' + slug + (zs ? '&size=' + zs : ''), fromSar: P.fmt(P.book('portrait', P.pagesMin), 'SAR'), fromPkr: P.fmt(P.book('portrait', P.pagesMin), 'PKR'), types: T.map((x, i) => ({ n: x[0], on: st.t === i ? 'true' : 'false', cls: st.t === i ? 'chip on' : 'chip', pick: () => set({ t: i }) })),
       key: 't' + st.t, name: t[0], lower: t[0].toLowerCase(), kicker: t[1], desc: t[2], img: t[3], tint: t[4], badge: t[5], incl: t[6].map((x) => ({ t: x })),
-      sizes: Z.map((z, i) => ({ n: z[0], d: z[1], w: z[2], h: z[3], on: st.z === i ? 'true' : 'false', cls: st.z === i ? 'pm on szc' : 'pm szc', pick: () => set({ z: i }) })),
+      sizes: Z.map((z, i) => ({ price: P.fmt(Zp[i]), n: z[0], d: z[1], w: z[2], h: z[3], on: st.z === i ? 'true' : 'false', cls: st.z === i ? 'pm on szc' : 'pm szc', pick: () => set({ z: i }) })),
       gal: G.map((g) => ({ src: g[0], alt: g[1], ar: g[2] })) };
   }
 }

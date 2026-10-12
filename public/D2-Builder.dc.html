@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
+<script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
 <title>Miles Retold · Book builder</title>
 <script src="./support.js"></script>
@@ -191,7 +192,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 <div style="display: flex; gap: 4px; background: rgba(255,255,255,.7); padding: 4px; border-radius: 999px" role="group" aria-label="Preview angle"><sc-for list="{{views}}" as="v" hint-placeholder-count="3"><button class="{{v.cls}}" onClick="{{v.pick}}">{{v.name}}</button></sc-for></div>
 </div>
 <div style="padding: 26px">
-<div style="display: flex; justify-content: space-between; align-items: baseline"><b class="fr" style="font-size: 22px; font-weight: 500">{{typeName}}</b><span style="font-size: 12px; color: #9A5A0B; background: #FFF4E6; padding: 4px 8px; border-radius: 6px">[demo prices]</span></div>
+<div style="display: flex; justify-content: space-between; align-items: baseline"><b class="fr" style="font-size: 22px; font-weight: 500">{{typeName}}</b></div>
 <div style="font-size: 14px; color: #6B5A5F; margin-top: 4px">{{sizeName}} · {{coverName}} linen · {{pages}} pages</div>
 <div style="display: grid; gap: 10px; margin-top: 20px; font-size: 14px">
 <sc-for list="{{lines}}" as="l" hint-placeholder-count="3"><div style="display: flex; justify-content: space-between"><span style="color: #6B5A5F">{{l.label}}</span><span>{{l.amt}}</span></div></sc-for>
@@ -211,18 +212,24 @@ a{color:#7D1238}a:hover{color:#B8304F}
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
 <nav aria-label="Your order"><b>Your order</b><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help centre</a><a href="D15-Help.dc.html#contact">Contact us</a></nav>
-<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span>WhatsApp [number]</span></nav>
+<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a></nav>
 </div>
-<div class="sf-bot"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
+<div class="sf-bot"><span>© 2026 Miles Retold</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
 </footer>
 <!--/chrome:footer-->
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1500}}'>
 class Component extends DCLogic {
-  constructor(p){ super(p); this.state = { t: 0, s: 0, c: 0, pages: 40, copies: 0, gift: false, rush: false, cur: 'SAR', title: 'Maldives', dates: 'March 2022', view: 0, px: .5, py: .5 }; this._t = 0; }
+  constructor(p){ super(p);
+    // deep links from the rest of the site: ?type=honeymoon&size=landscape arrive with that choice already made
+    let q; try { q = new URLSearchParams(location.search); } catch (e) { q = new URLSearchParams(''); }
+    const TY = ['travel', 'wedding', 'honeymoon', 'love-story', 'multi-city', 'camera-roll'], TT = ['Turkey', 'Our Wedding', 'Maldives', 'Our Story', 'Europe', '2025'], SZ = ['portrait', 'landscape', 'square'];
+    const ti = TY.indexOf(q.get('type')), si = SZ.indexOf(q.get('size'));
+    this.state = { t: ti >= 0 ? ti : 0, s: si >= 0 ? si : 0, c: 0, pages: 40, copies: 0, gift: false, rush: false, cur: window.milesPricing ? window.milesPricing.cur() : 'SAR', title: ti >= 0 ? TT[ti] : 'Maldives', dates: 'March 2022', view: 0, px: .5, py: .5 }; this._t = 0; }
   renderVals() {
     const st = this.state, set = (o) => this.setState(o);
+    const P = window.milesPricing;   // sample price list (public/pricing.js)
     const T = [
       { name: 'Travel Journey', sub: 'One trip, one place', img: '/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg', title: 'Turkey' },
       { name: 'Wedding', sub: 'The day itself', img: '/assets/d79cb5916bf021b810ad3e0168beec13.jpg', title: 'Our Wedding' },
@@ -232,15 +239,15 @@ class Component extends DCLogic {
       { name: 'Camera Roll', sub: 'A year or season', img: '/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg', title: '2025' }
     ];
     const S = [
-      { name: 'Portrait', dim: '8 × 10 in', w: '44px', h: '56px', ratio: '4 / 5', cw: '64%', base: 280 },
-      { name: 'Landscape', dim: '11 × 8.5 in', w: '64px', h: '50px', ratio: '11 / 8.5', cw: '86%', base: 320 },
-      { name: 'Square', dim: '10 × 10 in', w: '54px', h: '54px', ratio: '1 / 1', cw: '72%', base: 300 }
+      { name: 'Portrait', dim: '8 × 10 in', w: '44px', h: '56px', ratio: '4 / 5', cw: '64%', base: P.bases.portrait },
+      { name: 'Landscape', dim: '11 × 8.5 in', w: '64px', h: '50px', ratio: '11 / 8.5', cw: '86%', base: P.bases.landscape },
+      { name: 'Square', dim: '10 × 10 in', w: '54px', h: '54px', ratio: '1 / 1', cw: '72%', base: P.bases.square }
     ];
     const C = [
       { name: 'Dusty blue', hex: '#7E9CC0' }, { name: 'Rose', hex: '#D9A3AE' }, { name: 'Butter', hex: '#E8C96E' },
       { name: 'Sage', hex: '#94A88A' }, { name: 'Burgundy', hex: '#7A2B33' }, { name: 'Navy', hex: '#24365C' }, { name: 'Ivory', hex: '#E9E1D3' }
     ];
-    const rate = st.cur === 'SAR' ? 1 : 74, sym = st.cur;
+    const rate = P.rate[st.cur], sym = st.cur;
     const fmt = (n) => sym + ' ' + Math.round(n * rate).toLocaleString('en-US');
     const size = S[st.s];
     const DIM = [[230, 288], [320, 248], [270, 270]][st.s];
@@ -249,12 +256,12 @@ class Component extends DCLogic {
     const VIEWS = [{ name: 'Cover', ry: -26, open: 0 }, { name: 'Spine', ry: 64, open: 0 }, { name: 'Open', ry: -6, open: -158 }];
     const vw = VIEWS[st.view];
     const px = (n) => n + 'px';
-    const pageAdd = (st.pages - 30) / 10 * 40;
+    const pageAdd = (st.pages - P.pagesMin) / P.pageStep * P.pageStepPrice;
     const book = size.base + pageAdd;
     const lines = [{ label: 'Book · ' + size.name + ', ' + st.pages + ' pages', amt: fmt(book) }];
     let total = book;
-    if (st.copies) { const v = st.copies * book * 0.6; lines.push({ label: 'Extra copies × ' + st.copies, amt: fmt(v) }); total += v; }
-    if (st.rush) { lines.push({ label: 'Priority design', amt: fmt(120) }); total += 120; }
+    if (st.copies) { const v = st.copies * book * P.copyFactor; lines.push({ label: 'Extra copies × ' + st.copies, amt: fmt(v) }); total += v; }
+    if (st.rush) { lines.push({ label: 'Priority design', amt: fmt(P.priority) }); total += P.priority; }
     lines.push({ label: 'Gold ribbon wrap + handwritten note', amt: 'Included' });
     if (st.gift) lines.push({ label: 'Gift message & delivery', amt: 'Included' });
     return {
@@ -277,7 +284,7 @@ class Component extends DCLogic {
       rushCls: st.rush ? 'tg on' : 'tg', rushPressed: st.rush ? 'true' : 'false', toggleRush: () => set({ rush: !st.rush }),
       lines, total: fmt(total), deposit: fmt(total / 2), totalKey: 't' + total + st.cur, depKey: 'd' + total + st.cur,
       curSAR: st.cur === 'SAR' ? 'cur on' : 'cur', curPKR: st.cur === 'PKR' ? 'cur on' : 'cur',
-      toSAR: () => set({ cur: 'SAR' }), toPKR: () => set({ cur: 'PKR' })
+      toSAR: () => { P.setCur('SAR'); set({ cur: 'SAR' }); }, toPKR: () => { P.setCur('PKR'); set({ cur: 'PKR' }); }
     };
   }
 }

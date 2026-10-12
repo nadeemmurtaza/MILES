@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
+<script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
 <title>Miles Retold · Gift cards</title>
 <script src="./support.js"></script>
@@ -155,7 +156,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <div class="in d2" style="display: flex; flex-direction: column; gap: 30px">
 <div><h2 style="font-size: 18px; margin: 0 0 14px">1 · Amount</h2>
 <div style="display: flex; gap: 6px; margin-bottom: 12px"><button class="{{sarCls}}" onClick="{{toSar}}">SAR</button><button class="{{pkrCls}}" onClick="{{toPkr}}">PKR</button></div>
-<div class="amts" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px"><sc-for list="{{amts}}" as="a" hint-placeholder-count="4"><button class="{{a.cls}}" onClick="{{a.pick}}"><span class="fr" style="font-size: 22px; display: block">{{a.label}}</span><span style="font-size: 12px; color: #6B5A5F">{{a.note}}</span></button></sc-for></div></div>
+<div class="amts" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px"><sc-for list="{{amts}}" as="a" hint-placeholder-count="4"><button class="{{a.cls}}" onClick="{{a.pick}}"><span class="fr" style="font-size: 22px; display: block">{{a.label}}</span><span style="font-size: 12px; color: #6B5A5F">{{a.note}}</span></button></sc-for></div><sc-if value="{{isCustom}}" hint-placeholder-val="{{ false }}"><div style="margin-top: 12px; max-width: 280px"><label class="lb" for="ca">Amount ({{cur}})</label><input id="ca" class="inp" inputmode="numeric" maxlength="6" value="{{custom}}" onInput="{{setCustom}}"></div></sc-if></div>
 <div><h2 style="font-size: 18px; margin: 0 0 14px">2 · Card design</h2><div style="display: flex; gap: 12px"><sc-for list="{{themes}}" as="t" hint-placeholder-count="4"><button class="{{t.cls}}" onClick="{{t.pick}}" aria-label="{{t.name}}" style="background: {{t.bg}}"></button></sc-for></div></div>
 <div><h2 style="font-size: 18px; margin: 0 0 14px">3 · Your message</h2>
 <div class="stack" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px">
@@ -167,7 +168,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <div style="display: flex; gap: 8px; flex-wrap: wrap"><sc-for list="{{chans}}" as="c" hint-placeholder-count="2"><button class="{{c.cls}}" onClick="{{c.pick}}" aria-pressed="{{c.pressed}}">{{c.name}}</button></sc-for></div>
 <div class="stack" style="display: grid; grid-template-columns: 1.4fr 1fr; gap: 14px; margin-top: 14px"><div><label class="lb" for="rc">{{chanLabel}}</label><input id="rc" class="inp" placeholder="{{chanPh}}"></div><div><label class="lb" for="dd">Send on</label><input id="dd" class="inp" type="date"></div></div></div>
 <div class="tot" style="background: #fff; border: 1px solid #E7DDD4; border-radius: 22px; padding: 22px; display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap"><span><span style="color: #6B5A5F; font-size: 14px">Total</span><br><b class="fr" style="font-size: 30px; font-weight: 500"><span class="num" key="{{amtKey}}t">{{amtLabel}}</span></b></span><a class="btn bp" href="D3-Checkout.dc.html">Continue to payment <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></a></div>
-<div class="stg" style="display: grid; gap: 14px; padding-top: 10px"><div class="step"><b class="n">1</b><span>They get your card on WhatsApp or email, on the day you choose.</span></div><div class="step"><b class="n">2</b><span>They design their book and upload their own photos.</span></div><div class="step"><b class="n">3</b><span>The gift card covers the book; any difference is paid at checkout. [Validity: X months]</span></div></div>
+<div class="stg" style="display: grid; gap: 14px; padding-top: 10px"><div class="step"><b class="n">1</b><span>They get your card on WhatsApp or email, on the day you choose.</span></div><div class="step"><b class="n">2</b><span>They design their book and upload their own photos.</span></div><div class="step"><b class="n">3</b><span>The gift card covers the book; any difference is paid at checkout.</span></div></div>
 </div>
 </section></main>
 <!--chrome:footer-->
@@ -178,9 +179,9 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
 <nav aria-label="Your order"><b>Your order</b><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help centre</a><a href="D15-Help.dc.html#contact">Contact us</a></nav>
-<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span>WhatsApp [number]</span></nav>
+<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a></nav>
 </div>
-<div class="sf-bot"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
+<div class="sf-bot"><span>© 2026 Miles Retold</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
 </footer>
 <!--/chrome:footer-->
 
@@ -188,7 +189,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1600}}'>
 class Component extends DCLogic {
-  constructor(p){ super(p); this.state = { cur: 'SAR', a: 1, t: 0, flip: false, hov: false, to: null, from: null, msg: null, ch: 0, lg: 0 }; }
+  constructor(p){ super(p); this.state = { cur: window.milesPricing ? window.milesPricing.cur() : 'SAR', custom: 500, a: 1, t: 0, flip: false, hov: false, to: null, from: null, msg: null, ch: 0, lg: 0 }; }
   componentDidMount() { document.addEventListener('miles:lang', () => this.setState({ lg: (this.state.lg || 0) + 1 })); }
   renderVals() {
     const st = this.state, set = (o) => this.setState(o);
@@ -196,16 +197,20 @@ class Component extends DCLogic {
     let ar = false; try { ar = localStorage.getItem('miles.lang') === 'ar'; } catch (e) {}
     const D = ar ? { to: 'مريم', from: 'سارة', msg: 'لرحلتك القادمة — لئلا تضيع بين صور هاتفك.' } : { to: 'Mariam', from: 'Sara', msg: 'For your next trip — so it never gets lost in your camera roll.' };
     const vTo = st.to == null ? D.to : st.to, vFrom = st.from == null ? D.from : st.from, vMsg = st.msg == null ? D.msg : st.msg;
-    const A = st.cur === 'SAR' ? [['[—]', 'One small book'], ['[—]', 'Most popular'], ['[—]', 'Large book'], ['Custom', 'Any amount']] : [['[—]', 'One small book'], ['[—]', 'Most popular'], ['[—]', 'Large book'], ['Custom', 'Any amount']];
+    const P = window.milesPricing;   // sample price list (public/pricing.js): a gift card buys the book it is named after
+    const n = (sar) => Math.round(sar * P.rate[st.cur]).toLocaleString('en-US');
+    const A = [[n(P.tiers.small), 'One small book'], [n(P.tiers.popular), 'Most popular'], [n(P.tiers.large), 'Large book'], ['Custom', 'Any amount']];
     const T = [{ name: 'Wine', bg: 'linear-gradient(135deg,#7D1238,#9E1046 60%,#C4661A)', fg: '#FFF6F0' }, { name: 'Dusty blue', bg: 'linear-gradient(135deg,#5E7FA6,#7E9CC0)', fg: '#FFF6F0' }, { name: 'Ivory', bg: 'linear-gradient(135deg,#F3EBDD,#E4D5C6)', fg: '#1F1418' }, { name: 'Midnight', bg: 'linear-gradient(135deg,#1F1418,#3A2830)', fg: '#F2B880' }];
     const C = ['WhatsApp', 'Email'];
     const flipped = st.flip;
-    const amt = A[st.a][0] === 'Custom' ? st.cur + ' [amount]' : st.cur + ' ' + A[st.a][0];
+    const isCustom = A[st.a][0] === 'Custom', customN = Math.max(0, parseInt(String(st.custom).replace(/[^0-9]/g, ''), 10) || 0);
+    const amt = st.cur + ' ' + (isCustom ? customN.toLocaleString('en-US') : A[st.a][0]);
     return {
+      cur: st.cur,
       amts: A.map((x, i) => ({ label: x[0], note: x[1], cls: i === st.a ? 'amt on' : 'amt', pick: () => set({ a: i }) })),
       themes: T.map((x, i) => ({ ...x, cls: i === st.t ? 'th on' : 'th', pick: () => set({ t: i, flip: false }) })),
-      bg: T[st.t].bg, fg: T[st.t].fg, amtLabel: amt, amtKey: 'a' + st.a + st.cur,
-      sarCls: st.cur === 'SAR' ? 'chip on' : 'chip', pkrCls: st.cur === 'PKR' ? 'chip on' : 'chip', toSar: () => set({ cur: 'SAR' }), toPkr: () => set({ cur: 'PKR' }),
+      bg: T[st.t].bg, fg: T[st.t].fg, amtLabel: amt, amtKey: 'a' + st.a + st.cur + (isCustom ? customN : ''), isCustom, custom: st.custom, setCustom: (e) => set({ custom: e.target.value.replace(/[^0-9]/g, '').slice(0, 6) }),
+      sarCls: st.cur === 'SAR' ? 'chip on' : 'chip', pkrCls: st.cur === 'PKR' ? 'chip on' : 'chip', toSar: () => { P.setCur('SAR'); set({ cur: 'SAR' }); }, toPkr: () => { P.setCur('PKR'); set({ cur: 'PKR' }); },
       to: vTo || 'someone special', from: vFrom || 'you', msg: vMsg, left: 140 - vMsg.length,
       setTo: (e) => set({ to: e.target.value }), setFrom: (e) => set({ from: e.target.value }), setMsg: (e) => set({ msg: e.target.value, flip: true }), showBack: () => set({ flip: true }),
       flipDeg: flipped ? '180deg' : '0deg', flip: () => set({ flip: !st.flip }), flipKey: (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); set({ flip: !st.flip }); } }, flipLabel: flipped ? 'Show the front' : 'Show the message',

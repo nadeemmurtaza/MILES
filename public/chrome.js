@@ -229,7 +229,19 @@
   window.milesCart = { set: function (n) { LS.set('miles.cart', String(n)); refreshChrome(); } };
   function setText(el, v) { if (el.textContent !== v) el.textContent = v; }
   function setAttr(el, k, v) { if (el.getAttribute(k) !== v) el.setAttribute(k, v); }
+  /* static price labels: <span data-price="from">, <b data-price="size:landscape"> ... filled once from window.milesPricing in the visitor's currency */
+  function applyPrices() {
+    var P = window.milesPricing; if (!P) return;
+    [].forEach.call(document.querySelectorAll('[data-price]:not([data-price-set])'), function (el) {
+      var k = el.getAttribute('data-price').split(':'), v = null;
+      if (k[0] === 'from') v = 'from ' + P.from();
+      else if (k[0] === 'size') v = P.fmt(P.book(k[1], +k[2] || P.pagesMin));
+      else if (k[0] === 'amount') v = P.fmt(+k[1]);
+      if (v) { el.textContent = v; el.setAttribute('data-price-set', ''); }
+    });
+  }
   function refreshChrome() {
+    applyPrices();
     var n = cartCount();
     [].forEach.call(document.querySelectorAll('[data-cart-count]'), function (b) { setText(b, String(n)); if (b.hidden !== n < 1) b.hidden = n < 1; });
     [].forEach.call(document.querySelectorAll('[data-cart]'), function (a) {

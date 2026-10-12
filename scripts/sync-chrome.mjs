@@ -98,6 +98,8 @@ for (const f of PAGES) {
 
   // page head: shared script
   if (!src.includes('src="/chrome.js"')) src = src.replace('<link rel="stylesheet" href="/site.css">', '<link rel="stylesheet" href="/site.css">\n<script src="/chrome.js" defer></script>');
+  // sample price list (window.milesPricing), synchronous so component scripts can read it while rendering
+  if (!src.includes('src="/pricing.js"')) src = src.replace('<script src="/chrome.js" defer></script>', '<script src="/pricing.js"></script>\n<script src="/chrome.js" defer></script>');
   // keep the D11 grid exactly one screen below the header
   if (key === 'D11-SignIn') src = src.replace('min-height: 100vh; min-height: 100svh">', 'min-height: calc(100vh - 79px); min-height: calc(100svh - 79px)">');
 

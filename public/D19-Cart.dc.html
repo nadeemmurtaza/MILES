@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
+<script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
 <title>Miles Retold · Cart</title>
 <script src="./support.js"></script>
@@ -178,15 +179,15 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap; margin-top: 14px"><span class="qty"><button onClick="{{it.minus}}" aria-label="One fewer copy">−</button><span aria-live="polite">{{it.q}}</span><button onClick="{{it.plus}}" aria-label="One more copy">+</button></span>
 <label style="display: flex; gap: 10px; align-items: center; font-size: 14px; font-weight: 700"><button class="{{it.wcls}}" onClick="{{it.wrap}}" role="switch" aria-checked="{{it.won}}" aria-label="Gift wrap"></button>Gift wrap &amp; note</label>
 <button onClick="{{it.remove}}" style="all: unset; cursor: pointer; font-size: 14px; font-weight: 700; color: #7D1238; text-decoration: underline; text-underline-offset: 3px">Remove</button></div></div>
-<div class="cprice" style="text-align: right"><div class="fr" style="font-size: 22px">{{cur}} [—]</div><div style="font-size: 12px; color: #6B5A5F; margin-top: 4px">{{it.note}}</div></div>
+<div class="cprice" style="text-align: right"><div class="fr" style="font-size: 22px">{{it.price}}</div><div style="font-size: 12px; color: #6B5A5F; margin-top: 4px">{{it.note}}</div></div>
 </article>
 </sc-for>
 <a href="D21-Books.dc.html" class="card" style="padding: 20px; display: flex; justify-content: center; gap: 10px; align-items: center; border-style: dashed; text-decoration: none; font-weight: 700">+ Add another book</a>
 </div>
 <aside class="card in d2" style="padding: 28px; position: sticky; top: 100px">
 <b class="fr" style="font-size: 26px; font-weight: 500">Summary</b>
-<div style="margin-top: 16px; border-bottom: 1px solid #F0E8E1; padding-bottom: 10px"><div class="row2"><span>Books ({{count}})</span><b>{{cur}} [—]</b></div><div class="row2"><span>Gift wrap</span><b>{{wrapTxt}}</b></div><div class="row2"><span>Delivery · {{ship}}</span><b>Calculated at checkout</b></div><sc-if value="{{codeOn}}" hint-placeholder-val="{{ false }}"><div class="row2" style="color: #2B6B55"><span>Code {{codeName}}</span><b>− {{cur}} [—]</b></div></sc-if></div>
-<div class="row2" style="font-size: 18px; padding-top: 14px"><b>Total</b><b class="fr" style="font-size: 26px">{{cur}} [—]</b></div>
+<div style="margin-top: 16px; border-bottom: 1px solid #F0E8E1; padding-bottom: 10px"><div class="row2"><span>Books ({{count}})</span><b>{{sub}}</b></div><div class="row2"><span>Gift wrap</span><b>{{wrapTxt}}</b></div><div class="row2"><span>Delivery · {{ship}}</span><b>Calculated at checkout</b></div><sc-if value="{{codeOn}}" hint-placeholder-val="{{ false }}"><div class="row2" style="color: #2B6B55"><span>Code {{codeName}}</span><b>− {{disc}}</b></div></sc-if></div>
+<div class="row2" style="font-size: 18px; padding-top: 14px"><b>Total</b><b class="fr" style="font-size: 26px">{{total}}</b></div>
 <div style="margin-top: 12px; padding: 14px 16px; border-radius: 14px; background: #F6F1EA; font-size: 14px; line-height: 1.6"><b>Pay 50% today</b> to book your design slot. The other 50% is due only after you approve the proof.</div>
 <div style="display: flex; gap: 8px; margin-top: 16px"><input class="inp" placeholder="Gift card or promo code" aria-label="Gift card or promo code" value="{{code}}" onInput="{{setCode}}" style="min-height: 48px"><button class="btn bs" onClick="{{apply}}" style="min-height: 48px; padding: 0 18px">Apply</button></div>
 <sc-if value="{{codeMsg}}" hint-placeholder-val="{{ false }}"><div style="font-size: 13px; font-weight: 700; color: {{codeC}}; margin-top: 8px">{{codeMsg}}</div></sc-if>
@@ -209,9 +210,9 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
 <nav aria-label="Your order"><b>Your order</b><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help centre</a><a href="D15-Help.dc.html#contact">Contact us</a></nav>
-<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span>WhatsApp [number]</span></nav>
+<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a></nav>
 </div>
-<div class="sf-bot"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
+<div class="sf-bot"><span>© 2026 Miles Retold</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
 </footer>
 <!--/chrome:footer-->
 
@@ -219,9 +220,11 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1040}}'>
 class Component extends DCLogic {
-  constructor(p){ super(p); this.state = { cur: 'SAR', items: [{ k: 'a', q: 1, w: true }, { k: 'b', q: 2, w: false }, { k: 'c', q: 1, w: false }], code: '', applied: '', undo: null }; }
+  constructor(p){ super(p); this.state = { cur: window.milesPricing ? window.milesPricing.cur() : 'SAR', items: [{ k: 'a', q: 1, w: true }, { k: 'b', q: 2, w: false }, { k: 'c', q: 1, w: false }], code: '', applied: '', undo: null }; }
   renderVals() {
     const st = this.state, set = (o) => this.setState(o);
+    const P = window.milesPricing;   // sample price list (public/pricing.js)
+    const U = { a: P.book('portrait', 40), b: P.copy('square', 32), c: P.tiers.popular };   // one Portrait 8 × 10 book, one Square 8 × 8 reprint, one gift card
 
     const D = { a: ['Maldives · March 2022', 'Travel book · Portrait 8 × 10 · 40 pages · linen hardcover', '#7E9CC0', '/assets/6dc6964be6ca87733a870c819d870936.jpg', '118px', 'Design starts after deposit'],
       b: ['Extra copy · Paris & Turkey', 'Reprint of order MR-1031 · Square 8 × 8', '#7D1238', '/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg', '92px', 'Reprint price per copy'],
@@ -229,9 +232,10 @@ class Component extends DCLogic {
     const its = st.items;
     const upd = (k, f) => set({ items: its.map((x) => x.k === k ? f(x) : x) });
     const ok = st.applied && st.applied.toUpperCase() === 'MILES10';
+    const subSar = its.reduce((a, x) => a + U[x.k] * x.q, 0), discSar = ok ? Math.round(its.filter((x) => x.k !== 'c').reduce((a, x) => a + U[x.k] * x.q, 0) * 0.1) : 0;
     return {
-      curs: ['SAR', 'PKR'].map((c) => ({ name: c === 'SAR' ? 'Saudi Arabia · SAR' : 'Pakistan · PKR', cls: st.cur === c ? 'on' : '', pick: () => set({ cur: c }) })), cur: st.cur, ship: st.cur === 'SAR' ? 'SMSA / Aramex' : 'TCS / Leopards',
-      items: its.map((x) => { const d = D[x.k]; return { key: x.k, name: d[0], spec: d[1], bg: d[2], img: d[3], h: d[4], note: d[5], q: x.q, wcls: x.w ? 'tog on' : 'tog', won: x.w ? 'true' : 'false',
+      curs: ['SAR', 'PKR'].map((c) => ({ name: c === 'SAR' ? 'Saudi Arabia · SAR' : 'Pakistan · PKR', cls: st.cur === c ? 'on' : '', pick: () => { P.setCur(c); set({ cur: c }); } })), cur: st.cur, sub: P.fmt(subSar, st.cur), disc: P.fmt(discSar, st.cur), total: P.fmt(subSar - discSar, st.cur), ship: st.cur === 'SAR' ? 'SMSA / Aramex' : 'TCS / Leopards',
+      items: its.map((x) => { const d = D[x.k]; return { key: x.k, name: d[0], spec: d[1], bg: d[2], img: d[3], h: d[4], note: d[5], price: P.fmt(U[x.k] * x.q, st.cur), q: x.q, wcls: x.w ? 'tog on' : 'tog', won: x.w ? 'true' : 'false',
         minus: () => upd(x.k, (y) => ({ ...y, q: Math.max(1, y.q - 1) })), plus: () => upd(x.k, (y) => ({ ...y, q: y.q + 1 })), wrap: () => upd(x.k, (y) => ({ ...y, w: !y.w })), remove: () => set({ items: its.filter((y) => y.k !== x.k), undo: { x, i: its.findIndex((y) => y.k === x.k) } }) }; }),
       count: (() => { const n = its.reduce((a, x) => a + x.q, 0); try { if (window.milesCart && String(n) !== localStorage.getItem('miles.cart')) window.milesCart.set(n); } catch (e) {} return n; })(), wrapTxt: its.some((x) => x.w) ? 'Free' : '—', hasItems: its.length > 0, isEmpty: its.length === 0,
       restore: () => set({ undo: null, items: [{ k: 'a', q: 1, w: true }, { k: 'b', q: 2, w: false }, { k: 'c', q: 1, w: false }] }),

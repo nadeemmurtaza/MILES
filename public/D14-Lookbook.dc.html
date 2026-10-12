@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
+<script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
 <title>Miles Retold · Lookbook</title>
 <script src="./support.js"></script>
@@ -157,9 +158,9 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
 <nav aria-label="Your order"><b>Your order</b><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help centre</a><a href="D15-Help.dc.html#contact">Contact us</a></nav>
-<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span>WhatsApp [number]</span></nav>
+<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a></nav>
 </div>
-<div class="sf-bot"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
+<div class="sf-bot"><span>© 2026 Miles Retold</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
 </footer>
 <!--/chrome:footer-->
 
@@ -169,7 +170,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <button class="nav" onClick="{{prev}}" aria-label="Previous book"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 6l-6 6 6 6"></path></svg></button>
 <div class="lbi stack" key="{{curKey}}" style="display: grid; grid-template-columns: 1.5fr 1fr; gap: 40px; align-items: center; color: #FFF6F0">
 <img src="{{cur.src}}" alt="{{cur.title}}" style="width: 100%; max-height: min(640px, 64vh); max-height: min(640px, 64svh); object-fit: cover; border-radius: 20px; box-shadow: 0 60px 100px -40px rgba(0,0,0,.9)">
-<div><div style="font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #F2B880">{{cur.cat}}</div><h2 class="fr" style="font-size: 48px; font-weight: 400; margin: 10px 0 0">{{cur.title}}</h2><p style="font-size: 16px; line-height: 1.7; opacity: .8; margin: 14px 0 26px">{{cur.note}}</p><a class="btn" href="D2-Builder.dc.html" style="background: #F2B880; color: #1F1418">Make one like this</a><div class="mono" style="font-size: 13px; opacity: .6; margin-top: 26px">{{pos}}</div></div>
+<div><div style="font-size: 12px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #F2B880">{{cur.cat}}</div><h2 class="fr" style="font-size: 48px; font-weight: 400; margin: 10px 0 0">{{cur.title}}</h2><p style="font-size: 16px; line-height: 1.7; opacity: .8; margin: 14px 0 26px">{{cur.note}}</p><a class="btn" href="{{cur.href}}" style="background: #F2B880; color: #1F1418">Make one like this</a><div class="mono" style="font-size: 13px; opacity: .6; margin-top: 26px">{{pos}}</div></div>
 </div>
 <div style="display: flex; flex-direction: column; gap: 14px"><button class="nav" onClick="{{close}}" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6L6 18"></path></svg></button><button class="nav" onClick="{{next}}" aria-label="Next book"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 6l6 6-6 6"></path></svg></button></div>
 </div>
@@ -192,7 +193,7 @@ class Component extends DCLogic {
       ['d4b2aafa1f1446ed8701326e3284b455','Gifts','The thank-you card','Every parcel arrives with this card and a handwritten note.','360px'],
       ['b305aa7d0c1ed679fe60219a9e088e10','Travel','Postcard from Miles Retold','Our own trips, turned into the books that started it all.','400px'],
       ['3936155b1de2d6f9d237753228c056d0','Gifts','Written by hand','Tazmeen writing a client’s note before wrapping.','300px']
-    ].map((a, i) => ({ i, id: a[0], cat: a[1], title: a[2], note: a[3], h: a[4] }));
+    ].map((a, i) => ({ i, id: a[0], cat: a[1], title: a[2], note: a[3], h: a[4], href: a[1] === 'Gifts' ? 'D16-Gifts.dc.html' : 'D2-Builder.dc.html?type=' + ({ 'Honeymoon': 'honeymoon', 'Travel': 'travel', 'Love story': 'love-story', 'Multi-city': 'multi-city' }[a[1]] || 'travel') }));
     const cats = ['All', 'Travel', 'Honeymoon', 'Love story', 'Multi-city', 'Gifts'];
     const list = ALL.filter((x) => st.f === 'All' || x.cat === st.f);
     const oi = list.findIndex((x) => x.i === st.open);

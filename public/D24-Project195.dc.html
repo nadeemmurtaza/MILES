@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
+<script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
 <title>Miles Retold · The 195 Project</title>
 <script src="./support.js"></script>
@@ -174,7 +175,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <section style="background: #1F1418; color: #FFF6F0; position: relative; overflow: hidden"><div class="wrap" style="padding-top: 80px; padding-bottom: 80px">
 <p class="eyb" style="color: #F2B880">The 195 Project · our long game</p>
 <h1 class="fr" style="font-size: 84px; font-weight: 400; line-height: .98; margin: 14px 0 0; max-width: 900px"><span class="wd"><span class="wi">One</span></span> <span class="wd"><span class="wi" style="animation-delay: .08s">book</span></span> <span class="wd"><span class="wi" style="animation-delay: .16s">for</span></span> <span class="wd"><span class="wi" style="animation-delay: .24s">every</span></span> <span class="wd"><span class="wi" style="animation-delay: .32s; font-style: italic; color: #F2B880">country.</span></span></h1>
-<p class="in d3" style="font-size: 19px; line-height: 1.7; color: #CDBCB4; max-width: 640px; margin: 22px 0 0">There are 195 countries. Every time one of you comes home from a country we’ve never made a book for, it lights up here. [Project text to confirm with Tazmeen and Rameen.]</p>
+<p class="in d3" style="font-size: 19px; line-height: 1.7; color: #CDBCB4; max-width: 640px; margin: 22px 0 0">There are 195 countries. Every time one of you comes home from a country we’ve never made a book for, it lights up here.</p>
 <div class="in d4" style="display: flex; gap: 48px; flex-wrap: wrap; margin-top: 40px"><div><div class="fr" style="font-size: 72px; line-height: 1; color: #F2B880">{{done}}</div><div style="color: #CDBCB4">countries in books so far</div></div><div><div class="fr" style="font-size: 72px; line-height: 1">{{left}}</div><div style="color: #CDBCB4">still to go</div></div></div>
 <div class="meter195 in d5" style="margin-top: 30px"><i style="width: {{pct}}"></i></div>
 </div></section>
@@ -186,7 +187,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <section style="background: #fff; border-top: 1px solid #E7DDD4"><div class="wrap">
 <h2 class="fr" style="font-size: 44px; font-weight: 400; margin: 0">Recently added</h2>
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 16px; margin-top: 24px"><sc-for list="{{recent}}" as="r" hint-placeholder-count="4"><figure class="lift zm" style="margin: 0; border-radius: 22px; overflow: hidden; background: #F6F1EA; border: 1px solid #E7DDD4"><div style="aspect-ratio: 4/3; overflow: hidden"><img src="{{r.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><figcaption style="padding: 16px 18px"><span class="mono" style="font-size: 12px; color: #786669">No. {{r.n}}</span><b class="fr" style="display: block; font-size: 22px; font-weight: 500">{{r.c}}</b><span style="font-size: 13px; color: #6B5A5F">{{r.by}}</span></figcaption></figure></sc-for></div>
-<div class="card" style="margin-top: 36px; padding: 34px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; background: #7D1238; border-color: #7D1238; color: #FFF6F0"><div><b class="fr" style="font-size: 32px; font-weight: 400">Been somewhere new?</b><p style="margin: 8px 0 0; color: #F5E4DF">Make the book that lights up the next dot. [Reward for new countries, if any.]</p></div><a class="btn" href="D21-Books.dc.html" style="background: #F2B880; color: #1F1418">Start a travel book</a></div>
+<div class="card" style="margin-top: 36px; padding: 34px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; background: #7D1238; border-color: #7D1238; color: #FFF6F0"><div><b class="fr" style="font-size: 32px; font-weight: 400">Been somewhere new?</b><p style="margin: 8px 0 0; color: #F5E4DF">Make the book that lights up the next dot.</p></div><a class="btn" href="D21-Books.dc.html" style="background: #F2B880; color: #1F1418">Start a travel book</a></div>
 </div></section>
 </main>
 <!--chrome:footer-->
@@ -197,9 +198,9 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
 <nav aria-label="Your order"><b>Your order</b><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help centre</a><a href="D15-Help.dc.html#contact">Contact us</a></nav>
-<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span>WhatsApp [number]</span></nav>
+<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a></nav>
 </div>
-<div class="sf-bot"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
+<div class="sf-bot"><span>© 2026 Miles Retold</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
 </footer>
 <!--/chrome:footer-->
 

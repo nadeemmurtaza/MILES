@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
+<script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
 <title>Miles Retold · Checkout</title>
 <script src="./support.js"></script>
@@ -172,7 +173,7 @@ label{font-size:13px;font-weight:600}
 <div style="border-top: 1px dashed #D9CCC3; margin-top: 18px; padding-top: 16px; display: flex; justify-content: space-between; align-items: baseline"><b>Order total</b><span class="fr" style="font-size: 24px">{{total}}</span></div>
 <div style="margin-top: 14px; background: #F5E4DF; border-radius: 14px; padding: 16px; display: flex; justify-content: space-between; align-items: center"><span><b>Due today</b><br><span style="font-size: 13px; color: #6B5A5F">{{laterNote}}</span></span><b class="fr" style="font-size: 28px; color: #7D1238">{{today}}</b></div>
 <a class="btn bp" href="D12-Confirmed.dc.html" style="width: 100%; margin-top: 16px">{{payLabel}}</a>
-<p style="font-size: 12px; color: #6B5A5F; text-align: center; margin: 12px 0 0; line-height: 1.6">By paying you agree to our <a href="D15-Help.dc.html#terms">Terms</a> and <a href="D15-Help.dc.html#refunds">Refund policy</a>. Prices shown are [demo prices].</p>
+<p style="font-size: 12px; color: #6B5A5F; text-align: center; margin: 12px 0 0; line-height: 1.6">By paying you agree to our <a href="D15-Help.dc.html#terms">Terms</a> and <a href="D15-Help.dc.html#refunds">Refund policy</a>.</p>
 </div>
 <div style="display: flex; gap: 12px; align-items: center; padding: 6px 8px; font-size: 13px; color: #6B5A5F"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7D1238" stroke-width="1.6"><path d="M12 21s-7-4.5-9.3-9A5 5 0 0 1 12 6a5 5 0 0 1 9.3 6c-2.3 4.5-9.3 9-9.3 9z"></path></svg>Next you’ll upload your photos — it takes about 5 minutes from your phone.</div>
 </aside>
@@ -185,36 +186,37 @@ label{font-size:13px;font-weight:600}
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
 <nav aria-label="Your order"><b>Your order</b><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help centre</a><a href="D15-Help.dc.html#contact">Contact us</a></nav>
-<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span>WhatsApp [number]</span></nav>
+<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a></nav>
 </div>
-<div class="sf-bot"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
+<div class="sf-bot"><span>© 2026 Miles Retold</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
 </footer>
 <!--/chrome:footer-->
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1600}}'>
 class Component extends DCLogic {
-  constructor(p){ super(p); this.state = { ksa: true, ship: 0, pay: 0, full: false }; }
+  constructor(p){ super(p); this.state = { ksa: !window.milesPricing || window.milesPricing.cur() === 'SAR', ship: 0, pay: 0, full: false }; }
   renderVals() {
     const __fx = this.state.__fx || {};
     const __A = {
       do_apply: () => this.setState({ __fx: { ...__fx, apply: !__fx.apply } }), lb_apply: __fx.apply ? 'Applied ✓' : 'Apply',
     };
     const st = this.state, set = (o) => this.setState(o);
-    const rate = st.ksa ? 1 : 74, cur = st.ksa ? 'SAR' : 'PKR';
+    const P = window.milesPricing;   // sample price list (public/pricing.js)
+    const cur = st.ksa ? 'SAR' : 'PKR', rate = P.rate[cur];
     const fmt = (n) => cur + ' ' + Math.round(n * rate).toLocaleString('en-US');
     const ships = st.ksa
-      ? [{ name: 'Standard · [2–4 days]', via: 'SPL or SMSA via shipping gateway', p: 25 }, { name: 'Express · [1–2 days]', via: 'SMSA / Aramex', p: 45 }]
-      : [{ name: 'Standard · [3–5 days]', via: 'Leopards or PostEx', p: 4 }, { name: 'Express · [1–2 days]', via: 'TCS Overnight', p: 8 }];
+      ? [{ name: 'Standard', via: 'SPL or SMSA via shipping gateway', p: P.ship.SAR.standard }, { name: 'Express', via: 'SMSA / Aramex', p: P.ship.SAR.express }]
+      : [{ name: 'Standard', via: 'Leopards or PostEx', p: P.ship.PKR.standard }, { name: 'Express', via: 'TCS Overnight', p: P.ship.PKR.express }];
     const methods = st.ksa
       ? [{ name: 'mada', note: 'Saudi debit card', tag: 'MADA', k: 'card' }, { name: 'Apple Pay', note: 'Face ID on iPhone', tag: 'PAY', k: 'apple' }, { name: 'STC Pay', note: 'Approve in the STC Pay app', tag: 'STC', k: 'wallet' }, { name: 'Visa / Mastercard', note: 'Credit or debit', tag: 'CARD', k: 'card' }, { name: 'Split the balance', note: 'Tabby or Tamara — 4 payments, no interest', tag: 'BNPL', k: 'bnpl' }]
       : [{ name: 'JazzCash', note: 'Approve in the JazzCash app', tag: 'JC', k: 'wallet' }, { name: 'Easypaisa', note: 'Approve in the Easypaisa app', tag: 'EP', k: 'wallet' }, { name: 'Debit / credit card', note: 'Visa, Mastercard, UnionPay', tag: 'CARD', k: 'card' }, { name: 'Bank transfer / Raast', note: 'We confirm within working hours', tag: 'IBFT', k: 'bank' }];
     const pay = Math.min(st.pay, methods.length - 1), m = methods[pay];
-    const book = 320, ship = ships[st.ship].p, vatInc = st.ksa ? Math.round((book + ship) * 15 / 115) : 0;
+    const book = P.order.book, ship = ships[st.ship].p, vatInc = st.ksa ? Math.round((book + ship) * P.vat / (1 + P.vat)) : 0;
     const total = book + ship, today = st.full ? total : book / 2 + ship;
     return { ...__A,
       ksaCls: st.ksa ? 'seg on' : 'seg', pkCls: st.ksa ? 'seg' : 'seg on',
-      toKSA: () => set({ ksa: true, ship: 0, pay: 0 }), toPK: () => set({ ksa: false, ship: 0, pay: 0 }),
+      toKSA: () => { P.setCur('SAR'); set({ ksa: true, ship: 0, pay: 0 }); }, toPK: () => { P.setCur('PKR'); set({ ksa: false, ship: 0, pay: 0 }); },
       isKSA: st.ksa, isPK: !st.ksa, addrKey: 'a' + st.ksa, payKey: 'p' + st.ksa,
       phone: st.ksa ? '+966 55 123 4567' : '+92 300 1234567',
       ships: ships.map((s, i) => ({ ...s, price: fmt(s.p), cls: i === st.ship ? 'pm on' : 'pm', pick: () => set({ ship: i }) })),

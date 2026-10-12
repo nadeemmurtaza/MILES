@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
+<script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
 <title>Miles Retold · Track your order</title>
 <script src="./support.js"></script>
@@ -104,7 +105,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 <div class="box" style="margin-top: 28px; padding: 24px 28px">
 <div style="display: flex; justify-content: space-between; font-size: 13px; color: #6B5A5F; font-weight: 700"><span>Studio · Riyadh</span><span>You · Riyadh</span></div>
 <div style="position: relative; height: 44px; margin-top: 12px"><div style="position: absolute; left: 0; right: 0; top: 21px; border-top: 2px dashed #CBB8AD"></div><div class="van" style="position: absolute; top: 0; width: 44px; height: 44px; border-radius: 50%; background: #7D1238; display: grid; place-items: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></div></div>
-<div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 18px; padding-top: 18px; border-top: 1px solid #F0E8E1"><span style="font-size: 14px">Courier <b>SMSA Express</b> · tracking no. <span class="mono">[—]</span></span><span style="flex: 1"></span><a class="btn bs" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Reschedule delivery</a><a class="btn bs" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Open courier site</a></div>
+<div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 18px; padding-top: 18px; border-top: 1px solid #F0E8E1"><span style="font-size: 14px">Courier <b>SMSA Express</b> · tracking no. <span class="mono">SM 4417 8821 05</span></span><span style="flex: 1"></span><a class="btn bs" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Reschedule delivery</a><a class="btn bs" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Open courier site</a></div>
 </div>
 </sc-if>
 
@@ -135,9 +136,9 @@ a{color:#7D1238}a:hover{color:#B8304F}
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
 <nav aria-label="Your order"><b>Your order</b><a href="D11-SignIn.dc.html" data-auth-link>Sign in</a><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help centre</a><a href="D15-Help.dc.html#contact">Contact us</a></nav>
-<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a><span>WhatsApp [number]</span></nav>
+<nav aria-label="Studio"><b>Studio</b><a href="D13-Story.dc.html">Our story</a><a href="https://instagram.com/milesretold">Instagram</a><a href="https://threads.net/@milesretold">Threads</a></nav>
 </div>
-<div class="sf-bot"><span>© 2026 Miles Retold · CR no. [—] · VAT no. [—]</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
+<div class="sf-bot"><span>© 2026 Miles Retold</span><span><a href="D15-Help.dc.html#terms">Terms</a> · <a href="D15-Help.dc.html#privacy">Privacy</a> · <a href="D15-Help.dc.html#refunds">Refund policy</a></span><button type="button" class="sf-lang" data-lang-toggle lang="ar">العربية</button></div>
 </footer>
 <!--/chrome:footer-->
 </div>
@@ -171,7 +172,7 @@ class Component extends DCLogic {
     };
     const E = [
       { name: 'Order confirmed', when: '14 Sep, 9:12 pm', desc: 'Deposit received. Your design slot is booked.', h: 'Your order is confirmed', s: 'Next: upload your photos.' },
-      { name: 'Photos received', when: '15 Sep', desc: '85 photos in 2 trips. Everything printable.', h: 'We have your photos', s: 'Design starts within [X] days.', cta: 'Add more photos', href: 'D4-Upload.dc.html' },
+      { name: 'Photos received', when: '15 Sep', desc: '85 photos in 2 trips. Everything printable.', h: 'We have your photos', s: 'Next, we check your photos and start your design.', cta: 'Add more photos', href: 'D4-Upload.dc.html' },
       { name: 'Designing your book', when: '16 Sep', desc: 'Rameen is laying out your spreads and writing captions.', h: 'Your book is being designed', s: 'We’ll message you when the first proof is ready.' },
       { name: 'Proof ready', when: '2 Oct · round 2', desc: 'Two rounds of revisions. Unlimited until you love it.', h: 'Your proof is ready', s: 'Review it and pin any changes.', cta: 'Review proof', href: 'D6-Proof.dc.html' },
       { name: 'Approved & balance paid', when: '3 Oct', desc: 'Design locked and sent to print.', h: 'Approved — off to print', s: 'Thank you! Printing starts next.' },
@@ -188,7 +189,7 @@ class Component extends DCLogic {
         dotCls: cur && !done ? 'ring' : '', line: i < at ? '#2B6B55' : '#E7DDD4', tc: i <= at ? '#1F1418' : '#6B5A5F', delay: (i * 0.07) + 's' };
     });
     const cur = E[at];
-    return { ...lk, events, headline: cur.h, sub: cur.s, showVan: at === 7, etaLabel: at === 8 ? 'Delivered on' : 'Estimated delivery', eta: at >= 7 ? 'Today' : '[date]' };
+    return { ...lk, events, headline: cur.h, sub: cur.s, showVan: at === 7, etaLabel: at === 8 ? 'Delivered on' : 'Estimated delivery', eta: at >= 7 ? 'Today' : '29 Oct' };
   }
 }
 </script>
