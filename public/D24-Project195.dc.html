@@ -18,9 +18,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#B8304F}
+a{color:#7D1238}a:hover{color:#7D1238}
 .fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-.wm{background:linear-gradient(95deg,#9E1046,#C7323F 45%,#C4661A 70%,#9E1046);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
+.wm{background:linear-gradient(95deg,#7D1238,#5E0D2A 50%,#7D1238);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
 @keyframes sheen{50%{background-position:100% 0}}
 .eyb{font-size:13px;font-weight:700;color:#7D1238;margin:0}
 .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:999px;font:700 15px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s,background .35s,color .35s;isolation:isolate}
@@ -34,7 +34,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .nlk{position:relative;color:#1F1418;text-decoration:none;padding:6px 0;font-weight:600;font-size:15px}
 .nlk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:#7D1238;transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .nlk:hover{color:#7D1238}.nlk:hover::after,.nlk.on::after{transform:scaleX(1);transform-origin:left}.nlk.on{color:#7D1238}
-.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#9E1046,#C7323F,#C4661A);transform-origin:left;transform:scaleX(0)}
+.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#7D1238,#5E0D2A);transform-origin:left;transform:scaleX(0)}
 .inp{width:100%;min-height:54px;border:1.5px solid #E7DDD4;border-radius:14px;padding:0 16px;font:500 16px Manrope,sans-serif;background:#fff;color:#1F1418;transition:border-color .3s,box-shadow .3s}
 .inp:hover{border-color:#CBB8AD}.inp:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12)}
 textarea.inp{padding:14px 16px;min-height:130px;resize:vertical}
@@ -77,11 +77,11 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 .gf{position:absolute;inset:0;border-radius:22px;backface-visibility:hidden;overflow:hidden;box-shadow:0 50px 80px -40px rgba(60,20,30,.6)}
 .gb{transform:rotateY(180deg)}
 .gidle{width:min(440px,100%)}.gc{width:100%!important}.stack>*{min-width:0}
-.gc{cursor:pointer}.gc:focus-visible{outline:2.5px solid #B8304F;outline-offset:8px;border-radius:24px}.gc:active{scale:.98}
+.gc{cursor:pointer}.gc:focus-visible{outline:2.5px solid #7D1238;outline-offset:8px;border-radius:24px}.gc:active{scale:.98}
 .gloss{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 45%,transparent 60%);background-size:250% 100%;animation:gloss 5s ease-in-out infinite;pointer-events:none}
 @keyframes gloss{0%{background-position:120% 0}60%,100%{background-position:-60% 0}}
 .amt{all:unset;box-sizing:border-box;cursor:pointer;padding:18px;border-radius:18px;border:1.5px solid #E7DDD4;background:#fff;text-align:center;transition:border-color .3s,box-shadow .3s,transform .5s cubic-bezier(.3,1.6,.5,1);min-height:44px}
-.amt:hover{transform:translateY(-3px);border-color:#B9A7A0}.amt.on{border-color:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12)}
+.amt:hover{transform:translateY(-3px);border-color:#CBB8AD}.amt.on{border-color:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12)}
 .amt:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
 .th{all:unset;cursor:pointer;width:54px;height:54px;border-radius:16px;border:3px solid #fff;box-shadow:0 0 0 1.5px #E7DDD4;transition:transform .4s cubic-bezier(.3,1.6,.5,1),box-shadow .3s}
 .th:hover{transform:scale(1.08)}.th.on{box-shadow:0 0 0 2.5px #7D1238}.th:focus-visible{outline:2px solid #7D1238;outline-offset:3px}
@@ -103,7 +103,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 
@@ -130,9 +130,9 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 .qty button{all:unset;cursor:pointer;width:38px;height:38px;display:grid;place-items:center;font-size:18px;font-weight:700;border-radius:50%;transition:background .3s}
 .qty button:hover{background:#F6F1EA}.qty button:focus-visible{outline:2px solid #7D1238}
 .qty span{min-width:28px;text-align:center;font-weight:800}
-.tog{all:unset;box-sizing:border-box;cursor:pointer;width:48px;height:28px;border-radius:999px;background:#D9CCC3;position:relative;flex:none;transition:background .3s}
+.tog{all:unset;box-sizing:border-box;cursor:pointer;width:48px;height:28px;border-radius:999px;background:#CBB8AD;position:relative;flex:none;transition:background .3s}
 .tog::after{content:"";position:absolute;top:3px;left:3px;width:22px;height:22px;border-radius:50%;background:#fff;box-shadow:0 2px 4px rgba(0,0,0,.2);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
-.tog.on{background:#2B6B55}.tog.on::after{transform:translateX(20px)}.tog:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
+.tog.on{background:#7D1238}.tog.on::after{transform:translateX(20px)}.tog:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
 .seg{display:inline-flex;gap:4px;padding:4px;border-radius:999px;background:#fff;border:1px solid #E7DDD4;max-width:100%;overflow-x:auto;scrollbar-width:none}
 .seg button{all:unset;cursor:pointer;padding:9px 18px;border-radius:999px;font-weight:700;font-size:14px;color:#6B5A5F;transition:background .3s,color .3s;white-space:nowrap}
 .seg button.on{background:#1F1418;color:#fff}.seg button:focus-visible{outline:2px solid #7D1238}
@@ -143,9 +143,9 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 @media (max-width:700px){.citem{grid-template-columns:64px minmax(0,1fr)!important;padding:16px!important;gap:14px!important;align-items:start!important}.citem .cover{width:62px!important}.cprice{grid-column:2;text-align:left!important}}
 @media (max-width:900px){.wrap{padding:36px 20px 70px}.two{grid-template-columns:minmax(0,1fr)!important}.two>aside{position:static!important}}
 
-.meter195{height:10px;border-radius:10px;background:rgba(255,255,255,.1);overflow:hidden;max-width:640px}.meter195 i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#F2B880,#C4661A);transform-origin:left;animation:grow 1.6s cubic-bezier(.16,1,.3,1) .6s both}@keyframes grow{from{transform:scaleX(0)}}
+.meter195{height:10px;border-radius:10px;background:rgba(255,255,255,.1);overflow:hidden;max-width:640px}.meter195 i{display:block;height:100%;border-radius:10px;background:linear-gradient(90deg,#F2B880,#F2B880);transform-origin:left;animation:grow 1.6s cubic-bezier(.16,1,.3,1) .6s both}@keyframes grow{from{transform:scaleX(0)}}
 .dots{display:grid;grid-template-columns:repeat(26,1fr);gap:10px;margin-top:28px;padding:30px;border-radius:28px;background:#fff;border:1px solid #E7DDD4}
-.dot{width:100%;aspect-ratio:1;border-radius:50%;background:#EADFD6;transition:background .5s,opacity .5s,transform .5s cubic-bezier(.3,1.6,.5,1);animation:dotin .6s cubic-bezier(.16,1,.3,1) both;width:16px;height:16px}
+.dot{width:100%;aspect-ratio:1;border-radius:50%;background:#E7DDD4;transition:background .5s,opacity .5s,transform .5s cubic-bezier(.3,1.6,.5,1);animation:dotin .6s cubic-bezier(.16,1,.3,1) both;width:16px;height:16px}
 .dots .dot{width:auto;height:auto}
 .dot.on{background:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12)}.dot.dim{opacity:.18}.dot:hover{transform:scale(1.5)}
 @keyframes dotin{from{opacity:0;transform:scale(0)}}
@@ -175,8 +175,8 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <section style="background: #1F1418; color: #FFF6F0; position: relative; overflow: hidden"><div class="wrap" style="padding-top: 80px; padding-bottom: 80px">
 <p class="eyb" style="color: #F2B880">The 195 Project · our long game</p>
 <h1 class="fr" style="font-size: 84px; font-weight: 400; line-height: .98; margin: 14px 0 0; max-width: 900px"><span class="wd"><span class="wi">One</span></span> <span class="wd"><span class="wi" style="animation-delay: .08s">book</span></span> <span class="wd"><span class="wi" style="animation-delay: .16s">for</span></span> <span class="wd"><span class="wi" style="animation-delay: .24s">every</span></span> <span class="wd"><span class="wi" style="animation-delay: .32s; font-style: italic; color: #F2B880">country.</span></span></h1>
-<p class="in d3" style="font-size: 19px; line-height: 1.7; color: #CDBCB4; max-width: 640px; margin: 22px 0 0">There are 195 countries. Every time one of you comes home from a country we’ve never made a book for, it lights up here.</p>
-<div class="in d4" style="display: flex; gap: 48px; flex-wrap: wrap; margin-top: 40px"><div><div class="fr" style="font-size: 72px; line-height: 1; color: #F2B880">{{done}}</div><div style="color: #CDBCB4">countries in books so far</div></div><div><div class="fr" style="font-size: 72px; line-height: 1">{{left}}</div><div style="color: #CDBCB4">still to go</div></div></div>
+<p class="in d3" style="font-size: 19px; line-height: 1.7; color: #CBB8AD; max-width: 640px; margin: 22px 0 0">There are 195 countries. Every time one of you comes home from a country we’ve never made a book for, it lights up here.</p>
+<div class="in d4" style="display: flex; gap: 48px; flex-wrap: wrap; margin-top: 40px"><div><div class="fr" style="font-size: 72px; line-height: 1; color: #F2B880">{{done}}</div><div style="color: #CBB8AD">countries in books so far</div></div><div><div class="fr" style="font-size: 72px; line-height: 1">{{left}}</div><div style="color: #CBB8AD">still to go</div></div></div>
 <div class="meter195 in d5" style="margin-top: 30px"><i style="width: {{pct}}"></i></div>
 </div></section>
 <section class="wrap">
@@ -186,7 +186,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 </section>
 <section style="background: #fff; border-top: 1px solid #E7DDD4"><div class="wrap">
 <h2 class="fr" style="font-size: 44px; font-weight: 400; margin: 0">Recently added</h2>
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 16px; margin-top: 24px"><sc-for list="{{recent}}" as="r" hint-placeholder-count="4"><figure class="lift zm" style="margin: 0; border-radius: 22px; overflow: hidden; background: #F6F1EA; border: 1px solid #E7DDD4"><div style="aspect-ratio: 4/3; overflow: hidden"><img src="{{r.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><figcaption style="padding: 16px 18px"><span class="mono" style="font-size: 12px; color: #786669">No. {{r.n}}</span><b class="fr" style="display: block; font-size: 22px; font-weight: 500">{{r.c}}</b><span style="font-size: 13px; color: #6B5A5F">{{r.by}}</span></figcaption></figure></sc-for></div>
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 16px; margin-top: 24px"><sc-for list="{{recent}}" as="r" hint-placeholder-count="4"><figure class="lift zm" style="margin: 0; border-radius: 22px; overflow: hidden; background: #F6F1EA; border: 1px solid #E7DDD4"><div style="aspect-ratio: 4/3; overflow: hidden"><img src="{{r.img}}" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><figcaption style="padding: 16px 18px"><span class="mono" style="font-size: 12px; color: #5C4B50">No. {{r.n}}</span><b class="fr" style="display: block; font-size: 22px; font-weight: 500">{{r.c}}</b><span style="font-size: 13px; color: #6B5A5F">{{r.by}}</span></figcaption></figure></sc-for></div>
 <div class="card" style="margin-top: 36px; padding: 34px; display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; background: #7D1238; border-color: #7D1238; color: #FFF6F0"><div><b class="fr" style="font-size: 32px; font-weight: 400">Been somewhere new?</b><p style="margin: 8px 0 0; color: #F5E4DF">Make the book that lights up the next dot.</p></div><a class="btn" href="D21-Books.dc.html" style="background: #F2B880; color: #1F1418">Start a travel book</a></div>
 </div></section>
 </main>

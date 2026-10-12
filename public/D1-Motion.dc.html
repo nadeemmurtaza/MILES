@@ -19,9 +19,9 @@
 <style>
 @property --n{syntax:'<integer>';inherits:false;initial-value:0}
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#B8304F}
+a{color:#7D1238}a:hover{color:#7D1238}
 .fr{font-family:Fraunces,Georgia,serif}
-.wm{background:linear-gradient(95deg,#9E1046,#C7323F 45%,#C4661A 70%,#9E1046);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
+.wm{background:linear-gradient(95deg,#7D1238,#5E0D2A 50%,#7D1238);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
 @keyframes sheen{50%{background-position:100% 0}}
 .ez{transition-timing-function:cubic-bezier(.16,1,.3,1)}
 
@@ -49,8 +49,8 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .front{transform:translateZ(22px);padding:22px;box-shadow:inset 8px 0 0 rgba(0,0,0,.08)}
 .back{transform:rotateY(180deg) translateZ(22px)}
 .spine{position:absolute;top:0;left:138px;width:44px;height:400px;transform:rotateY(-90deg) translateZ(160px);border-radius:3px}
-.edge{position:absolute;top:4px;left:140px;width:40px;height:392px;transform:rotateY(90deg) translateZ(156px);background:repeating-linear-gradient(90deg,#FBF7F0 0 2px,#E9E0D3 2px 3px)}
-.topedge{position:absolute;left:4px;top:178px;width:312px;height:44px;transform:rotateX(90deg) translateZ(198px);background:repeating-linear-gradient(0deg,#FBF7F0 0 2px,#E9E0D3 2px 3px)}
+.edge{position:absolute;top:4px;left:140px;width:40px;height:392px;transform:rotateY(90deg) translateZ(156px);background:repeating-linear-gradient(90deg,#FBF7F1 0 2px,#E7DDD4 2px 3px)}
+.topedge{position:absolute;left:4px;top:178px;width:312px;height:44px;transform:rotateX(90deg) translateZ(198px);background:repeating-linear-gradient(0deg,#FBF7F1 0 2px,#E7DDD4 2px 3px)}
 .shadow{position:absolute;left:50%;bottom:-70px;width:340px;height:40px;translate:-50% 0;border-radius:50%;background:radial-gradient(rgba(60,20,30,.35),transparent 70%);animation:sh 14s ease-in-out infinite}
 @keyframes sh{50%{transform:scaleX(.8)}}
 .orb1{animation:orb 9s ease-in-out infinite}.orb2{animation:orb 11s ease-in-out -3s infinite reverse}.orb3{animation:orb 13s ease-in-out -6s infinite}
@@ -94,7 +94,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .ring .ringAr{display:none}
 .is-ar .ring .ringEn{display:none}.is-ar .ring .ringAr{display:inline}.ringAr text{font-family:Manrope,'IBM Plex Sans Arabic',sans-serif}
 .ring{animation:spin 30s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
-.pulse{animation:pulse 2s infinite}@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(184,48,79,.5)}70%{box-shadow:0 0 0 12px rgba(184,48,79,0)}100%{box-shadow:0 0 0 0 rgba(184,48,79,0)}}
+.pulse{animation:pulse 2s infinite}@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(125,18,56,.5)}70%{box-shadow:0 0 0 12px rgba(125,18,56,0)}100%{box-shadow:0 0 0 0 rgba(125,18,56,0)}}
 
 /* scroll-driven */
 .gtrack{display:flex;gap:28px;width:max-content;padding:0 80px}
@@ -102,7 +102,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .gtrack{will-change:transform;align-items:flex-start;padding-top:30px!important;padding-bottom:40px!important}
 .gtrack>a{animation:gbob 7s ease-in-out infinite}.gtrack>a:nth-child(even){animation-delay:-3.5s}
 @keyframes gbob{0%,100%{translate:0 0}50%{translate:0 -14px}}
-.gnav{all:unset;cursor:pointer;width:52px;height:52px;border-radius:50%;border:1.5px solid #1F1418;display:grid;place-items:center;transition:background .35s,color .35s,transform .5s cubic-bezier(.3,1.6,.5,1)}.gnav:hover{background:#1F1418;color:#FFF6F0;transform:scale(1.06)}.gnav:focus-visible{outline:2.5px solid #B8304F;outline-offset:3px}
+.gnav{all:unset;cursor:pointer;width:52px;height:52px;border-radius:50%;border:1.5px solid #1F1418;display:grid;place-items:center;transition:background .35s,color .35s,transform .5s cubic-bezier(.3,1.6,.5,1)}.gnav:hover{background:#1F1418;color:#FFF6F0;transform:scale(1.06)}.gnav:focus-visible{outline:2.5px solid #7D1238;outline-offset:3px}
 @supports (animation-timeline: view()){
 .rv{animation:rv cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 5% cover 30%}
 .rvz{animation:rvz cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 0% cover 40%}
@@ -160,11 +160,11 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .cur-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:#7D1238;opacity:0;transition:opacity .4s}
 .cur-ring{width:42px;height:42px;margin:-21px 0 0 -21px;border:1.5px solid rgba(125,18,56,.5);opacity:0;transition:width .45s cubic-bezier(.16,1,.3,1),height .45s cubic-bezier(.16,1,.3,1),margin .45s cubic-bezier(.16,1,.3,1),background .35s,border-color .35s,opacity .4s}
 .cur-on .cur-ring,.cur-on .cur-dot{opacity:1}
-.cur-ring.big{width:86px;height:86px;margin:-43px 0 0 -43px;background:rgba(184,48,79,.09);border-color:transparent}
+.cur-ring.big{width:86px;height:86px;margin:-43px 0 0 -43px;background:rgba(125,18,56,.09);border-color:transparent}
 .cur-ring.dark{border-color:rgba(242,184,128,.6)}
 @media (hover:none){.cur-ring,.cur-dot{display:none}}
 /* header extras */
-.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#9E1046,#C7323F,#C4661A);transform-origin:left;transform:scaleX(0)}
+.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#7D1238,#5E0D2A);transform-origin:left;transform:scaleX(0)}
 .nlk{position:relative;color:#1F1418;text-decoration:none;padding:6px 0}
 .nlk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:#7D1238;transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .nlk:hover{color:#7D1238}.nlk:hover::after{transform:scaleX(1);transform-origin:left}
@@ -216,7 +216,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .ig svg{position:absolute;left:50%;top:50%;translate:-50% -50%;z-index:2;opacity:0;transform:scale(.6);transition:opacity .5s,transform .6s cubic-bezier(.3,1.6,.5,1)}
 .ig:hover svg{opacity:1;transform:none}
 /* footer */
-.fl{color:#CDBCB4;text-decoration:none;display:inline-block;transition:color .3s,transform .4s cubic-bezier(.16,1,.3,1);padding:4px 0}
+.fl{color:#CBB8AD;text-decoration:none;display:inline-block;transition:color .3s,transform .4s cubic-bezier(.16,1,.3,1);padding:4px 0}
 .fl:hover{color:#F2B880;transform:translateX(4px)}
 .nin{flex:1;min-width:0;min-height:52px;border:1px solid rgba(255,246,240,.2);background:rgba(255,246,240,.05);border-radius:999px;padding:0 20px;color:#FFF6F0;font:500 15px Manrope,sans-serif}
 .nin::placeholder{color:rgba(255,246,240,.5)}.nin:focus{outline:2px solid #F2B880}
@@ -241,7 +241,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 @keyframes rvci{from{transform:scale(1.35)}to{transform:scale(1)}}
 @keyframes ring195{from{stroke-dashoffset:1}to{stroke-dashoffset:.897}}
 
-.tdot{position:absolute;top:40px;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#C4661A;border:3px solid #fff;box-shadow:0 0 0 1.5px #7D1238}
+.tdot{position:absolute;top:40px;width:14px;height:14px;margin:-7px 0 0 -7px;border-radius:50%;background:#7D1238;border:3px solid #fff;box-shadow:0 0 0 1.5px #7D1238}
 .tdest{position:absolute;top:40px;width:32px;height:32px;margin:-16px 0 0 -16px;border-radius:50%;background:#F5E4DF;display:grid;place-items:center;animation:pulse 2s infinite}
 .tfill2{animation:tshine 2.4s linear infinite}@keyframes tshine{to{background-position:-200% 0}}
 .vbob{animation:vbob .9s ease-in-out infinite}@keyframes vbob{50%{transform:translateY(-3px) rotate(-2deg)}}
@@ -266,11 +266,11 @@ html{scroll-behavior:smooth}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{position:absolute;left:16px;top:-80px;z-index:400;background:#1F1418;color:#FFF6F0;padding:12px 18px;border-radius:12px;font-weight:700;text-decoration:none;transition:top .3s}
 .skip:focus{top:16px;color:#FFF6F0}
-.btn:focus-visible,.nlk:focus-visible,.pill:focus-visible,.ig:focus-visible,.sz:focus-visible,.tc:focus-visible,.fl:focus-visible,.totop:focus-visible,.wa:focus-visible,.lang:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:14px}
+.btn:focus-visible,.nlk:focus-visible,.pill:focus-visible,.ig:focus-visible,.sz:focus-visible,.tc:focus-visible,.fl:focus-visible,.totop:focus-visible,.wa:focus-visible,.lang:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:14px}
 .lang{all:unset;cursor:pointer;width:44px;height:44px;border-radius:50%;border:1px solid #E7DDD4;display:grid;place-items:center;font-family:'Miles Arabic UI','IBM Plex Sans Arabic',sans-serif;font-size:18px;font-weight:600;transition:background .35s,color .35s,transform .5s cubic-bezier(.3,1.6,.5,1)}
 .lang:hover{background:#1F1418;color:#FFF6F0;transform:rotate(-8deg)}
-.wa{position:absolute;left:26px;bottom:0;width:58px;height:58px;border-radius:50%;background:#2B6B55;display:grid;place-items:center;box-shadow:0 18px 30px -12px rgba(43,107,85,.7);text-decoration:none;animation:wapop .8s cubic-bezier(.3,1.7,.5,1) 3.2s both}
-.wa::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #2B6B55;animation:waring 2.4s cubic-bezier(.16,1,.3,1) 4s infinite}
+.wa{position:absolute;left:26px;bottom:0;width:58px;height:58px;border-radius:50%;background:#7D1238;display:grid;place-items:center;box-shadow:0 18px 30px -12px rgba(125,18,56,.7);text-decoration:none;animation:wapop .8s cubic-bezier(.3,1.7,.5,1) 3.2s both}
+.wa::after{content:"";position:absolute;inset:0;border-radius:50%;border:2px solid #7D1238;animation:waring 2.4s cubic-bezier(.16,1,.3,1) 4s infinite}
 .wtip{position:absolute;left:70px;top:50%;translate:0 -50%;white-space:nowrap;background:#fff;color:#1F1418;font-weight:700;font-size:14px;padding:10px 14px;border-radius:12px;box-shadow:0 14px 30px -16px rgba(31,20,24,.5);opacity:0;transform:translateX(-10px);transition:opacity .4s,transform .6s cubic-bezier(.16,1,.3,1);pointer-events:none}
 .wa:hover .wtip,.wa:focus-visible .wtip{opacity:1;transform:none}
 @keyframes wapop{from{transform:scale(0) rotate(-30deg)}to{transform:none}}
@@ -335,7 +335,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 
@@ -385,7 +385,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 <main style="display: contents"><span id="main" style="position: relative; top: -80px"></span>
 <!-- hero -->
 <section class="pad stack hero" style="position: relative; max-width: 1360px; margin: 0 auto; padding: clamp(18px, 4svh, 50px) 44px clamp(18px, 3svh, 40px); display: grid; grid-template-columns: 1.05fr 1fr; gap: 30px; align-items: center; min-height: clamp(540px, calc(100vh - 80px), 1000px); min-height: clamp(540px, calc(100svh - 80px), 1000px)">
-<div aria-hidden="true" ref="{{setSpot}}" style="position: absolute; inset: -200px; pointer-events: none; background: radial-gradient(600px circle at 60% 35%, rgba(184,48,79,.11), transparent 60%)"></div>
+<div aria-hidden="true" ref="{{setSpot}}" style="position: absolute; inset: -200px; pointer-events: none; background: radial-gradient(600px circle at 60% 35%, rgba(125,18,56,.11), transparent 60%)"></div>
 <div style="position: relative">
 <p class="fade" style="font-size: 16px; font-weight: 600; color: #7D1238; margin: 0; animation-delay: 1.9s">Hand-designed travel photobooks, Saudi Arabia &amp; Pakistan</p>
 <h1 class="fr h1" style="font-size: clamp(48px, min(6.4vw, 10.4svh), 96px); line-height: .95; font-weight: 400; margin: clamp(10px, 2svh, 22px) 0 0; letter-spacing: -.025em">
@@ -399,7 +399,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 </div>
 
 <div class="stage" style="position: relative; height: clamp(380px, calc(100vh - 150px), 680px); height: clamp(380px, calc(100svh - 150px), 680px); display: grid; place-items: center">
-<svg class="plane" width="34" height="34" viewBox="0 0 24 24" fill="#B8304F" aria-hidden="true" style="position: absolute; left: 0; top: 0; z-index: 9"><path d="M21 12 3 4l3 8-3 8z"></path></svg>
+<svg class="plane" width="34" height="34" viewBox="0 0 24 24" fill="#7D1238" aria-hidden="true" style="position: absolute; left: 0; top: 0; z-index: 9"><path d="M21 12 3 4l3 8-3 8z"></path></svg>
 <div class="orb1 fade" style="position: absolute; left: 0; top: 70px; width: 170px; padding: 8px 8px 30px; background: #fff; box-shadow: 0 30px 50px -25px rgba(60,20,30,.5); animation-delay: 2.2s; z-index: 1"><img src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt="" style="width: 100%; height: 150px; object-fit: cover; display: block"></div>
 <div class="orb2 fade" style="position: absolute; right: 0; top: 30px; width: 190px; padding: 8px; background: #fff; box-shadow: 0 30px 50px -25px rgba(60,20,30,.5); animation-delay: 2.35s; z-index: 1"><img src="/assets/44c3ed2b417e619b81afb56289c69c25.jpg" alt="" style="width: 100%; height: 130px; object-fit: cover; display: block"></div>
 <div class="orb3 fade" style="position: absolute; right: 30px; bottom: 50px; width: 160px; padding: 8px 8px 26px; background: #fff; box-shadow: 0 30px 50px -25px rgba(60,20,30,.5); animation-delay: 2.5s; z-index: 6"><img src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt="" style="width: 100%; height: 120px; object-fit: cover; display: block"></div>
@@ -452,10 +452,10 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 <div class="bookIn" style="position: relative; width: 680px; height: 430px; transform-style: preserve-3d">
 <div class="spreadGlow" style="position: absolute; inset: -80px; background: radial-gradient(closest-side, rgba(242,184,128,.35), transparent); filter: blur(10px)"></div>
 <div class="pgR" style="position: absolute; right: 0; top: 0; width: 340px; height: 430px; background: #FBF7F1; border-radius: 0 4px 4px 0; box-shadow: 0 60px 100px -40px rgba(0,0,0,.9); overflow: hidden">
-<div style="position: absolute; inset: 0; padding: 26px 26px 22px 30px; display: flex; flex-direction: column; gap: 12px"><div class="pgImg" style="flex: 1; min-height: 0; overflow: hidden; border-radius: 2px"><img src="/assets/ae8f12954b4a72155451fa4ddff588b7.jpg" alt="A parasail over the sea, inside the Maldives book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; color: #1F1418"><span class="fr" style="font-style: italic; font-size: 17px">Day three — the sky went pink.</span><span style="font-size: 10px; letter-spacing: .2em; color: #786669">03</span></div></div>
+<div style="position: absolute; inset: 0; padding: 26px 26px 22px 30px; display: flex; flex-direction: column; gap: 12px"><div class="pgImg" style="flex: 1; min-height: 0; overflow: hidden; border-radius: 2px"><img src="/assets/ae8f12954b4a72155451fa4ddff588b7.jpg" alt="A parasail over the sea, inside the Maldives book" style="width: 100%; height: 100%; object-fit: cover; display: block"></div><div style="display: flex; justify-content: space-between; align-items: baseline; color: #1F1418"><span class="fr" style="font-style: italic; font-size: 17px">Day three — the sky went pink.</span><span style="font-size: 10px; letter-spacing: .2em; color: #5C4B50">03</span></div></div>
 <div aria-hidden="true" style="position: absolute; left: 0; top: 0; bottom: 0; width: 46px; background: linear-gradient(90deg, rgba(0,0,0,.2), rgba(0,0,0,.05) 40%, transparent)"></div>
 </div>
-<div aria-hidden="true" style="position: absolute; right: -7px; top: 4px; width: 8px; height: 422px; border-radius: 0 3px 3px 0; background: repeating-linear-gradient(90deg, #FBF7F0 0 1px, #E2D8CA 1px 2px); transform: translateZ(-1px)"></div>
+<div aria-hidden="true" style="position: absolute; right: -7px; top: 4px; width: 8px; height: 422px; border-radius: 0 3px 3px 0; background: repeating-linear-gradient(90deg, #FBF7F1 0 1px, #E7DDD4 1px 2px); transform: translateZ(-1px)"></div>
 <div class="cover" style="position: absolute; right: -2px; top: -5px; width: 344px; height: 440px; transform-origin: left center; transform-style: preserve-3d">
 <div class="cvF" style="position: absolute; inset: 0; backface-visibility: hidden; border-radius: 3px 8px 8px 3px; padding: 26px 24px 20px; display: flex; flex-direction: column; color: #FFF6F0; background: repeating-linear-gradient(0deg, rgba(255,255,255,.04) 0 1px, transparent 1px 3px), repeating-linear-gradient(90deg, rgba(0,0,0,.035) 0 1px, transparent 1px 4px), #6F8FB6; box-shadow: inset 10px 0 0 rgba(0,0,0,.12), inset 12px 0 10px -6px rgba(0,0,0,.18), 0 40px 60px -30px rgba(0,0,0,.8)">
 <div style="background: #FBF7F1; padding: 9px 9px 10px; flex: 1; display: flex; flex-direction: column; box-shadow: 0 2px 6px rgba(0,0,0,.18)"><div style="position: relative; flex: 1; min-height: 0; overflow: hidden"><img src="/assets/ae8f12954b4a72155451fa4ddff588b7.jpg" alt="" style="width: 100%; height: 100%; object-fit: cover; display: block"><div class="fr" style="position: absolute; left: 0; right: 0; top: 14px; text-align: center; color: #fff; font-size: 30px; letter-spacing: .16em; text-shadow: 0 2px 10px rgba(0,0,0,.25)">MALDIVES</div></div><div style="text-align: center; font-size: 9px; letter-spacing: .3em; color: #6B5A5F; padding-top: 8px">— MARCH, 2022 —</div></div>
@@ -500,12 +500,12 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 <h2 class="fr" style="font-size: clamp(34px, min(4.4vw, 8.6svh), 64px); line-height: 1; font-weight: 400; margin: 0; max-width: 760px">Five steps, and you can watch every one.</h2>
 <ol class="msteps" aria-label="How it works"><li><b>1</b><span><strong class="fr">Design</strong><br>Type, size, cover, pages</span></li><li><b>2</b><span><strong class="fr">Pay half</strong><br>mada, wallets, cards</span></li><li><b>3</b><span><strong class="fr">Upload</strong><br>Straight from your phone</span></li><li><b>4</b><span><strong class="fr">Approve</strong><br>Unlimited revision rounds</span></li><li><b>5</b><span><strong class="fr">Unwrap</strong><br>Tracked to your door</span></li></ol>
 <div class="arcStage hide-m"><div class="arc">
-<svg viewBox="0 0 1272 380" preserveAspectRatio="none" overflow="visible" style="position: absolute; inset: 0; width: 100%; height: 100%" fill="none" aria-hidden="true"><path d="M 60 300 C 200 300, 200 80, 340 80 S 500 300, 636 300 S 800 80, 932 80 S 1080 300, 1212 300" stroke="#D9CCC3" stroke-width="2" stroke-dasharray="2 10" stroke-linecap="round" vector-effect="non-scaling-stroke"></path><path class="draw" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0" d="M 60 300 C 200 300, 200 80, 340 80 S 500 300, 636 300 S 800 80, 932 80 S 1080 300, 1212 300" stroke="#7D1238" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke"></path></svg>
+<svg viewBox="0 0 1272 380" preserveAspectRatio="none" overflow="visible" style="position: absolute; inset: 0; width: 100%; height: 100%" fill="none" aria-hidden="true"><path d="M 60 300 C 200 300, 200 80, 340 80 S 500 300, 636 300 S 800 80, 932 80 S 1080 300, 1212 300" stroke="#CBB8AD" stroke-width="2" stroke-dasharray="2 10" stroke-linecap="round" vector-effect="non-scaling-stroke"></path><path class="draw" pathLength="1" stroke-dasharray="1" stroke-dashoffset="0" d="M 60 300 C 200 300, 200 80, 340 80 S 500 300, 636 300 S 800 80, 932 80 S 1080 300, 1212 300" stroke="#7D1238" stroke-width="2.5" stroke-linecap="round" vector-effect="non-scaling-stroke"></path></svg>
 <div class="node" style="position: absolute; left: calc(60 / 1272 * 100%); top: calc(300 / 380 * 100%); translate: -50% -50%; animation-range: entry 70% contain 0%"><span class="pulse" style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #7D1238; color: #fff; font-weight: 800">1</span></div>
 <div class="node" style="position: absolute; left: calc(340 / 1272 * 100%); top: calc(80 / 380 * 100%); translate: -50% -50%; animation-range: contain 21% contain 27%"><span style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #7D1238; color: #fff; font-weight: 800">2</span></div>
 <div class="node" style="position: absolute; left: 50%; top: calc(300 / 380 * 100%); translate: -50% -50%; animation-range: contain 41% contain 47%"><span style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #7D1238; color: #fff; font-weight: 800">3</span></div>
 <div class="node" style="position: absolute; left: calc(932 / 1272 * 100%); top: calc(80 / 380 * 100%); translate: -50% -50%; animation-range: contain 62% contain 68%"><span style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #7D1238; color: #fff; font-weight: 800">4</span></div>
-<div class="node" style="position: absolute; left: calc(1212 / 1272 * 100%); top: calc(300 / 380 * 100%); translate: -50% -50%; animation-range: contain 82% contain 88%"><span style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #C4661A; color: #fff; font-weight: 800">5</span></div>
+<div class="node" style="position: absolute; left: calc(1212 / 1272 * 100%); top: calc(300 / 380 * 100%); translate: -50% -50%; animation-range: contain 82% contain 88%"><span style="display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: #7D1238; color: #fff; font-weight: 800">5</span></div>
 <div class="node arcL" style="left: 0; top: calc(300 / 380 * 100% + 38px); text-align: left; animation-range: entry 75% contain 1%"><b class="fr" style="font-size: 22px; font-weight: 500">Design</b><div style="font-size: 14px; color: #6B5A5F">Type, size, cover, pages</div></div>
 <div class="node arcL" style="left: calc(340 / 1272 * 100% - 100px); bottom: calc(300 / 380 * 100% + 38px); text-align: center; animation-range: contain 22% contain 28%"><b class="fr" style="font-size: 22px; font-weight: 500">Pay half</b><div style="font-size: 14px; color: #6B5A5F">mada, wallets, cards</div></div>
 <div class="node arcL" style="left: calc(50% - 100px); top: calc(300 / 380 * 100% + 38px); text-align: center; animation-range: contain 42% contain 48%"><b class="fr" style="font-size: 22px; font-weight: 500">Upload</b><div style="font-size: 14px; color: #6B5A5F">Straight from your phone</div></div>
@@ -556,9 +556,9 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 <p class="rv" style="font-size: 17px; line-height: 1.7; color: #5C4B50; max-width: 420px; margin: 0">Every book is hand-designed, printed to order and bound in linen with a photo-framed cover. Pick the shape that suits your photos.</p>
 </div>
 <div class="stack stg szw" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 56px">
-<a class="sz" href="D2-Builder.dc.html?size=portrait"><div style="height: 210px; display: grid; place-items: center"><div class="szb" style="width: 128px; height: 160px; background: #7E9CC0"></div></div><div class="fr" style="font-size: 30px; margin-top: 26px">Portrait</div><div style="color: #6B5A5F; margin-top: 4px">8 × 10 in · most popular for travel</div><div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; padding-top: 18px; border-top: 1px solid #F0E8E1"><span style="color: #6B5A5F">from</span><b class="fr" style="font-size: 26px; font-weight: 500" data-price="size:portrait">SAR 280</b></div></a>
-<a class="sz" href="D2-Builder.dc.html?size=landscape"><div style="height: 210px; display: grid; place-items: center"><div class="szb" style="width: 190px; height: 146px; background: #D9A3AE"></div></div><div class="fr" style="font-size: 30px; margin-top: 26px">Landscape</div><div style="color: #6B5A5F; margin-top: 4px">11 × 8.5 in · panoramas &amp; wide spreads</div><div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; padding-top: 18px; border-top: 1px solid #F0E8E1"><span style="color: #6B5A5F">from</span><b class="fr" style="font-size: 26px; font-weight: 500" data-price="size:landscape">SAR 320</b></div></a>
-<a class="sz" href="D2-Builder.dc.html?size=square"><div style="height: 210px; display: grid; place-items: center"><div class="szb" style="width: 156px; height: 156px; background: #E8C96E"></div></div><div class="fr" style="font-size: 30px; margin-top: 26px">Square</div><div style="color: #6B5A5F; margin-top: 4px">10 × 10 in · weddings &amp; love stories</div><div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; padding-top: 18px; border-top: 1px solid #F0E8E1"><span style="color: #6B5A5F">from</span><b class="fr" style="font-size: 26px; font-weight: 500" data-price="size:square">SAR 300</b></div></a>
+<a class="sz" href="D2-Builder.dc.html?size=portrait"><div style="height: 210px; display: grid; place-items: center"><div class="szb" style="width: 128px; height: 160px; background: #7E9CC0"></div></div><div class="fr" style="font-size: 30px; margin-top: 26px">Portrait</div><div style="color: #6B5A5F; margin-top: 4px">8 × 10 in · most popular for travel</div><div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; padding-top: 18px; border-top: 1px solid #E7DDD4"><span style="color: #6B5A5F">from</span><b class="fr" style="font-size: 26px; font-weight: 500" data-price="size:portrait">SAR 280</b></div></a>
+<a class="sz" href="D2-Builder.dc.html?size=landscape"><div style="height: 210px; display: grid; place-items: center"><div class="szb" style="width: 190px; height: 146px; background: #D9A3AE"></div></div><div class="fr" style="font-size: 30px; margin-top: 26px">Landscape</div><div style="color: #6B5A5F; margin-top: 4px">11 × 8.5 in · panoramas &amp; wide spreads</div><div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; padding-top: 18px; border-top: 1px solid #E7DDD4"><span style="color: #6B5A5F">from</span><b class="fr" style="font-size: 26px; font-weight: 500" data-price="size:landscape">SAR 320</b></div></a>
+<a class="sz" href="D2-Builder.dc.html?size=square"><div style="height: 210px; display: grid; place-items: center"><div class="szb" style="width: 156px; height: 156px; background: #E8C96E"></div></div><div class="fr" style="font-size: 30px; margin-top: 26px">Square</div><div style="color: #6B5A5F; margin-top: 4px">10 × 10 in · weddings &amp; love stories</div><div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 22px; padding-top: 18px; border-top: 1px solid #E7DDD4"><span style="color: #6B5A5F">from</span><b class="fr" style="font-size: 26px; font-weight: 500" data-price="size:square">SAR 300</b></div></a>
 </div>
 </section>
 
@@ -566,10 +566,10 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 <section class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 40px 44px 64px; display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center">
 <div><h2 class="fr rv" style="font-size: 54px; line-height: 1.02; font-weight: 400; margin: 0">Always know where your book is.</h2><p class="rv" style="font-size: 18px; line-height: 1.7; color: #5C4B50; margin: 20px 0 30px">From your first photo to the courier’s knock, every step shows up in your account and on WhatsApp.</p><a class="btn bg rv" href="D7-Tracking.dc.html">Track an order</a></div>
 <div class="rvz" style="background: #fff; border-radius: 28px; padding: 30px; box-shadow: 0 50px 80px -50px rgba(60,20,30,.5)">
-<div style="display: flex; justify-content: space-between; align-items: center"><b>Order MR-1042</b><span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: #B8304F"><span class="pulse" style="width: 9px; height: 9px; border-radius: 50%; background: #B8304F"></span>Out for delivery</span></div>
+<div style="display: flex; justify-content: space-between; align-items: center"><b>Order MR-1042</b><span style="display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: #7D1238"><span class="pulse" style="width: 9px; height: 9px; border-radius: 50%; background: #7D1238"></span>Out for delivery</span></div>
 <div class="trk" style="position: relative; height: 80px; margin-top: 26px">
 <div style="position: absolute; left: 0; right: 0; top: 39px; border-top: 2px dashed #CBB8AD"></div>
-<div class="tfillw" style="position: absolute; left: 0; top: 37px; height: 6px; width: 78%; border-radius: 3px; overflow: hidden"><div class="tfill2" style="height: 100%; border-radius: 3px; background: linear-gradient(90deg, #7D1238, #B8304F, #C4661A); background-size: 200% 100%"></div></div>
+<div class="tfillw" style="position: absolute; left: 0; top: 37px; height: 6px; width: 78%; border-radius: 3px; overflow: hidden"><div class="tfill2" style="height: 100%; border-radius: 3px; background: linear-gradient(90deg, #7D1238, #5E0D2A); background-size: 200% 100%"></div></div>
 <span class="tdot td0" style="left: 0%"></span><span class="tdot td1" style="left: 26%"></span><span class="tdot td2" style="left: 52%"></span>
 <div class="tvan" style="position: absolute; left: 78%; top: 18px; translate: -50% 0"><div class="vbob" style="width: 44px; height: 44px; border-radius: 50%; background: #7D1238; display: grid; place-items: center; box-shadow: 0 10px 20px -8px rgba(125,18,56,.7)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"></path><circle class="whl" cx="7" cy="18" r="2"></circle><circle class="whl" cx="17" cy="18" r="2"></circle></svg></div><span class="puff" aria-hidden="true"></span><span class="puff p2" aria-hidden="true"></span></div>
 <span class="tdest" style="left: 100%"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#7D1238" stroke-width="2"><path d="M4 11l8-7 8 7v9H4z"></path></svg></span>
@@ -584,13 +584,13 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 <div style="position: relative; aspect-ratio: 1; max-width: 540px; width: 100%; justify-self: center">
 <svg viewBox="0 0 400 400" style="position: absolute; inset: 0; width: 100%; height: 100%" fill="none" aria-hidden="true">
 <g class="orb-a" style="transform-origin: 200px 200px"><circle cx="200" cy="200" r="190" stroke="#F2B880" stroke-opacity=".22" stroke-dasharray="1 7"></circle><circle cx="390" cy="200" r="5" fill="#F2B880"></circle></g>
-<g class="orb-b" style="transform-origin: 200px 200px"><ellipse cx="200" cy="200" rx="160" ry="62" stroke="#B8304F" stroke-opacity=".45"></ellipse><circle cx="360" cy="200" r="4" fill="#B8304F"></circle></g>
+<g class="orb-b" style="transform-origin: 200px 200px"><ellipse cx="200" cy="200" rx="160" ry="62" stroke="#7D1238" stroke-opacity=".45"></ellipse><circle cx="360" cy="200" r="4" fill="#7D1238"></circle></g>
 <g class="orb-c" style="transform-origin: 200px 200px"><ellipse cx="200" cy="200" rx="62" ry="160" stroke="#F2B880" stroke-opacity=".25"></ellipse></g>
 <circle cx="200" cy="200" r="120" stroke="rgba(255,246,240,.08)" stroke-width="8"></circle>
 <circle class="ring195" cx="200" cy="200" r="120" stroke="url(#g195)" stroke-width="8" stroke-linecap="round" pathLength="1" stroke-dasharray="1" stroke-dashoffset=".897" transform="rotate(-90 200 200)"></circle>
-<defs><linearGradient id="g195" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2B880"></stop><stop offset="1" stop-color="#B8304F"></stop></linearGradient></defs>
+<defs><linearGradient id="g195" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#F2B880"></stop><stop offset="1" stop-color="#7D1238"></stop></linearGradient></defs>
 <circle cx="118" cy="132" r="4" fill="#F2B880"></circle><circle class="ping" cx="118" cy="132" r="4" stroke="#F2B880" fill="none"></circle>
-<circle cx="276" cy="250" r="4" fill="#B8304F"></circle><circle class="ping" cx="276" cy="250" r="4" stroke="#B8304F" fill="none" style="animation-delay: 1.3s"></circle>
+<circle cx="276" cy="250" r="4" fill="#7D1238"></circle><circle class="ping" cx="276" cy="250" r="4" stroke="#7D1238" fill="none" style="animation-delay: 1.3s"></circle>
 </svg>
 <div style="position: absolute; inset: 0; display: grid; place-items: center; text-align: center"><div><div class="fr" style="font-size: 92px; line-height: 1; color: #F2B880"><span class="cnt" style="--to: 20"></span><span style="font-size: 40px; color: rgba(255,246,240,.4)">/195</span></div><div style="font-size: 13px; letter-spacing: .2em; text-transform: uppercase; color: rgba(255,246,240,.6); margin-top: 10px">countries so far</div></div></div>
 </div>
@@ -685,7 +685,7 @@ class Component extends DCLogic {
       const k = 1 - Math.pow(0.002, dt), kr = 1 - Math.pow(0.00001, dt);
       const c = this.cc; c.x += (this.tg.x - c.x) * k; c.y += (this.tg.y - c.y) * k;
       if (this.bookEl) this.bookEl.style.transform = 'rotateX(' + ((0.4 - c.y) * 14).toFixed(3) + 'deg) rotateY(' + ((c.x - 0.6) * 30).toFixed(3) + 'deg)';
-      if (this.spotEl) this.spotEl.style.background = 'radial-gradient(600px circle at ' + (c.x * 100).toFixed(2) + '% ' + (c.y * 100).toFixed(2) + '%, rgba(184,48,79,.11), transparent 60%)';
+      if (this.spotEl) this.spotEl.style.background = 'radial-gradient(600px circle at ' + (c.x * 100).toFixed(2) + '% ' + (c.y * 100).toFixed(2) + '%, rgba(125,18,56,.11), transparent 60%)';
       this.pR.x += (this.pT.x - this.pR.x) * kr; this.pR.y += (this.pT.y - this.pR.y) * kr;
       if (this.ringEl) this.ringEl.style.transform = 'translate3d(' + this.pR.x.toFixed(1) + 'px,' + this.pR.y.toFixed(1) + 'px,0)';
       if (this.dotEl) this.dotEl.style.transform = 'translate3d(' + this.pT.x.toFixed(1) + 'px,' + this.pT.y.toFixed(1) + 'px,0)';

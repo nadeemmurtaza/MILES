@@ -18,22 +18,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#B8304F}
+a{color:#7D1238}a:hover{color:#7D1238}
 .fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-.wm{background:linear-gradient(95deg,#9E1046,#C7323F 50%,#C4661A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wm{background:linear-gradient(90deg,#7D1238,#5E0D2A);-webkit-background-clip:text;background-clip:text;color:transparent}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:12px;font:700 14px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .25s}
 .bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A;color:#FFF6F0;transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(125,18,56,.6)}
 .bs{background:#fff;color:#1F1418;border:1px solid #E7DDD4}.bs:hover{border-color:#1F1418;color:#1F1418;transform:translateY(-2px)}
 .box{background:#fff;border:1px solid #E7DDD4;border-radius:20px}
-.sn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:12px;font-weight:600;font-size:15px;color:#4A3A3F;transition:background .25s;min-height:46px}
+.sn{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:12px;width:100%;padding:12px 14px;border-radius:12px;font-weight:600;font-size:15px;color:#5C4B50;transition:background .25s;min-height:46px}
 .sn:hover{background:#F6F1EA}.sn.on{background:#1F1418;color:#fff}
 .sn:focus-visible{outline:2px solid #7D1238}
 .st{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;border-radius:999px;font-size:12px;font-weight:800}
 .dot{width:8px;height:8px;border-radius:50%;background:currentColor;animation:pulse 1.8s infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(184,48,79,.5)}70%{box-shadow:0 0 0 8px rgba(184,48,79,0)}100%{box-shadow:0 0 0 0 rgba(184,48,79,0)}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(125,18,56,.5)}70%{box-shadow:0 0 0 8px rgba(125,18,56,0)}100%{box-shadow:0 0 0 0 rgba(125,18,56,0)}}
 .view{animation:view .6s cubic-bezier(.2,.8,.2,1) both}@keyframes view{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .fillbar{animation:fillbar 1.4s cubic-bezier(.2,.8,.2,1) both}@keyframes fillbar{from{width:0}}
-table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font-size:12px;color:#6B5A5F;font-weight:700;padding:10px 12px;border-bottom:1px solid #E7DDD4}td{padding:14px 12px;border-bottom:1px solid #F0E8E1}
+table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font-size:12px;color:#6B5A5F;font-weight:700;padding:10px 12px;border-bottom:1px solid #E7DDD4}td{padding:14px 12px;border-bottom:1px solid #E7DDD4}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:900px){.stack{grid-template-columns:minmax(0,1fr)!important}.pad{padding-left:16px!important;padding-right:16px!important}.side{flex-direction:row!important;overflow-x:auto}}
 /* MOBILE TYPE SCALE */
@@ -49,7 +49,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 </style>
@@ -78,7 +78,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <div class="pad stack" style="max-width: 1360px; margin: 0 auto; padding: 28px 32px 80px; display: grid; grid-template-columns: 240px 1fr; gap: 28px; align-items: start">
 <nav class="side" style="display: flex; flex-direction: column; gap: 4px" aria-label="Account">
 <sc-for list="{{tabs}}" as="t" hint-placeholder-count="5">
-<button class="{{t.cls}}" onClick="{{t.pick}}">{{t.name}}<sc-if value="{{t.badge}}" hint-placeholder-val="{{ false }}"><span style="margin-left: auto; background: #B8304F; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 999px">{{t.badge}}</span></sc-if></button>
+<button class="{{t.cls}}" onClick="{{t.pick}}">{{t.name}}<sc-if value="{{t.badge}}" hint-placeholder-val="{{ false }}"><span style="margin-left: auto; background: #7D1238; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 7px; border-radius: 999px">{{t.badge}}</span></sc-if></button>
 </sc-for>
 <a class="sn" href="D1-Motion.dc.html" data-signout style="margin-top: 8px; text-decoration: none; color: #6B5A5F">Sign out</a>
 </nav>
@@ -90,7 +90,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <h1 class="fr" style="font-size: 40px; font-weight: 500; margin: 0">Welcome back, Sara</h1>
 
 <div style="background: #7D1238; color: #FFF6F0; border-radius: 22px; padding: 24px 28px; display: flex; gap: 22px; align-items: center; flex-wrap: wrap; box-shadow: 0 30px 50px -30px rgba(125,18,56,.7)">
-<span class="st" style="background: rgba(255,255,255,.14); color: #FFD9E6"><span class="dot"></span>Action needed</span>
+<span class="st" style="background: rgba(255,255,255,.14); color: #F5E4DF"><span class="dot"></span>Action needed</span>
 <div style="flex: 1; min-width: 260px"><div class="fr" style="font-size: 24px">Proof round 2 of your Maldives book is ready</div><div style="opacity: .8; font-size: 14px; margin-top: 4px">Rameen fixed your 3 comments and added the sunset spread. Approve to send it to print.</div></div>
 <a class="btn" href="D6-Proof.dc.html" style="background: #fff; color: #7D1238">Review proof</a>
 </div>
@@ -99,7 +99,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <div style="display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap">
 <div style="width: 92px; height: 114px; background: #7E9CC0; border-radius: 3px 8px 8px 3px; padding: 8px; flex: none; box-shadow: 0 14px 24px -12px rgba(31,20,24,.5)"><div style="background: #fff; height: 100%; padding: 3px"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="" style="width: 100%; height: 72%; object-fit: cover; display: block"></div></div>
 <div style="flex: 1; min-width: 240px">
-<div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap"><span class="mono" style="font-size: 13px; color: #6B5A5F">MR-1042</span><span class="st" style="background: #F5E4DF; color: #B8304F"><span class="dot"></span>Proof ready · round 2</span></div>
+<div style="display: flex; gap: 10px; align-items: center; flex-wrap: wrap"><span class="mono" style="font-size: 13px; color: #6B5A5F">MR-1042</span><span class="st" style="background: #F5E4DF; color: #7D1238"><span class="dot"></span>Proof ready · round 2</span></div>
 <div class="fr" style="font-size: 26px; margin-top: 6px">Honeymoon · Maldives</div>
 <div style="font-size: 14px; color: #6B5A5F; margin-top: 4px">Portrait 8 × 10 · Dusty blue · 40 pages · ordered 14 Sep</div>
 </div>
@@ -108,7 +108,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <div style="margin-top: 26px; display: grid; grid-template-columns: repeat(9, minmax(0, 1fr)); gap: 6px">
 <sc-for list="{{stages}}" as="s" hint-placeholder-count="9"><div><div style="height: 6px; border-radius: 3px; background: #EFE5DA; overflow: hidden"><div class="fillbar" style="height: 6px; width: {{s.w}}; background: {{s.c}}; animation-delay: {{s.delay}}"></div></div><div style="font-size: 11px; font-weight: 700; margin-top: 8px; color: {{s.tc}}; line-height: 1.3">{{s.name}}</div></div></sc-for>
 </div>
-<div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; padding-top: 20px; border-top: 1px solid #F0E8E1">
+<div style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 24px; padding-top: 20px; border-top: 1px solid #E7DDD4">
 <a class="btn bs" href="D7-Tracking.dc.html?order=MR-1042">Track order</a><a class="btn bs" href="D4-Upload.dc.html">Photos (85)</a><a class="btn bs" href="D22-Order.dc.html">Order details</a><a class="btn bs" href="D22-Order.dc.html">Deposit receipt</a>
 </div>
 </div>
@@ -117,7 +117,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <div class="box" style="padding: 24px">
 <div style="display: flex; justify-content: space-between; align-items: center"><b style="font-size: 17px">Past books</b><a href="D23-Account.dc.html" style="font-size: 14px; font-weight: 700">Account settings</a></div>
 <div style="display: flex; flex-direction: column; margin-top: 10px">
-<div style="display: flex; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid #F0E8E1"><img src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt="" style="width: 56px; height: 56px; border-radius: 10px; object-fit: cover"><div style="flex: 1"><b>London · April 2024</b><div style="font-size: 13px; color: #6B5A5F">Delivered 2 May · <span class="mono">MR-0877</span></div></div><a class="btn bs" href="D19-Cart.dc.html" style="min-height: 44px">Order a copy</a></div>
+<div style="display: flex; gap: 14px; align-items: center; padding: 14px 0; border-bottom: 1px solid #E7DDD4"><img src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt="" style="width: 56px; height: 56px; border-radius: 10px; object-fit: cover"><div style="flex: 1"><b>London · April 2024</b><div style="font-size: 13px; color: #6B5A5F">Delivered 2 May · <span class="mono">MR-0877</span></div></div><a class="btn bs" href="D19-Cart.dc.html" style="min-height: 44px">Order a copy</a></div>
 <div style="display: flex; gap: 14px; align-items: center; padding: 14px 0"><img src="/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg" alt="" style="width: 56px; height: 56px; border-radius: 10px; object-fit: cover"><div style="flex: 1"><b>Paris · July 2023</b><div style="font-size: 13px; color: #6B5A5F">Delivered · review left</div></div><a class="btn bs" href="D19-Cart.dc.html" style="min-height: 44px">Order a copy</a></div>
 </div>
 </div>
@@ -135,7 +135,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <h1 class="fr" style="font-size: 40px; font-weight: 500; margin: 0">Payments &amp; invoices</h1>
 <div class="stack" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px">
 <div class="box" style="padding: 20px"><div style="font-size: 13px; color: #6B5A5F">Paid on MR-1042</div><div class="fr" style="font-size: 30px; margin-top: 6px">SAR 185</div></div>
-<div class="box" style="padding: 20px; border-color: #E9CDA8; background: #FFF9F1"><div style="font-size: 13px; color: #9A5A0B">Due after approval</div><div class="fr" style="font-size: 30px; margin-top: 6px">SAR 160</div></div>
+<div class="box" style="padding: 20px; border-color: #E9CDA8; background: #FBF7F1"><div style="font-size: 13px; color: #9A5A0B">Due after approval</div><div class="fr" style="font-size: 30px; margin-top: 6px">SAR 160</div></div>
 <div class="box" style="padding: 20px"><div style="font-size: 13px; color: #6B5A5F">Gift card balance</div><div class="fr" style="font-size: 30px; margin-top: 6px">SAR 0</div></div>
 </div>
 <div class="box" style="padding: 10px 14px; overflow-x: auto">
@@ -156,7 +156,7 @@ table{width:100%;border-collapse:collapse;font-size:14px}th{text-align:left;font
 <sc-if value="{{isMsg}}" hint-placeholder-val="{{ false }}">
 <div class="view box" style="padding: 0; overflow: hidden">
 <div style="padding: 18px 24px; border-bottom: 1px solid #E7DDD4; display: flex; gap: 12px; align-items: center"><img src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt="" style="width: 44px; height: 44px; border-radius: 50%; object-fit: cover"><div><b>Tazmeen &amp; Rameen</b><div style="font-size: 13px; color: #6B5A5F">Usually reply within a few hours · also on WhatsApp</div></div></div>
-<div style="padding: 24px; display: flex; flex-direction: column; gap: 14px; background: #FBF8F4; min-height: 360px">
+<div style="padding: 24px; display: flex; flex-direction: column; gap: 14px; background: #FBF7F1; min-height: 360px">
 <div style="align-self: flex-start; max-width: 70%; background: #fff; border: 1px solid #E7DDD4; border-radius: 16px 16px 16px 4px; padding: 12px 16px; font-size: 15px; line-height: 1.5">Your photos are gorgeous! Quick question — should the parasailing photo be the cover or the opening spread?<div style="font-size: 11px; color: #6B5A5F; margin-top: 6px">Rameen · 16 Sep</div></div>
 <div style="align-self: flex-end; max-width: 70%; background: #7D1238; color: #FFF6F0; border-radius: 16px 16px 4px 16px; padding: 12px 16px; font-size: 15px; line-height: 1.5">The cover please! It was our favourite day.<div style="font-size: 11px; opacity: .7; margin-top: 6px">You · 16 Sep</div></div>
 <div style="align-self: center; font-size: 12px; color: #6B5A5F; background: #F5E4DF; padding: 6px 12px; border-radius: 999px">Proof round 2 shared · 2 Oct</div>
@@ -202,7 +202,7 @@ class Component extends DCLogic {
     const tabs = ['Overview', 'Payments & invoices', 'Messages', 'Addresses & settings'].map((name, i) => ({ name, badge: i === 2 ? '1' : (i === 0 ? '1' : ''), cls: i === t ? 'sn on' : 'sn', pick: () => this.setState({ tab: i }) }));
     const names = ['Confirmed', 'Photos in', 'Designing', 'Proof', 'Approved', 'In print', 'Wrapped', 'Shipped', 'Delivered'];
     const at = 3;
-    const stages = names.map((name, i) => ({ name, w: i < at ? '100%' : (i === at ? '55%' : '0%'), c: i === at ? '#B8304F' : '#7D1238', tc: i <= at ? '#1F1418' : '#6B5A5F', delay: (i * 0.12) + 's' }));
+    const stages = names.map((name, i) => ({ name, w: i < at ? '100%' : (i === at ? '55%' : '0%'), c: i === at ? '#7D1238' : '#7D1238', tc: i <= at ? '#1F1418' : '#6B5A5F', delay: (i * 0.12) + 's' }));
     return { ...__A, tabs, stages, isOverview: t === 0, isPay: t === 1, isMsg: t === 2, isSet: t === 3 };
   }
 }

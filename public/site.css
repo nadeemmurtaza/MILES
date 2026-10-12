@@ -58,7 +58,22 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
+
+/* ============ Colour system: 60 / 30 / 10 ============
+   60  CANVAS   the page itself - warm ivory, with a slightly deeper band for rhythm. No colour, so photos and books carry the colour.
+   30  SURFACE  what sits on the canvas - white cards and form fields, charcoal ink for text and the dark bands (footer, proof, finale),
+            and the two greys + two hairlines that structure it.
+   10  ACCENT   one hue, wine. It is only for what the visitor should act on or notice: the primary button, the one highlighted word
+            in a headline, the selected / current state, links, the price total. On the charcoal bands the same job is done by gold.
+   Status colours (green done/paid, amber due, red error) are for status only - never for decoration.
+   Book covers, gift-card designs and photos are product, so they keep their own colours. `node scripts/check-palette.mjs` enforces this. */
+:root{
+  --canvas:#F6F1EA; --canvas-2:#EFE5DA;                                  /* 60 */
+  --surface:#FFFFFF; --ink:#1F1418; --ink-2:#5C4B50; --muted:#6B5A5F; --line:#E7DDD4; --line-2:#CBB8AD;   /* 30 */
+  --accent:#7D1238; --accent-deep:#5E0D2A; --accent-tint:#F5E4DF; --on-accent:#FFF6F0; --gold:#F2B880;   /* 10 (gold only on dark) */
+  --ok:#2B6B55; --ok-tint:#E4F1EA; --warn:#9A5A0B; --warn-tint:#FFF4E6; --err:#A3123F;                    /* status */
+}
 
 /* --- header --- */
 .sh{position:sticky;top:0;z-index:40;background:rgba(246,241,234,.82);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border-bottom:1px solid transparent;font-family:Manrope,system-ui,sans-serif;color:#1F1418;box-sizing:border-box}
@@ -83,7 +98,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .sh-acct:hover{color:#7D1238}
 .sh-lang{all:unset;cursor:pointer;width:44px;height:44px;border-radius:50%;border:1px solid #E7DDD4;display:grid;place-items:center;font-family:'Miles Arabic UI','IBM Plex Sans Arabic',Manrope,sans-serif;font-weight:600;font-size:18px;color:#1F1418;transition:background .35s,color .35s,transform .5s cubic-bezier(.3,1.6,.5,1)}
 .sh-lang:hover{background:#1F1418;color:#FFF6F0;transform:rotate(-8deg)}
-.sh-lang:focus-visible,.sh-cart:focus-visible,.sh-burger:focus-visible,.sh-cta:focus-visible,.sh-acct:focus-visible,.sh-nav a:focus-visible,.sh-track:focus-visible{outline:2.5px solid #B8304F;outline-offset:3px;border-radius:12px}
+.sh-lang:focus-visible,.sh-cart:focus-visible,.sh-burger:focus-visible,.sh-cta:focus-visible,.sh-acct:focus-visible,.sh-nav a:focus-visible,.sh-track:focus-visible{outline:2.5px solid #7D1238;outline-offset:3px;border-radius:12px}
 .sh-cart{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;color:#1F1418;text-decoration:none;transition:background .3s,transform .5s cubic-bezier(.3,1.6,.5,1)}
 .sh-cart:hover{background:#fff;color:#7D1238;transform:translateY(-2px)}
 .sh-cart b{position:absolute;top:4px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;background:#7D1238;color:#FFF6F0;font-size:11px;display:grid;place-items:center}
@@ -111,8 +126,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .sh-in{padding:12px 18px}
 }
 /* dark variant (proof review page) */
-.sh--dark{background:rgba(42,29,34,.88);color:#F6EDE7;border-bottom-color:rgba(255,255,255,.1)}
-.sh--dark .sh-nav a,.sh--dark .sh-track,.sh--dark .sh-acct,.sh--dark .sh-cart,.sh--dark .sh-lang{color:#F6EDE7}
+.sh--dark{background:rgba(42,29,34,.88);color:#FFF6F0;border-bottom-color:rgba(255,255,255,.1)}
+.sh--dark .sh-nav a,.sh--dark .sh-track,.sh--dark .sh-acct,.sh--dark .sh-cart,.sh--dark .sh-lang{color:#FFF6F0}
 .sh--dark .sh-lang{border-color:rgba(255,255,255,.2)}
 .sh--dark .sh-wm .fr,.sh--dark .sh-wm .rt{color:#FFF6F0!important}
 .sh--dark .sh-nav a:hover,.sh--dark .sh-track:hover,.sh--dark .sh-acct:hover{color:#F2B880}
@@ -120,7 +135,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .sh--dark .sh-cart:hover{background:rgba(255,255,255,.08);color:#F2B880}
 .sh--dark .sh-cart b{background:#F2B880;color:#1F1418}
 .sh--dark .sh-burger{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)}
-.sh--dark .sh-bars i{background:#F6EDE7}
+.sh--dark .sh-bars i{background:#FFF6F0}
 @supports (animation-timeline:scroll()){.sh--dark{animation-name:shBarDark}}
 @keyframes shBarDark{to{background:rgba(42,29,34,.96);border-bottom-color:rgba(255,255,255,.14)}}
 
@@ -128,12 +143,12 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .sh-sub{position:relative;z-index:30}
 
 /* --- footer --- */
-.sf{background:#1F1418;color:#CDBCB4;font-family:Manrope,system-ui,sans-serif;font-size:15px}
+.sf{background:#1F1418;color:#CBB8AD;font-family:Manrope,system-ui,sans-serif;font-size:15px}
 .sf-top{max-width:1360px;margin:0 auto;padding:64px 44px 40px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
 .sf-brand p{line-height:1.7;margin:14px 0 22px;max-width:360px}
 .sf nav{display:grid;gap:8px;align-content:start}
 .sf nav b{color:#FFF6F0;margin-bottom:6px}
-.sf a,.sf nav span{color:#CDBCB4;text-decoration:none;display:inline-block;padding:4px 0;transition:color .3s,transform .4s cubic-bezier(.16,1,.3,1)}
+.sf a,.sf nav span{color:#CBB8AD;text-decoration:none;display:inline-block;padding:4px 0;transition:color .3s,transform .4s cubic-bezier(.16,1,.3,1)}
 .sf a:hover{color:#F2B880;transform:translateX(4px)}
 .sf a:focus-visible,.sf button:focus-visible,.sf input:focus-visible{outline:2.5px solid #F2B880;outline-offset:3px;border-radius:8px}
 .sf-nl label{display:block;color:#FFF6F0;font-weight:700;margin-bottom:10px}

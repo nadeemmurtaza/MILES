@@ -20,6 +20,19 @@ The language button (and Account → Language) switches the whole site between E
 * Arabic never gets italics or letter-spacing (both break the script); `public/site.css` switches them off under `html.is-ar`.
 * A sentence is matched as a whole (live values and inline elements are `{0}`, `{1}` slots), so Arabic word order is kept while the page's own bindings keep working.
 
+## Colour system (60 / 30 / 10)
+Colour has a job; nothing is coloured just to be colourful. The tokens and rules are documented at the top of `public/site.css`, and `node scripts/check-palette.mjs` fails if a customer page uses a colour outside the palette.
+
+| Share | Role | Colours | Used for |
+| --- | --- | --- | --- |
+| 60 | Canvas | ivory `#F6F1EA`, deeper band `#EFE5DA` | the page itself; photos and books carry the colour |
+| 30 | Surface + ink | white, charcoal `#1F1418`, greys `#5C4B50` `#6B5A5F`, hairlines `#E7DDD4` `#CBB8AD` | cards, fields, text, dark bands (footer, proof, finale) |
+| 10 | Accent | wine `#7D1238` (deeper `#5E0D2A` on hover, blush `#F5E4DF` for selected backgrounds); gold `#F2B880` on charcoal only | the primary button, the one highlighted word in a headline, the selected / current state, links, the price total |
+| – | Status | green (done / paid), amber (due), red (error) | status only, never decoration |
+| – | Product | book covers, gift-card designs, paper | content, not interface |
+
+Removed in this pass: the wine → red → copper gradients (progress bars, shimmering headline words), copper (step 5, ratings, dots), the green WhatsApp button and toggles (accent now), the pastel icon bubbles (one tint), the per-type pastel backdrops on the Books page, the wine sign-in panel (now the deeper ivory band) and the multicolour confetti.
+
 ## Sample data to confirm with the studio
 Nothing on the customer pages shows `[brackets]` any more, but some content is sample wording or numbers until Tazmeen & Rameen confirm it:
 

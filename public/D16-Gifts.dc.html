@@ -18,9 +18,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#B8304F}
+a{color:#7D1238}a:hover{color:#7D1238}
 .fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-.wm{background:linear-gradient(95deg,#9E1046,#C7323F 45%,#C4661A 70%,#9E1046);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
+.wm{background:linear-gradient(95deg,#7D1238,#5E0D2A 50%,#7D1238);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
 @keyframes sheen{50%{background-position:100% 0}}
 .eyb{font-size:13px;font-weight:700;color:#7D1238;margin:0}
 .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:999px;font:700 15px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s,background .35s,color .35s;isolation:isolate}
@@ -34,7 +34,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .nlk{position:relative;color:#1F1418;text-decoration:none;padding:6px 0;font-weight:600;font-size:15px}
 .nlk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:#7D1238;transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .nlk:hover{color:#7D1238}.nlk:hover::after,.nlk.on::after{transform:scaleX(1);transform-origin:left}.nlk.on{color:#7D1238}
-.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#9E1046,#C7323F,#C4661A);transform-origin:left;transform:scaleX(0)}
+.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#7D1238,#5E0D2A);transform-origin:left;transform:scaleX(0)}
 .inp{width:100%;min-height:54px;border:1.5px solid #E7DDD4;border-radius:14px;padding:0 16px;font:500 16px Manrope,sans-serif;background:#fff;color:#1F1418;transition:border-color .3s,box-shadow .3s}
 .inp:hover{border-color:#CBB8AD}.inp:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12)}
 textarea.inp{padding:14px 16px;min-height:130px;resize:vertical}
@@ -77,11 +77,11 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 .gf{position:absolute;inset:0;border-radius:22px;backface-visibility:hidden;overflow:hidden;box-shadow:0 50px 80px -40px rgba(60,20,30,.6)}
 .gb{transform:rotateY(180deg)}
 .gidle{width:min(440px,100%)}.gc{width:100%!important}.stack>*{min-width:0}
-.gc{cursor:pointer}.gc:focus-visible{outline:2.5px solid #B8304F;outline-offset:8px;border-radius:24px}.gc:active{scale:.98}
+.gc{cursor:pointer}.gc:focus-visible{outline:2.5px solid #7D1238;outline-offset:8px;border-radius:24px}.gc:active{scale:.98}
 .gloss{position:absolute;inset:0;background:linear-gradient(115deg,transparent 30%,rgba(255,255,255,.35) 45%,transparent 60%);background-size:250% 100%;animation:gloss 5s ease-in-out infinite;pointer-events:none}
 @keyframes gloss{0%{background-position:120% 0}60%,100%{background-position:-60% 0}}
 .amt{all:unset;box-sizing:border-box;cursor:pointer;padding:18px;border-radius:18px;border:1.5px solid #E7DDD4;background:#fff;text-align:center;transition:border-color .3s,box-shadow .3s,transform .5s cubic-bezier(.3,1.6,.5,1);min-height:44px}
-.amt:hover{transform:translateY(-3px);border-color:#B9A7A0}.amt.on{border-color:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12)}
+.amt:hover{transform:translateY(-3px);border-color:#CBB8AD}.amt.on{border-color:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12)}
 .amt:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
 .th{all:unset;cursor:pointer;width:54px;height:54px;border-radius:16px;border:3px solid #fff;box-shadow:0 0 0 1.5px #E7DDD4;transition:transform .4s cubic-bezier(.3,1.6,.5,1),box-shadow .3s}
 .th:hover{transform:scale(1.08)}.th.on{box-shadow:0 0 0 2.5px #7D1238}.th:focus-visible{outline:2px solid #7D1238;outline-offset:3px}
@@ -103,7 +103,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 
@@ -200,7 +200,7 @@ class Component extends DCLogic {
     const P = window.milesPricing;   // sample price list (public/pricing.js): a gift card buys the book it is named after
     const n = (sar) => Math.round(sar * P.rate[st.cur]).toLocaleString('en-US');
     const A = [[n(P.tiers.small), 'One small book'], [n(P.tiers.popular), 'Most popular'], [n(P.tiers.large), 'Large book'], ['Custom', 'Any amount']];
-    const T = [{ name: 'Wine', bg: 'linear-gradient(135deg,#7D1238,#9E1046 60%,#C4661A)', fg: '#FFF6F0' }, { name: 'Dusty blue', bg: 'linear-gradient(135deg,#5E7FA6,#7E9CC0)', fg: '#FFF6F0' }, { name: 'Ivory', bg: 'linear-gradient(135deg,#F3EBDD,#E4D5C6)', fg: '#1F1418' }, { name: 'Midnight', bg: 'linear-gradient(135deg,#1F1418,#3A2830)', fg: '#F2B880' }];
+    const T = [{ name: 'Wine', bg: 'linear-gradient(135deg,#7D1238,#5E0D2A)', fg: '#FFF6F0' }, { name: 'Dusty blue', bg: 'linear-gradient(135deg,#5E7FA6,#7E9CC0)', fg: '#FFF6F0' }, { name: 'Ivory', bg: 'linear-gradient(135deg,#F3EBDD,#E4D5C6)', fg: '#1F1418' }, { name: 'Midnight', bg: 'linear-gradient(135deg,#1F1418,#3A2830)', fg: '#F2B880' }];
     const C = ['WhatsApp', 'Email'];
     const flipped = st.flip;
     const isCustom = A[st.a][0] === 'Custom', customN = Math.max(0, parseInt(String(st.custom).replace(/[^0-9]/g, ''), 10) || 0);

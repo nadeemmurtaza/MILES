@@ -18,9 +18,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#B8304F}
+a{color:#7D1238}a:hover{color:#7D1238}
 .fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-.wm{background:linear-gradient(95deg,#9E1046,#C7323F 50%,#C4661A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wm{background:linear-gradient(90deg,#7D1238,#5E0D2A);-webkit-background-clip:text;background-clip:text;color:transparent}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 22px;border-radius:12px;font:700 15px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .25s}
 .bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A;color:#FFF6F0;transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(125,18,56,.6)}
 .bs{background:#fff;color:#1F1418;border:1px solid #E7DDD4}.bs:hover{border-color:#1F1418;color:#1F1418}
@@ -41,7 +41,7 @@ label{font-size:13px;font-weight:700}
 .star{all:unset;cursor:pointer;position:absolute;top:6px;right:6px;width:32px;height:32px;border-radius:50%;background:rgba(31,20,24,.45);display:grid;place-items:center;transition:transform .3s cubic-bezier(.3,1.6,.5,1)}
 .star:hover{transform:scale(1.12)}.star:focus-visible{outline:2px solid #fff}
 .ok{position:absolute;left:6px;bottom:6px;width:22px;height:22px;border-radius:50%;background:#2B6B55;display:grid;place-items:center}
-.drop{border:2px dashed #CBB8AD;border-radius:18px;background:repeating-linear-gradient(45deg,#FBF8F4 0 12px,#F7F1EA 12px 24px);transition:border-color .3s,background .3s}
+.drop{border:2px dashed #CBB8AD;border-radius:18px;background:repeating-linear-gradient(45deg,#FBF7F1 0 12px,#FBF7F1 12px 24px);transition:border-color .3s,background .3s}
 .drop:hover{border-color:#7D1238}
 .in{animation:in .7s cubic-bezier(.2,.8,.2,1) both}@keyframes in{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
 .conf{animation:conf 1s cubic-bezier(.3,1.5,.5,1) both}@keyframes conf{from{transform:scale(.6);opacity:0}to{transform:none;opacity:1}}
@@ -60,7 +60,7 @@ label{font-size:13px;font-weight:700}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 </style>
@@ -115,7 +115,7 @@ label{font-size:13px;font-weight:700}
 <section style="display: flex; flex-direction: column; gap: 18px">
 <div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap">
 <div><h1 class="fr" style="font-size: 40px; font-weight: 500; margin: 0">{{folderName}}</h1><div style="font-size: 14px; color: #6B5A5F; margin-top: 4px">{{folderCount}} of about 88 recommended for 40 pages</div></div>
-<div style="width: 260px; max-width: 100%"><div style="height: 8px; border-radius: 4px; background: #EFE5DA; overflow: hidden"><div style="height: 8px; width: {{pct}}; background: linear-gradient(90deg, #9E1046, #C4661A); border-radius: 4px; transition: width .6s"></div></div></div>
+<div style="width: 260px; max-width: 100%"><div style="height: 8px; border-radius: 4px; background: #EFE5DA; overflow: hidden"><div style="height: 8px; width: {{pct}}; background: linear-gradient(90deg, #7D1238, #5E0D2A); border-radius: 4px; transition: width .6s"></div></div></div>
 </div>
 
 <div class="drop" style="padding: 34px; text-align: center">

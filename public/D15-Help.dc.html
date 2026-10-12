@@ -18,9 +18,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#B8304F}
+a{color:#7D1238}a:hover{color:#7D1238}
 .fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-.wm{background:linear-gradient(95deg,#9E1046,#C7323F 45%,#C4661A 70%,#9E1046);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
+.wm{background:linear-gradient(95deg,#7D1238,#5E0D2A 50%,#7D1238);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
 @keyframes sheen{50%{background-position:100% 0}}
 .eyb{font-size:13px;font-weight:700;color:#7D1238;margin:0}
 .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:999px;font:700 15px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s,background .35s,color .35s;isolation:isolate}
@@ -34,7 +34,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .nlk{position:relative;color:#1F1418;text-decoration:none;padding:6px 0;font-weight:600;font-size:15px}
 .nlk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:#7D1238;transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .nlk:hover{color:#7D1238}.nlk:hover::after,.nlk.on::after{transform:scaleX(1);transform-origin:left}.nlk.on{color:#7D1238}
-.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#9E1046,#C7323F,#C4661A);transform-origin:left;transform:scaleX(0)}
+.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#7D1238,#5E0D2A);transform-origin:left;transform:scaleX(0)}
 .inp{width:100%;min-height:54px;border:1.5px solid #E7DDD4;border-radius:14px;padding:0 16px;font:500 16px Manrope,sans-serif;background:#fff;color:#1F1418;transition:border-color .3s,box-shadow .3s}
 .inp:hover{border-color:#CBB8AD}.inp:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12)}
 textarea.inp{padding:14px 16px;min-height:130px;resize:vertical}
@@ -87,7 +87,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 .ch:hover .ic{transform:rotate(-8deg) scale(1.1)}
 .err{color:#A3123F;font-size:13px;font-weight:700;margin-top:6px;animation:shake .4s}
 @keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
-.inp.bad{border-color:#A3123F;background:#FFF6F8}
+.inp.bad{border-color:#A3123F;background:#F5E4DF}
 .sent{animation:okpop .8s cubic-bezier(.3,1.7,.5,1) both}@keyframes okpop{from{transform:scale(.6);opacity:0}}
 .pol{background:#fff;border:1px solid #E7DDD4;border-radius:22px;padding:26px}
 mark{background:#F5E4DF;color:#7D1238;border-radius:4px;padding:0 2px}
@@ -106,7 +106,7 @@ mark{background:#F5E4DF;color:#7D1238;border-radius:4px;padding:0 2px}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 
@@ -158,7 +158,7 @@ mark{background:#F5E4DF;color:#7D1238;border-radius:4px;padding:0 2px}
 <h2 class="fr" style="font-size: 56px; line-height: 1; font-weight: 400; margin: 0"><span class="rvl"><span>Talk to</span></span><span class="rvl"><span><em style="color: #7D1238">the sisters.</em></span></span></h2>
 <p class="rv" style="color: #5C4B50; font-size: 17px; line-height: 1.7; margin: 18px 0 30px">No bots, no call centre — every message is answered by Tazmeen or Rameen.</p>
 <div class="stg" style="display: grid; gap: 12px">
-<a class="ch" href="#cn"><span class="ic" style="background: #E4F1EA"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#2B6B55" stroke-width="1.8"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"></path></svg></span><span><b>WhatsApp</b><br><span style="font-size: 14px; color: #6B5A5F">We reply on WhatsApp · fastest reply</span></span></a>
+<a class="ch" href="#cn"><span class="ic" style="background: #F5E4DF"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7D1238" stroke-width="1.8"><path d="M4 20l1.3-4A8 8 0 1 1 8 18.7z"></path></svg></span><span><b>WhatsApp</b><br><span style="font-size: 14px; color: #6B5A5F">We reply on WhatsApp · fastest reply</span></span></a>
 <a class="ch" href="https://instagram.com/milesretold"><span class="ic" style="background: #F5E4DF"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#7D1238" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle></svg></span><span><b>Instagram DM</b><br><span style="font-size: 14px; color: #6B5A5F">@milesretold · send “BOOK”</span></span></a>
 </div>
 </div>

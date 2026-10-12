@@ -23,9 +23,9 @@ a{color:#F2B880}a:hover{color:#fff}
 .btn{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:12px;font:700 14px Manrope,sans-serif;cursor:pointer;text-decoration:none;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .25s}
 .btn:focus-visible{outline:2px solid #F2B880;outline-offset:2px}
 .bp{background:#F2B880;color:#1F1418}.bp:hover{color:#1F1418;transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(242,184,128,.7)}
-.bg{border:1px solid rgba(255,255,255,.2);color:#F6EDE7}.bg:hover{color:#fff;border-color:#fff}
+.bg{border:1px solid rgba(255,255,255,.2);color:#FFF6F0}.bg:hover{color:#fff;border-color:#fff}
 .bw{background:#7D1238;color:#FFF6F0}.bw:hover{background:#5E0D2A;color:#FFF6F0}
-.rd{all:unset;cursor:pointer;padding:8px 14px;border-radius:10px;font-weight:700;font-size:13px;color:#CDBCB4}.rd.on{background:rgba(255,255,255,.12);color:#fff}
+.rd{all:unset;cursor:pointer;padding:8px 14px;border-radius:10px;font-weight:700;font-size:13px;color:#CBB8AD}.rd.on{background:rgba(255,255,255,.12);color:#fff}
 .rd:focus-visible{outline:2px solid #F2B880}
 .pin{all:unset;cursor:pointer;position:absolute;width:32px;height:32px;border-radius:50% 50% 50% 4px;display:grid;place-items:center;font:800 13px Manrope,sans-serif;color:#fff;transform:translate(-50%,-100%) rotate(0deg);box-shadow:0 6px 16px -4px rgba(0,0,0,.6);transition:transform .35s cubic-bezier(.3,1.6,.5,1)}
 .pin:hover,.pin.on{transform:translate(-50%,-100%) scale(1.2)}
@@ -59,7 +59,7 @@ a{color:#F2B880}a:hover{color:#fff}
 /* END MOBILE TYPE SCALE */
 </style>
 </helmet>
-<div style="position: relative; font-family: Manrope, sans-serif; color: #F6EDE7; background: #2A1D22; width: 100%; min-height: 100vh; min-height: 100svh">
+<div style="position: relative; font-family: Manrope, sans-serif; color: #FFF6F0; background: #2A1D22; width: 100%; min-height: 100vh; min-height: 100svh">
 <!--chrome:header-->
 <header class="sh sh--dark" data-chrome="header">
 <div class="sh-in">
@@ -81,7 +81,7 @@ a{color:#F2B880}a:hover{color:#fff}
 <section class="sh-sub" aria-label="Proof tools" style="border-bottom: 1px solid rgba(255,255,255,.1)">
 <div class="pad" style="max-width: 1440px; margin: 0 auto; padding: 14px 28px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap">
 <a class="btn bg" href="D5-Portal.dc.html" aria-label="Back to my account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg></a>
-<div style="flex: 1; min-width: 200px"><h1 class="fr" style="font-size: 22px; font-weight: 400; margin: 0">Honeymoon · Maldives</h1><div style="font-size: 13px; color: #CDBCB4"><span class="mono">MR-1042</span> · 40 pages · shared 2 Oct</div></div>
+<div style="flex: 1; min-width: 200px"><h1 class="fr" style="font-size: 22px; font-weight: 400; margin: 0">Honeymoon · Maldives</h1><div style="font-size: 13px; color: #CBB8AD"><span class="mono">MR-1042</span> · 40 pages · shared 2 Oct</div></div>
 <div style="display: flex; gap: 4px; background: rgba(255,255,255,.06); padding: 4px; border-radius: 12px" role="group" aria-label="Proof round">
 <sc-for list="{{rounds}}" as="r" hint-placeholder-count="2"><button class="{{r.cls}}" onClick="{{r.pick}}">{{r.name}}</button></sc-for>
 </div>
@@ -92,8 +92,8 @@ a{color:#F2B880}a:hover{color:#fff}
 <main style="display: contents"><div class="pad stack" style="max-width: 1440px; margin: 0 auto; padding: 26px 28px 40px; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; align-items: start">
 <section>
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 12px; flex-wrap: wrap">
-<span style="font-size: 14px; color: #CDBCB4">Spread {{spreadNo}} of 20 · pages {{pageNos}}</span>
-<span style="font-size: 13px; color: #CDBCB4">Click anywhere on a page to pin a comment</span>
+<span style="font-size: 14px; color: #CBB8AD">Spread {{spreadNo}} of 20 · pages {{pageNos}}</span>
+<span style="font-size: 13px; color: #CBB8AD">Click anywhere on a page to pin a comment</span>
 </div>
 <div style="position: relative; display: flex; align-items: center; gap: 14px">
 <button class="btn bg" onClick="{{prev}}" aria-label="Previous spread"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6"></path></svg></button>
@@ -189,7 +189,7 @@ class Component extends DCLogic {
     const vis = C.filter((c) => c.r <= st.round);
     const pinsHere = vis.filter((c) => c.sp === st.sp);
     const isFixed = (c) => st.round === 2 && c.r === 1;
-    const color = (c) => isFixed(c) ? '#2B6B55' : '#B8304F';
+    const color = (c) => isFixed(c) ? '#2B6B55' : '#7D1238';
     const go = (to, d) => { if (to === st.sp) return; set({ sp: to, from: st.sp, dir: d || (to > st.sp ? 1 : -1), n: st.n + 1 }); };
     const F = S[st.from], T = S[st.sp];
     const leaf = st.dir === 0 ? { show: false } : (st.dir > 0

@@ -18,14 +18,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&amp;family=Manrope:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#B8304F}
+a{color:#7D1238}a:hover{color:#7D1238}
 .fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
 .eyb{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:#7D1238}
-.wm{background:linear-gradient(95deg,#9E1046,#C7323F 50%,#C4661A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wm{background:linear-gradient(90deg,#7D1238,#5E0D2A);-webkit-background-clip:text;background-clip:text;color:transparent}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:12px;font:600 15px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .25s}
 .bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A;color:#FFF6F0;transform:translateY(-2px);box-shadow:0 14px 30px -14px rgba(125,18,56,.6)}
 .opt{all:unset;box-sizing:border-box;cursor:pointer;background:#fff;border:1.5px solid #E7DDD4;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px;transition:border-color .25s,box-shadow .35s,transform .35s;min-height:44px}
-.opt:hover{border-color:#B9A7A0;transform:translateY(-2px)}
+.opt:hover{border-color:#CBB8AD;transform:translateY(-2px)}
 .opt:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
 .opt.on{border-color:#7D1238;box-shadow:0 0 0 3px rgba(125,18,56,.12)}
 .sw{all:unset;cursor:pointer;width:48px;height:48px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 1.5px #E7DDD4;transition:box-shadow .25s,transform .25s}
@@ -33,7 +33,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .sw:focus-visible{outline:2px solid #7D1238;outline-offset:3px}
 .stp{all:unset;cursor:pointer;width:44px;height:44px;border-radius:12px;border:1px solid #E7DDD4;background:#fff;display:grid;place-items:center;font-size:20px}
 .stp:hover{border-color:#1F1418}
-.tg{all:unset;cursor:pointer;width:48px;height:28px;border-radius:14px;background:#D9CCC3;position:relative;transition:background .25s;flex:none}
+.tg{all:unset;cursor:pointer;width:48px;height:28px;border-radius:14px;background:#CBB8AD;position:relative;transition:background .25s;flex:none}
 .tg::after{content:"";position:absolute;left:3px;top:3px;width:22px;height:22px;border-radius:50%;background:#fff;transition:left .3s cubic-bezier(.2,.8,.2,1)}
 .tg.on{background:#7D1238}.tg.on::after{left:23px}
 .tg:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
@@ -70,7 +70,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 </style>
@@ -153,7 +153,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 <button class="stp" onClick="{{lessPages}}" aria-label="Fewer pages">−</button>
 <div style="min-width: 120px; text-align: center"><div class="fr pop" key="{{pagesKey}}" style="font-size: 34px; line-height: 1">{{pages}}</div><div style="font-size: 12px; color: #6B5A5F">pages · about {{photos}} photos</div></div>
 <button class="stp" onClick="{{morePages}}" aria-label="More pages">+</button>
-<div style="flex: 1; min-width: 200px; height: 8px; background: #EFE5DA; border-radius: 4px; overflow: hidden"><div style="height: 8px; width: {{pagesPct}}; background: linear-gradient(90deg, #9E1046, #C4661A); border-radius: 4px; transition: width .5s cubic-bezier(.2,.8,.2,1)"></div></div>
+<div style="flex: 1; min-width: 200px; height: 8px; background: #EFE5DA; border-radius: 4px; overflow: hidden"><div style="height: 8px; width: {{pagesPct}}; background: linear-gradient(90deg, #7D1238, #5E0D2A); border-radius: 4px; transition: width .5s cubic-bezier(.2,.8,.2,1)"></div></div>
 </div>
 </section>
 
@@ -169,13 +169,13 @@ a{color:#7D1238}a:hover{color:#B8304F}
 
 <!-- summary -->
 <aside class="sticky" style="position: sticky; top: 24px; background: #fff; border: 1px solid #E7DDD4; border-radius: 24px; overflow: hidden">
-<div onMouseMove="{{onTilt}}" onMouseLeave="{{onLeave}}" style="background: radial-gradient(circle at 50% 38%, #FBF5EE, #E4D5C6); padding: 28px 24px 22px; display: flex; flex-direction: column; align-items: center; gap: 14px; perspective: 1500px">
+<div onMouseMove="{{onTilt}}" onMouseLeave="{{onLeave}}" style="background: radial-gradient(circle at 50% 38%, #FBF7F1, #E4D5C6); padding: 28px 24px 22px; display: flex; flex-direction: column; align-items: center; gap: 14px; perspective: 1500px">
 <div style="height: 360px; width: 100%; display: grid; place-items: center">
 <div class="idle">
 <div class="b3" style="width: {{bw}}; height: {{bh}}; transform: rotateX({{rx}}) rotateY({{ry}})">
 <div class="b3f" style="left: {{spL}}; top: 0; width: {{bt}}; height: {{bh}}; background: {{coverHex}}; filter: brightness(.82); border-radius: 3px; transform: rotateY(-90deg) translateZ({{halfW}})"></div>
-<div class="b3f" style="left: {{spL}}; top: 3px; width: {{bt}}; height: {{bhIn}}; background: repeating-linear-gradient(90deg, #FBF7F0 0 2px, #E3D9CC 2px 3px); transform: rotateY(90deg) translateZ({{halfWin}})"></div>
-<div class="b3f" style="left: 3px; top: {{tpT}}; width: {{bwIn}}; height: {{bt}}; background: repeating-linear-gradient(0deg, #FBF7F0 0 2px, #E3D9CC 2px 3px); transform: rotateX(90deg) translateZ({{halfHin}})"></div>
+<div class="b3f" style="left: {{spL}}; top: 3px; width: {{bt}}; height: {{bhIn}}; background: repeating-linear-gradient(90deg, #FBF7F1 0 2px, #E7DDD4 2px 3px); transform: rotateY(90deg) translateZ({{halfWin}})"></div>
+<div class="b3f" style="left: 3px; top: {{tpT}}; width: {{bwIn}}; height: {{bt}}; background: repeating-linear-gradient(0deg, #FBF7F1 0 2px, #E7DDD4 2px 3px); transform: rotateX(90deg) translateZ({{halfHin}})"></div>
 <div class="b3f" style="inset: 0; background: {{coverHex}}; border-radius: 8px 3px 3px 8px; transform: rotateY(180deg) translateZ({{halfT}}); box-shadow: 0 30px 50px -20px rgba(31,20,24,.5)"></div>
 <div class="b3f" style="left: 0; top: 3px; right: 3px; bottom: 3px; background: #FBF7F1; transform: translateZ({{pageZ}}); padding: 9%; display: flex; flex-direction: column; gap: 8px"><img src="/assets/2523c5562a95c13a7e6113539f573d2d.jpg" alt="" style="width: 100%; flex: 1; min-height: 0; object-fit: cover; display: block"><div class="fr" style="font-size: 12px; font-style: italic; color: #1F1418">Page one of your story.</div></div>
 <div class="b3f hinge" style="inset: 0; transform-origin: left center; transform-style: preserve-3d; transform: translateZ({{halfT}}) rotateY({{openDeg}})">
@@ -197,7 +197,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 <div style="display: grid; gap: 10px; margin-top: 20px; font-size: 14px">
 <sc-for list="{{lines}}" as="l" hint-placeholder-count="3"><div style="display: flex; justify-content: space-between"><span style="color: #6B5A5F">{{l.label}}</span><span>{{l.amt}}</span></div></sc-for>
 </div>
-<div style="border-top: 1px dashed #D9CCC3; margin: 18px 0; padding-top: 16px; display: flex; justify-content: space-between; align-items: baseline"><span style="font-weight: 700">Total</span><span class="fr roll" style="font-size: 30px"><span key="{{totalKey}}">{{total}}</span></span></div>
+<div style="border-top: 1px dashed #CBB8AD; margin: 18px 0; padding-top: 16px; display: flex; justify-content: space-between; align-items: baseline"><span style="font-weight: 700">Total</span><span class="fr roll" style="font-size: 30px"><span key="{{totalKey}}">{{total}}</span></span></div>
 <div style="background: #F5E4DF; border-radius: 14px; padding: 14px 16px; display: flex; justify-content: space-between; align-items: center"><span style="font-size: 14px"><b>Pay today (50%)</b><br><span style="color: #6B5A5F; font-size: 13px">Balance after you approve</span></span><b class="roll" style="font-size: 20px; color: #7D1238"><span key="{{depKey}}">{{deposit}}</span></b></div>
 <a class="btn bp" href="D19-Cart.dc.html" style="width: 100%; margin-top: 18px">Add to cart</a>
 <p style="font-size: 12px; color: #6B5A5F; text-align: center; margin: 12px 0 0">Shipping calculated at checkout · VAT included (KSA)</p>

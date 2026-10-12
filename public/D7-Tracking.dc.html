@@ -18,9 +18,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
 <style>
 body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#B8304F}
+a{color:#7D1238}a:hover{color:#7D1238}
 .fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
-.wm{background:linear-gradient(95deg,#9E1046,#C7323F 50%,#C4661A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wm{background:linear-gradient(90deg,#7D1238,#5E0D2A);-webkit-background-clip:text;background-clip:text;color:transparent}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 20px;border-radius:12px;font:700 14px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),background .25s}
 .bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A;color:#FFF6F0;transform:translateY(-2px)}
 .bs{background:#fff;color:#1F1418;border:1px solid #E7DDD4}.bs:hover{border-color:#1F1418;color:#1F1418}
@@ -29,7 +29,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 .inp:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 3px rgba(125,18,56,.12)}
 .inp.bad{border-color:#A3123F}
 .lk label{display:block;font-size:13px;font-weight:700;margin:0 0 6px}
-.ring{animation:ring 2s infinite}@keyframes ring{0%{box-shadow:0 0 0 0 rgba(184,48,79,.45)}70%{box-shadow:0 0 0 14px rgba(184,48,79,0)}100%{box-shadow:0 0 0 0 rgba(184,48,79,0)}}
+.ring{animation:ring 2s infinite}@keyframes ring{0%{box-shadow:0 0 0 0 rgba(125,18,56,.45)}70%{box-shadow:0 0 0 14px rgba(125,18,56,0)}100%{box-shadow:0 0 0 0 rgba(125,18,56,0)}}
 .ev{animation:ev .7s cubic-bezier(.2,.8,.2,1) both}@keyframes ev{from{opacity:0;transform:translateX(-14px)}to{opacity:1;transform:none}}
 .van{animation:van 3.5s ease-in-out infinite alternate}@keyframes van{from{left:0%}to{left:calc(100% - 44px)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
@@ -47,7 +47,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 </style>
@@ -105,7 +105,7 @@ a{color:#7D1238}a:hover{color:#B8304F}
 <div class="box" style="margin-top: 28px; padding: 24px 28px">
 <div style="display: flex; justify-content: space-between; font-size: 13px; color: #6B5A5F; font-weight: 700"><span>Studio · Riyadh</span><span>You · Riyadh</span></div>
 <div style="position: relative; height: 44px; margin-top: 12px"><div style="position: absolute; left: 0; right: 0; top: 21px; border-top: 2px dashed #CBB8AD"></div><div class="van" style="position: absolute; top: 0; width: 44px; height: 44px; border-radius: 50%; background: #7D1238; display: grid; place-items: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"></path><circle cx="7" cy="18" r="2"></circle><circle cx="17" cy="18" r="2"></circle></svg></div></div>
-<div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 18px; padding-top: 18px; border-top: 1px solid #F0E8E1"><span style="font-size: 14px">Courier <b>SMSA Express</b> · tracking no. <span class="mono">SM 4417 8821 05</span></span><span style="flex: 1"></span><a class="btn bs" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Reschedule delivery</a><a class="btn bs" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Open courier site</a></div>
+<div style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 18px; padding-top: 18px; border-top: 1px solid #E7DDD4"><span style="font-size: 14px">Courier <b>SMSA Express</b> · tracking no. <span class="mono">SM 4417 8821 05</span></span><span style="flex: 1"></span><a class="btn bs" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Reschedule delivery</a><a class="btn bs" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Open courier site</a></div>
 </div>
 </sc-if>
 
@@ -185,7 +185,7 @@ class Component extends DCLogic {
     const events = E.map((e, i) => {
       const done = i < at || (i === at && i === E.length - 1), cur = i === at;
       return { ...e, done, when: i <= at ? e.when : 'Pending', cta: cur ? (e.cta || '') : '', href: e.href || '#',
-        dot: done ? '#2B6B55' : (cur ? '#B8304F' : '#fff'), ring: done ? '#2B6B55' : (cur ? '#B8304F' : '#D9CCC3'),
+        dot: done ? '#2B6B55' : (cur ? '#7D1238' : '#fff'), ring: done ? '#2B6B55' : (cur ? '#7D1238' : '#CBB8AD'),
         dotCls: cur && !done ? 'ring' : '', line: i < at ? '#2B6B55' : '#E7DDD4', tc: i <= at ? '#1F1418' : '#6B5A5F', delay: (i * 0.07) + 's' };
     });
     const cur = E[at];
