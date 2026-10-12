@@ -9,6 +9,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   article.card button:not([class]){padding-block:12px!important;margin-block:-12px!important}
 }
 
+/* Very narrow screens: a fixed inline minimum must never be wider than its container. */
+@media (max-width:420px){
+  [style*="min-width: 240px"],[style*="min-width:240px"]{min-width:min(240px,100%)!important}
+  [style*="min-width: 260px"],[style*="min-width:260px"]{min-width:min(260px,100%)!important}
+  [style*="min-width: 200px"],[style*="min-width:200px"]{min-width:min(200px,100%)!important}
+  .tabs{overflow-x:auto}
+}
+
 /* Respect reduced-motion settings across all page animations */
 @media (prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
@@ -19,3 +27,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media (prefers-reduced-motion:reduce){
   .cnt{animation:cnt .01ms both!important}
 }
+
+/* Shared "Removed · Undo" bar: destructive removals are undoable instead of asking for confirmation. */
+.undo-bar{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:12px 18px;border-radius:14px;background:#1F1418;color:#FFF6F0;font-size:14px;line-height:1.4}
+.undo-bar button{all:unset;cursor:pointer;font-weight:800;color:#F2B880;text-decoration:underline;text-underline-offset:3px;padding:6px 4px;min-height:24px}
+.undo-bar button:focus-visible{outline:2px solid #F2B880;outline-offset:2px;border-radius:4px}

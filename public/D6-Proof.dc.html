@@ -51,7 +51,7 @@ a{color:#F2B880}a:hover{color:#fff}
 .tn{transition:opacity .3s,transform .5s cubic-bezier(.16,1,.3,1)}.tn:hover{transform:translateY(-4px)}
 .bp{position:relative;overflow:hidden}.bp::after{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.5) 50%,transparent 65%);transform:translateX(-120%);animation:shine 3.2s ease-in-out 1.5s infinite}@keyframes shine{60%,100%{transform:translateX(120%)}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
-@media (max-width:900px){.stack{grid-template-columns:1fr!important}.pad{padding-left:16px!important;padding-right:16px!important}}
+@media (max-width:900px){.stack{grid-template-columns:minmax(0,1fr)!important}.pad{padding-left:16px!important;padding-right:16px!important}}
 /* MOBILE TYPE SCALE */
 @media (max-width:600px){[style*="font-size: 18px"]{font-size:16px!important}[style*="font-size: 22px"]{font-size:20px!important}[style*="font-size: 28px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 30px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}h1{line-height:1.04!important;letter-spacing:-.01em}h2,h3{line-height:1.1!important}p,li,figcaption,label{overflow-wrap:anywhere}}
 /* END MOBILE TYPE SCALE */
@@ -69,7 +69,7 @@ a{color:#F2B880}a:hover{color:#fff}
 </div>
 </header>
 
-<div class="pad stack" style="max-width: 1440px; margin: 0 auto; padding: 26px 28px 40px; display: grid; grid-template-columns: 1fr 360px; gap: 24px; align-items: start">
+<main style="display: contents"><div class="pad stack" style="max-width: 1440px; margin: 0 auto; padding: 26px 28px 40px; display: grid; grid-template-columns: minmax(0, 1fr) 360px; gap: 24px; align-items: start">
 <section>
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; gap: 12px; flex-wrap: wrap">
 <span style="font-size: 14px; color: #CDBCB4">Spread {{spreadNo}} of 20 · pages {{pageNos}}</span>
@@ -77,7 +77,7 @@ a{color:#F2B880}a:hover{color:#fff}
 </div>
 <div style="position: relative; display: flex; align-items: center; gap: 14px">
 <button class="btn bg" onClick="{{prev}}" aria-label="Previous spread"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M15 6l-6 6 6 6"></path></svg></button>
-<div style="flex: 1; position: relative; aspect-ratio: 2 / 1.25; display: grid; grid-template-columns: 1fr 1fr; background: #FBF7F1; border-radius: 6px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); perspective: 2600px; transform-style: preserve-3d">
+<div style="flex: 1; min-width: 0; position: relative; aspect-ratio: 2 / 1.25; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); background: #FBF7F1; border-radius: 6px; box-shadow: 0 40px 80px -30px rgba(0,0,0,.8); perspective: 2600px; transform-style: preserve-3d">
 <div style="position: absolute; left: 50%; top: 0; bottom: 0; width: 40px; translate: -50% 0; background: linear-gradient(90deg, rgba(0,0,0,0), rgba(0,0,0,.12) 48%, rgba(0,0,0,.18) 50%, rgba(0,0,0,.12) 52%, rgba(0,0,0,0)); z-index: 2"></div>
 <div style="padding: 6%; display: flex; flex-direction: column; gap: 4%"><img src="{{sp.left}}" alt="Left page photo" style="width: 100%; flex: 1; min-height: 0; object-fit: cover; display: block"><div class="fr" style="color: #1F1418; font-size: 18px; font-style: italic">{{sp.caption}}</div></div>
 <div style="padding: 6% 6% 6% 4%"><img src="{{sp.right}}" alt="Right page photo" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
@@ -125,7 +125,7 @@ a{color:#F2B880}a:hover{color:#fff}
 <div style="display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap"><a class="btn bw" href="D20-Balance.dc.html" style="flex: 1">Approve &amp; pay SAR 160</a><button class="btn" onClick="{{closeApprove}}" style="border: 1px solid #E7DDD4; color: #1F1418">Keep reviewing</button></div>
 </div>
 </div>
-</sc-if>
+</sc-if></main>
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":1080}}'>

@@ -19,7 +19,7 @@ body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 .lbl{font-size:13px;font-weight:800;color:#7D1238;margin:0 0 16px}
 .sw{border-radius:18px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;min-height:150px;transition:transform .7s cubic-bezier(.16,1,.3,1),box-shadow .7s;animation:sw .9s cubic-bezier(.16,1,.3,1) both}
 .sw:hover{transform:translateY(-6px);box-shadow:0 26px 40px -26px rgba(60,20,30,.55)}
-.sw b{font-size:15px}.sw .mono{font-size:12px;opacity:.85;margin-top:3px}.sw small{font-size:12px;opacity:.8;margin-top:6px;line-height:1.4}
+.sw b{font-size:15px}.sw .mono{font-size:12px;opacity:.85;margin-top:3px}.sw.saf .mono,.sw.saf small{opacity:1}.sw small{font-size:12px;opacity:.92;margin-top:6px;line-height:1.4}
 @keyframes sw{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}
 .n{display:flex;align-items:center;gap:12px;font-size:13px}.n i{width:40px;height:40px;border-radius:12px;flex:none}
 .n b{display:block;font-size:14px}.n .mono{font-size:11px;color:#6B5A5F}
@@ -32,7 +32,7 @@ body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
 </helmet>
-<div style="width:1440px;height:990px;padding:60px 64px;background:#F6F1EA;font-family:Manrope,sans-serif;color:#1F1418;display:flex;flex-direction:column;gap:24px">
+<main data-artboard tabindex="0" aria-label="Colour palette sheet, scrolls sideways" style="max-width: 100%; overflow-x: auto"><div style="width:1440px;height:990px;padding:60px 64px;background:#F6F1EA;font-family:Manrope,sans-serif;color:#1F1418;display:flex;flex-direction:column;gap:24px">
 
 <div style="display:flex;justify-content:space-between;align-items:flex-end;gap:40px">
 <div><p class="lbl" style="margin:0">Colour system</p><h1 class="fr" style="font-size:56px;font-weight:400;margin:8px 0 0;line-height:1">Wine &amp; Saffron <i style="color:#7D1238">— refined</i></h1></div>
@@ -47,7 +47,7 @@ body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 <div class="sw" style="background:#7D1238;color:#FFF6F0"><b>Wine</b><span class="mono">#7D1238</span><small>Primary buttons, links, headings accent</small></div>
 <div class="sw" style="background:#5E0D2A;color:#FFF6F0;animation-delay:.06s"><b>Deep wine</b><span class="mono">#5E0D2A</span><small>Hover, dark bands</small></div>
 <div class="sw" style="background:#B8304F;color:#fff;animation-delay:.12s"><b>Rose</b><span class="mono">#B8304F</span><small>Live states, focus</small></div>
-<div class="sw" style="background:#C4661A;color:#fff;animation-delay:.18s"><b>Saffron</b><span class="mono">#C4661A</span><small>Stars, highlights</small></div>
+<div class="sw saf" style="background:#C4661A;color:#120A0D;animation-delay:.18s"><b>Saffron</b><span class="mono">#C4661A</span><small>Stars, highlights</small></div>
 <div class="sw" style="background:#F2B880;color:#1F1418;animation-delay:.24s"><b>Peach</b><span class="mono">#F2B880</span><small>Text on dark, gifts</small></div>
 </div>
 <div class="grad" style="margin-top:14px"><div style="position:absolute;left:20px;bottom:16px;color:#FFF6F0"><b>Signature gradient</b> <span class="mono" style="font-size:12px;opacity:.85">#9E1046 → #C7323F → #C4661A</span></div><div style="position:absolute;right:20px;bottom:12px;color:#FFF6F0" class="fr"><span style="font-size:40px;font-weight:500">MiLes</span></div></div>
@@ -58,7 +58,7 @@ body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px 14px">
 <div class="n"><i style="background:#1F1418"></i><div><b>Ink</b><span class="mono">#1F1418</span></div></div>
 <div class="n"><i style="background:#6B5A5F"></i><div><b>Text 2</b><span class="mono">#6B5A5F</span></div></div>
-<div class="n"><i style="background:#786669"></i><div><b>Muted</b><span class="mono">#786669</span></div></div>
+<div class="n"><i style="background:#5C4B50"></i><div><b>Muted</b><span class="mono">#5C4B50</span></div></div>
 <div class="n"><i style="background:#CDBCB4"></i><div><b>Stone</b><span class="mono">#CDBCB4</span></div></div>
 <div class="n"><i style="background:#E7DDD4"></i><div><b>Line</b><span class="mono">#E7DDD4</span></div></div>
 <div class="n"><i style="background:#EFE5DA"></i><div><b>Sand</b><span class="mono">#EFE5DA</span></div></div>
@@ -78,7 +78,7 @@ body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 <div style="display:flex;flex-direction:column;gap:24px">
 <div class="card">
 <p class="lbl">Balance on a page</p>
-<div class="bar"><span style="flex:60;background:#F6F1EA;color:#6B5A5F;box-shadow:inset 0 0 0 1px #E7DDD4">Ivory &amp; paper 60</span><span style="flex:22;background:#1F1418;color:#FFF6F0">Ink 22</span><span style="flex:12;background:#7D1238;color:#FFF6F0">Wine 12</span><span style="flex:6;background:#C4661A;color:#fff">6</span></div>
+<div class="bar"><span style="flex:60;background:#F6F1EA;color:#6B5A5F;box-shadow:inset 0 0 0 1px #E7DDD4">Ivory &amp; paper 60</span><span style="flex:22;background:#1F1418;color:#FFF6F0">Ink 22</span><span style="flex:12;background:#7D1238;color:#FFF6F0">Wine 12</span><span style="flex:6;background:#C4661A;color:#120A0D">6</span></div>
 <p style="font-size:13px;color:#6B5A5F;line-height:1.6;margin:12px 0 0">Saffron and rose are seasoning: stars, live dots, one highlight per screen. Wine carries every action.</p>
 </div>
 
@@ -87,7 +87,7 @@ body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
 <div class="pair" style="background:#F6F1EA;color:#1F1418;box-shadow:inset 0 0 0 1px #E7DDD4">Ink on ivory <span style="background:#E7DDD4">16.0 AAA</span></div>
 <div class="pair" style="background:#F6F1EA;color:#6B5A5F;box-shadow:inset 0 0 0 1px #E7DDD4">Text 2 on ivory <span style="background:#E7DDD4">5.7 AA</span></div>
-<div class="pair" style="background:#F6F1EA;color:#786669;box-shadow:inset 0 0 0 1px #E7DDD4">Muted on ivory <span style="background:#E7DDD4">4.8 AA</span></div>
+<div class="pair" style="background:#F6F1EA;color:#5C4B50;box-shadow:inset 0 0 0 1px #E7DDD4">Muted on ivory <span style="background:#E7DDD4">4.8 AA</span></div>
 <div class="pair" style="background:#F6F1EA;color:#7D1238;box-shadow:inset 0 0 0 1px #E7DDD4">Wine on ivory <span style="background:#E7DDD4">9.3 AAA</span></div>
 <div class="pair" style="background:#7D1238;color:#FFF6F0">Paper on wine <span>9.8 AAA</span></div>
 <div class="pair" style="background:#5E0D2A;color:#F2B880">Peach on deep wine <span>7.6 AAA</span></div>
@@ -99,14 +99,14 @@ body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
 <ul style="margin:10px 0 0;padding-left:18px;font-size:13px;color:#5C4B50;line-height:1.7">
 <li>Hot pink <span class="mono">#C2185B</span> → warmer rose <span class="mono">#B8304F</span>, so it sits with wine instead of fighting it.</li>
 <li>Three slightly different gradients → one accent gradient; the logo itself stays one colour.</li>
-<li>Muted grey <span class="mono">#9A8A8E</span> (2.9:1, failed) → <span class="mono">#786669</span> (4.8:1).</li>
+<li>Muted grey <span class="mono">#9A8A8E</span> (2.9:1, failed) → <span class="mono">#5C4B50</span> (4.8:1).</li>
 <li>Success green → deeper jade; pink blush → warmer blush.</li>
 </ul>
 </div>
 </div>
 </div>
 </div>
-</div>
+</div></main>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":990}}'>
 class Component extends DCLogic {
