@@ -1,0 +1,329 @@
+/* Studio (D8-*) shared mobile layer, stamped into every studio page by scripts/sync-studio.mjs.
+   Loaded after /site.css. Page-level <style> blocks are injected later by the x-dc runtime, so rules here that must beat a page's own
+   class rule carry a `body` prefix. Colours, radii and shadows come from the tokens in site.css only (DESIGN-RULES.md); spacing is on the
+   8px grid (8 / 12 / 16 / 24 / 32 / 48). Every rule sits in a phone/tablet media query, so above 900px the studio is the page's own layout.
+   1. mobile chrome: sticky top bar + the page's own `.rail` as a slide-in drawer (behaviour in /studio.js)
+   2. shared phone fixes for the patterns every studio page repeats
+   3. per-page-family fixes (pipeline, stage pages, order page, print queue, reports, calendar)                              */
+
+/* ================= 1. mobile chrome ================= */
+.st-bar, .st-scrim, .st-close { display: none; }
+
+@keyframes st-in  { from { transform: translateX(-100%); } to { transform: none; } }
+@keyframes st-out { from { transform: none; } to { transform: translateX(-100%); } }
+@keyframes st-fade-in  { from { opacity: 0; } to { opacity: 1; } }
+@keyframes st-fade-out { from { opacity: 1; } to { opacity: 0; } }
+
+@media (max-width: 900px) {
+  /* the runtime pins html/body to 100% height, which would end a sticky bar's range after one screen */
+  html body { height: auto; min-height: 100%; }
+  html.st-lock, html.st-lock body { overflow: hidden; }
+
+  .st-bar {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; gap: 12px;
+    min-height: 64px; padding: 8px 8px 8px 16px;
+    background: var(--ink); color: var(--on-accent);
+    border-bottom: 1px solid color-mix(in srgb, var(--on-accent) 12%, transparent);
+    box-shadow: var(--shadow-sm);
+    font-family: Manrope, system-ui, sans-serif;
+  }
+  .st-logo, .st-menu, .st-close {
+    box-sizing: border-box; flex: none; place-items: center;
+    width: 44px; height: 44px; padding: 0; border: 0; border-radius: var(--r-md);
+    color: var(--on-accent); background: none; text-decoration: none; cursor: pointer; font: inherit;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .st-logo, .st-menu { display: grid; }
+  .st-logo svg { display: block; }
+  .st-menu:hover, .st-close:hover { background: color-mix(in srgb, var(--on-accent) 12%, transparent); }
+  .st-logo:focus-visible, .st-menu:focus-visible, .st-close:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  .st-title { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 4px; }
+  .st-kick { font: 800 12px/1 Manrope, system-ui, sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--gold); }
+  .st-page { font: 500 20px/1.15 Fraunces, Georgia, serif; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+  .st-scrim {
+    position: fixed; inset: 0; z-index: 55; touch-action: none;
+    background: color-mix(in srgb, var(--ink) 55%, transparent);
+  }
+  body.st-open .st-scrim, body.st-closing .st-scrim { display: block; animation: st-fade-in .2s ease-out both; }
+  body.st-closing:not(.st-open) .st-scrim { animation: st-fade-out .18s ease-in both; }
+
+  /* the page's own sidebar, restyled in place as the drawer (overrides each page's `.rail{display:none!important}`) */
+  body.st-open aside.rail, body.st-closing aside.rail {
+    display: flex !important; flex-direction: column;
+    position: fixed; top: 0; bottom: 0; left: 0; z-index: 60;
+    width: min(86vw, 320px) !important; max-width: 100%; box-sizing: border-box;
+    padding: 16px 12px 0 !important; gap: 8px !important;
+    overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+    box-shadow: var(--shadow-lg);
+    animation: st-in .26s cubic-bezier(.16, 1, .3, 1) both;
+  }
+  body.st-closing:not(.st-open) aside.rail { animation: st-out .18s ease-in both; }
+  body.st-open .st-close, body.st-closing .st-close {
+    display: grid; position: fixed; z-index: 61; top: 12px; left: calc(min(86vw, 320px) - 56px);
+  }
+  body.st-closing:not(.st-open) .st-close { animation: st-fade-out .18s ease-in both; }
+
+  aside.rail > div:first-child { padding: 4px 12px 8px !important; }
+  aside.rail [style*="letter-spacing: .42em"] { font-size: 12px !important; }
+  aside.rail .rl { min-height: 44px; padding: 0 12px; font-size: 15px; }
+  aside.rail .rl svg { flex: none; }
+  aside.rail .rl[aria-current="page"] {
+    background: color-mix(in srgb, var(--on-accent) 12%, transparent); color: var(--on-accent);
+    box-shadow: inset 3px 0 0 var(--gold);
+  }
+  /* the hint card sits above Sign out; Sign out stays reachable on short screens */
+  aside.rail > div[style*="margin-top: auto"] { margin-top: 8px !important; }
+  aside.rail > a[href="D8-A9-SignIn.dc.html"] {
+    position: sticky; bottom: 0; margin-top: 8px !important;
+    padding-bottom: env(safe-area-inset-bottom); min-height: calc(52px + env(safe-area-inset-bottom));
+    background: var(--ink); border-radius: var(--r-md) var(--r-md) 0 0;
+    border-top: 1px solid color-mix(in srgb, var(--on-accent) 12%, transparent);
+  }
+}
+/* on short screens the hint card goes, so the links and Sign out fit without scrolling */
+@media (max-width: 900px) and (max-height: 900px) {
+  aside.rail > div[style*="margin-top: auto"] { display: none; }
+  aside.rail > a[href="D8-A9-SignIn.dc.html"] { margin-top: auto !important; }
+}
+
+/* a labelled form cell inside a table row: on desktop the wrapper disappears (the input is the grid cell, the column header names it) */
+.fld { display: contents; }
+.fld-l { display: none; }
+
+/* ================= 2. shared phone fixes ================= */
+
+/* single-column layouts: a side panel must never stay pinned once it sits under the list */
+@media (max-width: 1180px) {
+  .grid2 > aside[style*="position: sticky"], .side { position: static !important; }
+  body .grid2 { grid-template-columns: minmax(0, 1fr) !important; }
+  body .grid2 > * { min-width: 0; }
+  body .work { grid-template-columns: minmax(0, 1fr) !important; }
+  body .work > * { min-width: 0; }
+}
+
+/* ---- gutters + page header ---- */
+@media (max-width: 900px) {
+  body main[style*="display: contents"] > div { padding: 24px 24px 40px !important; }
+}
+@media (max-width: 600px) {
+  body main[style*="display: contents"] > div { padding: 16px 16px 32px !important; }
+  body h1.fr[style*="font-size: 40px"], body h1.fr[style*="font-size: 38px"] { font-size: clamp(26px, 7.6vw, 32px) !important; line-height: 1.08 !important; }
+  body .hd { align-items: flex-start; gap: 12px; }
+  body .hd > div { min-width: 0; }
+  body .sub { overflow-wrap: anywhere; }
+}
+
+/* ---- buttons: labels stay on one line; the row they sit in wraps instead ---- */
+@media (max-width: 900px) {
+  body .btn { white-space: nowrap; min-height: 44px; }
+  body .btn[style*="width: 100%"] { white-space: normal; text-align: center; padding-block: 8px; }
+  body .btn[style*="min-height: 28px"], body .btn[style*="min-height: 38px"], body .btn[style*="min-height: 40px"] { min-height: 44px !important; }
+  body .st-link, body .crumb { display: inline-flex; align-items: center; min-height: 44px; }
+  body .st-act { display: inline-flex !important; align-items: center; justify-content: center; min-height: 44px !important; padding-inline: 8px !important; }
+  body .btn[aria-label="Close"] { min-width: 44px; }
+  body .tr a.chip { min-height: 40px; padding-inline: 16px; display: inline-flex; align-items: center; }
+  body .chk, body .st-link, body .st-act, body .crumb, body .tr a.chip, body .srow, body .srch { box-sizing: border-box; }
+  body .chk { min-height: 44px; }
+  body .srow { min-height: 44px; }
+}
+
+/* ---- pills, tabs, switches: 44px targets, 8px apart ---- */
+@media (max-width: 900px) {
+  body .fl, body .tab, body .pstep, body .stp { box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; white-space: nowrap; }
+  body .fl { min-width: 56px; }
+  body .tabs { max-width: 100%; gap: 8px; }
+  body .steps { gap: 8px; }
+  body .tog { position: relative; }
+  body .tog::before { content: ""; position: absolute; inset: -9px -4px; }
+  body label:has(> .tog) { min-height: 44px; }
+}
+/* a row of filters/tabs that would wrap onto 3 lines becomes one swipeable strip, with an edge fade where it continues */
+@media (max-width: 700px) {
+  body .st-strip, body .cnav, body .steps, body .tabs {
+    flex-wrap: nowrap !important; overflow-x: auto; overflow-y: hidden; overscroll-behavior-x: contain;
+    scroll-snap-type: x proximity; scrollbar-width: none; -webkit-overflow-scrolling: touch;
+  }
+  body .st-strip::-webkit-scrollbar, body .cnav::-webkit-scrollbar, body .steps::-webkit-scrollbar, body .tabs::-webkit-scrollbar { display: none; }
+  body .st-strip > *, body .cnav > *, body .steps > *, body .tabs > * { flex: none; scroll-snap-align: start; scroll-margin-inline: 12px; }
+  body .cnav a { padding: 8px 16px; min-height: 44px; font-size: 14px; }
+  body .steps { margin-inline: -16px; padding-inline: 16px; padding-block: 4px; gap: 8px; }
+  body .stp { font-size: 13px; }
+}
+@supports (animation-timeline: scroll(self inline)) {
+  @media (max-width: 700px) {
+    /* driven by the visitor's own scrolling, not by time, so it stays on under reduced-motion too */
+    body .st-strip, body .cnav, body .steps, body .tabs { animation: st-edge linear both !important; animation-duration: auto !important; animation-delay: 0s !important; animation-timeline: scroll(self inline) !important; }
+  }
+}
+@keyframes st-edge {
+  0%      { -webkit-mask-image: linear-gradient(to right, var(--black) calc(100% - 32px), transparent); mask-image: linear-gradient(to right, var(--black) calc(100% - 32px), transparent); }
+  2%, 98% { -webkit-mask-image: linear-gradient(to right, transparent, var(--black) 32px, var(--black) calc(100% - 32px), transparent); mask-image: linear-gradient(to right, transparent, var(--black) 32px, var(--black) calc(100% - 32px), transparent); }
+  100%    { -webkit-mask-image: linear-gradient(to right, transparent, var(--black) 32px); mask-image: linear-gradient(to right, transparent, var(--black) 32px); }
+}
+
+/* ---- stat cards ---- */
+@media (max-width: 900px) {
+  body .kpi4, body .kpi, body .stack { gap: 12px; }
+  body .kpi4 > div, body .kpi > div, body .stack > div { min-width: 0; }
+  body .kpi4 .lb { overflow-wrap: anywhere; }
+}
+@media (max-width: 600px) {
+  body .kpi4 > div, body .kpi > div, body .stack > div, body .kpi3 > div { padding: 16px !important; }
+  body .kpi4 .v { font-size: clamp(24px, 7.4vw, 30px); overflow-wrap: anywhere; }
+  body .kpi4 .lb, body .kpi div[style*="font-size: 13px"], body .stack div[style*="font-size: 13px"] { line-height: 1.3; }
+}
+@media (max-width: 340px) {
+  body .kpi4, body .kpi, body .stack { grid-template-columns: minmax(0, 1fr) !important; }
+  body .btn { white-space: normal; text-align: center; line-height: 1.25; padding-block: 8px; }
+  body .mini { grid-template-columns: minmax(0, 1fr) !important; }
+}
+
+/* ---- rows that used to be a table: on phones every row is a small card and no column is hidden ----
+   first cell + last cell share line 1 (name ... status / toggle / button); the other cells flow underneath, labelled with data-l */
+@media (max-width: 900px) {
+  body .th { display: none; }
+  body .tr { display: flex !important; flex-wrap: wrap; align-items: center; gap: 8px 16px; padding: 16px; }
+  body .tr::after { content: ""; order: 1; flex: 0 0 100%; height: 0; }
+  body .tr > :first-child { order: 0; flex: 1 1 144px !important; min-width: 0; }
+  body .tr > :last-child { order: 1; flex: none; max-width: 100%; justify-self: auto !important; }
+  body .tr > .hs { order: 2; display: inline-flex; flex-wrap: wrap; align-items: baseline; gap: 4px 8px; flex: none; max-width: 100%; min-width: 0; font-size: 14px; overflow-wrap: anywhere; white-space: normal; }
+  body .tr > .hs.wide { flex: 1 1 100%; display: block; }
+  body .tr > .hs[data-l]::before { content: attr(data-l); font-size: 12px; font-weight: 700; color: var(--muted); }
+  body .tr > .hs.ell { white-space: normal; text-overflow: clip; overflow: visible; }
+}
+
+/* ---- search + side panels ---- */
+@media (max-width: 900px) {
+  body .srch { min-height: 44px; }
+}
+@media (max-width: 700px) {
+  body .srch { min-width: 0 !important; max-width: none !important; width: 100%; flex: 1 1 100%; }
+  body .bar2 { padding: 12px 16px; }
+  body .side { padding: 16px !important; }
+  body .mini { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  body .mini > div { min-width: 0; overflow-wrap: anywhere; }
+}
+
+/* ---- type floor on phones and tablets: body text 14px+, secondary text and badges 12px+ ---- */
+@media (max-width: 900px) {
+  body [style*="font-size: 11px"], body [style*="font-size: 10px"], body .tag { font-size: 12px !important; }
+  body p[style*="font-size: 13px"], body li[style*="font-size: 13px"], body ul[style*="font-size: 13px"] li { font-size: 14px !important; }
+  body .ck, body .ck .tx { font-size: 14px; }
+  body .av, body .stp i { font-size: 12px; }
+}
+
+/* ================= 3. per-page-family fixes ================= */
+
+/* ---- pipeline (D8-Studio): stacked avatars keep their initials readable (smaller overlap, surface ring); cards never overflow ---- */
+@media (max-width: 900px) {
+  body .avs { margin-left: auto; padding-left: 6px; }
+  body .avs .av { width: 32px; height: 32px; font-size: 12px; border: 2px solid var(--surface); }
+  body .avs .av + .av { margin-left: -6px; }
+  body .crow, body .frow { flex-wrap: wrap; row-gap: 8px; }
+  body .sc .tag { white-space: nowrap; }
+}
+@media (max-width: 600px) {
+  body .att { grid-template-columns: auto minmax(0, 1fr) auto; column-gap: 12px; row-gap: 8px; padding: 12px 16px; }
+  body .att .hide-s { display: inline-flex; grid-column: 2 / -1; grid-row: 2; justify-self: start; }
+}
+@media (max-width: 340px) {
+  body .sgrid { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 900px) {
+  body .tag { white-space: nowrap; }
+}
+
+/* ---- stage pages (D8-S1..S8) ---- */
+@media (max-width: 600px) {
+  body .snav { display: grid; grid-template-columns: minmax(0, 1fr); width: 100%; gap: 8px; }
+  body .snav .btn { width: 100%; justify-content: center; gap: 8px; white-space: normal; text-align: center; }
+  body .row { min-height: 64px; }
+  body [role="group"][aria-label="Filter by designer"] { flex-wrap: wrap; }
+}
+@media (max-width: 360px) {
+  body .row { grid-template-columns: auto minmax(0, 1fr) !important; row-gap: 8px; }
+  body .row > :last-child { grid-column: 2; justify-self: start; }
+}
+
+/* ---- order page (D8-A8): the 8-stage tracker never shows clipped words: labels wrap, links are 44px tall, 8px apart;
+        on phones it is a 4-column grid of labelled bars ---- */
+@media (max-width: 900px) {
+  body .trk { gap: 8px !important; }
+  body .trk > a { min-width: 0; min-height: 44px; padding-top: 8px; box-sizing: border-box; }
+  body .trk .ell { white-space: normal; overflow: visible; text-overflow: clip; font-size: 12px !important; line-height: 1.25; overflow-wrap: anywhere; }
+}
+@media (max-width: 600px) {
+  body .trk { display: grid !important; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px 8px !important; }
+  body .mini[style*="repeat(3"] { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) !important; }
+}
+@media (max-width: 340px) {
+  body .trk { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  body .mini[style*="repeat(3"] { grid-template-columns: minmax(0, 1fr) !important; }
+}
+
+/* ---- print queue (D8-A4): cover + title on top, the four steps get the full card width, Ship button below ---- */
+@media (max-width: 600px) {
+  body .pq { grid-template-columns: 48px minmax(0, 1fr) !important; gap: 8px 16px !important; padding: 16px !important; align-items: start !important; }
+  body .pq > div:first-child { width: 48px !important; height: 60px !important; grid-row: 1 / 3; }
+  body .pq > div:nth-child(2) { display: contents; }
+  body .pq > div:nth-child(2) > div:nth-child(1), body .pq > div:nth-child(2) > div:nth-child(2) { grid-column: 2; }
+  body .pq .pqs { grid-column: 1 / -1; display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px !important; margin-top: 8px !important; }
+  body .pq .pqs .pstep { justify-content: flex-start; white-space: normal; }
+  body .pq > .btn { grid-column: 1 / -1; }
+}
+
+/* ---- reports (D8-A12): stage rows put the name on its own line, so no label is cut with an ellipsis ---- */
+@media (max-width: 600px) {
+  body .srow { grid-template-columns: minmax(0, 1fr) auto !important; gap: 8px 16px !important; }
+  body .srow > :nth-child(1) { white-space: normal !important; overflow: visible !important; text-overflow: clip !important; }
+  body .srow > :nth-child(3) { grid-column: 2; grid-row: 1; }
+  body .srow > :nth-child(2) { grid-column: 1 / -1; grid-row: 2; }
+}
+
+@media (max-width: 340px) {
+  body .pq .pqs { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---- reports: chart header wraps instead of colliding with its legend ---- */
+@media (max-width: 600px) {
+  body .rgrid > section > div:first-child { flex-wrap: wrap; gap: 8px 16px; }
+}
+
+/* ---- calendar family (D8-A10*) ---- */
+@media (max-width: 700px) {
+  body .wkgrid, body .two2 { grid-template-columns: minmax(0, 1fr) !important; }
+  body .wk > div:first-child { flex-wrap: wrap; }
+}
+@media (min-width: 361px) and (max-width: 700px) {
+  body .mgrid { gap: 8px; }
+}
+@media (max-width: 600px) {
+  body .explain { padding: 16px; font-size: 14px; }
+  body .wk { padding: 16px; }
+}
+
+/* ---- settings prices (D8-A7): each size is a card, every field has its own visible label ---- */
+@media (max-width: 700px) {
+  body .tr.prow { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 16px; align-items: start; }
+  body .tr.prow::after { display: none; }
+  body .tr.prow > * { order: 0 !important; flex: none; }
+  body .tr.prow > :first-child { grid-column: 1 / -1; }
+  body .tr.prow > .hs { display: grid; gap: 4px; align-content: start; }
+  body .tr.prow .fld { display: grid; gap: 4px; align-content: start; min-width: 0; }
+  body .tr.prow .fld-l { display: block; font-size: 12px; font-weight: 700; color: var(--muted); }
+}
+
+/* ---- sign-in (D8-A9): one column, the 6 code boxes share the width ---- */
+@media (max-width: 900px) {
+  body .sgn { grid-template-columns: minmax(0, 1fr) !important; }
+  body .sgn > main > div:first-child { padding: 32px 24px !important; gap: 24px; }
+  body .sgn > main > div:last-child { padding: 32px 24px !important; grid-template-columns: minmax(0, 1fr); }
+  body .sgn [style*="letter-spacing: .42em"] { font-size: 12px !important; }
+  body .sgn .fr[style*="font-size: 54px"] { font-size: clamp(34px, 11vw, 44px) !important; }
+  body .sgn h1.fr[style*="font-size: 40px"] { font-size: clamp(28px, 8vw, 36px) !important; }
+  body .sgn .st-act { display: flex !important; }
+  body .sgn input[maxlength="1"] { width: auto !important; flex: 1 1 0; min-width: 0; max-width: 56px; }
+  body .sgn .btn, body .sgn .inp { min-height: 52px; }
+}

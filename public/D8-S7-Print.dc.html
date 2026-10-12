@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="/site.css">
+<!--studio:chrome-->
+<link rel="stylesheet" href="/studio.css">
+<script src="/studio.js" defer></script>
+<!--/studio:chrome-->
 <title>Studio · Print & pack</title>
 <script src="./support.js"></script>
 <link rel="icon" type="image/svg+xml" href="/assets/ba8a47ecfe93acbd68bd017714519801.svg">
@@ -15,66 +19,66 @@
 <helmet>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#F1ECE6}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#B8304F}
+body{margin:0;background:var(--canvas)}*{box-sizing:border-box}
+a{color:var(--accent)}a:hover{color:var(--accent-deep)}
 .fr{font-family:Fraunces,Georgia,serif}.mono{font-family:Manrope,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
-.wm{background:linear-gradient(95deg,#F07AA5,#F2B880);-webkit-background-clip:text;background-clip:text;color:transparent}
-.btn{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:10px;font:700 14px Manrope,sans-serif;cursor:pointer;transition:background .25s,transform .3s}
-.btn:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
-.bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A}
-.bs{background:#fff;border:1px solid #E7DDD4;color:#1F1418}.bs:hover{border-color:#1F1418}
-.rl{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:#CDBCB4;text-decoration:none;font-weight:600;font-size:14px}
-.rl:hover{background:rgba(255,255,255,.06);color:#fff}.rl.on{background:rgba(255,255,255,.1);color:#fff}
-.fl{all:unset;cursor:pointer;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid #E7DDD4;background:#fff;min-height:20px}
-.fl.on{background:#1F1418;color:#fff;border-color:#1F1418}
-.fl:focus-visible{outline:2px solid #7D1238}
-.kc{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;background:#fff;border:1px solid #E7DDD4;border-radius:14px;padding:14px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .25s}
-.kc:hover{transform:translateY(-3px);box-shadow:0 18px 30px -20px rgba(31,20,24,.5)}
-.kc.on{border-color:#7D1238;box-shadow:0 0 0 3px rgba(125,18,56,.14)}
-.kc:focus-visible{outline:2px solid #7D1238}
-.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px}
-.av{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff}
+.wm{color:var(--gold)}
+.btn{all:unset;box-sizing:border-box;display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 16px;border-radius:var(--r-md);font:700 14px Manrope,sans-serif;cursor:pointer;transition:background .25s,transform .3s}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.bp{background:var(--accent);color:var(--on-accent)}.bp:hover{background:var(--accent-deep)}
+.bs{background:var(--surface);border:1px solid var(--line);color:var(--ink)}.bs:hover{border-color:var(--ink)}
+.rl{display:flex;align-items:center;gap:12px;padding:12px 12px;border-radius:var(--r-md);color:var(--line-2);text-decoration:none;font-weight:600;font-size:14px}
+.rl:hover{background:color-mix(in srgb, var(--surface) 6%, transparent);color:var(--surface)}.rl.on{background:color-mix(in srgb, var(--surface) 10%, transparent);color:var(--surface)}
+.fl{all:unset;cursor:pointer;padding:8px 12px;border-radius:var(--r-pill);font-weight:700;font-size:13px;border:1px solid var(--line);background:var(--surface);min-height:20px}
+.fl.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.fl:focus-visible{outline:2px solid var(--accent)}
+.kc{all:unset;box-sizing:border-box;cursor:pointer;display:block;width:100%;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:12px;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,border-color .25s}
+.kc:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+.kc.on{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 14%, transparent)}
+.kc:focus-visible{outline:2px solid var(--accent)}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:4px 8px;border-radius:var(--r-sm)}
+.av{width:26px;height:26px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--surface)}
 .drawer{animation:drawer .5s cubic-bezier(.2,.8,.2,1) both}@keyframes drawer{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
 .col{animation:col .6s cubic-bezier(.2,.8,.2,1) both}@keyframes col{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 
-.tag{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:800;padding:3px 8px;border-radius:6px}
-.av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:#fff;border:2px solid #fff;flex:none}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:800;padding:4px 8px;border-radius:var(--r-sm)}
+.av{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800;color:var(--surface);border:2px solid var(--surface);flex:none}
 .rise{animation:rise .7s cubic-bezier(.16,1,.3,1) both}@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.box{background:#fff;border:1px solid #E7DDD4;border-radius:18px}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg)}
 
-.crumb{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:#6B5A5F;text-decoration:none;padding:6px 0}
-.crumb:hover{color:#7D1238}.crumb svg{transition:transform .5s cubic-bezier(.16,1,.3,1)}.crumb:hover svg{transform:translateX(-4px)}
-.steps{display:flex;gap:5px;flex-wrap:wrap;margin-top:18px}
-.stp{display:inline-flex;align-items:center;gap:7px;padding:7px 10px 7px 12px;border-radius:999px;background:#fff;border:1px solid #E7DDD4;font-weight:700;font-size:12.5px;white-space:nowrap;color:#1F1418;text-decoration:none;transition:border-color .3s,transform .4s cubic-bezier(.3,1.6,.5,1)}
-.stp:hover{border-color:#1F1418;transform:translateY(-2px);color:#1F1418}
-.stp i{font-style:normal;font-size:11px;font-weight:800;min-width:20px;height:20px;padding:0 6px;border-radius:999px;display:grid;place-items:center;background:#F6F1EA;color:#6B5A5F}
-.stp.on{background:#7D1238;border-color:#7D1238;color:#FFF6F0}.stp.on i{background:rgba(255,246,240,.2);color:#FFF6F0}
-.stp.done{color:#6B5A5F}
-.fl{all:unset;cursor:pointer;padding:8px 14px;border-radius:999px;font-weight:700;font-size:13px;border:1px solid #E7DDD4;background:#fff}
-.fl.on{background:#1F1418;color:#fff;border-color:#1F1418}.fl:focus-visible{outline:2px solid #7D1238}
-.row{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto minmax(0,1.4fr) minmax(0,1fr) auto auto;gap:16px;align-items:center;width:100%;height:76px;padding:0 18px;border-top:1px solid #F0E8E1;transition:background .3s}
-.row:first-child{border-top:0}.row:hover{background:#FBF7F1}.row.on{background:#FBF4F6;box-shadow:inset 3px 0 0 #7D1238}
-.row:focus-visible{outline:2px solid #7D1238;outline-offset:-2px}
+.crumb{display:inline-flex;align-items:center;gap:8px;font-weight:700;font-size:14px;color:var(--muted);text-decoration:none;padding:8px 0}
+.crumb:hover{color:var(--accent)}.crumb svg{transition:transform .5s cubic-bezier(.16,1,.3,1)}.crumb:hover svg{transform:translateX(-4px)}
+.steps{display:flex;gap:4px;flex-wrap:wrap;margin-top:16px}
+.stp{display:inline-flex;align-items:center;gap:8px;padding:8px 12px 8px 12px;border-radius:var(--r-pill);background:var(--surface);border:1px solid var(--line);font-weight:700;font-size:12.5px;white-space:nowrap;color:var(--ink);text-decoration:none;transition:border-color .3s,transform .4s cubic-bezier(.3,1.6,.5,1)}
+.stp:hover{border-color:var(--ink);transform:translateY(-2px);color:var(--ink)}
+.stp i{font-style:normal;font-size:11px;font-weight:800;min-width:20px;height:20px;padding:0 8px;border-radius:var(--r-pill);display:grid;place-items:center;background:var(--canvas);color:var(--muted)}
+.stp.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}.stp.on i{background:color-mix(in srgb, var(--on-accent) 20%, transparent);color:var(--on-accent)}
+.stp.done{color:var(--muted)}
+.fl{all:unset;cursor:pointer;padding:8px 12px;border-radius:var(--r-pill);font-weight:700;font-size:13px;border:1px solid var(--line);background:var(--surface)}
+.fl.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}.fl:focus-visible{outline:2px solid var(--accent)}
+.row{all:unset;box-sizing:border-box;cursor:pointer;display:grid;grid-template-columns:auto minmax(0,1.4fr) minmax(0,1fr) auto auto;gap:16px;align-items:center;width:100%;height:76px;padding:0 16px;border-top:1px solid var(--canvas-2);transition:background .3s}
+.row:first-child{border-top:0}.row:hover{background:var(--paper)}.row.on{background:var(--accent-tint);box-shadow:inset 3px 0 0 var(--accent)}
+.row:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
 .ell{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.empty{padding:48px 20px;text-align:center;color:#786669}
+.empty{padding:48px 16px;text-align:center;color:var(--muted)}
 .drawer{animation:drawer .5s cubic-bezier(.2,.8,.2,1) both}@keyframes drawer{from{opacity:0;transform:translateX(24px)}to{opacity:1;transform:none}}
-.ck{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:12px;align-items:center;width:100%;min-height:48px;padding:10px 12px;border-radius:12px;border:1px solid #F0E8E1;font-size:14px;line-height:1.45;transition:background .3s,border-color .3s}
-.ck:hover{background:#FBF7F1;border-color:#E7DDD4}.ck:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
-.ck .bx{width:22px;height:22px;border-radius:7px;border:1.5px solid #CDBCB4;background:#fff;flex:none;display:grid;place-items:center;transition:background .3s,border-color .3s,transform .4s cubic-bezier(.3,1.6,.5,1)}
+.ck{all:unset;box-sizing:border-box;cursor:pointer;display:flex;gap:12px;align-items:center;width:100%;min-height:48px;padding:12px 12px;border-radius:var(--r-md);border:1px solid var(--canvas-2);font-size:14px;line-height:1.45;transition:background .3s,border-color .3s}
+.ck:hover{background:var(--paper);border-color:var(--line)}.ck:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.ck .bx{width:22px;height:22px;border-radius:var(--r-sm);border:1.5px solid var(--line-2);background:var(--surface);flex:none;display:grid;place-items:center;transition:background .3s,border-color .3s,transform .4s cubic-bezier(.3,1.6,.5,1)}
 .ck .bx svg{opacity:0;transform:scale(.4);transition:opacity .25s,transform .4s cubic-bezier(.3,1.6,.5,1)}
 .ck .tx{flex:1;min-width:0}
-.ck.ok{background:#F2F8F4;border-color:#D3E8DB}.ck.ok .bx{background:#2B6B55;border-color:#2B6B55;transform:scale(1.05)}.ck.ok .bx svg{opacity:1;transform:none}.ck.ok .tx{color:#5C4B50;text-decoration:line-through;text-decoration-color:rgba(43,107,85,.5)}
-.ckbar{height:6px;border-radius:6px;background:#F0E8E1;overflow:hidden;margin-top:12px}.ckbar i{display:block;height:100%;background:#2B6B55;border-radius:6px;transition:width .6s cubic-bezier(.16,1,.3,1)}
+.ck.ok{background:var(--ok-tint);border-color:var(--ok-line)}.ck.ok .bx{background:var(--ok);border-color:var(--ok);transform:scale(1.05)}.ck.ok .bx svg{opacity:1;transform:none}.ck.ok .tx{color:var(--ink-2);text-decoration:line-through;text-decoration-color:color-mix(in srgb, var(--ok) 50%, transparent)}
+.ckbar{height:6px;border-radius:var(--r-sm);background:var(--canvas-2);overflow:hidden;margin-top:12px}.ckbar i{display:block;height:100%;background:var(--ok);border-radius:var(--r-sm);transition:width .6s cubic-bezier(.16,1,.3,1)}
 @media (max-width:1180px){.work{grid-template-columns:1fr!important}.work .drawer{position:static!important}}
-@media (max-width:600px){.row{grid-template-columns:auto minmax(0,1fr) auto;height:auto;padding:12px 14px}.row .hide-s{display:none}.kpi{grid-template-columns:1fr 1fr!important}}
+@media (max-width:600px){.row{grid-template-columns:auto minmax(0,1fr) auto;height:auto;padding:12px 12px}.row .hide-s{display:none}.kpi{grid-template-columns:1fr 1fr!important}}
 
 @media (max-width:900px){.rail{display:none!important}.stack{grid-template-columns:1fr 1fr!important}}
 /* MOBILE TYPE SCALE */
 @media (max-width:600px){[style*="font-size: 24px"]{font-size:20px!important}[style*="font-size: 28px"]{font-size:clamp(21px,6vw,25px)!important;line-height:1.12}[style*="font-size: 34px"]{font-size:clamp(24px,7vw,30px)!important;line-height:1.12}h1{line-height:1.04!important;letter-spacing:-.01em}h2,h3{line-height:1.1!important}p,li,figcaption,label{overflow-wrap:anywhere}}
 /* END MOBILE TYPE SCALE */
 /* LOGO */
-.lg .lgm{flex:none;transition:transform .8s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 10px rgba(125,18,56,.25))}
+.lg .lgm{flex:none;transition:transform .8s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 16px color-mix(in srgb, var(--accent) 25%, transparent))}
 .lg:hover .lgm{transform:rotate(-8deg) scale(1.06)}
 .lgp{transform-box:fill-box;transform-origin:center;animation:lgIn 1.3s cubic-bezier(.16,1,.3,1) .35s both}
 .lg:hover .lgp{animation:lgFly 1.1s cubic-bezier(.65,0,.35,1)}
@@ -82,14 +86,14 @@ a{color:#7D1238}a:hover{color:#B8304F}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #B8304F;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid var(--accent);outline-offset:4px;border-radius:var(--r-md)}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 </style>
 </helmet>
-<div style="font-family: Manrope, sans-serif; color: #1F1418; background: #F1ECE6; width: 100%; min-height: 100vh; min-height: 100svh; display: flex">
-<aside class="rail" aria-label="Studio navigation" style="width: 236px; flex: none; background: #1F1418; padding: 22px 14px; display: flex; flex-direction: column; gap: 4px">
-<div style="padding: 4px 14px 22px"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — storefront" style="display: flex; align-items: center; gap: 10px; text-decoration: none"><svg class="lgm" width="36" height="36" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#FFF6F0"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#1F1418"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#1F1418"></path><path d="M32 25v18.4" stroke="#FFF6F0" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#1F1418" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#1F1418"></path></svg><span class="fr" style="font-size: 26px; font-weight: 600; letter-spacing: -.01em; line-height: .8; color: #FFF6F0">MiLes</span></a><div style="font-size: 10px; font-weight: 800; letter-spacing: .42em; color: #CDBCB4; margin-top: 6px; padding-left: 46px">STUDIO</div></div>
+<div style="font-family: Manrope, sans-serif; color: var(--ink); background: var(--canvas); width: 100%; min-height: 100vh; min-height: 100svh; display: flex">
+<aside class="rail" aria-label="Studio navigation" style="width: 236px; flex: none; background: var(--ink); padding: 24px 12px; display: flex; flex-direction: column; gap: 4px">
+<div style="padding: 4px 12px 24px"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — storefront" style="display: flex; align-items: center; gap: 12px; text-decoration: none"><svg class="lgm" width="36" height="36" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="var(--on-accent)"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="var(--ink)"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="var(--ink)"></path><path d="M32 25v18.4" stroke="var(--on-accent)" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="var(--ink)" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="var(--ink)"></path></svg><span class="fr" style="font-size: 26px; font-weight: 600; letter-spacing: -.01em; line-height: .8; color: var(--on-accent)">MiLes</span></a><div style="font-size: 10px; font-weight: 800; letter-spacing: .42em; color: var(--line-2); margin-top: 8px; padding-left: 48px">STUDIO</div></div>
 <a class="rl on" href="D8-Studio.dc.html" aria-current="page"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="4" width="5" height="16" rx="1.5"></rect><rect x="10" y="4" width="5" height="11" rx="1.5"></rect><rect x="17" y="4" width="4" height="7" rx="1.5"></rect></svg>Pipeline</a>
 <a class="rl" href="D8-A1-Orders.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16M4 12h16M4 18h10"></path></svg>All orders</a>
 <a class="rl" href="D8-A2-Customers.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="9" cy="8" r="3.5"></circle><path d="M2 20c1-3.5 3.8-5.5 7-5.5s6 2 7 5.5M16 4.5a3.5 3.5 0 0 1 0 7M18 14.5c2 .6 3.4 2.4 4 5.5"></path></svg>Customers</a>
@@ -101,65 +105,65 @@ a{color:#7D1238}a:hover{color:#B8304F}
 <a class="rl" href="D8-A11-Codes.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M20 12l-8 8-9-9V3h8z"></path><circle cx="7.5" cy="7.5" r="1.5"></circle></svg>Codes &amp; gift cards</a>
 <a class="rl" href="D8-A12-Reports.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"></path></svg>Reports</a>
 <a class="rl" href="D8-A7-Settings.dc.html"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"></circle><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1c.6.5 1.3.9 2 1.2L10 21h4l.5-2.6c.7-.3 1.4-.7 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"></path></svg>Settings</a>
-<div style="margin-top: auto; padding: 14px; background: rgba(255,255,255,.06); border-radius: 12px; font-size: 13px; color: #CDBCB4; line-height: 1.5">Price list, couriers, payment gateways and message templates live in Settings.</div>
-<a class="rl" href="D8-A9-SignIn.dc.html" style="margin-top: 10px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"></path></svg>Sign out</a>
+<div style="margin-top: auto; padding: 12px; background: color-mix(in srgb, var(--surface) 6%, transparent); border-radius: var(--r-md); font-size: 13px; color: var(--line-2); line-height: 1.5">Price list, couriers, payment gateways and message templates live in Settings.</div>
+<a class="rl" href="D8-A9-SignIn.dc.html" style="margin-top: 12px"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"></path></svg>Sign out</a>
 </aside>
-<main style="display: contents"><div style="flex: 1; min-width: 0; padding: 22px 28px 40px">
+<main style="display: contents"><div style="flex: 1; min-width: 0; padding: 24px 24px 40px">
 <a class="crumb" href="D8-Studio.dc.html"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M19 12H5M11 6l-6 6 6 6"></path></svg>Pipeline</a>
-<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; flex-wrap: wrap; margin-top: 6px">
-<div style="max-width: 640px"><div class="mono" style="font-size: 13px; color: #786669">Stage {{num}} of 8</div><h1 class="fr" style="font-size: 40px; font-weight: 500; margin: 4px 0 0; line-height: 1.05">{{name}}</h1><p style="color: #5C4B50; margin: 8px 0 0; line-height: 1.6">{{desc}}</p></div>
-<div style="display: flex; gap: 8px; flex-wrap: wrap"><a class="btn bs" href="{{prevHref}}" aria-label="{{prevName}}, previous stage">← {{prevName}}</a><a class="btn bs" href="{{nextHref}}" aria-label="{{nextName}}, next stage">{{nextName}} →</a></div>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-top: 8px">
+<div style="max-width: 640px"><div class="mono" style="font-size: 13px; color: var(--muted)">Stage {{num}} of 8</div><h1 class="fr" style="font-size: 40px; font-weight: 500; margin: 4px 0 0; line-height: 1.05">{{name}}</h1><p style="color: var(--ink-2); margin: 8px 0 0; line-height: 1.6">{{desc}}</p></div>
+<div class="snav" style="display: flex; gap: 8px; flex-wrap: wrap"><a class="btn bs" href="{{prevHref}}" aria-label="{{prevName}}, previous stage">← {{prevName}}</a><a class="btn bs" href="{{nextHref}}" aria-label="{{nextName}}, next stage">{{nextName}} →</a></div>
 </div>
 <nav class="steps" aria-label="All stages"><sc-for list="{{steps}}" as="p" hint-placeholder-count="8"><a class="{{p.cls}}" href="{{p.href}}" aria-current="{{p.cur}}">{{p.name}}<i>{{p.count}}</i></a></sc-for></nav>
 
-<div class="kpi" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; margin-top: 20px">
-<div class="box" style="padding: 18px"><div style="font-size: 13px; color: #6B5A5F">Orders in this stage</div><div class="fr" style="font-size: 34px; margin-top: 4px">{{count}}</div></div>
-<div class="box" style="padding: 18px"><div style="font-size: 13px; color: #6B5A5F">Target time</div><div class="fr" style="font-size: 34px; margin-top: 4px">{{sla}}</div></div>
-<div style="background: {{riskBg}}; border-radius: 18px; padding: 18px; border: 1px solid {{riskLine}}"><div style="font-size: 13px; color: {{riskC}}">Overdue or at risk</div><div class="fr" style="font-size: 34px; margin-top: 4px; color: {{riskC}}">{{risk}}</div></div>
-<div class="box" style="padding: 18px"><div style="font-size: 13px; color: #6B5A5F">Automatic message</div><div style="font-size: 14px; font-weight: 700; margin-top: 8px; line-height: 1.4">{{auto}}</div></div>
+<div class="kpi" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-top: 16px">
+<div class="box" style="padding: 16px"><div style="font-size: 13px; color: var(--muted)">Orders in this stage</div><div class="fr" style="font-size: 34px; margin-top: 4px">{{count}}</div></div>
+<div class="box" style="padding: 16px"><div style="font-size: 13px; color: var(--muted)">Target time</div><div class="fr" style="font-size: 34px; margin-top: 4px">{{sla}}</div></div>
+<div style="background: {{riskBg}}; border-radius: var(--r-lg); padding: 16px; border: 1px solid {{riskLine}}"><div style="font-size: 13px; color: {{riskC}}">Overdue or at risk</div><div class="fr" style="font-size: 34px; margin-top: 4px; color: {{riskC}}">{{risk}}</div></div>
+<div class="box" style="padding: 16px"><div style="font-size: 13px; color: var(--muted)">Automatic message</div><div style="font-size: 14px; font-weight: 700; margin-top: 8px; line-height: 1.4">{{auto}}</div></div>
 </div>
 
-<div class="work" style="display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 18px; margin-top: 20px; align-items: start">
-<div style="display: flex; flex-direction: column; gap: 18px; min-width: 0">
+<div class="work" style="display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; margin-top: 16px; align-items: start">
+<div style="display: flex; flex-direction: column; gap: 16px; min-width: 0">
 <section class="box" style="overflow: hidden">
-<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 16px 18px; border-bottom: 1px solid #F0E8E1">
-<div style="display: flex; gap: 6px" role="group" aria-label="Filter by designer"><sc-for list="{{filters}}" as="f" hint-placeholder-count="3"><button class="{{f.cls}}" onClick="{{f.pick}}">{{f.name}}</button></sc-for></div>
+<div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; padding: 16px 16px; border-bottom: 1px solid var(--canvas-2)">
+<div style="display: flex; gap: 8px" role="group" aria-label="Filter by designer"><sc-for list="{{filters}}" as="f" hint-placeholder-count="3"><button class="{{f.cls}}" onClick="{{f.pick}}">{{f.name}}</button></sc-for></div>
 <button class="btn bp" onClick="{{doBulk}}">{{bulkLabel}}</button>
 </div>
 <div>
 <sc-for list="{{rows}}" as="r" hint-placeholder-count="3">
 <button class="{{r.cls}}" onClick="{{r.pick}}" aria-pressed="{{r.pressed}}">
 <span class="av" style="background: {{r.avBg}}; border: 0">{{r.who}}</span>
-<span style="min-width: 0"><b class="ell" style="display: block; font-size: 15px">{{r.name}}</b><span class="ell" style="display: block; font-size: 13px; color: #6B5A5F">{{r.book}}</span></span>
-<span class="mono hide-s ell" style="font-size: 12px; color: #6B5A5F">{{r.id}} · {{r.cc}}</span>
-<span class="tag hide-s" style="background: {{r.flagBg}}; color: #7D1238">{{r.flag}}</span>
+<span style="min-width: 0"><b class="ell" style="display: block; font-size: 15px">{{r.name}}</b><span class="ell" style="display: block; font-size: 13px; color: var(--muted)">{{r.book}}</span></span>
+<span class="mono hide-s ell" style="font-size: 12px; color: var(--muted)">{{r.id}} · {{r.cc}}</span>
+<span class="tag hide-s" style="background: {{r.flagBg}}; color: var(--accent)">{{r.flag}}</span>
 <span class="tag" style="background: {{r.dueBg}}; color: {{r.dueC}}">{{r.due}}</span>
 </button>
 </sc-for>
-<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}"><div class="empty"><div class="fr" style="font-size: 22px; color: #1F1418">Nothing waiting here</div><div style="margin-top: 6px">No orders are in this stage for this filter.</div></div></sc-if>
+<sc-if value="{{empty}}" hint-placeholder-val="{{ false }}"><div class="empty"><div class="fr" style="font-size: 22px; color: var(--ink)">Nothing waiting here</div><div style="margin-top: 8px">No orders are in this stage for this filter.</div></div></sc-if>
 </div>
 </section>
-<section class="box" style="padding: 20px 22px">
-<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px"><b style="font-size: 16px">Stage checklist</b><span style="font-size: 13px; font-weight: 700; color: #6B5A5F">{{ckDone}} of {{ckTotal}} done</span></div>
+<section class="box" style="padding: 16px 24px">
+<div style="display: flex; justify-content: space-between; align-items: baseline; gap: 12px"><b style="font-size: 16px">Stage checklist</b><span style="font-size: 13px; font-weight: 700; color: var(--muted)">{{ckDone}} of {{ckTotal}} done</span></div>
 <div class="ckbar" aria-hidden="true"><i style="width: {{ckPct}}"></i></div>
-<div style="display: grid; gap: 8px; margin-top: 14px"><sc-for list="{{checks}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" onClick="{{c.toggle}}" role="checkbox" aria-checked="{{c.on}}"><span class="bx"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"></path></svg></span><span class="tx">{{c.t}}</span></button></sc-for></div>
+<div style="display: grid; gap: 8px; margin-top: 12px"><sc-for list="{{checks}}" as="c" hint-placeholder-count="3"><button class="{{c.cls}}" onClick="{{c.toggle}}" role="checkbox" aria-checked="{{c.on}}"><span class="bx"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--surface)" stroke-width="3.4" stroke-linecap="round"><path d="M5 12l5 5 9-10"></path></svg></span><span class="tx">{{c.t}}</span></button></sc-for></div>
 </section>
 </div>
 
 <sc-if value="{{hasSel}}" hint-placeholder-val="{{ true }}">
-<aside class="drawer box" aria-label="Details" key="{{selKey}}" style="padding: 22px; position: sticky; top: 20px">
-<div style="display: flex; justify-content: space-between; align-items: flex-start"><div><span class="mono" style="font-size: 12px; color: #6B5A5F">{{sel.id}} · {{sel.cc}}</span><div class="fr" style="font-size: 24px; margin-top: 4px">{{sel.name}}</div><div style="font-size: 14px; color: #6B5A5F">{{sel.book}}</div></div><button class="btn bs" onClick="{{close}}" aria-label="Close" style="min-height: 40px; padding: 0 12px">×</button></div>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 18px; font-size: 13px">
-<div style="background: #F6F1EA; border-radius: 12px; padding: 12px"><div style="color: #6B5A5F">Designer</div><b>{{sel.designer}}</b></div>
-<div style="background: #F6F1EA; border-radius: 12px; padding: 12px"><div style="color: #6B5A5F">Due</div><b>{{sel.due}}</b></div>
-<div style="background: #F6F1EA; border-radius: 12px; padding: 12px"><div style="color: #6B5A5F">Paid</div><b>{{paid}}</b></div>
-<div style="background: #F6F1EA; border-radius: 12px; padding: 12px"><div style="color: #6B5A5F">Country</div><b>{{sel.cc}}</b></div>
+<aside class="drawer box" aria-label="Details" key="{{selKey}}" style="padding: 24px; position: sticky; top: 20px">
+<div style="display: flex; justify-content: space-between; align-items: flex-start"><div><span class="mono" style="font-size: 12px; color: var(--muted)">{{sel.id}} · {{sel.cc}}</span><div class="fr" style="font-size: 24px; margin-top: 4px">{{sel.name}}</div><div style="font-size: 14px; color: var(--muted)">{{sel.book}}</div></div><button class="btn bs" onClick="{{close}}" aria-label="Close" style="min-height: 40px; padding: 0 12px">×</button></div>
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px; font-size: 13px">
+<div style="background: var(--canvas); border-radius: var(--r-md); padding: 12px"><div style="color: var(--muted)">Designer</div><b>{{sel.designer}}</b></div>
+<div style="background: var(--canvas); border-radius: var(--r-md); padding: 12px"><div style="color: var(--muted)">Due</div><b>{{sel.due}}</b></div>
+<div style="background: var(--canvas); border-radius: var(--r-md); padding: 12px"><div style="color: var(--muted)">Paid</div><b>{{paid}}</b></div>
+<div style="background: var(--canvas); border-radius: var(--r-md); padding: 12px"><div style="color: var(--muted)">Country</div><b>{{sel.cc}}</b></div>
 </div>
-<div style="margin-top: 18px; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #6B5A5F">Next step</div>
-<a class="btn bp" href="{{actHref}}" style="width: 100%; margin-top: 10px; text-decoration: none; color: #FFF6F0">{{act}}</a>
+<div style="margin-top: 16px; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted)">Next step</div>
+<a class="btn bp" href="{{actHref}}" style="width: 100%; margin-top: 12px; text-decoration: none; color: var(--on-accent)">{{act}}</a>
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 8px"><a class="btn bs" href="D8-A8-Order.dc.html" style="text-decoration: none">Full order</a><a class="btn bs" href="{{nextHref}}" style="text-decoration: none">Move to next</a></div>
-<div style="margin-top: 20px; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: #6B5A5F">Activity</div>
-<ul style="list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 10px; font-size: 13px; color: #4A3A3F">
+<div style="margin-top: 16px; font-size: 13px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--muted)">Activity</div>
+<ul style="list-style: none; margin: 12px 0 0; padding: 0; display: grid; gap: 12px; font-size: 13px; color: var(--ink-2)">
 <li>• Entered “{{name}}”</li><li>• {{sel.due}}</li><li>• Deposit paid via mada</li><li>• Order created from Book Builder</li>
 </ul>
 </aside>
@@ -189,13 +193,13 @@ class Component extends DCLogic {
       ['MR-1039', 'Ayesha T.', 'Travel · Hallstatt', 6, 'R', 'Wrap today', 'n', 'Gift', 'KSA'],
       ['MR-1035', 'Bilal Q.', 'Travel · Malaysia', 7, 'T', 'Leopards · in transit', 'n', '', 'PK']
     ];
-    const tone = { n: ['#F6F1EA', '#4A3A3F'], w: ['#FFF4E6', '#9A5A0B'], o: ['#FFE4E9', '#A3123F'] };
+    const tone = { n: ['var(--canvas)', 'var(--ink-2)'], w: ['var(--warn-tint)', 'var(--warn)'], o: ['color-mix(in srgb, var(--err) 10%, var(--surface))', 'var(--err)'] };
     const s = S[I];
     const filt = O.filter((o) => st.who === 'All' || (st.who === 'Tazmeen' ? o[4] === 'T' : o[4] === 'R'));
     const here = filt.filter((o) => o[3] === I);
     const selId = st.sel === null ? null : (here.find((o) => o[0] === st.sel) ? st.sel : (here[0] || [null])[0]);
-    const rows = here.map((o) => ({ id: o[0], name: o[1], book: o[2], who: o[4], avBg: o[4] === 'T' ? '#7D1238' : '#C4661A', due: o[5], dueBg: tone[o[6]][0], dueC: tone[o[6]][1],
-      flag: o[7] || 'Standard', flagBg: o[7] ? '#F5E4DF' : '#F6F1EA', cc: o[8], cls: o[0] === selId ? 'row on' : 'row', pressed: o[0] === selId ? 'true' : 'false', pick: () => set({ sel: o[0] }) }));
+    const rows = here.map((o) => ({ id: o[0], name: o[1], book: o[2], who: o[4], avBg: o[4] === 'T' ? 'var(--accent)' : 'var(--ink)', due: o[5], dueBg: tone[o[6]][0], dueC: tone[o[6]][1],
+      flag: o[7] || 'Standard', flagBg: o[7] ? 'var(--accent-tint)' : 'var(--canvas)', cc: o[8], cls: o[0] === selId ? 'row on' : 'row', pressed: o[0] === selId ? 'true' : 'false', pick: () => set({ sel: o[0] }) }));
     const so = here.find((o) => o[0] === selId);
     const risk = here.filter((o) => o[6] !== 'n').length;
     const p = (I + 7) % 8, n = (I + 1) % 8;
@@ -205,7 +209,7 @@ class Component extends DCLogic {
       steps: S.map((x, i) => ({ name: x.n, href: x.f + '.dc.html', count: filt.filter((o) => o[3] === i).length, cls: i === I ? 'stp on' : (i < I ? 'stp done' : 'stp'), cur: i === I ? 'page' : 'false' })),
       filters: ['All', 'Tazmeen', 'Rameen'].map((x) => ({ name: x, cls: st.who === x ? 'fl on' : 'fl', pick: () => set({ who: x, sel: '' }) })),
       rows, empty: rows.length === 0, count: here.length, risk,
-      riskBg: risk ? '#FFF1F3' : '#fff', riskLine: risk ? '#F2C4CF' : '#E7DDD4', riskC: risk ? '#A3123F' : '#1F1418',
+      riskBg: risk ? 'color-mix(in srgb, var(--err) 6%, var(--surface))' : 'var(--surface)', riskLine: risk ? 'color-mix(in srgb, var(--err) 24%, var(--surface))' : 'var(--line)', riskC: risk ? 'var(--err)' : 'var(--ink)',
       checks: s.chk.map((t, i) => ({ t, on: st.done[i] ? 'true' : 'false', cls: st.done[i] ? 'ck ok' : 'ck', toggle: () => { const d = st.done.slice(); d[i] = !d[i]; set({ done: d }); } })),
       ckDone: st.done.filter(Boolean).length, ckTotal: s.chk.length, ckPct: Math.round(st.done.filter(Boolean).length / s.chk.length * 100) + '%',
       paid: I >= 6 ? 'Paid in full' : (I >= 1 ? '50% deposit' : 'Not yet'),
