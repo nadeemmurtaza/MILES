@@ -280,7 +280,7 @@
     var inp = f.querySelector('input'), msg = f.querySelector('.sf-nlmsg');
     var ok = /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(inp.value.trim());
     msg.textContent = ok ? 'Thanks — you’re on the list ✓' : 'Please enter a valid email address.';
-    msg.style.color = ok ? '#F2B880' : '#FFB4B4';
+    msg.style.color = ok ? 'var(--gold)' : 'var(--accent-tint)';
     if (ok) inp.value = '';
     if (lang === 'ar') schedule();
   });

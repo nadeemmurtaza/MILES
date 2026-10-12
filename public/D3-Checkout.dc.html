@@ -17,27 +17,27 @@
 <helmet>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#7D1238}
+body{margin:0;background:var(--canvas)}*{box-sizing:border-box}
+a{color:var(--accent)}a:hover{color:var(--accent)}
 .fr{font-family:Fraunces,Georgia,serif}.mono{font-family:Manrope,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
-.wm{background:linear-gradient(90deg,#7D1238,#5E0D2A);-webkit-background-clip:text;background-clip:text;color:transparent}
+.wm{background:linear-gradient(90deg,var(--accent),var(--accent-deep));-webkit-background-clip:text;background-clip:text;color:transparent}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:56px;padding:0 24px;border-radius:12px;font:700 16px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .35s cubic-bezier(.2,.8,.2,1),box-shadow .35s,background .25s}
-.bp{background:#7D1238;color:#FFF6F0}.bp:hover{background:#5E0D2A;color:#FFF6F0;transform:translateY(-2px);box-shadow:0px 14px 30px -14px rgba(125,18,56,0.50)}
-.box{background:#fff;border:1px solid #E7DDD4;border-radius:16px;padding:26px}
-.inp{width:100%;min-height:50px;border:1px solid #E7DDD4;border-radius:12px;padding:0 14px;font:500 15px Manrope,sans-serif;background:#fff;color:#1F1418}
-.inp:focus{outline:2px solid #7D1238;outline-offset:1px}
+.bp{background:var(--accent);color:var(--on-accent)}.bp:hover{background:var(--accent-deep);color:var(--on-accent);transform:translateY(-2px);box-shadow:0px 14px 30px -14px color-mix(in srgb, var(--accent) 50%, transparent)}
+.box{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:26px}
+.inp{width:100%;min-height:50px;border:1px solid var(--line);border-radius:12px;padding:0 14px;font:500 15px Manrope,sans-serif;background:var(--surface);color:var(--ink)}
+.inp:focus{outline:2px solid var(--accent);outline-offset:1px}
 label{font-size:13px;font-weight:600}
 .seg{all:unset;cursor:pointer;flex:1;text-align:center;padding:12px;border-radius:12px;font-weight:700;font-size:14px;transition:background .3s,color .3s;min-height:20px}
-.seg.on{background:#1F1418;color:#fff}
-.seg:focus-visible{outline:2px solid #7D1238}
-.pm{all:unset;box-sizing:border-box;cursor:pointer;border:1.5px solid #E7DDD4;border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;background:#fff;transition:border-color .25s,box-shadow .3s;min-height:56px}
-.pm:hover{border-color:#CBB8AD}.pm.on{border-color:#7D1238;box-shadow:0 0 0 3px rgba(125,18,56,.12)}
-.pm:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
-.rd{width:20px;height:20px;border-radius:50%;border:2px solid #CBB8AD;flex:none;display:grid;place-items:center}
-.pm.on .rd{border-color:#7D1238}.pm.on .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:#7D1238}
-.mk{font-size:11px;font-weight:800;letter-spacing:.04em;padding:4px 8px;border-radius:8px;background:#F6F1EA;color:#1F1418;margin-left:auto}
+.seg.on{background:var(--ink);color:var(--surface)}
+.seg:focus-visible{outline:2px solid var(--accent)}
+.pm{all:unset;box-sizing:border-box;cursor:pointer;border:1.5px solid var(--line);border-radius:12px;padding:14px 16px;display:flex;align-items:center;gap:12px;background:var(--surface);transition:border-color .25s,box-shadow .3s;min-height:56px}
+.pm:hover{border-color:var(--line-2)}.pm.on{border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent)}
+.pm:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rd{width:20px;height:20px;border-radius:50%;border:2px solid var(--line-2);flex:none;display:grid;place-items:center}
+.pm.on .rd{border-color:var(--accent)}.pm.on .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent)}
+.mk{font-size:11px;font-weight:800;letter-spacing:.04em;padding:4px 8px;border-radius:8px;background:var(--canvas);color:var(--ink);margin-left:auto}
 .swap{animation:swap .5s cubic-bezier(.2,.8,.2,1) both}@keyframes swap{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
-.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;background:#E4F1EA;color:#2B6B55}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;padding:6px 10px;border-radius:999px;background:var(--ok-tint);color:var(--ok)}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 @media (max-width:900px){.stack{grid-template-columns:minmax(0,1fr)!important}.pad{padding-left:20px!important;padding-right:20px!important}.sticky{position:static!important}}
 /* MOBILE TYPE SCALE */
@@ -45,7 +45,7 @@ label{font-size:13px;font-weight:600}
 /* END MOBILE TYPE SCALE */
 
 /* LOGO */
-.lg .lgm{flex:none;transition:transform .8s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 10px rgba(125,18,56,.25))}
+.lg .lgm{flex:none;transition:transform .8s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 10px color-mix(in srgb, var(--accent) 25%, transparent))}
 .lg:hover .lgm{transform:rotate(-8deg) scale(1.06)}
 .lgp{transform-box:fill-box;transform-origin:center;animation:lgIn 1.3s cubic-bezier(.16,1,.3,1) .35s both}
 .lg:hover .lgp{animation:lgFly 1.1s cubic-bezier(.65,0,.35,1)}
@@ -53,16 +53,16 @@ label{font-size:13px;font-weight:600}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid var(--accent);outline-offset:4px;border-radius:12px}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 </style>
 </helmet>
-<div style="font-family: Manrope, sans-serif; color: #1F1418; background: #F6F1EA; width: 100%; min-height: 100vh; min-height: 100svh">
+<div style="font-family: Manrope, sans-serif; color: var(--ink); background: var(--canvas); width: 100%; min-height: 100vh; min-height: 100svh">
 <!--chrome:header-->
 <header class="sh" data-chrome="header">
 <div class="sh-in">
-<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:#7D1238">MiLes</span> <span class="rt" style="color:#7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="var(--accent)"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="var(--on-accent)"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="var(--on-accent)"></path><path d="M32 25v18.4" stroke="var(--accent)" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="var(--on-accent)" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="var(--on-accent)"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:var(--accent)">MiLes</span> <span class="rt" style="color:var(--accent)"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
 <nav class="sh-nav" aria-label="Main"><a href="D21-Books.dc.html">Books</a><a href="D1-Motion.dc.html#how">How it works</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D13-Story.dc.html">Our story</a><a href="D16-Gifts.dc.html">Gifts</a><a href="D15-Help.dc.html">Help</a></nav>
 <div class="sh-tools">
 <a class="sh-track" href="D7-Tracking.dc.html">Track</a>
@@ -77,15 +77,15 @@ label{font-size:13px;font-weight:600}
 </div>
 </header>
 <!--/chrome:header-->
-<nav class="sh-sub" aria-label="Order steps" style="background: #fff; border-bottom: 1px solid #E7DDD4">
+<nav class="sh-sub" aria-label="Order steps" style="background: var(--surface); border-bottom: 1px solid var(--line)">
 <div class="pad" style="max-width: 1240px; margin: 0 auto; padding: 14px 40px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap">
 
 <ol style="list-style: none; display: flex; gap: 8px; margin: 0; padding: 0; font-size: 13px; font-weight: 600; flex-wrap: wrap">
-<li><a href="D2-Builder.dc.html" style="display: block; padding: 8px 14px; border-radius: 999px; color: #2B6B55; text-decoration: none">✓ Design</a></li>
-<li style="padding: 8px 14px; border-radius: 999px; background: #1F1418; color: #fff">2 Checkout</li>
-<li style="padding: 8px 14px; border-radius: 999px; color: #6B5A5F">3 Upload photos</li>
+<li><a href="D2-Builder.dc.html" style="display: block; padding: 8px 14px; border-radius: 999px; color: var(--ok); text-decoration: none">✓ Design</a></li>
+<li style="padding: 8px 14px; border-radius: 999px; background: var(--ink); color: var(--surface)">2 Checkout</li>
+<li style="padding: 8px 14px; border-radius: 999px; color: var(--muted)">3 Upload photos</li>
 </ol>
-<span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: #6B5A5F"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2B6B55" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Secure checkout</span>
+<span style="display: flex; align-items: center; gap: 8px; font-size: 13px; color: var(--muted)"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--ok)" stroke-width="2"><rect x="5" y="11" width="14" height="10" rx="2"></rect><path d="M8 11V8a4 4 0 0 1 8 0v3"></path></svg>Secure checkout</span>
 </div>
 </nav>
 
@@ -94,15 +94,15 @@ label{font-size:13px;font-weight:600}
 <h1 class="fr" style="font-size: 44px; font-weight: 500; margin: 0 0 6px">Checkout</h1>
 
 <div class="box">
-<div style="font-weight: 800; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: #6B5A5F; margin-bottom: 12px">Delivering to</div>
-<div style="display: flex; gap: 6px; background: #F6F1EA; padding: 5px; border-radius: 12px">
+<div style="font-weight: 800; font-size: 13px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 12px">Delivering to</div>
+<div style="display: flex; gap: 6px; background: var(--canvas); padding: 5px; border-radius: 12px">
 <button class="{{ksaCls}}" onClick="{{toKSA}}">Saudi Arabia · SAR</button><button class="{{pkCls}}" onClick="{{toPK}}">Pakistan · PKR</button>
 </div>
 </div>
 
 <div class="box">
 <div style="display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap"><h2 style="font-size: 20px; margin: 0">1 · Your details</h2><span class="chip"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5 9-10"></path></svg>Phone verified</span></div>
-<p style="font-size: 14px; color: #6B5A5F; margin: 6px 0 18px">Your phone is your login — we’ll send order updates on WhatsApp.</p>
+<p style="font-size: 14px; color: var(--muted); margin: 6px 0 18px">Your phone is your login — we’ll send order updates on WhatsApp.</p>
 <div class="stack" style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px">
 <div style="display: grid; gap: 6px"><label for="nm">Full name</label><input id="nm" class="inp" value="Sara A."></div>
 <div style="display: grid; gap: 6px"><label for="ph">WhatsApp number</label><input id="ph" class="inp" value="{{phone}}"></div>
@@ -128,20 +128,20 @@ label{font-size:13px;font-weight:600}
 </sc-if>
 <div style="display: grid; gap: 10px; margin-top: 18px">
 <sc-for list="{{ships}}" as="s" hint-placeholder-count="2">
-<button class="{{s.cls}}" onClick="{{s.pick}}"><span class="rd"></span><span style="flex: 1"><b>{{s.name}}</b><br><span style="font-size: 13px; color: #6B5A5F">{{s.via}}</span></span><b>{{s.price}}</b></button>
+<button class="{{s.cls}}" onClick="{{s.pick}}"><span class="rd"></span><span style="flex: 1"><b>{{s.name}}</b><br><span style="font-size: 13px; color: var(--muted)">{{s.via}}</span></span><b>{{s.price}}</b></button>
 </sc-for>
 </div>
 </div>
 
 <div class="box swap" key="{{payKey}}">
 <h2 style="font-size: 20px; margin: 0 0 6px">3 · Payment</h2>
-<p style="font-size: 14px; color: #6B5A5F; margin: 0 0 16px">How much would you like to pay today?</p>
-<div style="display: flex; gap: 6px; background: #F6F1EA; padding: 5px; border-radius: 12px; margin-bottom: 18px">
+<p style="font-size: 14px; color: var(--muted); margin: 0 0 16px">How much would you like to pay today?</p>
+<div style="display: flex; gap: 6px; background: var(--canvas); padding: 5px; border-radius: 12px; margin-bottom: 18px">
 <button class="{{halfCls}}" onClick="{{payHalf}}">50% deposit</button><button class="{{fullCls}}" onClick="{{payFull}}">Pay in full</button>
 </div>
 <div style="display: grid; gap: 10px">
 <sc-for list="{{methods}}" as="m" hint-placeholder-count="4">
-<button class="{{m.cls}}" onClick="{{m.pick}}"><span class="rd"></span><span style="flex: 1"><b>{{m.name}}</b><br><span style="font-size: 13px; color: #6B5A5F">{{m.note}}</span></span><span class="mk">{{m.tag}}</span></button>
+<button class="{{m.cls}}" onClick="{{m.pick}}"><span class="rd"></span><span style="flex: 1"><b>{{m.name}}</b><br><span style="font-size: 13px; color: var(--muted)">{{m.note}}</span></span><span class="mk">{{m.tag}}</span></button>
 </sc-for>
 </div>
 <sc-if value="{{isCard}}" hint-placeholder-val="{{ false }}">
@@ -152,7 +152,7 @@ label{font-size:13px;font-weight:600}
 </div>
 </sc-if>
 <sc-if value="{{isWallet}}" hint-placeholder-val="{{ false }}">
-<div class="swap" style="margin-top: 16px; background: #F6F1EA; border-radius: 12px; padding: 16px; font-size: 14px; line-height: 1.6">You’ll get a request on <b>{{walletName}}</b> at {{phone}}. Approve it in the app — this page updates on its own.</div>
+<div class="swap" style="margin-top: 16px; background: var(--canvas); border-radius: 12px; padding: 16px; font-size: 14px; line-height: 1.6">You’ll get a request on <b>{{walletName}}</b> at {{phone}}. Approve it in the app — this page updates on its own.</div>
 </sc-if>
 </div>
 </div>
@@ -161,27 +161,27 @@ label{font-size:13px;font-weight:600}
 <aside class="sticky" style="position: sticky; top: 24px; display: flex; flex-direction: column; gap: 14px">
 <div class="box">
 <div style="display: flex; gap: 16px; align-items: center">
-<div style="width: 76px; height: 94px; background: #7E9CC0; border-radius: 3px 8px 8px 3px; padding: 7px; flex: none; box-shadow: 0px 12px 20px -10px rgba(31,20,24,0.40)"><div style="background: #fff; height: 100%; padding: 3px"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="" style="width: 100%; height: 70%; object-fit: cover; display: block"></div></div>
-<div style="flex: 1"><div class="fr" style="font-size: 20px">Honeymoon · Maldives</div><div style="font-size: 13px; color: #6B5A5F; margin-top: 4px">Portrait 8 × 10 · Dusty blue · 40 pages</div><a href="D2-Builder.dc.html" style="font-size: 13px; font-weight: 700">Edit</a></div>
+<div style="width: 76px; height: 94px; background: #7E9CC0; border-radius: 3px 8px 8px 3px; padding: 7px; flex: none; box-shadow: 0px 12px 20px -10px color-mix(in srgb, var(--ink) 40%, transparent)"><div style="background: var(--surface); height: 100%; padding: 3px"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="" style="width: 100%; height: 70%; object-fit: cover; display: block"></div></div>
+<div style="flex: 1"><div class="fr" style="font-size: 20px">Honeymoon · Maldives</div><div style="font-size: 13px; color: var(--muted); margin-top: 4px">Portrait 8 × 10 · Dusty blue · 40 pages</div><a href="D2-Builder.dc.html" style="font-size: 13px; font-weight: 700">Edit</a></div>
 </div>
 <div style="display: grid; gap: 10px; margin-top: 22px; font-size: 14px">
-<div style="display: flex; justify-content: space-between"><span style="color: #6B5A5F">Book</span><span>{{book}}</span></div>
-<div style="display: flex; justify-content: space-between"><span style="color: #6B5A5F">Shipping</span><span>{{ship}}</span></div>
-<div style="display: flex; justify-content: space-between"><span style="color: #6B5A5F">{{taxLabel}}</span><span>{{tax}}</span></div>
-<div style="display: flex; gap: 8px"><input class="inp" placeholder="Gift card or promo code" aria-label="Promo code" style="min-height: 44px"><button style="all: unset; cursor: pointer; padding: 0 16px; border-radius: 12px; border: 1px solid #E7DDD4; font-weight: 700; font-size: 14px" onClick="{{do_apply}}">{{lb_apply}}</button></div>
+<div style="display: flex; justify-content: space-between"><span style="color: var(--muted)">Book</span><span>{{book}}</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: var(--muted)">Shipping</span><span>{{ship}}</span></div>
+<div style="display: flex; justify-content: space-between"><span style="color: var(--muted)">{{taxLabel}}</span><span>{{tax}}</span></div>
+<div style="display: flex; gap: 8px"><input class="inp" placeholder="Gift card or promo code" aria-label="Promo code" style="min-height: 44px"><button style="all: unset; cursor: pointer; padding: 0 16px; border-radius: 12px; border: 1px solid var(--line); font-weight: 700; font-size: 14px" onClick="{{do_apply}}">{{lb_apply}}</button></div>
 </div>
-<div style="border-top: 1px dashed #CBB8AD; margin-top: 18px; padding-top: 16px; display: flex; justify-content: space-between; align-items: baseline"><b>Order total</b><span class="fr" style="font-size: 24px">{{total}}</span></div>
-<div style="margin-top: 14px; background: #F5E4DF; border-radius: 12px; padding: 16px; display: flex; justify-content: space-between; align-items: center"><span><b>Due today</b><br><span style="font-size: 13px; color: #6B5A5F">{{laterNote}}</span></span><b class="fr" style="font-size: 28px; color: #7D1238">{{today}}</b></div>
+<div style="border-top: 1px dashed var(--line-2); margin-top: 18px; padding-top: 16px; display: flex; justify-content: space-between; align-items: baseline"><b>Order total</b><span class="fr" style="font-size: 24px">{{total}}</span></div>
+<div style="margin-top: 14px; background: var(--accent-tint); border-radius: 12px; padding: 16px; display: flex; justify-content: space-between; align-items: center"><span><b>Due today</b><br><span style="font-size: 13px; color: var(--muted)">{{laterNote}}</span></span><b class="fr" style="font-size: 28px; color: var(--accent)">{{today}}</b></div>
 <a class="btn bp" href="D12-Confirmed.dc.html" style="width: 100%; margin-top: 16px">{{payLabel}}</a>
-<p style="font-size: 12px; color: #6B5A5F; text-align: center; margin: 12px 0 0; line-height: 1.6">By paying you agree to our <a href="D15-Help.dc.html#terms">Terms</a> and <a href="D15-Help.dc.html#refunds">Refund policy</a>.</p>
+<p style="font-size: 12px; color: var(--muted); text-align: center; margin: 12px 0 0; line-height: 1.6">By paying you agree to our <a href="D15-Help.dc.html#terms">Terms</a> and <a href="D15-Help.dc.html#refunds">Refund policy</a>.</p>
 </div>
-<div style="display: flex; gap: 12px; align-items: center; padding: 6px 8px; font-size: 13px; color: #6B5A5F"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#7D1238" stroke-width="1.6"><path d="M12 21s-7-4.5-9.3-9A5 5 0 0 1 12 6a5 5 0 0 1 9.3 6c-2.3 4.5-9.3 9-9.3 9z"></path></svg>Next you’ll upload your photos — it takes about 5 minutes from your phone.</div>
+<div style="display: flex; gap: 12px; align-items: center; padding: 6px 8px; font-size: 13px; color: var(--muted)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="1.6"><path d="M12 21s-7-4.5-9.3-9A5 5 0 0 1 12 6a5 5 0 0 1 9.3 6c-2.3 4.5-9.3 9-9.3 9z"></path></svg>Next you’ll upload your photos — it takes about 5 minutes from your phone.</div>
 </aside>
 </main>
 <!--chrome:footer-->
 <footer class="sf" data-chrome="footer">
 <div class="sf-top">
-<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="--fs:42px;display:inline-flex;align-items:center;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:#FFF6F0">MiLes</span> <span class="rt" style="color:#FFF6F0"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="--fs:42px;display:inline-flex;align-items:center;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="var(--accent)"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="var(--on-accent)"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="var(--on-accent)"></path><path d="M32 25v18.4" stroke="var(--accent)" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="var(--on-accent)" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="var(--on-accent)"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:var(--on-accent)">MiLes</span> <span class="rt" style="color:var(--on-accent)"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
 <p>Customised travel photobooks and memory keepsakes, designed by hand in Saudi Arabia &amp; Pakistan.</p>
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>

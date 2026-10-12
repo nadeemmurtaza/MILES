@@ -17,32 +17,32 @@
 <helmet>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,300;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
 <style>
-body{margin:0;background:#F6F1EA}*{box-sizing:border-box}
-a{color:#7D1238}a:hover{color:#7D1238}
+body{margin:0;background:var(--canvas)}*{box-sizing:border-box}
+a{color:var(--accent)}a:hover{color:var(--accent)}
 .fr{font-family:Fraunces,Georgia,serif}.mono{font-family:Manrope,sans-serif;font-variant-numeric:tabular-nums;letter-spacing:.02em}
-.wm{background:linear-gradient(95deg,#7D1238,#5E0D2A 50%,#7D1238);background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
+.wm{background:linear-gradient(95deg,var(--accent),var(--accent-deep) 50%,var(--accent));background-size:220% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s ease-in-out infinite}
 @keyframes sheen{50%{background-position:100% 0}}
-.eyb{font-size:13px;font-weight:700;color:#7D1238;margin:0}
+.eyb{font-size:13px;font-weight:700;color:var(--accent);margin:0}
 .btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:999px;font:700 15px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s,background .35s,color .35s;isolation:isolate}
-.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,color-mix(in srgb, var(--surface) 35%, transparent) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s cubic-bezier(.16,1,.3,1)}
 .btn:hover::before{transform:translateX(120%)}.btn:hover{transform:translateY(-3px)}
-.btn:focus-visible{outline:2px solid #7D1238;outline-offset:3px}
+.btn:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 .btn .ar{transition:transform .5s cubic-bezier(.16,1,.3,1)}.btn:hover .ar{transform:translateX(5px)}
-.bp{background:#7D1238;color:#FFF6F0;box-shadow:0px 18px 36px -20px rgba(125,18,56,0.50)}.bp:hover{color:#FFF6F0;background:#5E0D2A}
-.bg{border:1.5px solid #1F1418;color:#1F1418;background:transparent}.bg:hover{color:#FFF6F0;background:#1F1418}
-.bs{background:#fff;color:#1F1418;border:1px solid #E7DDD4}.bs:hover{color:#1F1418;border-color:#1F1418}
-.nlk{position:relative;color:#1F1418;text-decoration:none;padding:6px 0;font-weight:600;font-size:15px}
-.nlk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:#7D1238;transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
-.nlk:hover{color:#7D1238}.nlk:hover::after,.nlk.on::after{transform:scaleX(1);transform-origin:left}.nlk.on{color:#7D1238}
-.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,#7D1238,#5E0D2A);transform-origin:left;transform:scaleX(0)}
-.inp{width:100%;min-height:54px;border:1.5px solid #E7DDD4;border-radius:12px;padding:0 16px;font:500 16px Manrope,sans-serif;background:#fff;color:#1F1418;transition:border-color .3s,box-shadow .3s}
-.inp:hover{border-color:#CBB8AD}.inp:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12)}
+.bp{background:var(--accent);color:var(--on-accent);box-shadow:0px 18px 36px -20px color-mix(in srgb, var(--accent) 50%, transparent)}.bp:hover{color:var(--on-accent);background:var(--accent-deep)}
+.bg{border:1.5px solid var(--ink);color:var(--ink);background:transparent}.bg:hover{color:var(--on-accent);background:var(--ink)}
+.bs{background:var(--surface);color:var(--ink);border:1px solid var(--line)}.bs:hover{color:var(--ink);border-color:var(--ink)}
+.nlk{position:relative;color:var(--ink);text-decoration:none;padding:6px 0;font-weight:600;font-size:15px}
+.nlk::after{content:"";position:absolute;left:0;right:0;bottom:0;height:1.5px;background:var(--accent);transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.nlk:hover{color:var(--accent)}.nlk:hover::after,.nlk.on::after{transform:scaleX(1);transform-origin:left}.nlk.on{color:var(--accent)}
+.sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-deep));transform-origin:left;transform:scaleX(0)}
+.inp{width:100%;min-height:54px;border:1.5px solid var(--line);border-radius:12px;padding:0 16px;font:500 16px Manrope,sans-serif;background:var(--surface);color:var(--ink);transition:border-color .3s,box-shadow .3s}
+.inp:hover{border-color:var(--line-2)}.inp:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 12%, transparent)}
 textarea.inp{padding:14px 16px;min-height:130px;resize:vertical}
 label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
-.chip{all:unset;box-sizing:border-box;cursor:pointer;padding:11px 20px;border-radius:999px;border:1.5px solid #E7DDD4;background:#fff;font:700 14px Manrope,sans-serif;transition:background .35s,color .35s,border-color .35s,transform .5s cubic-bezier(.3,1.6,.5,1);min-height:44px;display:inline-flex;align-items:center}
-.chip:hover{border-color:#1F1418;transform:translateY(-2px)}.chip.on{background:#1F1418;color:#fff;border-color:#1F1418}
-.chip:focus-visible{outline:2px solid #7D1238;outline-offset:2px}
-.lift{transition:transform .8s cubic-bezier(.16,1,.3,1),box-shadow .8s}.lift:hover{transform:translateY(-8px);box-shadow:0 34px 60px -34px rgba(60,20,30,.45)}
+.chip{all:unset;box-sizing:border-box;cursor:pointer;padding:11px 20px;border-radius:999px;border:1.5px solid var(--line);background:var(--surface);font:700 14px Manrope,sans-serif;transition:background .35s,color .35s,border-color .35s,transform .5s cubic-bezier(.3,1.6,.5,1);min-height:44px;display:inline-flex;align-items:center}
+.chip:hover{border-color:var(--ink);transform:translateY(-2px)}.chip.on{background:var(--ink);color:var(--surface);border-color:var(--ink)}
+.chip:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.lift{transition:transform .8s cubic-bezier(.16,1,.3,1),box-shadow .8s}.lift:hover{transform:translateY(-8px);box-shadow:0 34px 60px -34px color-mix(in srgb, var(--shadow-tint) 45%, transparent)}
 .zm{overflow:hidden}.zm img{transition:transform 1.4s cubic-bezier(.16,1,.3,1)}.zm:hover img,.lift:hover .zm img{transform:scale(1.07)}
 .in{animation:in 1.1s cubic-bezier(.16,1,.3,1) both}
 .d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.42s}.d5{animation-delay:.55s}
@@ -71,13 +71,13 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 @keyframes par{from{transform:translateY(70px)}to{transform:translateY(-70px)}}
 @media (max-width:900px){.stack{grid-template-columns:1fr!important}.pad{padding-left:20px!important;padding-right:20px!important}.hide-m{display:none!important}.h1{font-size:52px!important}}
 
-.otp{width:56px;height:64px;border:1.5px solid #E7DDD4;border-radius:12px;text-align:center;font:700 26px Manrope,sans-serif;background:#fff;color:#1F1418;transition:border-color .3s,box-shadow .3s,transform .4s cubic-bezier(.3,1.6,.5,1)}
-.otp:focus{outline:none;border-color:#7D1238;box-shadow:0 0 0 4px rgba(125,18,56,.12);transform:translateY(-3px)}
-.otp.f{border-color:#7D1238;background:#F5E4DF}
-.cc{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:0 14px;border:1.5px solid #E7DDD4;border-radius:12px;background:#fff;font-weight:700;min-height:54px;box-sizing:border-box}
-.cc:focus-visible{outline:2px solid #7D1238}
+.otp{width:56px;height:64px;border:1.5px solid var(--line);border-radius:12px;text-align:center;font:700 26px Manrope,sans-serif;background:var(--surface);color:var(--ink);transition:border-color .3s,box-shadow .3s,transform .4s cubic-bezier(.3,1.6,.5,1)}
+.otp:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 4px color-mix(in srgb, var(--accent) 12%, transparent);transform:translateY(-3px)}
+.otp.f{border-color:var(--accent);background:var(--accent-tint)}
+.cc{all:unset;cursor:pointer;display:flex;align-items:center;gap:8px;padding:0 14px;border:1.5px solid var(--line);border-radius:12px;background:var(--surface);font-weight:700;min-height:54px;box-sizing:border-box}
+.cc:focus-visible{outline:2px solid var(--accent)}
 .deck{position:relative;width:340px;height:440px}
-.dc{position:absolute;inset:0;border-radius:8px;padding:16px 16px 60px;background:#fff;box-shadow:0px 40px 70px -40px rgba(14,6,10,0.60);transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.dc{position:absolute;inset:0;border-radius:8px;padding:16px 16px 60px;background:var(--surface);box-shadow:0px 40px 70px -40px color-mix(in srgb, var(--shadow-deep) 60%, transparent);transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
 .dc img{width:100%;height:100%;object-fit:cover;display:block}
 .c1{animation:fan1 9s cubic-bezier(.65,0,.35,1) infinite}.c2{animation:fan2 9s cubic-bezier(.65,0,.35,1) infinite}.c3{animation:fan3 9s cubic-bezier(.65,0,.35,1) infinite}
 @keyframes fan1{0%,100%{transform:rotate(-9deg) translate(-40px,10px)}50%{transform:rotate(-3deg) translate(-10px,0)}}
@@ -93,7 +93,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 /* END MOBILE TYPE SCALE */
 
 /* LOGO */
-.lg .lgm{flex:none;transition:transform .8s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 10px rgba(125,18,56,.25))}
+.lg .lgm{flex:none;transition:transform .8s cubic-bezier(.3,1.6,.5,1);filter:drop-shadow(0 6px 10px color-mix(in srgb, var(--accent) 25%, transparent))}
 .lg:hover .lgm{transform:rotate(-8deg) scale(1.06)}
 .lgp{transform-box:fill-box;transform-origin:center;animation:lgIn 1.3s cubic-bezier(.16,1,.3,1) .35s both}
 .lg:hover .lgp{animation:lgFly 1.1s cubic-bezier(.65,0,.35,1)}
@@ -101,7 +101,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 @keyframes lgIn{from{opacity:0;transform:translate(-14px,10px) rotate(-25deg) scale(.6)}to{opacity:1;transform:none}}
 @keyframes lgFly{45%{transform:translate(5px,-5px) rotate(14deg)}}
 @keyframes lgTrail{to{stroke-dashoffset:-10.8}}
-.lg:focus-visible{outline:2.5px solid #7D1238;outline-offset:4px;border-radius:12px}
+.lg:focus-visible{outline:2.5px solid var(--accent);outline-offset:4px;border-radius:12px}
 .lg .rt,.rt{display:flex;justify-content:space-between;font-family:Manrope,sans-serif;font-weight:800;line-height:1}
 /* END LOGO */
 </style>
@@ -110,7 +110,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <!--chrome:header-->
 <header class="sh" data-chrome="header">
 <div class="sh-in">
-<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:#7D1238">MiLes</span> <span class="rt" style="color:#7D1238"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<a class="lg sh-logo" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg class="lgm" width="38" height="38" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="var(--accent)"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="var(--on-accent)"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="var(--on-accent)"></path><path d="M32 25v18.4" stroke="var(--accent)" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="var(--on-accent)" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="var(--on-accent)"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:var(--accent)">MiLes</span> <span class="rt" style="color:var(--accent)"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
 <nav class="sh-nav" aria-label="Main"><a href="D21-Books.dc.html">Books</a><a href="D1-Motion.dc.html#how">How it works</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D13-Story.dc.html">Our story</a><a href="D16-Gifts.dc.html">Gifts</a><a href="D15-Help.dc.html">Help</a></nav>
 <div class="sh-tools">
 <a class="sh-track" href="D7-Tracking.dc.html">Track</a>
@@ -125,14 +125,14 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 </div>
 </header>
 <!--/chrome:header-->
-<div style="position: relative; font-family: Manrope, sans-serif; color: #1F1418; background: #F6F1EA; width: 100%; overflow: clip">
+<div style="position: relative; font-family: Manrope, sans-serif; color: var(--ink); background: var(--canvas); width: 100%; overflow: clip">
 <div class="stack" style="display: grid; grid-template-columns: 1fr 1fr; min-height: calc(100vh - 79px); min-height: calc(100svh - 79px)">
-<aside style="position: relative; background: #EFE5DA; color: #1F1418; overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 44px 56px">
+<aside style="position: relative; background: var(--canvas-2); color: var(--ink); overflow: hidden; display: flex; flex-direction: column; justify-content: space-between; padding: 44px 56px">
 <span aria-hidden="true"></span>
 <div style="display: grid; place-items: center; padding: 30px 0"><div class="deck in d1">
 <div class="dc c1"><img src="/assets/1bebe18032c3ba7f722debbe5fa70f36.jpg" alt=""></div>
 <div class="dc c2"><img src="/assets/40f21930485ef5903566224ed85a9273.jpg" alt=""></div>
-<div class="dc c3"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="A Maldives photobook"><div class="fr" style="position: absolute; left: 0; right: 0; bottom: 16px; text-align: center; color: #1F1418; font-style: italic; font-size: 19px">Maldives · March 2022</div></div>
+<div class="dc c3"><img src="/assets/6dc6964be6ca87733a870c819d870936.jpg" alt="A Maldives photobook"><div class="fr" style="position: absolute; left: 0; right: 0; bottom: 16px; text-align: center; color: var(--ink); font-style: italic; font-size: 19px">Maldives · March 2022</div></div>
 </div></div>
 <div class="in d3"><div class="fr" style="font-size: 36px; line-height: 1.15; max-width: 440px">“Your memories make this book special.”</div><div style="opacity: .75; margin-top: 12px">— the card in every parcel</div></div>
 </aside>
@@ -141,38 +141,38 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <sc-if value="{{isPhone}}" hint-placeholder-val="{{ true }}"><div class="swap" key="s0">
 <p class="eyb in">Welcome back</p>
 <h1 class="fr in d1" style="font-size: 50px; line-height: 1.02; font-weight: 400; margin: 12px 0 0">Sign in with your phone</h1>
-<p class="in d2" style="color: #5C4B50; font-size: 16px; line-height: 1.65; margin: 14px 0 30px">We’ll send a 6-digit code on WhatsApp — no password to remember.</p>
+<p class="in d2" style="color: var(--ink-2); font-size: 16px; line-height: 1.65; margin: 14px 0 30px">We’ll send a 6-digit code on WhatsApp — no password to remember.</p>
 <div class="in d3"><label class="lb" for="ph">WhatsApp number</label>
 <div style="display: flex; gap: 10px"><button class="cc" onClick="{{flip}}" aria-label="{{cc}} country code, {{ccName}}">{{cc}}<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"></path></svg></button><input id="ph" class="inp" inputmode="tel" placeholder="{{ph}}" style="flex: 1"></div>
 <button class="btn bp" onClick="{{send}}" style="width: 100%; margin-top: 18px">Send code <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M13 6l6 6-6 6"></path></svg></button>
-<div style="display: flex; align-items: center; gap: 14px; margin: 26px 0; color: #5C4B50; font-size: 13px"><span style="flex: 1; height: 1px; background: #E7DDD4"></span>or<span style="flex: 1; height: 1px; background: #E7DDD4"></span></div>
+<div style="display: flex; align-items: center; gap: 14px; margin: 26px 0; color: var(--ink-2); font-size: 13px"><span style="flex: 1; height: 1px; background: var(--line)"></span>or<span style="flex: 1; height: 1px; background: var(--line)"></span></div>
 <button class="btn bs" onClick="{{send}}" style="width: 100%">Continue with email</button>
-<p style="font-size: 14px; color: #6B5A5F; margin: 28px 0 0; text-align: center">Just want to check an order? <a href="D7-Tracking.dc.html" style="font-weight: 700">Track without signing in</a></p></div>
+<p style="font-size: 14px; color: var(--muted); margin: 28px 0 0; text-align: center">Just want to check an order? <a href="D7-Tracking.dc.html" style="font-weight: 700">Track without signing in</a></p></div>
 </div></sc-if>
 <sc-if value="{{isCode}}" hint-placeholder-val="{{ false }}"><div class="swap" key="s1">
 <button onClick="{{back}}" class="btn bs" style="min-height: 44px; padding: 0 16px; font-size: 14px">← Change number</button>
 <h1 class="fr" style="font-size: 46px; line-height: 1.05; font-weight: 400; margin: 26px 0 0">Enter your code</h1>
-<p style="color: #5C4B50; font-size: 16px; margin: 12px 0 28px">Sent to <b>{{cc}} •• ••• 4567</b> on WhatsApp</p>
+<p style="color: var(--ink-2); font-size: 16px; margin: 12px 0 28px">Sent to <b>{{cc}} •• ••• 4567</b> on WhatsApp</p>
 <div role="group" aria-label="6-digit code" style="display: flex; gap: 10px">
 <sc-for list="{{boxes}}" as="b" hint-placeholder-count="6"><input class="{{b.cls}}" maxlength="1" inputmode="numeric" aria-label="Digit {{b.n}}" value="{{b.v}}"></sc-for>
 </div>
-<div style="display: flex; align-items: center; gap: 10px; margin-top: 20px; font-size: 14px; color: #6B5A5F"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="#E7DDD4" stroke-width="2.5"></circle><circle class="timer" cx="12" cy="12" r="9" fill="none" stroke="#7D1238" stroke-width="2.5" pathLength="1" stroke-dasharray="1" transform="rotate(-90 12 12)"></circle></svg>Resend code in 0:30</div>
+<div style="display: flex; align-items: center; gap: 10px; margin-top: 20px; font-size: 14px; color: var(--muted)"><svg width="22" height="22" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9" fill="none" stroke="var(--line)" stroke-width="2.5"></circle><circle class="timer" cx="12" cy="12" r="9" fill="none" stroke="var(--accent)" stroke-width="2.5" pathLength="1" stroke-dasharray="1" transform="rotate(-90 12 12)"></circle></svg>Resend code in 0:30</div>
 <button class="btn bp" onClick="{{verify}}" style="width: 100%; margin-top: 26px">Verify &amp; sign in</button>
 </div></sc-if>
 <sc-if value="{{isDone}}" hint-placeholder-val="{{ false }}"><div class="swap" key="s2" style="text-align: center">
-<span class="ok" style="display: inline-grid; place-items: center; width: 92px; height: 92px; border-radius: 50%; background: #2B6B55"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round"><path class="chk" d="M5 12l5 5 9-10"></path></svg></span>
+<span class="ok" style="display: inline-grid; place-items: center; width: 92px; height: 92px; border-radius: 50%; background: var(--ok)"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="var(--surface)" stroke-width="2.6" stroke-linecap="round"><path class="chk" d="M5 12l5 5 9-10"></path></svg></span>
 <h1 class="fr" style="font-size: 44px; font-weight: 400; margin: 24px 0 0">You’re in, Sara</h1>
-<p style="color: #5C4B50; margin: 10px 0 28px">One book needs you: proof round 2 is ready.</p>
+<p style="color: var(--ink-2); margin: 10px 0 28px">One book needs you: proof round 2 is ready.</p>
 <a class="btn bp" href="D5-Portal.dc.html" style="width: 100%">Go to my account</a>
 </div></sc-if>
-<p style="font-size: 12px; color: #5C4B50; margin: 44px 0 0; text-align: center">By continuing you agree to our <a href="D15-Help.dc.html#terms">Terms</a> and <a href="D15-Help.dc.html#privacy">Privacy policy</a>.</p>
+<p style="font-size: 12px; color: var(--ink-2); margin: 44px 0 0; text-align: center">By continuing you agree to our <a href="D15-Help.dc.html#terms">Terms</a> and <a href="D15-Help.dc.html#privacy">Privacy policy</a>.</p>
 </div>
 </main>
 </div>
 </div><!--chrome:footer-->
 <footer class="sf" data-chrome="footer">
 <div class="sf-top">
-<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="--fs:42px;display:inline-flex;align-items:center;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#7D1238"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0"></path><path d="M32 25v18.4" stroke="#7D1238" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFF6F0"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:#FFF6F0">MiLes</span> <span class="rt" style="color:#FFF6F0"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
+<div class="sf-brand"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home" style="--fs:42px;display:inline-flex;align-items:center;text-decoration:none"><svg class="lgm" width="56" height="56" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="var(--accent)"></rect><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="var(--on-accent)"></path><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="var(--on-accent)"></path><path d="M32 25v18.4" stroke="var(--accent)" stroke-width="1.6"></path><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="var(--on-accent)" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"></path><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="var(--on-accent)"></path></svg><span class="sh-wm"><span class="fr" style="font-weight:600;letter-spacing:-.01em;line-height:.8;color:var(--on-accent)">MiLes</span> <span class="rt" style="color:var(--on-accent)"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a>
 <p>Customised travel photobooks and memory keepsakes, designed by hand in Saudi Arabia &amp; Pakistan.</p>
 <form class="sf-nl" data-newsletter novalidate><label for="sf-nl-email">New covers &amp; offers, once a month</label><div class="sf-nlrow"><input id="sf-nl-email" class="sf-nin" type="email" placeholder="you@example.com" autocomplete="email"><button type="submit" class="sf-join">Join</button></div><p class="sf-nlmsg" role="status" aria-live="polite"></p></form></div>
 <nav aria-label="Shop"><b>Shop</b><a href="D2-Builder.dc.html">Design a book</a><a href="D14-Lookbook.dc.html">Lookbook</a><a href="D16-Gifts.dc.html">Gift cards</a><a href="D21-Books.dc.html">Book types</a><a href="D24-Project195.dc.html">The 195 Project</a></nav>
