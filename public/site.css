@@ -1,0 +1,21 @@
+/* Shared polish layer, loaded by every page. Page-specific styling stays in each page. */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+
+/* Phones: standalone text links (footer, breadcrumbs, header) were ~19px tall. Give them a 44px touch target. */
+@media (max-width:700px){
+  footer nav a,footer nav button,.crumbs a,header nav a,.hdr nav a{display:inline-flex;align-items:center;min-height:44px}
+  /* Small standalone links/buttons elsewhere: grow the hit area only, layout stays put */
+  header a:not([class]),section.card a:not([class]),.box a:not([class]),section.wrap div>a:not([class]){padding-block:12px}
+  article.card button:not([class]){padding-block:12px!important;margin-block:-12px!important}
+}
+
+/* Respect reduced-motion settings across all page animations */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;animation-delay:0s!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+
+/* Stat counters animate a CSS variable up to its target; page-level reduced-motion rules switched the
+   animation off entirely, which left them stuck at 0. Run them to their end value instantly instead. */
+@media (prefers-reduced-motion:reduce){
+  .cnt{animation:cnt .01ms both!important}
+}

@@ -1,9 +1,46 @@
 {
   "cleanUrls": false,
+  "redirects": [
+    {
+      "source": "/",
+      "destination": "/D1-Motion.dc.html",
+      "permanent": false
+    },
+    {
+      "source": "/studio",
+      "destination": "/D8-Studio.dc.html",
+      "permanent": false
+    },
+    {
+      "source": "/index.html",
+      "destination": "/D1-Motion.dc.html",
+      "permanent": false
+    },
+    {
+      "source": "/Main.dc.html",
+      "destination": "/D1-Motion.dc.html",
+      "permanent": false
+    },
+    {
+      "source": "/Postcard.dc.html",
+      "destination": "/D1-Motion.dc.html",
+      "permanent": false
+    },
+    {
+      "source": "/Atlas.dc.html",
+      "destination": "/D1-Motion.dc.html",
+      "permanent": false
+    },
+    {
+      "source": "/D1-Home.dc.html",
+      "destination": "/D1-Motion.dc.html",
+      "permanent": false
+    }
+  ],
   "rewrites": [
     {
-      "source": "/_blob/0ccb3d30f4e2f37224ca46c8be035a25",
-      "destination": "/assets/0ccb3d30f4e2f37224ca46c8be035a25.jpg"
+      "source": "/favicon.ico",
+      "destination": "/assets/e8c29624c47de066f3c28cb82d08b58a.png"
     },
     {
       "source": "/_blob/1bebe18032c3ba7f722debbe5fa70f36",
@@ -46,24 +83,12 @@
       "destination": "/assets/71100774d11c2aa880857a9b1a64bf9f.png"
     },
     {
-      "source": "/_blob/8257c438c0842fd859b3137f3568cf09",
-      "destination": "/assets/8257c438c0842fd859b3137f3568cf09.jpg"
-    },
-    {
       "source": "/_blob/8384abb23ebdfeb24e7152bf3fdd1a9b",
       "destination": "/assets/8384abb23ebdfeb24e7152bf3fdd1a9b.jpg"
     },
     {
       "source": "/_blob/98c12f4559ed4513e51ccf0370bd9c96",
       "destination": "/assets/98c12f4559ed4513e51ccf0370bd9c96.png"
-    },
-    {
-      "source": "/_blob/9f9b9c7ec3fe289da29a671ba7b77b77",
-      "destination": "/assets/9f9b9c7ec3fe289da29a671ba7b77b77.jpg"
-    },
-    {
-      "source": "/_blob/adfaf7713315604416f193a08d73c174",
-      "destination": "/assets/adfaf7713315604416f193a08d73c174.jpg"
     },
     {
       "source": "/_blob/ae8f12954b4a72155451fa4ddff588b7",
@@ -104,15 +129,20 @@
     {
       "source": "/_blob/f08779877440c2286792e1b13cda158c",
       "destination": "/assets/f08779877440c2286792e1b13cda158c.png"
-    },
-    {
-      "source": "/_blob/f3364f297167ee327c5ff6991ecfdd56",
-      "destination": "/assets/f3364f297167ee327c5ff6991ecfdd56.jpg"
     }
   ],
   "headers": [
     {
       "source": "/assets/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=31536000, immutable"
+        }
+      ]
+    },
+    {
+      "source": "/_blob/(.*)",
       "headers": [
         {
           "key": "Cache-Control",
