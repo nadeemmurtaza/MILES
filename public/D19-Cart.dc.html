@@ -7,6 +7,7 @@
 <script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
 <script src="/pointer.js" defer></script>
+<script src="/merge.js" defer></script>
 <title>Miles Retold · Cart</title>
 <script src="./support.js"></script>
 <link rel="icon" type="image/svg+xml" href="/assets/ba8a47ecfe93acbd68bd017714519801.svg">
@@ -172,7 +173,7 @@ label.lb{font-size:14px;font-weight:700;display:block;margin-bottom:8px}
 <div class="seg" role="group" aria-label="Currency"><sc-for list="{{curs}}" as="c" hint-placeholder-count="2"><button class="{{c.cls}}" onClick="{{c.pick}}">{{c.name}}</button></sc-for></div></div>
 <sc-if value="{{hasUndo}}" hint-placeholder-val="{{ false }}"><div class="undo-bar" role="status" style="margin-top: 18px"><span>Removed “{{undoName}}” from your cart.</span><button onClick="{{doUndo}}">Undo</button></div></sc-if>
 <sc-if value="{{hasItems}}" hint-placeholder-val="{{ true }}">
-<div class="two" style="display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 28px; margin-top: 30px; align-items: start">
+<div class="two" data-doc style="display: grid; grid-template-columns: minmax(0, 1fr) 400px; gap: 28px; margin-top: 30px; align-items: start">
 <div style="display: grid; gap: 14px">
 <sc-for list="{{items}}" as="it" hint-placeholder-count="3">
 <article class="card swap citem" key="{{it.key}}" style="padding: 22px; display: grid; grid-template-columns: 96px minmax(0, 1fr) auto; gap: 22px; align-items: center">

@@ -102,6 +102,8 @@ for (const f of PAGES) {
   if (!src.includes('src="/pricing.js"')) src = src.replace('<script src="/chrome.js" defer></script>', '<script src="/pricing.js"></script>\n<script src="/chrome.js" defer></script>');
   // adaptive pointer (inverts against whatever is behind it)
   if (!src.includes('src="/pointer.js"')) src = src.replace('<script src="/chrome.js" defer></script>', '<script src="/chrome.js" defer></script>\n<script src="/pointer.js" defer></script>');
+  // cards that sit together become one sheet
+  if (!src.includes('src="/merge.js"')) src = src.replace('<script src="/pointer.js" defer></script>', '<script src="/pointer.js" defer></script>\n<script src="/merge.js" defer></script>');
   // keep the D11 grid exactly one screen below the header
   if (key === 'D11-SignIn') src = src.replace('min-height: 100vh; min-height: 100svh">', 'min-height: calc(100vh - 79px); min-height: calc(100svh - 79px)">');
 
