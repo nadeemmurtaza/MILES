@@ -97,14 +97,14 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 @media (max-width:700px){:root{--sp-section-s:40px;--sp-section-m:48px;--sp-section-l:56px;--sp-section-xl:64px}}
 
 /* --- header --- */
-.sh{position:sticky;top:0;z-index:40;background:color-mix(in srgb, var(--canvas) 82%, transparent);backdrop-filter:blur(16px) saturate(1.2);-webkit-backdrop-filter:blur(16px) saturate(1.2);border-bottom:1px solid transparent;font-family:Manrope,system-ui,sans-serif;color:var(--ink);box-sizing:border-box}
+.sh{position:sticky;top:0;z-index:40;background:transparent;border-bottom:0;font-family:Manrope,system-ui,sans-serif;color:var(--ink);box-sizing:border-box}
+/* the header is not a bar: a wash of the page colour that fades out downwards (no fill edge, no rule, no shadow), blurring what scrolls under it */
+.sh::before{content:"";position:absolute;left:0;right:0;top:0;bottom:-34px;z-index:-1;pointer-events:none;background:linear-gradient(180deg,color-mix(in srgb,var(--canvas) 94%,transparent) 0,color-mix(in srgb,var(--canvas) 82%,transparent) 58%,transparent 100%);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);-webkit-mask-image:linear-gradient(180deg,black 0,black 52%,transparent 100%);mask-image:linear-gradient(180deg,black 0,black 52%,transparent 100%)}
 .sh *,.sf *{box-sizing:border-box}
 .sh a,.sh button{white-space:nowrap}
 @supports (animation-timeline:scroll()){
-  .sh{animation:shBar linear both;animation-timeline:scroll();animation-range:0 240px}
   .sh .sh-in{animation:shPad linear both;animation-timeline:scroll();animation-range:0 240px}
 }
-@keyframes shBar{to{background:color-mix(in srgb, var(--canvas) 94%, transparent);border-bottom-color:var(--line);box-shadow:0 14px 30px -24px color-mix(in srgb, var(--shadow-tint) 45%, transparent)}}
 @keyframes shPad{to{padding-top:10px;padding-bottom:10px}}
 .sh-in{max-width:1360px;margin:0 auto;padding:16px 44px;display:flex;align-items:center;justify-content:space-between;gap:20px}
 .sh-logo{text-decoration:none;display:flex;align-items:center;min-height:44px;flex:none}
@@ -147,7 +147,8 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   .sh-in{padding:12px 18px}
 }
 /* dark variant (proof review page) */
-.sh--dark{background:color-mix(in srgb, var(--ink-3) 88%, transparent);color:var(--on-accent);border-bottom-color:color-mix(in srgb, var(--surface) 10%, transparent)}
+.sh--dark{color:var(--on-accent)}
+.sh--dark::before{background:linear-gradient(180deg,color-mix(in srgb,var(--ink-3) 94%,transparent) 0,color-mix(in srgb,var(--ink-3) 80%,transparent) 58%,transparent 100%)}
 .sh--dark .sh-nav a,.sh--dark .sh-track,.sh--dark .sh-acct,.sh--dark .sh-cart,.sh--dark .sh-lang{color:var(--on-accent)}
 .sh--dark .sh-lang{border-color:color-mix(in srgb, var(--surface) 20%, transparent)}
 .sh--dark .sh-wm .fr,.sh--dark .sh-wm .rt{color:var(--on-accent)!important}
@@ -157,8 +158,6 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .sh--dark .sh-cart b{background:var(--gold);color:var(--ink)}
 .sh--dark .sh-burger{background:color-mix(in srgb, var(--surface) 8%, transparent);border-color:color-mix(in srgb, var(--surface) 18%, transparent)}
 .sh--dark .sh-bars i{background:var(--on-accent)}
-@supports (animation-timeline:scroll()){.sh--dark{animation-name:shBarDark}}
-@keyframes shBarDark{to{background:color-mix(in srgb, var(--ink-3) 96%, transparent);border-bottom-color:color-mix(in srgb, var(--surface) 14%, transparent)}}
 
 /* secondary bar under the header (checkout steps, proof toolbar) */
 .sh-sub{position:relative;z-index:30}
@@ -187,26 +186,23 @@ body:has(.sh) h1.fr:not(.h1-compact){font-size:clamp(32px,9vw,40px)!important;li
 body:has(.sh) h1.fr.h1-hero{font-size:clamp(40px,11.5vw,52px)!important;line-height:1.04!important}
 body:has(.sh) h2.fr:not(.h2-card):not(.capx h2){font-size:clamp(28px,8.6vw,34px)!important;line-height:1.1!important}
 }
-/* one system, not separate cards: a page's related content lives in ONE sheet (.doc) - sections divided by hairlines, a tinted side pane, no boxes inside boxes */
-.doc{display:grid;grid-template-columns:minmax(0,1fr) 380px;background:color-mix(in srgb,var(--surface) 78%,transparent);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden}
-.docMain>section,.docSide>section{padding:28px 32px}
-.docMain>section+section,.docSide>section+section{border-top:1px solid var(--line)}
-.docSide{background:color-mix(in srgb,var(--canvas-2) 55%,transparent);border-left:1px solid var(--line)}
-.spec{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:8px;font-size:14px}.spec>div{padding:14px 16px 14px 0;border-top:1px solid var(--line)}
-@media (max-width:900px){.doc{grid-template-columns:minmax(0,1fr)}.docSide{border-left:0;border-top:1px solid var(--line)}.docMain>section,.docSide>section{padding:24px 20px}.spec{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* ---- surfaces that flow into each other: slow-moving light, and section backgrounds that fade in and out instead of ending in a hard edge ---- */
-:root{--feather:clamp(48px,9vw,120px)}
-body::before,body::after{content:"";position:fixed;z-index:-1;pointer-events:none;will-change:transform}
+:root{--fb:clamp(200px,40vh,420px);--grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/></filter><rect width='100%' height='100%' filter='url(%23n)' opacity='.1'/></svg>")}
+@supports (height:1svh){:root{--fb:clamp(200px,40svh,420px)}}
+body::before,body::after{content:"";position:fixed;z-index:-3;pointer-events:none;will-change:transform}
 body::before{inset:-25%;background:radial-gradient(40% 44% at 74% 28%, color-mix(in srgb, var(--accent) 14%, var(--accent-tint)) 0%, color-mix(in srgb, var(--accent-tint) 62%, transparent) 42%, transparent 74%),radial-gradient(40% 42% at 18% 22%, var(--paper) 0%, transparent 72%);animation:blushA 70s ease-in-out infinite alternate}
 body::after{inset:-30%;background:radial-gradient(34% 38% at 24% 76%, color-mix(in srgb, var(--accent) 9%, var(--accent-tint)) 0%, transparent 72%),radial-gradient(34% 36% at 82% 80%, color-mix(in srgb, var(--paper) 90%, transparent) 0%, transparent 72%);animation:blushB 95s ease-in-out infinite alternate}
 @keyframes blushA{0%{transform:translate3d(-20%,-10%,0) rotate(0deg) scale(.95)}50%{transform:translate3d(12%,16%,0) rotate(14deg) scale(1.18)}100%{transform:translate3d(22%,-8%,0) rotate(-12deg) scale(1.3)}}
 @keyframes blushB{0%{transform:translate3d(16%,10%,0) rotate(0deg) scale(1.1)}50%{transform:translate3d(-20%,-12%,0) rotate(-14deg) scale(.98)}100%{transform:translate3d(10%,-16%,0) rotate(12deg) scale(1.24)}}
 @keyframes lightA{0%{transform:translate3d(-8%,-5%,0) rotate(0deg) scale(1)}50%{transform:translate3d(5%,8%,0) rotate(10deg) scale(1.14)}100%{transform:translate3d(9%,-4%,0) rotate(-9deg) scale(1.22)}}
 @keyframes lightB{0%{transform:translate3d(7%,5%,0) rotate(0deg) scale(1.12)}50%{transform:translate3d(-8%,-7%,0) rotate(-11deg) scale(1)}100%{transform:translate3d(4%,-9%,0) rotate(9deg) scale(1.2)}}
-/* every dark / wine / band section: its own background is drawn by ::after, taller than the section and masked so it eases in above and out below (into the neighbours' padding), with the moving light in ::before */
-[style*="var(--bg-band)"]:not(.rail),[style*="var(--bg-ink)"]:not(.rail),[style*="var(--bg-wine)"]:not(.rail),.sf{position:relative;isolation:isolate;background:transparent!important;overflow:visible!important;clip-path:inset(calc(var(--feather) * -1) 0)}
+/* every dark / wine / band section (no stacking context of its own, so the gradient sits behind ALL page text, also the neighbours'): its background is drawn by ::after, taller than the section and masked with a long, eased ramp, so it reads as one wide gradient (cream -> rose -> wine -> ink) instead of a box with an edge. The moving light lives inside it. */
+[style*="var(--bg-band)"]:not(.rail),[style*="var(--bg-ink)"]:not(.rail),[style*="var(--bg-wine)"]:not(.rail),.sf{--feather:var(--fb);--ramp:calc(var(--feather) + 56px);--feather-mask:linear-gradient(180deg,transparent 0,color-mix(in srgb,black .9%,transparent) calc(var(--ramp) * 0.1),color-mix(in srgb,black 7.4%,transparent) calc(var(--ramp) * 0.22),color-mix(in srgb,black 25%,transparent) calc(var(--ramp) * 0.36),color-mix(in srgb,black 50%,transparent) calc(var(--ramp) * 0.5),color-mix(in srgb,black 75%,transparent) calc(var(--ramp) * 0.64),color-mix(in srgb,black 92.6%,transparent) calc(var(--ramp) * 0.78),color-mix(in srgb,black 99.1%,transparent) calc(var(--ramp) * 0.9),black var(--ramp),black calc(100% - var(--ramp)),color-mix(in srgb,black 99.1%,transparent) calc(100% - var(--ramp) * 0.9),color-mix(in srgb,black 92.6%,transparent) calc(100% - var(--ramp) * 0.78),color-mix(in srgb,black 75%,transparent) calc(100% - var(--ramp) * 0.64),color-mix(in srgb,black 50%,transparent) calc(100% - var(--ramp) * 0.5),color-mix(in srgb,black 25%,transparent) calc(100% - var(--ramp) * 0.36),color-mix(in srgb,black 7.4%,transparent) calc(100% - var(--ramp) * 0.22),color-mix(in srgb,black .9%,transparent) calc(100% - var(--ramp) * 0.1),transparent 100%);position:relative;background:transparent!important;overflow:visible!important}
+[style*="var(--bg-band)"]:not(.rail){--feather:calc(var(--fb) * .55)}
+[style*="var(--bg-ink)"]:not(.rail),[style*="var(--bg-wine)"]:not(.rail),.sf{margin-block:calc(var(--feather) * .3)!important}
+.sf{--feather-mask:linear-gradient(180deg,transparent 0,color-mix(in srgb,black .9%,transparent) calc(var(--ramp) * 0.1),color-mix(in srgb,black 7.4%,transparent) calc(var(--ramp) * 0.22),color-mix(in srgb,black 25%,transparent) calc(var(--ramp) * 0.36),color-mix(in srgb,black 50%,transparent) calc(var(--ramp) * 0.5),color-mix(in srgb,black 75%,transparent) calc(var(--ramp) * 0.64),color-mix(in srgb,black 92.6%,transparent) calc(var(--ramp) * 0.78),color-mix(in srgb,black 99.1%,transparent) calc(var(--ramp) * 0.9),black var(--ramp),black 100%);margin-bottom:0!important}
 [style*="var(--bg-band)"]:not(.rail)::after,[style*="var(--bg-ink)"]:not(.rail)::after,[style*="var(--bg-wine)"]:not(.rail)::after,.sf::after{content:"";position:absolute;left:0;right:0;top:calc(var(--feather) * -1);bottom:calc(var(--feather) * -1);z-index:-2;pointer-events:none;-webkit-mask-image:var(--feather-mask);mask-image:var(--feather-mask)}
-:root{--feather-mask:linear-gradient(180deg,transparent 0,color-mix(in srgb,black 4%,transparent) calc(var(--feather) * .12),color-mix(in srgb,black 16%,transparent) calc(var(--feather) * .28),color-mix(in srgb,black 40%,transparent) calc(var(--feather) * .46),color-mix(in srgb,black 72%,transparent) calc(var(--feather) * .7),color-mix(in srgb,black 92%,transparent) calc(var(--feather) * .88),black var(--feather),black calc(100% - var(--feather)),color-mix(in srgb,black 92%,transparent) calc(100% - var(--feather) * .88),color-mix(in srgb,black 72%,transparent) calc(100% - var(--feather) * .7),color-mix(in srgb,black 40%,transparent) calc(100% - var(--feather) * .46),color-mix(in srgb,black 16%,transparent) calc(100% - var(--feather) * .28),color-mix(in srgb,black 4%,transparent) calc(100% - var(--feather) * .12),transparent 100%)}
+.sf::after{bottom:0}
 @property --g1x{syntax:"<percentage>";inherits:false;initial-value:18%}
 @property --g1y{syntax:"<percentage>";inherits:false;initial-value:30%}
 @property --g2x{syntax:"<percentage>";inherits:false;initial-value:84%}
@@ -214,32 +210,14 @@ body::after{inset:-30%;background:radial-gradient(34% 38% at 24% 76%, color-mix(
 @keyframes glowmove{0%{--g1x:14%;--g1y:26%;--g2x:88%;--g2y:78%}50%{--g1x:46%;--g1y:62%;--g2x:52%;--g2y:34%}100%{--g1x:80%;--g1y:30%;--g2x:16%;--g2y:70%}}
 [style*="var(--bg-band)"]:not(.rail)::after,[style*="var(--bg-ink)"]:not(.rail)::after,[style*="var(--bg-wine)"]:not(.rail)::after,.sf::after{animation:glowmove 90s ease-in-out infinite alternate}
 [style*="var(--bg-band)"]:not(.rail)::after{background:radial-gradient(34% 44% at var(--g1x) var(--g1y), color-mix(in srgb, var(--paper) 85%, transparent) 0%, transparent 72%),radial-gradient(30% 40% at var(--g2x) var(--g2y), color-mix(in srgb, var(--accent-tint) 80%, transparent) 0%, transparent 72%),var(--bg-band)}
-[style*="var(--bg-ink)"]:not(.rail)::after,.sf::after{background:radial-gradient(34% 46% at var(--g1x) var(--g1y), color-mix(in srgb, var(--accent) 40%, var(--ink)) 0%, transparent 72%),radial-gradient(30% 42% at var(--g2x) var(--g2y), color-mix(in srgb, var(--accent-deep) 58%, var(--ink)) 0%, transparent 72%),var(--ink)}
-[style*="var(--bg-wine)"]:not(.rail)::after{background:radial-gradient(34% 50% at var(--g2x) var(--g1y), color-mix(in srgb, var(--accent) 86%, var(--on-accent)) 0%, transparent 70%),radial-gradient(30% 42% at var(--g1x) var(--g2y), color-mix(in srgb, var(--accent-deep) 80%, var(--ink)) 0%, transparent 72%),var(--bg-wine)}
+[style*="var(--bg-ink)"]:not(.rail)::after,.sf::after{background:var(--grain),radial-gradient(40% 40% at var(--g1x) var(--g1y), color-mix(in srgb, var(--accent) 46%, var(--ink)) 0%, transparent 72%),radial-gradient(34% 36% at var(--g2x) var(--g2y), color-mix(in srgb, var(--accent-deep) 64%, var(--ink)) 0%, transparent 72%),linear-gradient(180deg,var(--accent) 0,var(--accent-deep) calc(var(--ramp) * .62),var(--ink) var(--ramp),var(--ink) calc(100% - var(--ramp)),var(--accent-deep) calc(100% - var(--ramp) * .62),var(--accent) 100%)}
+.sf::after{background:var(--grain),radial-gradient(40% 40% at var(--g1x) var(--g1y), color-mix(in srgb, var(--accent) 46%, var(--ink)) 0%, transparent 72%),radial-gradient(34% 36% at var(--g2x) var(--g2y), color-mix(in srgb, var(--accent-deep) 64%, var(--ink)) 0%, transparent 72%),linear-gradient(180deg,var(--accent) 0,var(--accent-deep) calc(var(--ramp) * .62),var(--ink) var(--ramp),var(--ink) 100%)}
+[style*="var(--bg-wine)"]:not(.rail)::after{background:var(--grain),radial-gradient(40% 42% at var(--g2x) var(--g1y), color-mix(in srgb, var(--accent) 86%, var(--on-accent)) 0%, transparent 70%),radial-gradient(34% 36% at var(--g1x) var(--g2y), color-mix(in srgb, var(--accent-deep) 80%, var(--ink)) 0%, transparent 72%),var(--bg-wine)}
 .rail{position:relative;isolation:isolate;overflow:clip}
 .rail::before{content:"";position:absolute;inset:-20%;z-index:-1;pointer-events:none;will-change:transform;animation:lightB 100s ease-in-out infinite alternate;background:radial-gradient(40% 36% at 20% 18%, color-mix(in srgb, var(--accent) 40%, var(--ink)) 0%, transparent 72%),radial-gradient(34% 34% at 80% 88%, color-mix(in srgb, var(--accent-deep) 56%, var(--ink)) 0%, transparent 72%)}
-@media (max-width:700px){:root{--feather:48px}body::after{display:none}}
+@media (max-width:700px){:root{--fb:clamp(140px,26vh,230px)}body::after{display:none}}
+@supports (height:1svh){@media (max-width:700px){:root{--fb:clamp(140px,26svh,230px)}}}
 @media (prefers-reduced-motion:reduce){body::before,body::after,[style*="var(--bg-band)"]::after,[style*="var(--bg-ink)"]::after,[style*="var(--bg-wine)"]::after,.sf::after,.rail::before{animation:none!important}}
-
-/* the footer's soft top edge reaches up into the page: keep the last block clear of it */
-main:has(+ footer.sf)::after{content:"";display:block;height:calc(var(--feather) * .4)}
-
-/* ---- cards that belong together (merge.js marks them) ---- */
-[data-card]{background:color-mix(in srgb,var(--surface) 74%,transparent)!important}
-[data-mg]{box-shadow:none!important}
-[data-mg="v-first"]{border-bottom-left-radius:0!important;border-bottom-right-radius:0!important}
-[data-mg="v-mid"],[data-mg="h-mid"]{border-radius:0!important}
-[data-mg="v-last"]{border-top-left-radius:0!important;border-top-right-radius:0!important}
-[data-mg="h-first"]{border-top-right-radius:0!important;border-bottom-right-radius:0!important}
-[data-mg="h-last"]{border-top-left-radius:0!important;border-bottom-left-radius:0!important}
-
-/* a two-column page task (main + summary) as ONE sheet: data-doc on the grid container */
-[data-doc]{gap:0!important;align-items:stretch!important;background:color-mix(in srgb,var(--surface) 78%,transparent);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden}
-[data-doc]>aside{position:static!important;border:0!important;border-left:1px solid var(--line)!important;border-radius:0!important;box-shadow:none!important;background:color-mix(in srgb,var(--canvas-2) 55%,transparent)!important}
-[data-doc] :is(.card,.box,[data-mg],[data-card]):not(aside){background:transparent!important;border-width:0!important;border-radius:0!important;box-shadow:none!important}
-[data-doc] :is(.card,.box,[data-mg]):not(aside)+:is(.card,.box,[data-mg]):not(aside){border-top:1px solid var(--line)!important}
-[data-doc]>div:has(>.card),[data-doc]>div:has(>[data-mg]){gap:0!important}
-@media (max-width:900px){[data-doc]>aside{border-left:0!important;border-top:1px solid var(--line)!important}}
 
 /* ---- adaptive pointer (pointer.js): shows the page behind it inverted and desaturated -> dark over light, light over dark ---- */
 html.px-on,html.px-on *{cursor:none!important}

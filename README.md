@@ -23,7 +23,7 @@ The studio pages (`public/D8-*.dc.html`: pipeline, stage pages, orders, customer
 
 ## Surfaces and pointer
 * `public/site.css`: `--bg-page`, `--bg-band`, `--bg-ink`, `--bg-wine` are the static bases; the slow-moving light is the `body::before/::after` layers and the `::before` layer inside any element whose inline style uses a `--bg-*` token (plus `.sf` and `.rail`). Keep `background: var(--bg-…)` on a section and it drifts automatically; the page wrapper stays `background: transparent`.
-* `public/merge.js` (stamped the same way): fuses adjacent cards into one sheet at runtime and marks plain cards so the background light shows through; `data-doc` on a grid makes main + side a single sheet; `data-nomerge` opts out. Section edges are feathered by `--feather` in `site.css`.
+* Section edges: every dark / wine / band section (and the footer) draws its background in a layer taller than the section, masked with a long eased ramp (`--fb` in `site.css`, about 40% of the screen height on desktop, 26% on phones). Content sits clear of the ramp through the section margins. The grain (`--grain`) and the moving glow live in that layer. Cards, fields and buttons keep their own fill and border.
 * `public/pointer.js` (stamped into every page by `sync-chrome.mjs` / `sync-studio.mjs`, and in `404.html`): the adaptive pointer described in `DESIGN-RULES.md`. To turn it off on a page, drop the script tag; nothing else depends on it.
 
 ## Arabic (RTL)

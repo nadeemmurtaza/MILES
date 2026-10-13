@@ -22,7 +22,7 @@ const PUBLIC = path.join(ROOT, 'public');
 const SKIP = new Set();
 const PAGES = fs.readdirSync(PUBLIC).filter((f) => /^D8-.*\.dc\.html$/.test(f) && !SKIP.has(f.replace('.dc.html', ''))).sort();
 
-const BLOCK = '<!--studio:chrome-->\n<link rel="stylesheet" href="/studio.css">\n<script src="/studio.js" defer></script>\n<script src="/pointer.js" defer></script>\n<script src="/merge.js" defer></script>\n<!--/studio:chrome-->';
+const BLOCK = '<!--studio:chrome-->\n<link rel="stylesheet" href="/studio.css">\n<script src="/studio.js" defer></script>\n<script src="/pointer.js" defer></script>\n<!--/studio:chrome-->';
 const BLOCK_RE = /<!--studio:chrome-->[\s\S]*?<!--\/studio:chrome-->/;
 const SITE_CSS = '<link rel="stylesheet" href="/site.css">';
 
