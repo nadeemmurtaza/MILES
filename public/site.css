@@ -187,6 +187,13 @@ body:has(.sh) h1.fr:not(.h1-compact){font-size:clamp(32px,9vw,40px)!important;li
 body:has(.sh) h1.fr.h1-hero{font-size:clamp(40px,11.5vw,52px)!important;line-height:1.04!important}
 body:has(.sh) h2.fr:not(.h2-card):not(.capx h2){font-size:clamp(28px,8.6vw,34px)!important;line-height:1.1!important}
 }
+/* one system, not separate cards: a page's related content lives in ONE sheet (.doc) - sections divided by hairlines, a tinted side pane, no boxes inside boxes */
+.doc{display:grid;grid-template-columns:minmax(0,1fr) 380px;background:color-mix(in srgb,var(--surface) 78%,transparent);border:1px solid var(--line);border-radius:var(--r-xl);overflow:hidden}
+.docMain>section,.docSide>section{padding:28px 32px}
+.docMain>section+section,.docSide>section+section{border-top:1px solid var(--line)}
+.docSide{background:color-mix(in srgb,var(--canvas-2) 55%,transparent);border-left:1px solid var(--line)}
+.spec{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:8px;font-size:14px}.spec>div{padding:14px 16px 14px 0;border-top:1px solid var(--line)}
+@media (max-width:900px){.doc{grid-template-columns:minmax(0,1fr)}.docSide{border-left:0;border-top:1px solid var(--line)}.docMain>section,.docSide>section{padding:24px 20px}.spec{grid-template-columns:repeat(2,minmax(0,1fr))}}
 /* touch: every control is at least 44px tall on phones */
 @media (max-width:900px){.sf-lang{display:inline-flex;align-items:center;min-height:44px}html .seg button{min-height:44px;display:inline-flex;align-items:center}html .seg{flex-wrap:wrap;overflow:visible;border-radius:var(--r-xl)}}
 @media (max-width:900px){.sf-top{grid-template-columns:repeat(2,minmax(0,1fr));padding:48px 22px 28px}.sf-brand{grid-column:1/-1}.sf-bot{padding:20px 22px 28px}}
