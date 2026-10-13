@@ -122,6 +122,7 @@ A brand colour must be adjusted in shade to look the same on lighter and darker 
 | – | Status | green `#2B6B55` (done, paid), amber `#9A5A0B` (due), red `#A3123F` (error) | status only, never decoration |
 | – | Product | book covers, gift-card designs, paper | content, not interface |
 
+- **Surfaces are tonal gradients, not flat fills** — four tokens in `public/site.css`: `--bg-page` (ivory with a soft paper-white light at the top-left and a blush halo behind the hero artwork, easing to a deeper sand at the bottom), `--bg-band` (the deeper ivory bands), `--bg-ink` (charcoal with a faint wine glow, used on the footer and dark bands and the studio sidebar), `--bg-wine` (wine to deep wine with a soft highlight, used on the finale band). They are built only from the palette tokens (single hue per surface, no new colours), stay subtle so ivory still reads as the 60%, and keep every text/background pair at its previous contrast. Cards, fields and buttons stay flat; pages use the tokens, never their own gradient.
 - **Applied** — 65 hex values folded to 38; wine→red→copper gradients are single-hue; copper removed; WhatsApp button and toggles use the accent; one icon tint; one backdrop per book type; the sign-in panel is the deeper ivory band; confetti is wine + gold. Tokens are at the top of `public/site.css`; `node scripts/check-palette.mjs` fails if a customer page uses a colour outside the palette.
 
 ### On phones — the same rules, nothing relaxed
@@ -155,7 +156,7 @@ Every rule above applies at phone width. These are the places where a phone need
 ---
 
 ## 5. Adding or changing something — checklist
-- Colour: use a role from section 3; run `node scripts/check-palette.mjs`.
+- Colour: use a role from section 3; run `node scripts/check-palette.mjs`. Big surfaces take `--bg-page` / `--bg-band` / `--bg-ink` / `--bg-wine`, not a flat colour.
 - Type: Fraunces + Manrope only (Arabic pair for Arabic); no all-caps over 5 words.
 - Shape/space: pick from the radius and section-spacing scales; soft, tinted shadows.
 - Copy: add the Arabic (`i18n-src/`) and rebuild; keep one term per concept.

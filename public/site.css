@@ -86,6 +86,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:24px; --r-pill:999px;
   --sp-section-s:64px; --sp-section-m:80px; --sp-section-l:96px; --sp-section-xl:120px;
   /* soft shadows: tinted, long and blurred, never pure black */
+  /* surfaces: tonal gradients made only from the palette tokens (no new hues) - soft ivory light at the top, a faint wine glow on charcoal */
+  --bg-page:radial-gradient(ellipse min(900px,120vw) 440px at 8% 0, var(--paper) 0%, transparent 72%), radial-gradient(ellipse min(820px,115vw) min(560px,90vw) at 78% 300px, color-mix(in srgb, var(--accent-tint) 90%, transparent) 0%, transparent 68%), linear-gradient(180deg, var(--canvas) 0%, color-mix(in srgb, var(--canvas-2) 88%, var(--canvas)) 100%);
+  --bg-band:linear-gradient(180deg, var(--canvas-2) 0%, color-mix(in srgb, var(--canvas-2) 70%, var(--canvas)) 100%);
+  --bg-ink:radial-gradient(ellipse 78% 120% at 10% -12%, color-mix(in srgb, var(--accent) 42%, var(--ink)) 0%, transparent 64%), radial-gradient(ellipse 60% 100% at 100% 115%, color-mix(in srgb, var(--accent-deep) 60%, var(--ink)) 0%, transparent 62%), var(--ink);
+  --bg-wine:radial-gradient(ellipse 70% 120% at 85% -20%, color-mix(in srgb, var(--accent) 100%, var(--on-accent) 14%) 0%, transparent 60%), linear-gradient(155deg, var(--accent) 0%, var(--accent-deep) 78%);
   --shadow-sm:0 6px 16px -4px rgba(60,20,30,.20); --shadow-md:0 18px 30px -20px rgba(31,20,24,.5); --shadow-lg:0 34px 60px -34px rgba(60,20,30,.45);
 }
 /* on phones the same four steps, shorter (still multiples of 8) */
@@ -159,7 +164,7 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
 .sh-sub{position:relative;z-index:30}
 
 /* --- footer --- */
-.sf{background:var(--ink);color:var(--line-2);font-family:Manrope,system-ui,sans-serif;font-size:15px}
+.sf{background:var(--bg-ink);color:var(--line-2);font-family:Manrope,system-ui,sans-serif;font-size:15px}
 .sf-top{max-width:1360px;margin:0 auto;padding:64px 44px 40px;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:40px}
 .sf-brand p{line-height:1.7;margin:14px 0 22px;max-width:360px}
 .sf nav{display:grid;gap:8px;align-content:start}
