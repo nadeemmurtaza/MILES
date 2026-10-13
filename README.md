@@ -21,6 +21,10 @@ The studio pages (`public/D8-*.dc.html`: pipeline, stage pages, orders, customer
 * **Settings → Team members** (`public/D8-A7b-Team.dc.html`): the team list (Tazmeen and Rameen are the two owners), an add-a-member form (name, WhatsApp number or email, role) with validation, resend / cancel-invite with Undo, and a "who can open what" summary per role (Owner, Designer, Print & shipping, Customer support, Finance). It is a prototype: no invitation is sent and nothing is stored. The Settings page links to it from the header and from its Team tab.
 * `public/studio.css` holds the phone rules the studio pages share (swipeable filter strips with an edge fade, table rows that become labelled cards, 44px targets, stat-card and tracker layouts). Colours, radii and shadows there and in the pages are the `var(--token)`s from `site.css`; `node scripts/check-palette.mjs` checks the studio pages too.
 
+## Surfaces and pointer
+* `public/site.css`: `--bg-page`, `--bg-band`, `--bg-ink`, `--bg-wine` are the static bases; the slow-moving light is the `body::before/::after` layers and the `::before` layer inside any element whose inline style uses a `--bg-*` token (plus `.sf` and `.rail`). Keep `background: var(--bg-…)` on a section and it drifts automatically; the page wrapper stays `background: transparent`.
+* `public/pointer.js` (stamped into every page by `sync-chrome.mjs` / `sync-studio.mjs`, and in `404.html`): the adaptive pointer described in `DESIGN-RULES.md`. To turn it off on a page, drop the script tag; nothing else depends on it.
+
 ## Arabic (RTL)
 The language button (and Account → Language) switches the whole site between English and Arabic; the choice is remembered.
 

@@ -86,11 +86,11 @@ html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
   --r-sm:8px; --r-md:12px; --r-lg:16px; --r-xl:24px; --r-pill:999px;
   --sp-section-s:64px; --sp-section-m:80px; --sp-section-l:96px; --sp-section-xl:120px;
   /* soft shadows: tinted, long and blurred, never pure black */
-  /* surfaces: tonal gradients made only from the palette tokens (no new hues) - soft ivory light at the top, a faint wine glow on charcoal */
-  --bg-page:radial-gradient(ellipse min(900px,120vw) 440px at 8% 0, var(--paper) 0%, transparent 72%), radial-gradient(ellipse min(820px,115vw) min(560px,90vw) at 78% 300px, color-mix(in srgb, var(--accent-tint) 90%, transparent) 0%, transparent 68%), linear-gradient(180deg, var(--canvas) 0%, color-mix(in srgb, var(--canvas-2) 88%, var(--canvas)) 100%);
+  /* surfaces: a static tonal base per role (palette tokens only) - the slow-moving light on top of it is drawn by the .glow layers further down */
+  --bg-page:linear-gradient(180deg, var(--canvas) 0%, color-mix(in srgb, var(--canvas-2) 88%, var(--canvas)) 100%);
   --bg-band:linear-gradient(180deg, var(--canvas-2) 0%, color-mix(in srgb, var(--canvas-2) 70%, var(--canvas)) 100%);
-  --bg-ink:radial-gradient(ellipse 78% 120% at 10% -12%, color-mix(in srgb, var(--accent) 42%, var(--ink)) 0%, transparent 64%), radial-gradient(ellipse 60% 100% at 100% 115%, color-mix(in srgb, var(--accent-deep) 60%, var(--ink)) 0%, transparent 62%), var(--ink);
-  --bg-wine:radial-gradient(ellipse 70% 120% at 85% -20%, color-mix(in srgb, var(--accent) 100%, var(--on-accent) 14%) 0%, transparent 60%), linear-gradient(155deg, var(--accent) 0%, var(--accent-deep) 78%);
+  --bg-ink:var(--ink);
+  --bg-wine:linear-gradient(155deg, var(--accent) 0%, var(--accent-deep) 78%);
   --shadow-sm:0 6px 16px -4px rgba(60,20,30,.20); --shadow-md:0 18px 30px -20px rgba(31,20,24,.5); --shadow-lg:0 34px 60px -34px rgba(60,20,30,.45);
 }
 /* on phones the same four steps, shorter (still multiples of 8) */
@@ -194,6 +194,35 @@ body:has(.sh) h2.fr:not(.h2-card):not(.capx h2){font-size:clamp(28px,8.6vw,34px)
 .docSide{background:color-mix(in srgb,var(--canvas-2) 55%,transparent);border-left:1px solid var(--line)}
 .spec{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin-top:8px;font-size:14px}.spec>div{padding:14px 16px 14px 0;border-top:1px solid var(--line)}
 @media (max-width:900px){.doc{grid-template-columns:minmax(0,1fr)}.docSide{border-left:0;border-top:1px solid var(--line)}.docMain>section,.docSide>section{padding:24px 20px}.spec{grid-template-columns:repeat(2,minmax(0,1fr))}}
+/* ---- slow-moving light on the surfaces (compositor-only transforms, 80-110 s drifts, off for reduced motion) ---- */
+body::before,body::after{content:"";position:fixed;z-index:-1;pointer-events:none;will-change:transform}
+body::before{inset:-25%;background:radial-gradient(38% 42% at 22% 20%, var(--paper) 0%, transparent 72%),radial-gradient(34% 38% at 80% 28%, color-mix(in srgb, var(--accent-tint) 92%, transparent) 0%, transparent 72%);animation:lightA 80s ease-in-out infinite alternate}
+body::after{inset:-30%;background:radial-gradient(30% 34% at 72% 78%, color-mix(in srgb, var(--accent) 6%, transparent) 0%, transparent 72%),radial-gradient(34% 36% at 16% 74%, color-mix(in srgb, var(--paper) 92%, transparent) 0%, transparent 72%);animation:lightB 110s ease-in-out infinite alternate}
+@keyframes lightA{0%{transform:translate3d(-8%,-5%,0) rotate(0deg) scale(1)}50%{transform:translate3d(5%,8%,0) rotate(10deg) scale(1.14)}100%{transform:translate3d(9%,-4%,0) rotate(-9deg) scale(1.22)}}
+@keyframes lightB{0%{transform:translate3d(7%,5%,0) rotate(0deg) scale(1.12)}50%{transform:translate3d(-8%,-7%,0) rotate(-11deg) scale(1)}100%{transform:translate3d(4%,-9%,0) rotate(9deg) scale(1.2)}}
+[style*="var(--bg-band)"]:not(.rail),[style*="var(--bg-ink)"]:not(.rail),[style*="var(--bg-wine)"]:not(.rail),.sf{position:relative;isolation:isolate;overflow:clip}
+[style*="var(--bg-band)"]:not(.rail)::before,[style*="var(--bg-ink)"]:not(.rail)::before,[style*="var(--bg-wine)"]:not(.rail)::before,.sf::before{content:"";position:absolute;inset:-20%;z-index:-1;pointer-events:none;will-change:transform;animation:lightA 90s ease-in-out infinite alternate}
+[style*="var(--bg-band)"]:not(.rail)::before{background:radial-gradient(36% 46% at 24% 30%, color-mix(in srgb, var(--paper) 85%, transparent) 0%, transparent 72%),radial-gradient(30% 40% at 84% 78%, color-mix(in srgb, var(--accent-tint) 70%, transparent) 0%, transparent 72%)}
+[style*="var(--bg-ink)"]:not(.rail)::before,.sf::before{background:radial-gradient(36% 48% at 18% 22%, color-mix(in srgb, var(--accent) 40%, var(--ink)) 0%, transparent 72%),radial-gradient(32% 44% at 84% 86%, color-mix(in srgb, var(--accent-deep) 58%, var(--ink)) 0%, transparent 72%)}
+[style*="var(--bg-wine)"]:not(.rail)::before{background:radial-gradient(36% 52% at 82% 12%, color-mix(in srgb, var(--accent) 86%, var(--on-accent)) 0%, transparent 70%),radial-gradient(30% 44% at 14% 90%, color-mix(in srgb, var(--accent-deep) 80%, var(--ink)) 0%, transparent 72%)}
+.rail{position:relative;isolation:isolate;overflow:clip}
+.rail::before{content:"";position:absolute;inset:-20%;z-index:-1;pointer-events:none;will-change:transform;animation:lightB 100s ease-in-out infinite alternate;background:radial-gradient(40% 36% at 20% 18%, color-mix(in srgb, var(--accent) 40%, var(--ink)) 0%, transparent 72%),radial-gradient(34% 34% at 80% 88%, color-mix(in srgb, var(--accent-deep) 56%, var(--ink)) 0%, transparent 72%)}
+@media (max-width:700px){body::after{display:none}}
+@media (prefers-reduced-motion:reduce){body::before,body::after,[style*="var(--bg-band)"]::before,[style*="var(--bg-ink)"]::before,[style*="var(--bg-wine)"]::before,.sf::before,.rail::before{animation:none!important}}
+
+/* ---- adaptive pointer (pointer.js): shows the page behind it inverted and desaturated -> dark over light, light over dark ---- */
+html.px-on,html.px-on *{cursor:none!important}
+html.px-on :is(input:not([type=checkbox]):not([type=radio]):not([type=button]):not([type=submit]):not([type=range]):not([type=color]),textarea,[contenteditable=""],[contenteditable="true"]){cursor:text!important}
+.px-dot,.px-ring{position:fixed;left:0;top:0;z-index:2147483000;pointer-events:none;border-radius:50%;opacity:0;transition:opacity .25s,width .4s cubic-bezier(.16,1,.3,1),height .4s cubic-bezier(.16,1,.3,1),margin .4s cubic-bezier(.16,1,.3,1);-webkit-backdrop-filter:grayscale(1) invert(1) contrast(4);backdrop-filter:grayscale(1) invert(1) contrast(4)}
+.px-dot{width:10px;height:10px;margin:-5px 0 0 -5px}
+.px-ring{width:38px;height:38px;margin:-19px 0 0 -19px;-webkit-mask:radial-gradient(closest-side,transparent calc(100% - 2.5px),black calc(100% - 2px));mask:radial-gradient(closest-side,transparent calc(100% - 2.5px),black calc(100% - 2px))}
+.px-show .px-dot,.px-show .px-ring{opacity:1}
+.px-text .px-dot,.px-text .px-ring{opacity:0}
+.px-hot .px-ring{width:60px;height:60px;margin:-30px 0 0 -30px}
+.px-hot .px-dot{width:6px;height:6px;margin:-3px 0 0 -3px}
+.px-down .px-ring{width:30px;height:30px;margin:-15px 0 0 -15px}
+@supports not ((backdrop-filter:invert(1)) or (-webkit-backdrop-filter:invert(1))){.px-dot{mix-blend-mode:difference;background:var(--surface)}.px-ring{mix-blend-mode:difference;border:2px solid var(--surface);-webkit-mask:none;mask:none}}
+@media (hover:none),(pointer:coarse){.px-dot,.px-ring{display:none}}
 /* touch: every control is at least 44px tall on phones */
 @media (max-width:900px){.sf-lang{display:inline-flex;align-items:center;min-height:44px}html .seg button{min-height:44px;display:inline-flex;align-items:center}html .seg{flex-wrap:wrap;overflow:visible;border-radius:var(--r-xl)}}
 @media (max-width:900px){.sf-top{grid-template-columns:repeat(2,minmax(0,1fr));padding:48px 22px 28px}.sf-brand{grid-column:1/-1}.sf-bot{padding:20px 22px 28px}}

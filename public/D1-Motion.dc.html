@@ -6,6 +6,7 @@
 <link rel="stylesheet" href="/site.css">
 <script src="/pricing.js"></script>
 <script src="/chrome.js" defer></script>
+<script src="/pointer.js" defer></script>
 <title>Miles Retold · Hand-designed travel photobooks</title>
 <script src="./support.js"></script>
 <link rel="icon" type="image/svg+xml" href="/assets/ba8a47ecfe93acbd68bd017714519801.svg">
@@ -170,14 +171,6 @@ a{color:var(--accent)}a:hover{color:var(--accent)}
 .arcL{animation-name:nodeL}
 
 .book{transition:none!important}
-/* cursor follower */
-.cur-ring,.cur-dot{position:absolute;left:0;top:0;pointer-events:none;z-index:300;border-radius:50%;will-change:transform}
-.cur-dot{width:8px;height:8px;margin:-4px 0 0 -4px;background:var(--accent);opacity:0;transition:opacity .4s}
-.cur-ring{width:42px;height:42px;margin:-21px 0 0 -21px;border:1.5px solid color-mix(in srgb, var(--accent) 50%, transparent);opacity:0;transition:width .45s cubic-bezier(.16,1,.3,1),height .45s cubic-bezier(.16,1,.3,1),margin .45s cubic-bezier(.16,1,.3,1),background .35s,border-color .35s,opacity .4s}
-.cur-on .cur-ring,.cur-on .cur-dot{opacity:1}
-.cur-ring.big{width:86px;height:86px;margin:-43px 0 0 -43px;background:color-mix(in srgb, var(--accent) 9%, transparent);border-color:transparent}
-.cur-ring.dark{border-color:color-mix(in srgb, var(--gold) 60%, transparent)}
-@media (hover:none){.cur-ring,.cur-dot{display:none}}
 /* header extras */
 .sprog{position:absolute;left:0;right:0;bottom:-1px;height:2px;background:linear-gradient(90deg,var(--accent),var(--accent-deep));transform-origin:left;transform:scaleX(0)}
 .nlk{position:relative;color:var(--ink);text-decoration:none;padding:6px 0}
@@ -299,7 +292,7 @@ html{scroll-behavior:smooth}
 @media (min-width:901px) and (max-height:720px){.stage .book,.orb1,.orb2,.orb3{scale:.78}}
 @media (min-width:901px) and (max-height:620px){.stage .book,.orb1,.orb2,.orb3{scale:.66}}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}.arcStage{min-height:0!important}.arc{height:320px!important}.openSec,.galSec,.howSec{height:auto!important}.openStick,.gstick,.howStick{position:relative!important;height:auto!important;padding-top:80px!important;padding-bottom:80px!important}.capbox{height:auto!important;display:grid!important;gap:28px}.capx{position:static!important;opacity:1!important;visibility:visible!important}.cover{transform:rotateY(-168deg)!important}}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.curtain{display:none}.cur-ring,.cur-dot{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.curtain{display:none}}
 @media (max-width:900px){h2.fr{font-size:clamp(34px,9.5vw,64px)!important;line-height:1.05!important}.finale h2,.gtrack .fr{font-size:inherit}.tc{width:78vw!important;margin-top:0!important}.tc>div:first-child{height:340px!important}.gtrack{gap:16px!important;padding:0 20px!important}.stage{height:520px!important}.stage .book{scale:.8}.sz{padding:20px 22px!important;display:grid!important;grid-template-columns:96px 1fr;column-gap:18px;align-items:center}.sz>div:first-child{height:110px!important;grid-row:span 3}.szb{transform:none!important}.szw>a:nth-child(1) .szb{width:62px!important;height:78px!important}.szw>a:nth-child(2) .szb{width:90px!important;height:70px!important}.szw>a:nth-child(3) .szb{width:76px!important;height:76px!important}.sz>div:first-child{align-self:start}.sz>div:nth-child(2){margin-top:0!important;font-size:24px!important}.sz>div:last-child{grid-column:1 / -1;margin-top:12px!important}}
 @media (max-width:900px){.howSec{height:auto!important}.howStick{position:relative!important;height:auto!important;max-height:none!important}}
 @media (max-width:900px){.menu-btn{display:grid!important}.mcta{display:flex;position:absolute;left:14px;right:14px;bottom:0;gap:10px;padding:10px;border-radius:16px;background:color-mix(in srgb, var(--ink) 92%, transparent);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);align-items:center;justify-content:space-between;color:var(--on-accent)}.totop{bottom:86px}.rcard{width:300px}.faq summary{font-size:21px}.g4{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
@@ -394,7 +387,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 @supports not (animation-timeline: view()){.openSec{height:auto!important}.openStick{position:relative!important;height:auto!important;padding:80px 22px!important}.capbox{height:auto!important;display:grid!important;gap:28px}.capx,.capx p,.capx h2,.capx .btn{position:static!important;animation:none!important;opacity:1!important;visibility:visible!important;transform:none!important;filter:none!important}.cover,.bookIn,.openProg{animation:none!important}.cover{transform:rotateY(-168deg)!important}.openProg{display:none!important}}
 </style>
 </helmet>
-<div ref="{{setRoot}}" onMouseMove="{{onMove}}" onMouseLeave="{{onLeave}}" class="{{rootCls}}" style="position: relative; font-family: Manrope, sans-serif; color: var(--ink); background: var(--bg-page); width: 100%; overflow: clip">
+<div ref="{{setRoot}}" onMouseMove="{{onMove}}" onMouseLeave="{{onLeave}}" class="{{rootCls}}" style="position: relative; font-family: Manrope, sans-serif; color: var(--ink); background: transparent; width: 100%; overflow: clip">
 
 <!-- intro curtain -->
 <div class="curtain" aria-hidden="true">
@@ -702,7 +695,7 @@ header a[href="D1-Motion.dc.html"]{padding:9px 0}
 <a class="totop" href="#top" aria-label="Back to top"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5M6 11l6-6 6 6"></path></svg></a>
 <div class="mcta"><span style="padding-left: 8px; font-size: 14px"><b>Pay 50% now</b><br><span style="opacity: .7">rest after you approve</span></span><a class="btn" href="D2-Builder.dc.html" style="min-height: 48px; padding: 0 20px; background: var(--gold); color: var(--ink); font-size: 15px">Start a book</a></div>
 </div>
-<div class="{{ringCls}}" ref="{{setRing}}" aria-hidden="true"></div><div class="cur-dot" ref="{{setDot}}" aria-hidden="true"></div>
+
 </div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":14800}}'>
