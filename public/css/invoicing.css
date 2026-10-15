@@ -1,0 +1,89 @@
+/* Invoices: records list, invoice document (screen + print), tax-authority integrations. Uses the .us tokens from users.css. */
+@layer g {
+  .iv-bar2 { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; margin-block-end: 12px; padding: 10px 14px; border-radius: 12px; background: var(--u-glass-2); box-shadow: inset 0 0 0 1px var(--u-acc); font-weight: 700; font-size: 14px; }
+  .iv-row { display: grid; grid-template-columns: 36px minmax(150px, 1.3fr) minmax(130px, 1.1fr) 120px 140px 110px minmax(200px, 1.4fr); gap: 12px; align-items: center; padding: 14px 8px; border-block-end: 1px solid var(--u-line); }
+  .iv-row:not(.hd):hover { background: var(--u-glass); }
+  .iv-row.hd { font-size: 12px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--u-mu); padding-block: 8px; }
+  .iv-row small { display: block; color: var(--u-mu); font-size: 12px; font-weight: 500; margin-block-start: 2px; overflow-wrap: anywhere; }
+  .iv-row b { font-size: 15px; } .iv-row a { text-decoration: none; }
+  .iv-row .iv-num { font-weight: 800; font-variant-numeric: tabular-nums; }
+  .iv-row input[type="checkbox"], .iv-ck { inline-size: 20px; block-size: 20px; accent-color: var(--u-acc); margin: 0; }
+  .iv-act { display: flex; flex-wrap: wrap; gap: 6px; justify-content: flex-end; }
+  .iv-err { grid-column: 2 / -1; color: var(--u-bad); font-size: 13px; line-height: 1.45; padding-block-start: 2px; }
+  .iv-ref { font-variant-numeric: tabular-nums; }
+
+  /* ---- the invoice on screen ---- */
+  .iv-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-block-end: 18px; }
+  .iv-top .us-actions { align-items: center; }
+  .iv-split { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 16px; align-items: start; }
+  .iv-paper { background: #fff; color: #17211d; border-radius: 12px; box-shadow: 0 30px 60px -30px rgb(from var(--black) r g b / .5); padding: clamp(20px, 4vw, 48px); font: 400 14px/1.5 Manrope, sans-serif; max-inline-size: 860px; margin-inline: auto; inline-size: 100%; }
+  .iv-split .iv-paper { margin-inline: 0; }
+  .iv-paper * { box-sizing: border-box; }
+  .iv-ph { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 24px; padding-block-end: 20px; border-block-end: 2px solid #17211d; }
+  .iv-brand { display: flex; align-items: center; gap: 12px; }
+  .iv-brand svg { flex: none; }
+  .iv-brand b { display: block; font: 600 24px/1 Fraunces, Georgia, serif; }
+  .iv-brand small { display: block; color: #5d6b66; font-size: 12px; margin-block-start: 4px; }
+  .iv-doc { text-align: end; } .iv-doc h2 { font: 800 22px/1.15 Manrope, sans-serif; margin: 0; } .iv-doc .ar { font: 600 18px/1.3 'IBM Plex Sans Arabic', Manrope, sans-serif; color: #5d6b66; margin: 2px 0 8px; }
+  .iv-doc dl { display: grid; grid-template-columns: auto auto; gap: 2px 16px; margin: 0; justify-content: end; font-size: 13px; } .iv-doc dt { color: #5d6b66; } .iv-doc dd { margin: 0; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .iv-parties { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding-block: 20px; border-block-end: 1px solid #d8dedb; }
+  .iv-parties h3 { font: 800 11px/1.2 Manrope, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: #5d6b66; margin: 0 0 6px; }
+  .iv-parties p { margin: 0; } .iv-parties b { font-weight: 800; }
+  .iv-tbl { inline-size: 100%; border-collapse: collapse; margin-block: 18px 0; font-size: 13px; }
+  .iv-tbl th { text-align: start; font: 800 11px/1.2 Manrope, sans-serif; letter-spacing: .08em; text-transform: uppercase; color: #5d6b66; padding: 8px 6px; border-block-end: 1.5px solid #17211d; }
+  .iv-tbl td { padding: 10px 6px; border-block-end: 1px solid #e3e8e5; vertical-align: top; font-variant-numeric: tabular-nums; }
+  .iv-tbl .r { text-align: end; }
+  .iv-foot { display: grid; grid-template-columns: 1fr 280px; gap: 24px; align-items: start; padding-block-start: 18px; }
+  .iv-tot { display: grid; gap: 6px; } .iv-tot div { display: flex; justify-content: space-between; gap: 16px; font-variant-numeric: tabular-nums; }
+  .iv-tot .g { font-size: 18px; font-weight: 800; padding-block-start: 8px; border-block-start: 2px solid #17211d; }
+  .iv-qr { display: flex; gap: 14px; align-items: flex-start; }
+  .iv-qr img { inline-size: 132px; block-size: 132px; flex: none; image-rendering: pixelated; }
+  .iv-qr small { display: block; color: #5d6b66; font-size: 11px; line-height: 1.5; overflow-wrap: anywhere; }
+  .iv-legal { margin-block-start: 22px; padding-block-start: 12px; border-block-start: 1px dashed #b8c2be; font-size: 11px; color: #5d6b66; line-height: 1.6; overflow-wrap: anywhere; }
+  .iv-note { margin-block-start: 14px; font-size: 13px; }
+
+  /* ---- authority panel ---- */
+  .iv-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+  .iv-step { position: relative; display: grid; grid-template-columns: 24px 1fr auto; gap: 10px; align-items: center; padding-block: 10px; font-size: 14px; color: var(--u-mu); }
+  .iv-step::before { content: ""; inline-size: 14px; block-size: 14px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--u-line); justify-self: center; }
+  .iv-step.done { color: var(--u-fg); } .iv-step.done::before { background: var(--u-ok); box-shadow: none; } .iv-step.bad { color: var(--u-bad); } .iv-step.bad::before { background: var(--u-bad); box-shadow: none; }
+  .iv-step time { font-size: 12px; color: var(--u-mu); font-variant-numeric: tabular-nums; }
+  .iv-mono { font: 600 12px/1.5 ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; color: var(--u-mu); }
+  .iv-kv { display: grid; gap: 10px; margin: 0; } .iv-kv dt { font-size: 12px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--u-mu); } .iv-kv dd { margin: 2px 0 0; }
+
+  /* ---- integrations ---- */
+  .iv-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; align-items: start; }
+  .iv-envs { display: flex; flex-wrap: wrap; gap: 6px; margin-block-end: 12px; }
+  .iv-url { display: block; padding: 10px 12px; border-radius: 8px; background: var(--u-glass); box-shadow: inset 0 0 0 1px var(--u-line); font: 600 12px/1.5 ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
+  .iv-ol { margin: 0; padding: 0; list-style: none; counter-reset: s; display: grid; gap: 10px; }
+  .iv-ol li { counter-increment: s; display: grid; grid-template-columns: 28px 1fr; gap: 10px; align-items: start; font-size: 14px; line-height: 1.5; }
+  .iv-ol li::before { content: counter(s); inline-size: 28px; block-size: 28px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; font-size: 13px; background: var(--u-glass-2); box-shadow: inset 0 0 0 1px var(--u-line); }
+  .iv-api { inline-size: 100%; border-collapse: collapse; font-size: 13px; } .iv-api th, .iv-api td { text-align: start; padding: 8px 6px; border-block-end: 1px solid var(--u-line); vertical-align: top; } .iv-api th { font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--u-mu); }
+  .iv-api code { font: 600 12px ui-monospace, Menlo, Consolas, monospace; overflow-wrap: anywhere; }
+  .iv-demo { padding: 12px 14px; border-radius: 12px; border: 1.5px dashed var(--u-warn); font-size: 13px; line-height: 1.5; color: var(--u-mu); margin-block-end: 16px; }
+  .iv-demo b { color: var(--u-fg); }
+
+  .iv-toast { position: fixed; inset-block-end: 24px; inset-inline-start: 50%; transform: translateX(-50%); z-index: 90; padding: 12px 18px; border-radius: 12px; max-inline-size: min(92vw, 560px); background: var(--u-glass-2, #fff); color: var(--u-fg); box-shadow: inset 0 0 0 1px var(--u-line), 0 20px 40px -20px var(--u-shadow); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); font-weight: 700; font-size: 14px; text-align: center; }
+  [dir="rtl"] .iv-toast { inset-inline-start: auto; inset-inline-end: 50%; transform: translateX(50%); }
+  @media (max-width: 1100px) { .iv-split, .iv-two { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 900px) {
+    .iv-row.hd { display: none; }
+    .iv-row { grid-template-columns: 28px 1fr auto; row-gap: 8px; }
+    .iv-row > :nth-child(3) { grid-column: 2 / -1; } .iv-row > :nth-child(4) { grid-column: 2; } .iv-row > :nth-child(5) { grid-column: 3; text-align: end; }
+    .iv-row > :nth-child(6) { grid-column: 2; } .iv-row > :nth-child(7) { grid-column: 1 / -1; }
+    .iv-act { justify-content: flex-start; }
+    .iv-parties, .iv-foot { grid-template-columns: 1fr; }
+  }
+}
+
+/* ---- print: only the invoice (or the list) leaves the printer, on white ---- */
+@media print {
+  @page { size: A4; margin: 12mm; }
+  .iv-noprint { display: none !important; }
+  .iv-paper { box-shadow: none !important; border-radius: 0 !important; padding: 0 !important; max-inline-size: none !important; margin: 0 !important; }
+  .iv-split { display: block !important; }
+  .iv-row { break-inside: avoid; }
+}
+
+/* customer pages sit under the fixed header */
+.iv-wrap{padding-top:calc(var(--s64, 64px) + 40px);padding-inline:clamp(16px,4vw,48px);max-inline-size:1280px;margin-inline:auto;box-sizing:border-box}

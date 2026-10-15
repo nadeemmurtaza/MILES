@@ -2,6 +2,7 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "miles",
   "compatibility_date": "2026-10-01",
+  "previews": {},
   "assets": {
     "directory": "./public",
     "html_handling": "none",

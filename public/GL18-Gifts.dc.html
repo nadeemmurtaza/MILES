@@ -4,8 +4,21 @@
 <meta charset="utf-8">
 <title>Light · Gift cards · Miles Retold</title>
 <script src="./support.js"></script>
+<link rel="stylesheet" href="/theme.css">
+<link rel="stylesheet" href="/css/g.css">
+<link rel="stylesheet" href="/css/b-gcust-glcust.css">
+<link rel="stylesheet" href="/css/b-glcust.css">
+<link rel="stylesheet" href="/css/p/GL18-Gifts.css">
+<link rel="stylesheet" href="/css/g-tail.css">
+<link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/spacing.css">
 <link rel="stylesheet" href="/smooth.css">
+<link rel="stylesheet" href="/css/zebra.css">
+<link rel="stylesheet" href="/css/zebra-light.css">
+<link rel="stylesheet" href="/css/print.css">
 <script src="/smooth.js" defer></script>
+<link rel="stylesheet" href="/css/i18n.css">
+<script src="/i18n.js" defer></script>
 <link rel="icon" type="image/svg+xml" href="/_blob/ba8a47ecfe93acbd68bd017714519801">
 <link rel="icon" type="image/png" sizes="32x32" href="/_blob/e8c29624c47de066f3c28cb82d08b58a">
 <link rel="apple-touch-icon" href="/_blob/587541048aa85fdedd1d966f27a5d383">
@@ -14,361 +27,33 @@
 <x-dc>
 <helmet>
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-<style>
-
-body{margin:0;background:#F3EEE6}*{box-sizing:border-box}
-a{color:inherit}
-.f{position:relative;display:flow-root;min-height:100vh;font-family:Manrope,sans-serif;color:#16352D;width:100%;overflow:clip;
-background:linear-gradient(180deg,#1C3530 0,#1F4038 12%,#1D4E40 30%,#1A4A3C 48%,#153E33 64%,#10302A 80%,#F3EEE6 100%)}
-.atmo{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
-.atmo .top{position:absolute;left:0;right:0;top:0;width:100%;height:900px;object-fit:cover;filter:saturate(.75) blur(8px);opacity:.55;-webkit-mask-image:linear-gradient(180deg,#000 30%,transparent);mask-image:linear-gradient(180deg,#000 30%,transparent)}
-.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;animation:orb 18s ease-in-out infinite alternate}
-@keyframes orb{to{transform:translate(60px,-40px) scale(1.12)}}
-.grain{position:absolute;inset:0;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
-.fl{position:relative;z-index:2}
-.wrap{width:100%;max-width:1320px;margin:0 auto;padding:0 44px}
-.gl{background:rgba(22,53,45,.09);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);box-shadow:inset 0 0 0 1px rgba(22,53,45,.22),inset 0 1px 0 rgba(255,255,255,.26),0 20px 50px -24px rgba(70,50,30,0.3)}
-.cap{font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase;color:#B5541B;margin:0}
-.it{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;color:#B5541B}
-.mono{font-family:Manrope,sans-serif;font-variant-numeric:tabular-nums}
-.mu{color:rgba(22,53,45,.7)}
-.mt{color:rgba(22,53,45,.78)}
-.big{font-weight:800;letter-spacing:-.045em;line-height:.95;margin:0;font-size:clamp(56px,7.6vw,118px)}
-.h2{font-weight:800;letter-spacing:-.04em;line-height:1.02;margin:0;font-size:clamp(34px,4.2vw,60px)}
-.h3{font-weight:800;letter-spacing:-.03em;line-height:1.1;margin:0;font-size:24px}
-.lead{font-size:19px;line-height:1.65;color:rgba(22,53,45,.78);max-width:620px;margin:22px 0 0}
-.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-.skip{position:absolute;left:16px;top:-60px;z-index:100;padding:12px 18px;border-radius:12px;background:#16352D;color:#FFFCF7;font-weight:800;text-decoration:none}.skip:focus{top:12px}
-/* logo */
-.lg{display:flex;align-items:center;gap:10px;text-decoration:none;min-height:44px}
-.lg svg{transition:transform .8s cubic-bezier(.3,1.6,.5,1)}.lg:hover svg{transform:rotate(-8deg) scale(1.06)}
-.lgw{display:flex;flex-direction:column;line-height:1}
-.lgw .m{font-family:Fraunces,Georgia,serif;font-size:28px;font-weight:600;letter-spacing:-.01em;line-height:.8}
-.lgw .r{display:flex;justify-content:space-between;font:800 12px Manrope,sans-serif;margin-top:3px}
-/* nav */
-.nl{position:relative;text-decoration:none;font-weight:700;font-size:14px;padding:12px 0;display:inline-block}
-.nl::after{content:"";position:absolute;left:0;right:0;bottom:6px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
-.nl:hover::after,.nl[aria-current="page"]::after{transform:scaleX(1);transform-origin:left}
-.nl[aria-current="page"]{color:#B5541B}
-.seg{display:inline-flex;padding:3px;border-radius:12px;gap:2px}
-.seg button{all:unset;cursor:pointer;min-width:38px;height:34px;padding:0 10px;border-radius:12px;display:grid;place-items:center;font:800 12px Manrope,sans-serif;letter-spacing:.06em;color:rgba(22,53,45,.75);transition:background .3s,color .3s}
-.seg button.on{background:#16352D;color:#FFFCF7}.seg button:focus-visible{outline:2px solid #B5541B;outline-offset:2px}
-.cart{position:relative;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;color:#16352D;transition:background .3s}
-.cart:hover{background:rgba(22,53,45,.1)}
-.cart b{position:absolute;top:4px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:12px;font-size:12px;display:grid;place-items:center;background:#B5541B;color:#FFFCF7}
-.cart b.pop{animation:pop .6s cubic-bezier(.3,1.6,.5,1)}@keyframes pop{40%{transform:scale(1.5)}}
-/* buttons */
-.btn{all:unset;box-sizing:border-box;position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:54px;padding:0 26px;border-radius:12px;font:800 15px Manrope,sans-serif;text-decoration:none;cursor:pointer;transition:transform .6s cubic-bezier(.16,1,.3,1),background .3s,color .3s,box-shadow .3s,translate .5s cubic-bezier(.16,1,.3,1);isolation:isolate;white-space:nowrap}
-.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s cubic-bezier(.16,1,.3,1)}
-.btn:hover::before{transform:translateX(120%)}.btn:hover{transform:translateY(-3px)}
-.btn .ar{transition:transform .5s cubic-bezier(.16,1,.3,1)}.btn:hover .ar{transform:translate(4px,-4px)}
-.bp{background:#16352D;color:#FFFCF7}.bs{background:#B5541B;color:#FFFCF7}.bg{color:#16352D}
-.btn[disabled],.btn.dis{opacity:.45;pointer-events:none}
-a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,select:focus-visible,[tabindex]:focus-visible{outline:2.5px solid #B5541B;outline-offset:3px}
-.ib{all:unset;cursor:pointer;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:#16352D;transition:transform .5s cubic-bezier(.3,1.6,.5,1),background .3s}
-.ib:hover{transform:scale(1.08)}
-.chip{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:12px;font:700 14px Manrope,sans-serif;color:#16352D;transition:background .3s,color .3s,box-shadow .3s}
-.chip.on{background:#16352D;color:#FFFCF7;box-shadow:none}
-.chip small{font:700 12px Manrope,sans-serif;font-variant-numeric:tabular-nums;opacity:.7}
-.ul{display:flex;justify-content:space-between;align-items:center;min-height:52px;border-bottom:1.5px solid rgba(22,53,45,.4);text-decoration:none;font:800 14px Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;transition:border-color .3s,padding .5s cubic-bezier(.16,1,.3,1)}
-.ul span{transition:transform .5s cubic-bezier(.16,1,.3,1)}.ul:hover{border-color:#B5541B;padding-left:8px}.ul:hover span{transform:translate(4px,-4px)}
-/* forms */
-.fld{display:flex;flex-direction:column;gap:8px}
-.fld>span{font:700 13px Manrope,sans-serif;color:rgba(22,53,45,.85)}
-.fld small{font-size:12.5px;color:rgba(22,53,45,.65);line-height:1.5}
-.inp{all:unset;box-sizing:border-box;width:100%;min-height:54px;padding:0 20px;border-radius:16px;font:600 16px Manrope,sans-serif;color:#16352D;background:rgba(22,53,45,.09);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);box-shadow:inset 0 0 0 1px rgba(22,53,45,.22),inset 0 1px 0 rgba(255,255,255,.26),0 20px 50px -24px rgba(70,50,30,0.3);transition:box-shadow .3s}
-textarea.inp{padding:16px 20px;min-height:110px;line-height:1.55;white-space:pre-wrap}
-.inp::placeholder{color:rgba(22,53,45,.5)}
-.inp:focus{box-shadow:inset 0 0 0 1.5px #B5541B,0 20px 50px -24px rgba(70,50,30,0.3);outline:none}
-.inp.bad{box-shadow:inset 0 0 0 1.5px #C2412D}
-.err{color:#B3261E;font:700 13px Manrope,sans-serif}
-.opt{all:unset;box-sizing:border-box;cursor:pointer;display:flex;align-items:center;gap:14px;padding:16px 18px;border-radius:16px;min-height:64px;color:#16352D;transition:box-shadow .3s,background .3s,transform .5s cubic-bezier(.16,1,.3,1);background:rgba(22,53,45,.09);-webkit-backdrop-filter:blur(18px) saturate(1.5);backdrop-filter:blur(18px) saturate(1.5);box-shadow:inset 0 0 0 1px rgba(22,53,45,.22),inset 0 1px 0 rgba(255,255,255,.26),0 20px 50px -24px rgba(70,50,30,0.3)}
-.opt:hover{transform:translateY(-2px)}
-.opt.on{background:rgba(242,184,128,.16);box-shadow:inset 0 0 0 2px #B5541B,0 20px 50px -24px rgba(70,50,30,0.3)}
-.opt .ro{width:20px;height:20px;border-radius:50%;flex:none;box-shadow:inset 0 0 0 2px rgba(22,53,45,0.5);display:grid;place-items:center}
-.opt.on .ro{box-shadow:inset 0 0 0 2px #B5541B}.opt.on .ro::after{content:"";width:10px;height:10px;border-radius:50%;background:#B5541B}
-.tgl{all:unset;cursor:pointer;flex:none;width:52px;height:30px;border-radius:12px;background:rgba(22,53,45,.2);position:relative;transition:background .3s}
-.tgl::after{content:"";position:absolute;left:3px;top:3px;width:24px;height:24px;border-radius:50%;background:#16352D;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
-.tgl.on{background:#B5541B}.tgl.on::after{transform:translateX(22px);background:#1F1418}
-.qty{display:inline-flex;align-items:center;gap:4px;border-radius:12px;padding:4px}
-.qty button{all:unset;cursor:pointer;width:40px;height:40px;border-radius:50%;display:grid;place-items:center;font:800 18px Manrope,sans-serif}
-.qty button:hover{background:rgba(22,53,45,.12)}
-.qty b{min-width:30px;text-align:center;font-size:16px}
-.hr{height:1px;background:rgba(22,53,45,.18);border:0;margin:0}
-/* progress line used by every flow */
-.pline{position:relative;height:3px;border-radius:3px;background:rgba(22,53,45,.16)}
-.pline>i{position:absolute;inset:0;border-radius:3px;transform-origin:left;background:linear-gradient(90deg,#16352D,#B5541B 60%,#C98A1B);box-shadow:0 0 12px rgba(242,184,128,0.5);animation:pl 1.6s cubic-bezier(.16,1,.3,1) both .2s}
-@keyframes pl{from{transform:scaleX(0)}}
-.flow{display:flex;justify-content:center;gap:10px;align-items:center;flex-wrap:wrap}
-.fs{display:inline-flex;align-items:center;gap:10px;font:800 13px Manrope,sans-serif;color:rgba(22,53,45,.6);text-decoration:none;min-height:44px}
-.fs i{width:30px;height:30px;border-radius:50%;display:grid;place-items:center;font-style:normal;box-shadow:inset 0 0 0 1.5px rgba(22,53,45,.4)}
-.fs.done{color:#16352D}.fs.done i{background:#B5541B;color:#FFFCF7;box-shadow:none}
-.fs.on{color:#16352D}.fs.on i{box-shadow:inset 0 0 0 2px #B5541B;color:#B5541B}
-.fsl{width:60px;height:2px;background:rgba(22,53,45,.2);border-radius:2px;overflow:hidden;position:relative}
-.fsl.done::after{content:"";position:absolute;inset:0;background:#B5541B;animation:pl 1s both}
-/* timeline (vertical) */
-.tl{position:relative;padding-left:44px}
-.tl::before{content:"";position:absolute;left:15px;top:8px;bottom:8px;width:2px;background:rgba(22,53,45,.16)}
-.tl .tf{position:absolute;left:15px;top:8px;width:2px;background:linear-gradient(#B5541B,#C98A1B);box-shadow:0 0 10px rgba(242,184,128,0.5);transform-origin:top;animation:tlf 1.8s cubic-bezier(.16,1,.3,1) both .3s}
-@keyframes tlf{from{transform:scaleY(0)}}
-.te{position:relative;padding:0 0 30px}
-.te::before{content:"";position:absolute;left:-36px;top:3px;width:16px;height:16px;border-radius:50%;background:#E7DFD2;box-shadow:inset 0 0 0 2px rgba(22,53,45,.35)}
-.te.done::before{background:#B5541B;box-shadow:none}
-.te.now::before{background:#16352D;box-shadow:0 0 0 6px rgba(242,184,128,.25);animation:pulse 1.8s ease-out infinite}
-@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(242,184,128,0.5)}100%{box-shadow:0 0 0 16px rgba(242,184,128,0)}}
-.te b{display:block;font-size:17px}.te span{display:block;font-size:14px;color:rgba(22,53,45,.7);margin-top:4px;line-height:1.55}
-/* summary (the one glass block we allow on forms) */
-.sum{position:sticky;top:100px;border-radius:24px;padding:30px}
-.row{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:10px 0;font-size:15px}
-.row span:first-child{color:rgba(22,53,45,.78)}
-.tot{font:800 34px/1 Manrope,sans-serif;letter-spacing:-.03em}
-/* motion */
-.rv{animation:rv 1s cubic-bezier(.16,1,.3,1) both}
-@keyframes rv{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
-@supports (animation-timeline: view()){.rv{animation-timeline:view();animation-range:entry 0% cover 25%;animation-duration:auto}}
-.in1{animation:rv 1.1s cubic-bezier(.16,1,.3,1) both}.d1{animation-delay:.1s}.d2{animation-delay:.2s}.d3{animation-delay:.3s}.d4{animation-delay:.45s}
-.pic{animation:pic .8s cubic-bezier(.16,1,.3,1) both}@keyframes pic{from{opacity:0;transform:translateY(16px) scale(.98)}to{opacity:1;transform:none}}
-.wr .w{display:inline-block;opacity:calc(.16 + .84 * clamp(0, var(--p,1) * (var(--n) + 3) - var(--i), 1));transform:translateY(calc((1 - clamp(0, var(--p,1) * (var(--n) + 3) - var(--i), 1)) * 14px));transition:opacity .25s,transform .45s cubic-bezier(.16,1,.3,1)}
-.rise{display:inline-block;overflow:hidden;vertical-align:top;padding:0 .04em .06em}
-.rise>span{display:inline-block;animation:rise 1.2s cubic-bezier(.16,1,.3,1) both}
-@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
-.mag{transition:translate .5s cubic-bezier(.16,1,.3,1),transform .6s cubic-bezier(.16,1,.3,1)}
-.sprog{position:fixed;left:0;top:0;right:0;height:3px;z-index:80;transform-origin:left;transform:scaleX(var(--sp,0));background:linear-gradient(90deg,#B5541B,#C98A1B);box-shadow:0 0 12px rgba(242,184,128,0.5)}
-.cur{position:fixed;left:0;top:0;z-index:90;pointer-events:none;display:none}
-.cur i{position:absolute;left:-18px;top:-18px;width:36px;height:36px;border-radius:50%;box-shadow:inset 0 0 0 1.5px rgba(22,53,45,0.5);transition:transform .45s cubic-bezier(.16,1,.3,1),background .3s}
-[data-hov="1"] .cur i{transform:scale(1.9);background:rgba(242,184,128,.16);box-shadow:inset 0 0 0 1px rgba(242,184,128,0.5)}
-@media (pointer:fine){.cur{display:block}}
-.zoom{animation:zm 18s ease-in-out infinite alternate}@keyframes zm{to{transform:scale(1.1)}}
-.arch{border-radius:16px;overflow:hidden;box-shadow:0 60px 110px -40px rgba(70,50,30,0.3),inset 0 0 0 1px rgba(22,53,45,.2)}
-.arch img{width:100%;height:100%;object-fit:cover;display:block}
-.mqw{overflow:hidden}.mq{display:flex;width:max-content;animation:mq 50s linear infinite}.mqw:hover .mq{animation-play-state:paused}
-@keyframes mq{to{transform:translateX(-50%)}}
-[data-still="1"] *,[data-still="1"] *::before,[data-still="1"] *::after{animation-play-state:paused!important}
-[data-still="1"] .rv,[data-still="1"] .in1,[data-still="1"] .pic,[data-still="1"] .rise>span{animation:none!important}
-/* breadcrumb */
-.crumb{display:flex;gap:10px;align-items:center;font:700 13px Manrope,sans-serif;color:rgba(22,53,45,.7)}
-.crumb a{text-decoration:none;min-height:32px;display:inline-flex;align-items:center}.crumb a:hover{color:#B5541B}
-/* footer */
-.ft{position:relative;margin-top:var(--s120);padding-bottom:40px}
-.ftw svg{display:block;width:100%;height:auto}
-.ftc{display:grid;grid-template-columns:1.4fr repeat(4,1fr);gap:30px;margin-top:var(--s64)}
-.ftc h2{font:800 12px Manrope,sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#B5541B;margin:0 0 14px}
-.ftc ul{list-style:none;margin:0;padding:0}
-.ftc a{position:relative;display:inline-flex;align-items:center;gap:8px;min-height:36px;text-decoration:none;color:rgba(22,53,45,.8);font-size:15px;font-weight:500;transition:color .3s,translate .45s cubic-bezier(.16,1,.3,1),font-weight .25s}
-.ftc a::before{content:"";width:0;height:2px;border-radius:2px;background:#B5541B;transition:width .45s cubic-bezier(.16,1,.3,1)}
-.ftc a:hover,.ftc a:focus-visible{color:#B5541B;translate:6px 0;font-weight:800}
-.ftc a:hover::before,.ftc a:focus-visible::before{width:14px}
-.ftb{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;margin-top:48px;padding-top:24px;border-top:1px solid rgba(22,53,45,.14);font-size:13.5px;color:rgba(22,53,45,.66)}
-.stl{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:10px;min-height:40px;font:700 13.5px Manrope,sans-serif;color:rgba(22,53,45,.8)}
-.stl:hover{color:#B5541B}
-.lgt{animation:lgt 1.6s linear infinite}@keyframes lgt{to{stroke-dashoffset:-9.6}}
-@media (max-width:900px){
-.wrap{padding:0 20px}.hide-m{display:none!important}
-.stk{grid-template-columns:minmax(0,1fr)!important}.sum{position:relative;top:0}
-.ftc{grid-template-columns:1fr 1fr}.ftc>div:first-child{grid-column:1/-1}
-.fsl{width:24px}.fs span{display:none}.fs.on span{display:inline}
-.cur{display:none!important}
-}
-@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.cur{display:none!important}}
-
-.gg{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start;margin-top:var(--s64)}
-.gcw{position:sticky;top:110px;perspective:1600px;display:grid;place-items:center}
-.gci{all:unset;cursor:pointer;position:relative;width:min(540px,100%);aspect-ratio:1.6;transform-style:preserve-3d;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
-.gci .fl2{animation:gfl 7s ease-in-out infinite}
-@keyframes gfl{50%{translate:0 -12px}}
-.gf,.gb2{position:absolute;inset:0;border-radius:24px;backface-visibility:hidden;-webkit-backface-visibility:hidden;padding:30px 32px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;box-shadow:0 50px 90px -40px rgba(70,50,30,0.3),inset 0 0 0 1px rgba(255,255,255,.18)}
-.gf::before{content:"";position:absolute;right:-60px;top:-60px;width:240px;height:240px;border-radius:50%;border:1px solid rgba(255,255,255,.3)}
-.gsh{position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.2) 48%,transparent 60%);background-size:260% 100%;animation:sheen 6s ease-in-out infinite;pointer-events:none}
-@keyframes sheen{0%{background-position:120% 0}60%,100%{background-position:-60% 0}}
-.gb2{transform:rotateY(180deg);background:#16352D;color:#FFFCF7;justify-content:center;gap:16px}
-.gs{padding:30px 0;border-top:1px solid rgba(22,53,45,.16)}
-.gs h2{font:800 20px Manrope,sans-serif;letter-spacing:-.02em;margin:0 0 16px}
-.amts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
-.amts .opt{flex-direction:column;align-items:flex-start;gap:4px}
-.dsg{display:flex;gap:14px}
-.dsg button{all:unset;cursor:pointer;width:64px;height:40px;border-radius:8px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.3);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
-.dsg button.on{box-shadow:0 0 0 3px rgba(70,50,30,0.18),0 0 0 5px #B5541B;transform:scale(1.06)}
-.how3{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:var(--s120)}
-.how3 b{font:800 70px/.8 Manrope,sans-serif;color:transparent;-webkit-text-stroke:1.5px #B5541B}
-@media (max-width:900px){.gg{grid-template-columns:minmax(0,1fr)}.gcw{position:relative;top:0}.amts{grid-template-columns:1fr 1fr}.how3{grid-template-columns:1fr}}
-
-
-/* ---- design rules layer ---- */
-.f,.e4,.gs{--s64:64px;--s80:80px;--s96:96px;--s120:120px}
-@media (max-width:640px){.f,.e4,.gs{--s64:40px;--s80:48px;--s96:56px;--s120:64px}}
-.mono{font-family:Manrope,sans-serif!important;font-variant-numeric:tabular-nums;letter-spacing:.02em}
-.tot,.an,[data-count]{font-variant-numeric:tabular-nums}
-/* logo lockup: unit = .28 x wordmark size (28px) -> icon 6u = 47px, gap 1u = 8px, wordmark 4u = 31px */
-.lg{gap:8px!important;padding:4px 0}.lg .lgi{width:47px!important;height:47px!important;flex:none}
-.lgw .m{line-height:.72!important}.lgw .r{font-size:.3em!important;margin-top:3px}
-/* adaptive pointer: faded dot + ring that invert what is under them */
-.cur i{left:-20px!important;top:-20px!important;width:40px!important;height:40px!important;box-shadow:none!important;background:rgba(255,255,255,.01)!important;-webkit-backdrop-filter:grayscale(1) invert(1) contrast(1.4)!important;backdrop-filter:grayscale(1) invert(1) contrast(1.4)!important;-webkit-mask:radial-gradient(circle,transparent 17.5px,#000 18.5px);mask:radial-gradient(circle,transparent 17.5px,#000 18.5px);opacity:.38;transition:transform .45s cubic-bezier(.16,1,.3,1),opacity .3s!important}
-.cud{position:fixed;left:0;top:0;z-index:91;pointer-events:none;display:none;width:8px;height:8px;margin:-4px 0 0 -4px;border-radius:50%;background:rgba(255,255,255,.01);-webkit-backdrop-filter:grayscale(1) invert(1) contrast(1.4);backdrop-filter:grayscale(1) invert(1) contrast(1.4);opacity:.5;transition:opacity .25s}
-[data-hov="1"] .cur i{transform:scale(1.7)!important;opacity:.5}
-[data-hov="1"] .cud{opacity:0}
-[data-fld="1"] .cur i{transform:translate(28px,22px) scale(.45)!important;opacity:.22}
-[data-fld="1"] .cud{opacity:0}
-@media (pointer:fine){.cud{display:block}}
-@media (pointer:coarse),(max-width:900px),(forced-colors:active){.cur,.cud{display:none!important}}
-/* hover never hides text */
-.chip.gl:hover,.btn.bg:hover{color:#16352D!important}
-/* undo toast (reversibility instead of confirm dialogs) */
-.jf input{min-height:48px!important}
-.toast{position:fixed;left:50%;bottom:24px;translate:-50% 0;z-index:95;display:flex;align-items:center;gap:16px;padding:8px 8px 8px 24px;border-radius:16px;background:rgba(16,40,34,.94);color:#FFFDF8;font:700 15px Manrope,sans-serif;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);box-shadow:0 24px 48px -24px rgba(70,50,30,0.3);animation:pic .5s cubic-bezier(.16,1,.3,1) both}
-.toast button{all:unset;cursor:pointer;min-height:44px;padding:0 18px;border-radius:12px;background:#F4BC85;color:#1F1418;font:800 14px Manrope,sans-serif}
-.demo{display:inline-flex;align-items:center;gap:6px;min-height:24px;padding:0 10px;border-radius:8px;background:rgba(242,184,128,.16);color:#B5541B;font:800 12px Manrope,sans-serif;letter-spacing:.04em;vertical-align:middle}
-/* phones: 44px hit areas, no sticky mid-content */
-@media (max-width:640px){
-.ftc a,.crumb a,.nl,.stl,.fs,.lg,.skip{min-height:44px!important}
-.seg button{height:44px!important;min-width:44px!important}
-.qty button{width:44px!important;height:44px!important}
-.tgl{position:relative}.tgl::before{content:"";position:absolute;inset:-8px -4px}
-.lnk,a.lnk,button.lnk{display:inline-flex!important;align-items:center;min-height:44px}
-.sum{position:relative!important;top:0!important}
-main button:not(.tgl):not(.gci):not(.opt):not(.btn){min-height:44px;min-width:44px}
-main a[class]:not(.ul):not(.btn){min-height:44px}
-main a:not([class]){position:relative}main a:not([class])::before{content:"";position:absolute;inset:-14px -8px}
-.crumb a,.fs{min-width:44px;justify-content:center}
-input,select{min-height:48px}
-/* tables become labelled cards */
-table,table tbody,table tr,table td{display:block!important;width:100%}
-table thead,table tr:has(th){display:none!important}
-table tr{padding:12px 0;border-bottom:1px solid rgba(22,53,45,.14)}
-table td{display:flex!important;justify-content:space-between;align-items:center;gap:16px;border:0!important;padding:6px 0!important;text-align:right}
-table td::before{content:attr(data-label);font:700 13px Manrope,sans-serif;color:rgba(22,53,45,.66);text-align:left}
-table td[data-label=""]::before{content:none}
-/* tabs become a 2x2 grid; trackers a 3x3 grid */
-.tabs{display:grid!important;grid-template-columns:1fr 1fr;gap:8px}
-.stg .dots{display:grid!important;grid-template-columns:repeat(3,1fr);gap:16px 8px;margin-top:16px!important}
-.stg .pline,.stg .pln{display:none!important}.stg .d span{display:block!important;white-space:normal!important}
-}
-
-/* ---- header v2: one calm floating bar ---- */
-.nav.nv2{position:sticky!important;top:12px!important;z-index:60;display:block;margin:12px auto 0!important;padding:0!important;width:calc(100% - 32px);max-width:1296px;border-radius:16px;background:rgba(255,252,246,.78)!important;-webkit-backdrop-filter:blur(24px) saturate(1.6);backdrop-filter:blur(24px) saturate(1.6);box-shadow:inset 0 0 0 1px rgba(22,53,45,.14),0 24px 48px -28px rgba(70,50,30,0.3);transition:transform .6s cubic-bezier(.16,1,.3,1),background .4s}
-[data-sc="1"] .nav.nv2{background:rgba(255,252,246,.88)!important}
-[data-hide="1"] .nav.nv2:not(:focus-within):not([data-menu="1"]){transform:translateY(calc(-100% - 24px))}
-.nv2 .nvb{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:24px;height:72px;padding:0 12px 0 20px;transition:height .5s cubic-bezier(.16,1,.3,1)}
-[data-sc="1"] .nv2 .nvb{height:64px}
-.nv2 .lg{justify-self:start}
-.nv2 .nvl{display:flex;gap:2px;justify-content:center}
-.nv2 .nl{position:relative;display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:12px;font:600 14.5px Manrope,sans-serif;color:rgba(22,53,45,.74);text-decoration:none;transition:background .3s,color .3s}
-.nv2 .nl::after{content:"";position:absolute;left:50%;bottom:3px;width:4px;height:4px;margin-left:-2px;border-radius:50%;background:#B5541B;transform:scale(0);transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
-.nv2 .nl:hover{background:rgba(22,53,45,.08);color:#16352D}
-.nv2 .nl[aria-current="page"]{color:#16352D}.nv2 .nl[aria-current="page"]::after{transform:scale(1)}
-.nv2 .nva{display:flex;align-items:center;justify-content:flex-end;gap:4px}
-.nv2 .rg{display:inline-flex;padding:3px;margin-right:4px;border-radius:12px;box-shadow:inset 0 0 0 1px rgba(22,53,45,.14)}
-.nv2 .rg button{all:unset;cursor:pointer;height:32px;min-width:32px;padding:0 10px;border-radius:8px;display:grid;place-items:center;font:700 12px Manrope,sans-serif;letter-spacing:.08em;color:rgba(22,53,45,.6);transition:background .3s,color .3s}
-.nv2 .rg button:hover{color:#16352D}.nv2 .rg button.on{background:rgba(22,53,45,.14);color:#16352D}
-.nv2 .rg button:focus-visible{outline:2px solid #B5541B;outline-offset:2px}
-.nv2 .cart,.nv2 .thm{width:44px;height:44px;border-radius:12px}
-.nv2 .cart:hover,.nv2 .thm:hover{background:rgba(22,53,45,.08)}
-.nv2 .cart b{top:4px;right:3px}
-.nv2 .nsi{padding:0 12px;font-weight:700;white-space:nowrap}
-.nv2 .thm{display:grid!important;place-items:center;align-self:center;padding:0}.nv2 .thm svg,.nv2 .cart svg{display:block}
-.nv2 .nst{min-height:44px;padding:0 20px;margin-left:6px;font-size:14px;border-radius:12px}
-.nv2 .mnb{all:unset;cursor:pointer;display:none;width:44px;height:44px;border-radius:12px;position:relative}
-.nv2 .mnb i{position:absolute;left:12px;right:12px;height:2px;border-radius:2px;background:currentColor;transition:transform .5s cubic-bezier(.16,1,.3,1),top .5s}
-.nv2 .mnb i:first-child{top:17px}.nv2 .mnb i:last-child{top:25px}
-.nv2[data-menu="1"] .mnb i:first-child{top:21px;transform:rotate(45deg)}.nv2[data-menu="1"] .mnb i:last-child{top:21px;transform:rotate(-45deg)}
-.nv2 .mnu{display:none;padding:4px 20px 20px;border-top:1px solid rgba(22,53,45,.12);animation:pic .45s cubic-bezier(.16,1,.3,1) both}
-.nv2 .ml{display:flex;justify-content:space-between;align-items:center;min-height:56px;font:800 26px/1 Manrope,sans-serif;letter-spacing:-.03em;text-decoration:none;color:#16352D;border-bottom:1px solid rgba(22,53,45,.1)}
-.nv2 .ml small{font:600 13px Manrope,sans-serif;letter-spacing:0;color:rgba(22,53,45,.55)}
-.nv2 .ml[aria-current="page"] span{color:#B5541B}
-.nv2 .mrow{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:16px 0}
-.nv2 .mrow .rg button{height:40px;letter-spacing:0}
-@media (max-width:1240px){.nv2 .nl{padding:0 10px}.nv2 .nsi{display:none}}
-@media (max-width:980px){
-.nv2 .nvb{grid-template-columns:1fr auto;height:64px!important;padding:0 8px 0 14px;gap:8px}
-.nv2 .nvl,.nv2 .nva>.rg,.nv2 .nsi,.nv2 .nst{display:none!important}
-.nv2 .mnb{display:block}.nv2[data-menu="1"] .mnu{display:block}
-.nv2 .lg .lgi{width:40px!important;height:40px!important}.nv2 .lgw .m{font-size:24px}.nv2 .lg{gap:7px!important}
-.nav.nv2{top:8px!important;margin-top:8px!important;width:calc(100% - 16px)}
-}
-
-/* ---- stronger glass everywhere ---- */
-.gl,.opt:not(.on){background:linear-gradient(140deg,rgba(22,53,45,.17),rgba(22,53,45,.05) 60%,rgba(22,53,45,.09))!important;-webkit-backdrop-filter:blur(28px) saturate(1.9)!important;backdrop-filter:blur(28px) saturate(1.9)!important;box-shadow:inset 0 0 0 1px rgba(22,53,45,.24),inset 0 1px 0 rgba(255,255,255,.42),inset 0 -1px 0 rgba(255,255,255,.08),0 24px 48px -24px rgba(70,50,30,0.3)!important}
-.chip.gl:hover,.btn.gl:hover,a.gl:hover{background:linear-gradient(140deg,rgba(22,53,45,.24),rgba(22,53,45,.08) 60%,rgba(22,53,45,.12))!important}
-.inp{-webkit-backdrop-filter:blur(28px) saturate(1.8)!important;backdrop-filter:blur(28px) saturate(1.8)!important}
-.nav.nv2{background:linear-gradient(140deg,rgba(22,53,45,.14),rgba(22,53,45,.04) 60%,rgba(22,53,45,.08)),rgba(14,38,32,.42)!important;-webkit-backdrop-filter:blur(28px) saturate(1.9);backdrop-filter:blur(28px) saturate(1.9);box-shadow:inset 0 0 0 1px rgba(22,53,45,.22),inset 0 1px 0 rgba(255,255,255,.4),0 24px 48px -28px rgba(70,50,30,0.3)}
-[data-sc="1"] .nav.nv2{background:linear-gradient(140deg,rgba(22,53,45,.14),rgba(22,53,45,.04) 60%,rgba(22,53,45,.08)),rgba(255,252,246,.78)!important}
-.orb{opacity:.62!important}
-
-/* ---- light edition ---- */
-body{background:#F3EEE6!important}
-.f,.e4{background:linear-gradient(180deg,#F8F3EB 0,#F4EEE4 22%,#F1EADF 48%,#EEE6D9 72%,#F5EFE6 100%)!important;color:#16352D}
-.orb{opacity:.16!important}
-.atmo .top{opacity:.5!important}
-.atmo .shade{background:linear-gradient(180deg,rgba(248,243,235,.5),rgba(248,243,235,.7) 55%,#F8F3EB)!important}
-.stars{display:none!important}
-.grain{opacity:.05!important;mix-blend-mode:multiply!important}
-.bp,.bs,.chip.on,.seg button.on,.dkp,.cart b,.fs.done i,.inc li i,.hn.done b,.tw.on small{color:#FFFCF7!important}
-.bs{background:#B5541B!important}
-.chip.on,.seg button.on{background:#16352D!important}
-.gf{color:#FFFCF7!important}.gf .lgw{color:#F2B880!important}.gf .cap{color:rgba(255,246,240,.8)!important}.gf .it{color:#F2B880!important}
-.gb2{background:#FFFCF7!important;color:#1F1418}
-.ocf{color:inherit}
-.lk .ov{color:#FFFCF7}.lk .ov .cap{color:#F2B880}
-.lg svg rect{fill:#16352D}
-.h6i::after{background:linear-gradient(180deg,transparent 55%,rgba(22,53,45,.35))!important}
-.h6s,.h6b{color:#16352D}
-.sprog{background:linear-gradient(90deg,#B5541B,#C98A1B)!important}
-.opt.on{background:rgba(181,84,27,.1)!important}
-.fold.on,.sidel.on,.stl2.on{background:rgba(181,84,27,.1)!important}
-.inp{background:rgba(255,255,255,.7)!important}
-.pill.ok,.st.Fixed{background:rgba(30,122,80,.12)!important}
-.ok{color:#FFFCF7!important}
-.b{background:#FFFFFF!important;color:#16352D!important;box-shadow:0 8px 16px -10px rgba(70,50,30,.25)}
-.b.me{background:#E7F6D5!important}.b a{background:rgba(22,53,45,.06)!important;color:#1E7A50!important}
-.dd{background:rgba(22,53,45,.08)!important}
-.wh .av{background:#16352D!important;color:#FFFCF7!important}
-.rgc{filter:none!important}
-.dt{box-shadow:0 0 0 6px rgba(181,84,27,.15)!important}
-/* stronger frosted glass, light */
-.gl,.opt:not(.on){background:linear-gradient(140deg,rgba(255,255,255,.78),rgba(255,255,255,.38) 60%,rgba(255,255,255,.55))!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),inset 0 1px 0 #fff,inset 0 0 0 1.5px rgba(22,53,45,.06),0 24px 48px -24px rgba(70,50,30,.3)!important}
-.chip.gl:hover,.btn.gl:hover,a.gl:hover{background:linear-gradient(140deg,rgba(255,255,255,.92),rgba(255,255,255,.55))!important}
-.nav.nv2{background:linear-gradient(140deg,rgba(255,255,255,.8),rgba(255,255,255,.45) 60%,rgba(255,255,255,.6))!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),inset 0 1px 0 #fff,inset 0 0 0 1.5px rgba(22,53,45,.06),0 24px 48px -28px rgba(70,50,30,.3)}
-[data-sc="1"] .nav.nv2{background:linear-gradient(140deg,rgba(255,255,255,.9),rgba(255,255,255,.62))!important}
-.orb{opacity:.24!important}
-/* studio, light */
-.gs{background:linear-gradient(180deg,#F8F3EB 0,#F4EEE4 22%,#F1EADF 48%,#EEE6D9 72%,#F5EFE6 100%)!important;color:#16352D}
-.box,.sc,.kc,.ccard{background:linear-gradient(140deg,rgba(255,255,255,.8),rgba(255,255,255,.42) 60%,rgba(255,255,255,.58))!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.75),inset 0 1px 0 #fff,inset 0 0 0 1.5px rgba(22,53,45,.06),0 24px 48px -28px rgba(70,50,30,.3)!important}
-.sbar{background:linear-gradient(140deg,rgba(255,255,255,.8),rgba(255,255,255,.45) 60%,rgba(255,255,255,.6))!important;box-shadow:inset 0 0 0 1px rgba(255,255,255,.8),inset 0 0 0 1.5px rgba(22,53,45,.06),0 24px 48px -28px rgba(70,50,30,.3)!important}
-.fl.on,.tab.on,.rl .rb,.sc:hover .ic,.pstep.done{color:#FFFCF7!important}
-.bub.me,.av{color:#FFFCF7!important}
-.gs .bs{background:rgba(255,255,255,.62)!important;color:#16352D!important;box-shadow:inset 0 0 0 1px rgba(22,53,45,.16)!important}.gs .bs:hover{background:#FFFFFF!important}
-/* hero 2, light */
-.veil{background:linear-gradient(90deg,#F5EFE6 0,rgba(245,239,230,.95) 30%,rgba(245,239,230,.55) 54%,rgba(245,239,230,0) 76%),linear-gradient(180deg,rgba(245,239,230,.4) 0,transparent 22%,transparent 72%,#F5EFE6 100%)!important}
-@media (max-width:900px){.veil{background:linear-gradient(180deg,rgba(245,239,230,.4) 0,rgba(245,239,230,0) 20%,rgba(245,239,230,.25) 34svh,#F5EFE6 50svh)!important}}
-.hxh{color:#16352D!important}
-
-/*thm*/.thm{position:relative;display:grid;place-items:center;width:46px;height:46px;border-radius:50%;text-decoration:none;color:inherit;transition:background .3s}.thm:hover{background:rgba(127,127,127,.14)}.thm svg{transition:transform .7s cubic-bezier(.3,1.6,.5,1)}.thm:hover svg{transform:rotate(45deg) scale(1.08)}.thf{position:absolute!important;top:12px;right:12px;z-index:60;width:44px;height:44px;-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);background:rgba(127,127,127,.18)}</style>
 </helmet>
-<div class="f" ref="{{setRoot}}" data-still="{{stillAttr}}"><div class="atmo" aria-hidden="true"><i class="orb" style="left: -10%; top: 200px; width: 700px; height: 700px; background: #3E8C6E; opacity: 0.55; animation-delay: -0s"></i><i class="orb" style="left: 70%; top: 700px; width: 800px; height: 800px; background: #C4661A; opacity: 0.22; animation-delay: -4s"></i><i class="orb" style="left: 10%; top: 1500px; width: 900px; height: 900px; background: #2B6B55; opacity: 0.6; animation-delay: -8s"></i><div class="grain"></div></div><div class="sprog" aria-hidden="true"></div><div class="cur" aria-hidden="true"><i></i></div><div class="cud" aria-hidden="true"></div><div class="fl"><a class="skip" href="#main">Skip to content</a><header class="nav nv2" data-menu="{{menuAttr}}"><div class="nvb"><a class="lg" href="GL1-Home.dc.html" aria-label="Miles Retold — home"><svg class="lgi" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#16352D"/><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFFCF7"/><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFFCF7"/><path d="M32 25v18.4" stroke="#16352D" stroke-width="1.6"/><path class="lgt" d="M10 21c7-9 19-12.5 28-10.5" fill="none" stroke="#FFFCF7" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="1.6 3.2"/><path d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFFCF7"/></svg><span class="lgw" style="color: #16352D"><span class="m">MiLes</span><span class="r"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a><nav class="nvl" aria-label="Main"><a class="nl" href="GL2-Books.dc.html">Books</a><a class="nl" href="GL16-Lookbook.dc.html">Lookbook</a><a class="nl" href="GL15-Story.dc.html">Our story</a><a class="nl" href="GL18-Gifts.dc.html" aria-current="page">Gifts</a><a class="nl" href="GL17-Help.dc.html">Help</a></nav><div class="nva"><div class="rg" role="group" aria-label="Country and currency"><sc-for list="{{regions}}" as="g" hint-placeholder-count="2"><button class="{{g.cls}}" onClick="{{g.pick}}" aria-pressed="{{g.on}}" title="{{g.t}}">{{g.n}}</button></sc-for></div><a class="thm" href="G18-Gifts.dc.html" aria-label="Switch to dark theme" title="Switch to dark theme"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg></a><a class="cart" href="GL4-Cart.dc.html" aria-label="Cart, {{cartN}} items"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><b class="{{cartCls}}">{{cartN}}</b></a><a class="nl nsi" href="GL8-SignIn.dc.html">Sign in</a><a class="btn bp nst" href="GL3-Builder.dc.html">Start a book</a><button class="mnb" onClick="{{toggleMenu}}" aria-expanded="{{menuOn}}" aria-controls="mnu" aria-label="{{menuLabel}}"><i></i><i></i></button></div></div><sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}"><div class="mnu" id="mnu"><nav aria-label="Menu"><a class="ml" href="GL2-Books.dc.html"><span>Books</span><small>01</small></a><a class="ml" href="GL16-Lookbook.dc.html"><span>Lookbook</span><small>02</small></a><a class="ml" href="GL15-Story.dc.html"><span>Our story</span><small>03</small></a><a class="ml" href="GL18-Gifts.dc.html" aria-current="page"><span>Gifts</span><small>04</small></a><a class="ml" href="GL17-Help.dc.html"><span>Help</span><small>05</small></a><a class="ml" href="GL8-SignIn.dc.html"><span>Sign in</span><small>→</small></a></nav><div class="mrow"><span class="mu">Country · currency</span><div class="rg" role="group" aria-label="Country and currency"><sc-for list="{{regions}}" as="g" hint-placeholder-count="2"><button class="{{g.cls}}" onClick="{{g.pick}}" aria-pressed="{{g.on}}" title="{{g.t}}">{{g.n}}</button></sc-for></div></div><a class="btn bp" href="GL3-Builder.dc.html" style="width: 100%">Start a book <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div></sc-if></header><main id="main"><div class="wrap" style="padding-top: var(--s64)"><nav class="crumb in1" aria-label="Breadcrumb"><a href="GL1-Home.dc.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Gift cards</span></nav><p class="cap in1 d1" style="margin-top: 24px">Gift cards</p><h1 class="wr big" style="--n: 5; margin-top: 16px; max-width: 1100px"><span class="w" style="--i: 0">Give</span> <span class="w" style="--i: 1">someone</span> <span class="it"><span class="w" style="--i: 2">their</span> <span class="w" style="--i: 3">trip</span> <span class="w" style="--i: 4">back.</span></span></h1></div>
+<div class="f" ref="{{setRoot}}" data-still="{{stillAttr}}"><div class="atmo" aria-hidden="true"><i class="u2d2b700 orb"></i><i class="ucd6cba4 orb"></i><i class="u76fb810 orb"></i><div class="grain"></div></div><div class="sprog" aria-hidden="true"></div><div class="cur" aria-hidden="true"><i></i></div><div class="cud" aria-hidden="true"></div><div class="fl"><a class="skip" href="#main">Skip to content</a><header class="nav nv2" data-menu="{{menuAttr}}"><div class="nvb"><a class="lg" href="GL1-Home.dc.html" aria-label="Miles Retold — home"><svg class="lgi" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="var(--ink)"/><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="var(--paper)"/><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="var(--paper)"/><path d="M32 25v18.4" stroke="var(--ink)" stroke-width="1.6"/><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="var(--paper)" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"/><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="var(--paper)"/></svg><span class="uc6fd5e5 lgw"><span class="m">MiLes</span><span class="r"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a><nav class="nvl" aria-label="Main"><a class="nl" href="GL2-Books.dc.html">Books</a><a class="nl" href="GL16-Lookbook.dc.html">Lookbook</a><a class="nl" href="GL15-Story.dc.html">Our story</a><a class="nl" href="GL18-Gifts.dc.html" aria-current="page">Gifts</a><a class="nl" href="GL17-Help.dc.html">Help</a></nav><div class="nva"><div class="rg" role="group" aria-label="Country and currency"><sc-for list="{{regions}}" as="g" hint-placeholder-count="2"><button class="{{g.cls}}" onClick="{{g.pick}}" aria-pressed="{{g.on}}" title="{{g.t}}">{{g.n}}</button></sc-for></div><a class="thm" href="G18-Gifts.dc.html" aria-label="Switch to dark theme" title="Switch to dark theme"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg></a><a class="cart" href="GL4-Cart.dc.html" aria-label="Cart, {{cartN}} items"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><b class="{{cartCls}}">{{cartN}}</b></a><a class="nl nsi" href="GL8-SignIn.dc.html">Sign in</a><a class="btn bp nst" href="GL3-Builder.dc.html">Start a book</a><button class="mnb" onClick="{{toggleMenu}}" aria-expanded="{{menuOn}}" aria-controls="mnu" aria-label="{{menuLabel}}"><i></i><i></i></button></div></div><sc-if value="{{menuOpen}}" hint-placeholder-val="{{ false }}"><div class="mnu" id="mnu"><nav aria-label="Menu"><a class="ml" href="GL2-Books.dc.html"><span>Books</span><small>01</small></a><a class="ml" href="GL16-Lookbook.dc.html"><span>Lookbook</span><small>02</small></a><a class="ml" href="GL15-Story.dc.html"><span>Our story</span><small>03</small></a><a class="ml" href="GL18-Gifts.dc.html" aria-current="page"><span>Gifts</span><small>04</small></a><a class="ml" href="GL17-Help.dc.html"><span>Help</span><small>05</small></a><a class="ml" href="GL8-SignIn.dc.html"><span>Sign in</span><small>→</small></a></nav><div class="mrow"><span class="mu">Country · currency</span><div class="rg" role="group" aria-label="Country and currency"><sc-for list="{{regions}}" as="g" hint-placeholder-count="2"><button class="{{g.cls}}" onClick="{{g.pick}}" aria-pressed="{{g.on}}" title="{{g.t}}">{{g.n}}</button></sc-for></div></div><a class="ube70d99 btn bp" href="GL3-Builder.dc.html">Start a book <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div></sc-if></header><main id="main"><div class="udc7e7c9 wrap"><nav class="crumb in1" aria-label="Breadcrumb"><a href="GL1-Home.dc.html">Home</a> <span aria-hidden="true">/</span> <span aria-current="page">Gift cards</span></nav><p class="u5e029f6 cap in1 d1">Gift cards</p><h1 class="u5bd6b2a wr big"><span class="u2b5e46d w">Give</span> <span class="u9218c65 w">someone</span> <span class="it"><span class="ue01f126 w">their</span> <span class="ud3f99eb w">trip</span> <span class="ud77e4ad w">back.</span></span></h1></div>
 <div class="wrap"><div class="gg">
-<div class="gcw"><button class="gci" onClick="{{flip}}" aria-label="{{flipLabel}}" style="transform: rotateY({{deg}}deg)"><span class="fl2" style="position: absolute; inset: 0; transform-style: preserve-3d">
-<span class="gf" style="background: {{bg}}; color: {{fg}}"><span style="display: flex; justify-content: space-between; align-items: flex-start"><span class="lgw" style="color: {{fg}}"><span class="m">MiLes</span><span class="r"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span><span class="cap" style="color: {{fg}}; opacity: .8">Gift card</span></span>
-<span style="font: 800 58px/1 Manrope, sans-serif; letter-spacing: -.05em">{{amtLabel}}</span>
-<span style="display: flex; justify-content: space-between; align-items: flex-end"><span class="mono" style="font-size: 13px; opacity: .8">GIFT-•••• ••••</span><span style="font: 400 italic 22px Fraunces, Georgia, serif">For {{to}}</span></span><span class="gsh"></span></span>
-<span class="gb2"><span class="cap" style="color: #7D1238">To · {{to}}</span><span style="font: 400 italic 28px/1.3 Fraunces, Georgia, serif">“{{msg}}”</span><span class="cap" style="color: #6B5A5F">From · {{from}}</span></span>
+<div class="gcw"><button class="gci" onClick="{{flip}}" aria-label="{{flipLabel}}" style="transform: rotateY({{deg}}deg)"><span class="u206129b fl2">
+<span class="gf" style="background: {{bg}}; color: {{fg}}"><span class="u3b953dc"><span class="lgw" style="color: {{fg}}"><span class="m">MiLes</span><span class="r"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span><span class="uc5536ef cap" style="color: {{fg}}">Gift card</span></span>
+<span class="uabfc440">{{amtLabel}}</span>
+<span class="ue951f9a"><span class="ua5b8e0d mono">GIFT-•••• ••••</span><span class="u5543804">For {{to}}</span></span><span class="gsh"></span></span>
+<span class="gb2"><span class="uf58c509 cap">To · {{to}}</span><span class="u180229a">“{{msg}}”</span><span class="ufdedb03 cap">From · {{from}}</span></span>
 </span></button>
-<button class="btn bg gl mag" onClick="{{flip}}" style="margin-top: 24px; min-height: 46px">{{flipLabel}}</button></div>
+<button class="ucb64c8b btn bg gl mag" onClick="{{flip}}">{{flipLabel}}</button></div>
 <div>
-<section class="gs" aria-labelledby="g1" style="border-top: 0; padding-top: 0"><h2 id="g1">1 · Amount</h2>
-<div class="amts" role="radiogroup" aria-label="Amount"><sc-for list="{{amts}}" as="a" hint-placeholder-count="4"><button class="{{a.cls}}" onClick="{{a.pick}}" role="radio" aria-checked="{{a.on}}"><b>{{a.label}}</b><span class="mu" style="font-size: 12.5px">{{a.note}}</span></button></sc-for></div></section>
-<section class="gs" aria-labelledby="g2"><h2 id="g2">2 · Card design <span class="mu" style="font-weight: 600">· {{tName}}</span></h2>
+<section class="u48ca67b gs" aria-labelledby="g1"><h2 id="g1">1 · Amount</h2>
+<div class="amts" role="radiogroup" aria-label="Amount"><sc-for list="{{amts}}" as="a" hint-placeholder-count="4"><button class="{{a.cls}}" onClick="{{a.pick}}" role="radio" aria-checked="{{a.on}}"><b>{{a.label}}</b><span class="u05b1899 mu">{{a.note}}</span></button></sc-for></div></section>
+<section class="gs" aria-labelledby="g2"><h2 id="g2">2 · Card design <span class="u93d1d39 mu">· {{tName}}</span></h2>
 <div class="dsg" role="radiogroup" aria-label="Card design"><sc-for list="{{designs}}" as="d" hint-placeholder-count="4"><button class="{{d.cls}}" onClick="{{d.pick}}" role="radio" aria-checked="{{d.on}}" aria-label="{{d.name}}" style="background: {{d.bg}}"></button></sc-for></div></section>
 <section class="gs" aria-labelledby="g3"><h2 id="g3">3 · Your message</h2>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px"><label class="fld"><span>Their name</span><input class="inp" value="{{to}}" onInput="{{onTo}}" maxlength="24"></label><label class="fld"><span>From</span><input class="inp" value="{{from}}" onInput="{{onFrom}}" maxlength="24"></label>
-<label class="fld" style="grid-column: 1 / -1"><span>Message · <span aria-live="polite">{{left}} characters left</span></span><textarea class="inp" maxlength="120" onInput="{{onMsg}}">{{msg}}</textarea></label></div></section>
+<div class="u142a6a0"><label class="fld"><span>Their name</span><input class="inp" value="{{to}}" onInput="{{onTo}}" maxlength="24"></label><label class="fld"><span>From</span><input class="inp" value="{{from}}" onInput="{{onFrom}}" maxlength="24"></label>
+<label class="u493b1c8 fld"><span>Message · <span aria-live="polite">{{left}} characters left</span></span><textarea class="inp" maxlength="120" onInput="{{onMsg}}" value="{{msg}}"></textarea></label></div></section>
 <section class="gs" aria-labelledby="g4"><h2 id="g4">4 · Delivery</h2>
-<div style="display: flex; gap: 10px; flex-wrap: wrap" role="radiogroup" aria-label="Send by"><sc-for list="{{chans}}" as="c" hint-placeholder-count="2"><button class="{{c.cls}}" onClick="{{c.pick}}" role="radio" aria-checked="{{c.on}}">{{c.name}}</button></sc-for></div>
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px"><label class="fld"><span>{{chanLabel}}</span><input class="inp" placeholder="{{chanPh}}"></label><label class="fld"><span>Send on</span><input class="inp" type="date"></label></div></section>
-<div class="gs" style="display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap"><div><div class="mu" style="font-size: 14px">Total</div><div class="tot">{{amtLabel}}</div></div><a class="btn bs mag" href="GL4-Cart.dc.html">Add gift card to cart <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
+<div class="u2a2dd38" role="radiogroup" aria-label="Send by"><sc-for list="{{chans}}" as="c" hint-placeholder-count="2"><button class="{{c.cls}}" onClick="{{c.pick}}" role="radio" aria-checked="{{c.on}}">{{c.name}}</button></sc-for></div>
+<div class="u6751d4d"><label class="fld"><span>{{chanLabel}}</span><input class="inp" placeholder="{{chanPh}}"></label><label class="fld"><span>Send on</span><input class="inp" type="date"></label></div></section>
+<div class="u276dbfc gs"><div><div class="u1c639f0 mu">Total</div><div class="tot">{{amtLabel}}</div></div><a class="btn bs mag" href="GL4-Cart.dc.html">Add gift card to cart <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></a></div>
 </div>
 </div>
 <div class="how3"><div class="rv"><b>01</b><p class="lead">They get your card on WhatsApp or email, on the day you choose.</p></div><div class="rv"><b>02</b><p class="lead">They design their book and upload their own photos.</p></div><div class="rv"><b>03</b><p class="lead">The gift card covers the book; any difference is paid at checkout.</p></div></div>
 </div>
-</main><footer class="ft"><div class="wrap"><div class="ftw rv" style="opacity: .9"><svg class="" viewBox="0 0 1000 132" aria-hidden="true"><text x="0" y="126" textLength="1000" lengthAdjust="spacingAndGlyphs" font-family="Manrope, sans-serif" font-weight="800" font-size="150" fill="none" stroke="#16352D" stroke-width="1.5" vector-effect="non-scaling-stroke">MILES RETOLD</text></svg></div><div class="ftc"><div><a class="lg" href="GL1-Home.dc.html" aria-label="Miles Retold — home"><svg class="lgi" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#16352D"/><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFFCF7"/><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFFCF7"/><path d="M32 25v18.4" stroke="#16352D" stroke-width="1.6"/><path class="lgt" d="M10 21c7-9 19-12.5 28-10.5" fill="none" stroke="#FFFCF7" stroke-width="1.7" stroke-linecap="round" stroke-dasharray="1.6 3.2"/><path d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#FFFCF7"/></svg><span class="lgw" style="color: #16352D"><span class="m">MiLes</span><span class="r"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a><p style="font: 700 22px/1.35 Manrope, sans-serif; margin: 18px 0 0; max-width: 340px">Hand-designed travel photobooks by two sisters in <span class="it">Riyadh &amp; Lahore.</span></p><a class="btn bg gl mag" href="GL17-Help.dc.html#contact" style="margin-top: 24px; min-height: 48px"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg> Message the studio</a></div><div><h2>Shop</h2><ul><li><a href="GL2-Books.dc.html">Book types</a></li><li><a href="GL3-Builder.dc.html">Design a book</a></li><li><a href="GL18-Gifts.dc.html">Gift cards</a></li><li><a href="GL16-Lookbook.dc.html">Lookbook</a></li></ul></div><div><h2>Your order</h2><ul><li><a href="GL13-Tracking.dc.html">Track an order</a></li><li><a href="GL9-Account.dc.html">My account</a></li><li><a href="GL7-Upload.dc.html">Upload photos</a></li><li><a href="GL17-Help.dc.html">Help centre</a></li></ul></div><div><h2>Studio</h2><ul><li><a href="GL15-Story.dc.html">Our story</a></li><li><a href="GL19-Project195.dc.html">The 195 Project</a></li><li><a href="https://instagram.com/milesretold" target="_blank" rel="noopener">Instagram</a></li><li><a href="GL17-Help.dc.html#reviews">Reviews</a></li></ul></div><div><h2>Policies</h2><ul><li><a href="GL17-Help.dc.html#refunds">Refunds</a></li><li><a href="GL17-Help.dc.html#terms">Terms</a></li><li><a href="GL17-Help.dc.html#privacy">Privacy</a></li><li><a href="GL8-SignIn.dc.html">Sign in</a></li></ul></div></div><div class="ftb"><span>© 2026 Miles Retold · Riyadh &amp; Lahore</span><button class="stl" onClick="{{toggleStill}}" aria-pressed="{{stillOn}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="{{stillIcon}}"/></svg>{{stillLabel}}</button></div></div></footer></div></div>
+</main><footer class="ft"><div class="wrap"><div class="ub14908a ftw rv"><svg class="" viewBox="0 0 1000 132" aria-hidden="true"><text x="0" y="126" textLength="1000" lengthAdjust="spacingAndGlyphs" font-family="Manrope, sans-serif" font-weight="800" font-size="150" fill="none" stroke="var(--ink)" stroke-width="1.5" vector-effect="non-scaling-stroke">MILES RETOLD</text></svg></div><div class="ftc"><div><a class="lg" href="GL1-Home.dc.html" aria-label="Miles Retold — home"><svg class="lgi" width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="var(--ink)"/><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="var(--paper)"/><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="var(--paper)"/><path d="M32 25v18.4" stroke="var(--ink)" stroke-width="1.6"/><path class="lgt" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="var(--paper)" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"/><path class="lgp" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="var(--paper)"/></svg><span class="uc6fd5e5 lgw"><span class="m">MiLes</span><span class="r"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a><p class="u18d1ab5">Hand-designed travel photobooks by two sisters in <span class="it">Riyadh &amp; Lahore.</span></p><a class="u5c54915 btn bg gl mag" href="GL17-Help.dc.html#contact"><svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm4.5 12.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.8-1.4a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.1 5.1 0 0 0 1.1 2.7 11.7 11.7 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.2 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3z"/></svg> Message the studio</a></div><div><h2>Shop</h2><ul><li><a href="GL2-Books.dc.html">Book types</a></li><li><a href="GL3-Builder.dc.html">Design a book</a></li><li><a href="GL18-Gifts.dc.html">Gift cards</a></li><li><a href="GL16-Lookbook.dc.html">Lookbook</a></li></ul></div><div><h2>Your order</h2><ul><li><a href="GL13-Tracking.dc.html">Track an order</a></li><li><a href="GL9-Account.dc.html">My account</a></li><li><a href="GL7-Upload.dc.html">Upload photos</a></li><li><a href="GL17-Help.dc.html">Help centre</a></li><li><a href="GL10-Order.dc.html">Order details</a></li><li><a href="GL5-Checkout.dc.html">Checkout</a></li><li><a href="GL6-Confirmed.dc.html">Order confirmed</a></li><li><a href="GL11-Proof.dc.html">Review proof</a></li><li><a href="GL12-Balance.dc.html">Pay balance</a></li><li><a href="GL24-Invoices.dc.html">My invoices</a></li><li><a href="GL22-Messages.dc.html">Messages</a></li><li><a href="GL23-Editor.dc.html">Live book editor</a></li><li><a href="GL14-Settings.dc.html">Account settings</a></li></ul></div><div><h2>Studio</h2><ul><li><a href="GL15-Story.dc.html">Our story</a></li><li><a href="GL19-Project195.dc.html">The 195 Project</a></li><li><a href="https://instagram.com/milesretold" target="_blank" rel="noopener">Instagram</a></li><li><a href="GL17-Help.dc.html#reviews">Reviews</a></li><li><a href="GL20-States.dc.html">Design states</a></li><li><a href="GL21-Mobile.dc.html">Mobile preview</a></li><li><a href="GL0-Audit.dc.html">Design audit</a></li></ul></div><div><h2>Policies</h2><ul><li><a href="GL17-Help.dc.html#refunds">Refunds</a></li><li><a href="GL17-Help.dc.html#terms">Terms</a></li><li><a href="GL17-Help.dc.html#privacy">Privacy</a></li><li><a href="GL8-SignIn.dc.html">Sign in</a></li></ul></div></div><div class="ftb"><span>© 2026 Miles Retold · Riyadh &amp; Lahore</span><button class="stl" onClick="{{toggleStill}}" aria-pressed="{{stillOn}}"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="{{stillIcon}}"/></svg>{{stillLabel}}</button></div></div></footer></div></div>
 </x-dc>
 <script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":2455}}'>
 class Component extends DCLogic {
@@ -446,7 +131,7 @@ class Component extends DCLogic {
     };
     
     const A = [[PR.gift[0], 'One small book'], [PR.gift[1], 'Most popular'], [PR.gift[2], 'Large book'], ['Custom', 'Any amount']];
-    const T = [['Wine', 'linear-gradient(135deg,#7D1238,#9E1046 60%,#C4661A)', '#16352D'], ['Jade', 'linear-gradient(135deg,#1F4A3F,#2B6B55 60%,#3E8C6E)', '#16352D'], ['Ivory', 'linear-gradient(135deg,#F3EBDD,#E4D5C6)', '#1F1418'], ['Midnight', 'linear-gradient(135deg,#1F1418,#3A2830)', '#B5541B']];
+    const T = [['Wine', 'linear-gradient(135deg,var(--wine),var(--c-9e1046) 60%,var(--copper))', 'var(--ink)'], ['Jade', 'linear-gradient(135deg,var(--forest-card),var(--forest) 60%,var(--leaf))', 'var(--ink)'], ['Ivory', 'linear-gradient(135deg,var(--c-f3ebdd),var(--c-e4d5c6))', 'var(--charcoal)'], ['Midnight', 'linear-gradient(135deg,var(--charcoal),var(--c-3a2830))', 'var(--rust)']];
     const t = T[st.t];
     const v = {
       amts: A.map((a, i) => ({ label: a[0] === 'Custom' ? 'Custom' : money(a[0]), note: a[1], cls: st.a === i ? 'opt on' : 'opt', on: st.a === i ? 'true' : 'false', pick: () => set({ a: i }) })),

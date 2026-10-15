@@ -1,0 +1,10 @@
+/* shared by: gl-studio */
+/* glstudio */
+@layer g{
+.wm {
+  background:linear-gradient(95deg,var(--rust),var(--rust));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+}

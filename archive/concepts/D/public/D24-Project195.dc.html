@@ -219,7 +219,7 @@ class Component extends DCLogic {
     const dots = Array.from({ length: 195 }, (_, i) => { const on = DONE.includes(i), r = reg(i), dim = st.r !== 'All' && st.r !== r; return { cls: 'dot' + (on ? ' on' : '') + (dim ? ' dim' : ''), t: r + (on ? ' · in a book' : ''), dl: (i * 0.004).toFixed(3) + 's' }; });
     return { done: DONE.length, left: 195 - DONE.length, pct: (DONE.length / 195 * 100).toFixed(1) + '%',
       regs: R.map((n) => ({ n, cls: st.r === n ? 'on' : '', pick: () => set({ r: n }) })), dots,
-      recent: [['27', 'Maldives', 'Sara & Ali · Honeymoon', '/assets/6dc6964be6ca87733a870c819d870936.jpg'], ['26', 'Türkiye', 'Dana M. · Travel', '/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg'], ['25', 'Malaysia', 'Bilal Q. · Travel', '/assets/ae8f12954b4a72155451fa4ddff588b7.jpg'], ['24', 'Austria', 'Ayesha T. · Hallstatt', '/assets/8384abb23ebdfeb24e7152bf3fdd1a9b.jpg']].map((x) => ({ n: x[0], c: x[1], by: x[2], img: x[3] })) };
+      recent: [['27', 'Maldives', 'Sara & Ali · Honeymoon', '/assets/6dc6964be6ca87733a870c819d870936.webp'], ['26', 'Türkiye', 'Dana M. · Travel', '/assets/6b43c91be8c10d0cbed5dc2520dde00d.webp'], ['25', 'Malaysia', 'Bilal Q. · Travel', '/assets/ae8f12954b4a72155451fa4ddff588b7.webp'], ['24', 'Austria', 'Ayesha T. · Hallstatt', '/assets/8384abb23ebdfeb24e7152bf3fdd1a9b.webp']].map((x) => ({ n: x[0], c: x[1], by: x[2], img: x[3] })) };
   }
 }
 </script>

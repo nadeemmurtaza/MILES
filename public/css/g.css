@@ -1,0 +1,4 @@
+/* Option G · global stylesheet. Shared rules first, then each page's own file (css/p/), then g-tail.css, then
+   utilities.css (what used to be style="" attributes). Colours come from theme.css, frosted glass from the
+   --glass-* tokens in theme.css. Edit here, never in the page. */
+/* shared · all G / GL pages */

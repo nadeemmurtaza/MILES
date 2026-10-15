@@ -1,0 +1,9 @@
+/* Zebra rows for every list and table. Change --zebra in theme.css (dark) or zebra-light.css (light) to retint.
+   Uses background-image, so the row's own hover / selected background colours still show through. */
+:is(.tr, .cv, .ix.att, .ix.att2, .us-row, .us-log, .iv-row, .tsk):nth-child(even):not(.hd),
+:is(.us-table, .iv-tbl, table) > :is(tbody) > tr:nth-child(even):not(.grp),
+.zebra > :nth-child(even) {
+  background-image: linear-gradient(var(--zebra), var(--zebra));
+}
+.iv-tbl tbody tr:nth-child(even) { background-image: linear-gradient(rgb(0 0 0 / .035), rgb(0 0 0 / .035)); }
+@media print { .iv-row:nth-child(even):not(.hd) { background-image: none; } }

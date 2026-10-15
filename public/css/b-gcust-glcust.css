@@ -1,0 +1,21 @@
+/* shared by: g-cust, gl-cust */
+/* gcust-glcust */
+@layer g{
+.h2 {
+  font-weight:800;
+  letter-spacing:-.04em;
+  line-height:1.02;
+  margin:0;
+  font-size:clamp(34px,4.2vw,60px);
+}
+.h3 {
+  font-weight:800;
+  letter-spacing:-.03em;
+  line-height:1.1;
+  margin:0;
+  font-size:24px;
+}
+.skip:focus {
+  top:12px;
+}
+}

@@ -1,0 +1,10 @@
+/* shared by: g-studio */
+/* gstudio */
+@layer g{
+.wm {
+  background:linear-gradient(95deg,var(--gold),var(--gold));
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+}
