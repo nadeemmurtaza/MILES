@@ -5,3 +5,15 @@
 .rev-card p, .rev-card footer { color: var(--ink); }
 .rev-card .st { color: var(--rust); }
 .rev-card .rav { background: var(--ink); color: var(--paper); }
+/* light home: tracking teaser */
+.dtk h3, .dtk-card { color: var(--ink); }
+.dtk-card { background: rgb(from var(--white) r g b / .7); border-color: rgb(from var(--ink) r g b / .14); --dtk-bg: #fffcf7; }
+.dtk-live { color: var(--rust); } .dtk-live i { background: var(--rust); }
+.dtk-base { border-top-color: rgb(from var(--ink) r g b / .25); }
+.dtk-fill { background: linear-gradient(90deg, var(--rust), var(--ink), var(--rust)); background-size: 200% 100%; }
+.dtk-dot { background: var(--rust); box-shadow: 0 0 0 1.5px var(--rust); }
+.dtk-van > div { background: var(--rust); color: var(--paper); }
+.dtk-home { background: rgb(from var(--rust) r g b / .15); color: var(--rust); }
+.dtk-puff { background: rgb(from var(--rust) r g b / .3); }
+/* light tracking page: van line */
+.vt-card { --vt-fg: var(--ink); --vt-acc: var(--rust); --vt-on: var(--paper); --vt-card-bg: #fffcf7; background: rgb(from var(--white) r g b / .7); }

@@ -1,0 +1,74 @@
+/* Home "From camera to book to doorstep": the tracking teaser from option D.
+   A card with a progress line, a van that drives along it as you scroll, and dots / labels that pop in. */
+.dtk { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; margin-block-start: 36px; }
+.dtk h3 { font: 400 clamp(30px, 3.6vw, 54px)/1.04 Fraunces, Georgia, serif; margin: 0; color: var(--ivory); }
+.dtk p { font-size: 18px; line-height: 1.7; margin: 20px 0 30px; opacity: .82; }
+.dtk-card { padding: 32px; border-radius: 24px; background: rgb(from var(--ivory) r g b / .09); border: 1px solid rgb(from var(--ivory) r g b / .2);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); }
+.dtk-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.dtk-live { display: inline-flex; align-items: center; gap: 8px; font-size: 13px; font-weight: 800; color: var(--gold); }
+.dtk-live i { inline-size: 9px; block-size: 9px; border-radius: 50%; background: var(--gold); animation: dtk-pulse 2s infinite; }
+.dtk-track { position: relative; block-size: 80px; margin-block-start: 26px;  }
+.dtk-base { position: absolute; inset-inline: 0; top: 39px; border-top: 2px dashed rgb(from var(--ivory) r g b / .3); }
+.dtk-fillw { position: absolute; inset-inline-start: 0; top: 37px; block-size: 6px; inline-size: 78.57%; border-radius: 3px; overflow: hidden; }
+.dtk-fill { block-size: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--gold), var(--ivory), var(--gold)); background-size: 200% 100%; animation: dtk-shine 2.4s linear infinite; }
+.dtk-dot { position: absolute; top: 40px; inline-size: 14px; block-size: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: var(--gold); border: 3px solid var(--dtk-bg, #1f4a3f); box-shadow: 0 0 0 1.5px var(--gold); }
+.dtk-van { position: absolute; top: 18px; translate: -50% 0; }
+.dtk-van > div { inline-size: 44px; block-size: 44px; border-radius: 50%; background: var(--gold); display: grid; place-items: center; color: var(--charcoal); animation: dtk-bob .9s ease-in-out infinite; box-shadow: 0 10px 20px -8px rgb(from var(--gold) r g b / .5); }
+.dtk-van .wh { transform-box: fill-box; transform-origin: center; stroke-dasharray: 3 2; animation: dtk-spin .6s linear infinite; }
+.dtk-puff { position: absolute; inset-inline-start: -6px; top: 24px; inline-size: 8px; block-size: 8px; border-radius: 50%; background: rgb(from var(--gold) r g b / .3); animation: dtk-puff 1.2s ease-out infinite; }
+.dtk-puff.p2 { animation-delay: .6s; }
+.dtk-home { position: absolute; top: 40px; inline-size: 32px; block-size: 32px; margin: -16px 0 0 -16px; border-radius: 50%; background: rgb(from var(--gold) r g b / .22); display: grid; place-items: center; color: var(--gold); animation: dtk-pulse 2s infinite; }
+.dtk-lab { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 2px; font-size: 12px; line-height: 1.25; text-align: center; opacity: .85; }
+.dtk-lab .dtk-l5 { font-weight: 800; opacity: 1; }
+.dtk-pay { margin-block-start: 34px; text-align: center; }
+.dtk-pay p { margin: 0 0 18px; font-size: 17px; opacity: .8; }
+@keyframes dtk-shine { to { background-position: -200% 0; } }
+@keyframes dtk-bob { 50% { transform: translateY(-3px) rotate(-2deg); } }
+@keyframes dtk-spin { to { transform: rotate(360deg); } }
+@keyframes dtk-puff { from { transform: translate(0, 0) scale(.6); opacity: .8; } to { transform: translate(-22px, -6px) scale(1.8); opacity: 0; } }
+@keyframes dtk-pulse { 0% { box-shadow: 0 0 0 0 rgb(from var(--gold) r g b / .5); } 70% { box-shadow: 0 0 0 12px rgb(from var(--gold) r g b / 0); } 100% { box-shadow: 0 0 0 0 rgb(from var(--gold) r g b / 0); } }
+@media (max-width: 900px) { .dtk { grid-template-columns: 1fr; gap: 28px; } }
+@media (prefers-reduced-motion: reduce) { .dtk-fill, .dtk-van > div, .dtk-van .wh, .dtk-puff, .dtk-live i, .dtk-home { animation: none; } }
+/* the loop (9 s): the van pulls away from the first stop, the line fills behind it, each dot and label lights up as the van passes,
+   it rests at "On its way", then the road resets. Without motion the final state is shown. */
+@keyframes dtk-run { 0% { inset-inline-start: 7.14%; opacity: 0; } 4% { inset-inline-start: 7.14%; opacity: 1; } 70% { inset-inline-start: 78.57%; opacity: 1; } 92% { inset-inline-start: 78.57%; opacity: 1; } 97%, 100% { inset-inline-start: 78.57%; opacity: 0; } }
+@keyframes dtk-fillrun { 0%, 4% { transform: scaleX(.0); } 70%, 92% { transform: scaleX(1); } 97%, 100% { transform: scaleX(1); opacity: 0; } }
+@keyframes dtk-home { 0%, 70% { transform: scale(.85); } 74% { transform: scale(1.12); } 80%, 100% { transform: scale(1); } }
+.dtk-van { animation: dtk-run 9s cubic-bezier(.45, 0, .3, 1) infinite; }
+.dtk-fillw { transform-origin: left; animation: dtk-fillrun 9s cubic-bezier(.45, 0, .3, 1) infinite; }
+html[dir="rtl"] .dtk-fillw { transform-origin: right; }
+@keyframes dtk-d0 { 0%, 2.5% { transform: scale(0); } 4.0%, 92% { transform: scale(1); } 97%, 100% { transform: scale(0); } }
+.dtk-d0 { animation: dtk-d0 9s infinite; }
+@keyframes dtk-l0 { 0%, 2.5% { opacity: .25; transform: translateY(8px); } 6.0%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: .25; transform: translateY(8px); } }
+.dtk-l0 { animation: dtk-l0 9s infinite; }
+@keyframes dtk-d1 { 0%, 15.7% { transform: scale(0); } 17.2%, 92% { transform: scale(1); } 97%, 100% { transform: scale(0); } }
+.dtk-d1 { animation: dtk-d1 9s infinite; }
+@keyframes dtk-l1 { 0%, 15.7% { opacity: .25; transform: translateY(8px); } 19.2%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: .25; transform: translateY(8px); } }
+.dtk-l1 { animation: dtk-l1 9s infinite; }
+@keyframes dtk-d2 { 0%, 28.9% { transform: scale(0); } 30.4%, 92% { transform: scale(1); } 97%, 100% { transform: scale(0); } }
+.dtk-d2 { animation: dtk-d2 9s infinite; }
+@keyframes dtk-l2 { 0%, 28.9% { opacity: .25; transform: translateY(8px); } 32.4%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: .25; transform: translateY(8px); } }
+.dtk-l2 { animation: dtk-l2 9s infinite; }
+@keyframes dtk-d3 { 0%, 42.1% { transform: scale(0); } 43.6%, 92% { transform: scale(1); } 97%, 100% { transform: scale(0); } }
+.dtk-d3 { animation: dtk-d3 9s infinite; }
+@keyframes dtk-l3 { 0%, 42.1% { opacity: .25; transform: translateY(8px); } 45.6%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: .25; transform: translateY(8px); } }
+.dtk-l3 { animation: dtk-l3 9s infinite; }
+@keyframes dtk-d4 { 0%, 55.3% { transform: scale(0); } 56.8%, 92% { transform: scale(1); } 97%, 100% { transform: scale(0); } }
+.dtk-d4 { animation: dtk-d4 9s infinite; }
+@keyframes dtk-l4 { 0%, 55.3% { opacity: .25; transform: translateY(8px); } 58.8%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: .25; transform: translateY(8px); } }
+.dtk-l4 { animation: dtk-l4 9s infinite; }
+@keyframes dtk-d5 { 0%, 68.5% { transform: scale(0); } 70.0%, 92% { transform: scale(1); } 97%, 100% { transform: scale(0); } }
+.dtk-d5 { animation: dtk-d5 9s infinite; }
+@keyframes dtk-l5 { 0%, 68.5% { opacity: .25; transform: translateY(8px); } 72.0%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: .25; transform: translateY(8px); } }
+.dtk-l5 { animation: dtk-l5 9s infinite; }
+@keyframes dtk-l6 { 0%, 70% { opacity: .25; transform: translateY(8px); } 74%, 92% { opacity: 1; transform: none; } 97%, 100% { opacity: .25; transform: translateY(8px); } }
+.dtk-l6 { animation: dtk-l6 9s infinite; }
+.dtk-home { animation: dtk-pulse 2s infinite, dtk-home 9s infinite; }
+@media (prefers-reduced-motion: reduce) { .dtk-van, .dtk-fillw, .dtk-home, .dtk-dot, .dtk-lab span { animation: none !important; } }
+/* stop positions (7 equal columns) */
+.dtk-van { inset-inline-start: 78.57%; }
+.dtk-home { inset-inline-start: 92.86%; }
+.dtk .dtk-d0 { inset-inline-start: 7.14%; } .dtk .dtk-d1 { inset-inline-start: 21.43%; } .dtk .dtk-d2 { inset-inline-start: 35.71%; } .dtk .dtk-d3 { inset-inline-start: 50%; } .dtk .dtk-d4 { inset-inline-start: 64.29%; } .dtk .dtk-d5 { inset-inline-start: 78.57%; }
+.dtk > div:first-child { text-align: start; }
+@media (max-width: 900px) { .dtk { grid-template-columns: 1fr; gap: 28px; } }
