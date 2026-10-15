@@ -583,7 +583,7 @@ textarea.inp {
   position:relative;
   height:3px;
   border-radius:3px;
-  background:rgb(from var(--ink) r g b / .16);
+  background:linear-gradient(90deg,rgb(from var(--ink) r g b / .08),rgb(from var(--ink) r g b / .14) 50%,rgb(from var(--ink) r g b / .08));
 }
 .pline>i {
   position:absolute;
@@ -660,7 +660,7 @@ textarea.inp {
   top:8px;
   bottom:8px;
   width:2px;
-  background:rgb(from var(--ink) r g b / .16);
+  background:linear-gradient(180deg,transparent,rgb(from var(--ink) r g b / .14) 14%,rgb(from var(--ink) r g b / .14) 86%,transparent);
 }
 .tl .tf {
   position:absolute;
