@@ -3064,6 +3064,9 @@ a:hover {
 .hn:first-of-type {
   translate:0 0;
 }
+.hn:last-of-type {
+  translate:-100% 0;
+}
 .hn i {
   width:44px;
   height:44px;
@@ -3074,7 +3077,13 @@ a:hover {
 }
 .hn b {
   position:absolute;
-  top:13px;
+  top:14px;
+  inset-inline-start:50%;
+  translate:-50% 0;
+  line-height:16px;
+  text-align:center;
+  z-index:1;
+  pointer-events:none;
   font:800 13px Manrope,sans-serif;
   font-variant-numeric:tabular-nums;
 }
@@ -3449,7 +3458,7 @@ a:hover {
   .hnum {
     font-size:110px;
   }
-  .hn span {
+  .hn>span {
     display:none;
   }
   .tkd em {
