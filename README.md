@@ -61,3 +61,9 @@ Forcing compositor layers (`will-change` on the blurred orbs) was tried and made
 
 ## Previous option D
 The D storefront, studio, Arabic (RTL) build, shared header/footer scripts and `DESIGN-RULES.md` live in `archive/concepts/D/`; `archive/README.md` explains how to put it back.
+
+## Invoices and tax integrations (demo)
+
+Pages `G24/GL24` (my invoices), `G77/GL77` (invoice document), `G76/GL76` (studio invoices) and `G78/GL78` (ZATCA / FBR connections) show invoice records with open, download (XML/CSV), print and a simulated send to the Saudi ZATCA and Pakistan FBR systems. See `docs/invoicing-integration.md` for what a live connection needs.
+
+Every page is reachable from a nav: the studio side menu, the Money and Team sub-menus, and the customer footer.
