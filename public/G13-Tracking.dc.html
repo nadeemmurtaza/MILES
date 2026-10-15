@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="/css/spacing.css">
 <link rel="stylesheet" href="/smooth.css">
 <link rel="stylesheet" href="/css/zebra.css">
+<link rel="stylesheet" href="/css/van-track.css">
 <link rel="stylesheet" href="/css/blush.css">
 <script src="/blush.js" defer></script>
 <link rel="stylesheet" href="/css/stars.css">
@@ -43,8 +44,7 @@
 <p class="lead">{{sub}}</p></div>
 <div class="u28bbfa8"><div class="u1c639f0 mu">{{etaLabel}}</div><div class="u0ff833e">{{eta}}</div><a class="u95e6abe" href="G8-SignIn.dc.html">Sign in for full details</a></div>
 </div>
-<div class="route" aria-hidden="true"><svg viewBox="0 0 1000 170"><path id="rt13" d="M20 150 C 260 -10, 740 -10, 980 150" fill="none" stroke="rgb(from var(--ivory) r g b / .3)" stroke-width="2" stroke-dasharray="4 10"/><path class="u3f37945" d="M20 150 C 260 -10, 740 -10, 980 150" fill="none" stroke="url(#rg13)" stroke-width="3" stroke-linecap="round" pathLength="1" stroke-dasharray="{{arc}} 1"/><defs><linearGradient id="rg13"><stop offset="0" stop-color="var(--ivory)"/><stop offset="1" stop-color="var(--gold)"/></linearGradient></defs><circle cx="20" cy="150" r="8" fill="var(--gold)"/><circle cx="980" cy="150" r="8" fill="var(--ivory)"/><g fill="var(--gold)"><path transform="rotate(90) translate(-14 -14) scale(1.15)" d="M21 16v-2l-8-5V3.5c0-.83-.67-1.5-1.5-1.5S10 2.67 10 3.5V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5l8 2.5z"/><animateMotion dur="6s" repeatCount="indefinite" rotate="auto" keyPoints="0;{{arcK}}" keyTimes="0;1" calcMode="linear"><mpath href="#rt13"/></animateMotion></g></svg>
-<div class="city2"><span>Studio · Riyadh</span><span>You · Riyadh</span></div></div>
+<div class="vt-card" role="img" aria-label="{{vtAria}}"><div class="vt-top"><b>Order MR-1042</b><span class="vt-live"><i></i>{{vtLive}}</span></div><div class="vt-track"><div class="vt-base"></div><div class="vt-fill" style="inline-size: {{vtPos}}"></div><sc-for list="{{vtDots}}" as="d" hint-placeholder-count="9"><span class="{{d.cls}}" style="inset-inline-start: {{d.x}}"></span></sc-for><div class="vt-van" style="inset-inline-start: {{vtPos}}"><div><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle class="wh" cx="7" cy="18" r="2"/><circle class="wh" cx="17" cy="18" r="2"/></svg></div><span class="vt-puff" aria-hidden="true"></span><span class="vt-puff p2" aria-hidden="true"></span></div></div><div class="vt-lab"><sc-for list="{{vtLabs}}" as="l" hint-placeholder-count="9"><span class="{{l.cls}}">{{l.t}}</span></sc-for></div><div class="vt-city"><span>Studio · Riyadh</span><span>You · Riyadh</span></div></div>
 <p class="u619fd5c mt">Courier <b>SMSA Express</b> · <a class="u41e0560" href="G17-Help.dc.html#contact">Reschedule delivery</a> · <a class="u41e0560" href="https://www.smsaexpress.com/" target="_blank" rel="noopener">Open courier site ↗</a></p>
 <div class="evs">
 <section aria-labelledby="ev13"><h2 id="ev13" class="h3">Every step</h2>
@@ -149,6 +149,9 @@ class Component extends DCLogic {
     const at = st.at, e = E[at], k = at / (E.length - 1);
     const v = {
       headline: e[3], sub: e[4], hk: 'h' + at, etaLabel: at >= 8 ? 'Delivered' : 'Estimated delivery', eta: at >= 8 ? '9 Oct' : (at >= 7 ? 'Today' : 'Set at dispatch'),
+      vtPos: ((at + .5) / E.length * 100).toFixed(2) + '%', vtLive: at >= 8 ? 'Delivered' : (at >= 7 ? 'Out for delivery' : 'In progress'), vtAria: 'Order progress: ' + E[at][0],
+      vtDots: E.map((x, i) => ({ cls: i <= at ? 'vt-dot on' : 'vt-dot', x: ((i + .5) / E.length * 100).toFixed(2) + '%' })),
+      vtLabs: ['Confirmed', 'Photos in', 'Designing', 'Proof', 'Approved', 'Printing', 'Wrapped', 'Shipped', 'Delivered'].map((t, i) => ({ t: t, cls: i < at ? 'done' : (i === at ? 'now' : '') })),
       arc: Math.max(.02, k).toFixed(3), arcK: Math.max(.02, k).toFixed(3), tlH: (Math.min(1, (at + .5) / E.length) * 100).toFixed(1) + '%',
       events: E.map((x, i) => ({ name: x[0], when: i <= at ? x[1] : 'Pending', desc: x[2], cls: 'te' + (i < at ? ' done' : (i === at ? ' now' : '')), cur: i === at ? 'step' : 'false', hasCta: i === at && !!x[5], cta: x[5], href: x[6] })),
       prevs: E.map((x, i) => ({ n: x[0].split(' ')[0], cls: st.at === i ? 'chip on' : 'chip gl', on: st.at === i ? 'true' : 'false', pick: () => set({ at: i }) })),

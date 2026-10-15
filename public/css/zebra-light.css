@@ -15,3 +15,5 @@
 .dtk-van > div { background: var(--rust); color: var(--paper); }
 .dtk-home { background: rgb(from var(--rust) r g b / .15); color: var(--rust); }
 .dtk-puff { background: rgb(from var(--rust) r g b / .3); }
+/* light tracking page: van line */
+.vt-card { --vt-fg: var(--ink); --vt-acc: var(--rust); --vt-on: var(--paper); --vt-card-bg: #fffcf7; background: rgb(from var(--white) r g b / .7); }
