@@ -325,7 +325,7 @@
     transform:scaleX(0);
   }
   to {
-    transform:scaleX(.9166);
+    transform:scaleX(.973);
   }
 }
 @keyframes tkp2 {
@@ -333,7 +333,7 @@
     inset-inline-start:0;
   }
   to {
-    inset-inline-start:91.66%;
+    inset-inline-start:97.3%;
   }
 }
 @keyframes bobp {
@@ -3628,7 +3628,7 @@ h2.cap {
 }
 .trk .tkp {
   top:-6px;
-  inset-inline-start:91.66%;
+  inset-inline-start:97.3%;
   width:30px;
   height:30px;
   margin-inline-start:-15px;
@@ -3641,19 +3641,19 @@ h2.cap {
   filter:drop-shadow(0 0 0 3px var(--paper-5)) drop-shadow(0 0 8px rgb(from var(--gold) r g b / 0.5));
 }
 .trk .tkf {
-  transform:scaleX(.9166);
+  transform:scaleX(.973);
   animation:tkf2 2.8s cubic-bezier(.45,0,.2,1) both .4s;
 }
 @supports (animation-timeline: view()) {
   .trk .tkp {
     animation:tkp2 linear both;
     animation-timeline:view();
-    animation-range:entry 5% cover 45%;
+    animation-range:entry 5% cover 50%;
   }
   .trk .tkf {
     animation:tkf2 linear both;
     animation-timeline:view();
-    animation-range:entry 5% cover 45%;
+    animation-range:entry 5% cover 50%;
   }
 }
 .vsplit {
