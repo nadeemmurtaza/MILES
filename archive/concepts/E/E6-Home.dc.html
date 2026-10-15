@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Miles Retold · Home — E6 Miles / Retold</title>
+<script src="./support.js"></script>
+<link rel="icon" type="image/svg+xml" href="/_blob/ba8a47ecfe93acbd68bd017714519801">
+<link rel="icon" type="image/png" sizes="32x32" href="/_blob/e8c29624c47de066f3c28cb82d08b58a">
+<link rel="apple-touch-icon" href="/_blob/587541048aa85fdedd1d966f27a5d383">
+</head>
+<body>
+<x-dc>
+<helmet>
+<link href="https://fonts.googleapis.com/css2?family=Anton&amp;family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&amp;family=Manrope:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<style>
+
+body{margin:0}*{box-sizing:border-box}
+a{color:inherit}a:hover{color:inherit}
+.an{font-family:Anton,Impact,'Arial Narrow',sans-serif;font-weight:400;letter-spacing:-.005em;line-height:.86;text-transform:uppercase}
+.fr{font-family:Fraunces,Georgia,serif}.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+.cap{font-size:12px;font-weight:800;letter-spacing:.22em;text-transform:uppercase}
+.wrap{width:100%;max-width:1320px;margin:0 auto;padding:0 44px}
+/* logo */
+.lg{display:flex;align-items:center;gap:10px;text-decoration:none;min-height:44px}
+.lg svg{transition:transform .8s cubic-bezier(.3,1.6,.5,1)}.lg:hover svg{transform:rotate(-8deg) scale(1.06)}
+.lgw{display:flex;flex-direction:column;line-height:1}
+.lgw .m{font-family:Fraunces,Georgia,serif;font-size:28px;font-weight:600;letter-spacing:-.01em;line-height:.8}
+.lgw .r{display:flex;justify-content:space-between;font:800 8.4px Manrope,sans-serif;margin-top:3px}
+.lg:focus-visible,.btn:focus-visible,.nl:focus-visible{outline:2.5px solid currentColor;outline-offset:4px;border-radius:12px}
+/* nav */
+.nl{position:relative;text-decoration:none;font-weight:700;font-size:14px;padding:8px 0}
+.nl::after{content:"";position:absolute;left:0;right:0;bottom:2px;height:1.5px;background:currentColor;transform:scaleX(0);transform-origin:right;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.nl:hover::after{transform:scaleX(1);transform-origin:left}
+.btn{position:relative;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:52px;padding:0 24px;border-radius:999px;font:800 15px Manrope,sans-serif;text-decoration:none;border:0;cursor:pointer;transition:transform .6s cubic-bezier(.16,1,.3,1),box-shadow .6s,background .3s,color .3s;isolation:isolate}
+.btn::before{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(110deg,transparent 30%,rgba(255,255,255,.35) 50%,transparent 70%);transform:translateX(-120%);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.btn:hover::before{transform:translateX(120%)}.btn:hover{transform:translateY(-3px)}
+.btn .ar{transition:transform .5s cubic-bezier(.16,1,.3,1)}.btn:hover .ar{transform:translate(4px,-4px)}
+.cart{position:relative;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;transition:background .3s}
+.cart b{position:absolute;top:4px;right:2px;min-width:18px;height:18px;padding:0 5px;border-radius:999px;font-size:11px;display:grid;place-items:center}
+/* 3D book */
+.bk{perspective:1800px;display:grid;place-items:center}
+.bkf{animation:bkfloat 7s ease-in-out infinite}
+@keyframes bkfloat{50%{transform:translateY(-16px)}}
+.bki{position:relative;width:var(--w,300px);height:calc(var(--w,300px)*1.26);transform-style:preserve-3d;transform:rotateY(-26deg) rotateX(8deg) rotateZ(-2deg);transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.bk:hover .bki{transform:rotateY(-8deg) rotateX(4deg) rotateZ(0)}
+.bkc,.bkb{position:absolute;inset:0;border-radius:4px 12px 12px 4px;transition:background .8s}
+.bkc{transform:translateZ(20px);overflow:hidden;box-shadow:inset 10px 0 0 rgba(0,0,0,.12),inset 12px 0 18px rgba(0,0,0,.18);padding:14% 14% 0}
+.bkb{transform:translateZ(-20px);box-shadow:0 60px 80px -30px rgba(0,0,0,.55)}
+.bkp{position:absolute;top:1.6%;bottom:1.6%;left:calc(100% - 20px);width:40px;transform:rotateY(90deg);background:repeating-linear-gradient(90deg,#FBF7F1 0 2px,#E8DFD3 2px 3px);border-radius:2px}
+.bks{position:absolute;top:0;bottom:0;left:-20px;width:40px;transform:rotateY(-90deg);transition:background .8s}
+.bkc .ph{width:100%;aspect-ratio:1/1.04;border:6px solid #FBF7F1;box-shadow:0 8px 16px -8px rgba(0,0,0,.5);overflow:hidden}
+.bkc .ph img{width:100%;height:100%;object-fit:cover;display:block}
+.bkc .t{font:400 calc(var(--w,300px)*.11) Anton,Impact,sans-serif;letter-spacing:.06em;text-align:center;margin-top:9%;line-height:1}
+.bkc .s{font:600 calc(var(--w,300px)*.04) Manrope,sans-serif;letter-spacing:.32em;text-align:center;margin-top:4%;opacity:.85}
+.bkc::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 35%,rgba(255,255,255,.22) 48%,transparent 60%);background-size:260% 100%;animation:sheen 6s ease-in-out infinite}
+@keyframes sheen{0%{background-position:120% 0}60%,100%{background-position:-60% 0}}
+.shadow{width:70%;height:30px;margin-top:-6px;border-radius:50%;background:radial-gradient(closest-side,rgba(0,0,0,.35),transparent);animation:shad 7s ease-in-out infinite}
+@keyframes shad{50%{transform:scaleX(.82);opacity:.6}}
+/* swatches */
+.sw{all:unset;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:8px;font:800 10px Manrope,sans-serif;letter-spacing:.14em;text-transform:uppercase}
+.sw i{width:38px;height:38px;border-radius:50%;box-shadow:0 0 0 2px transparent,inset 0 0 0 1px rgba(255,255,255,.25);transition:box-shadow .3s,transform .5s cubic-bezier(.3,1.6,.5,1)}
+.sw:hover i{transform:scale(1.08)}.sw.on i{box-shadow:0 0 0 3px var(--ring,#fff),0 0 0 5px currentColor}
+.sw:focus-visible{outline:2px solid currentColor;outline-offset:4px;border-radius:8px}
+/* reveal + motion */
+.in{animation:in 1.1s cubic-bezier(.16,1,.3,1) both}.d1{animation-delay:.12s}.d2{animation-delay:.24s}.d3{animation-delay:.36s}.d4{animation-delay:.5s}
+@keyframes in{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:none}}
+.rise{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.04em}
+.rise>span{display:inline-block;animation:rise 1.3s cubic-bezier(.16,1,.3,1) both}
+@keyframes rise{from{transform:translateY(105%)}to{transform:none}}
+.mq{display:flex;width:max-content;animation:mq 40s linear infinite}.mqw:hover .mq{animation-play-state:paused}
+@keyframes mq{to{transform:translateX(-50%)}}
+@supports (animation-timeline: view()){
+.rv{animation:rv cubic-bezier(.16,1,.3,1) both;animation-timeline:view();animation-range:entry 0% cover 28%}
+.zoom{animation:zoom linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+.drift{animation:drift linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+.drift2{animation:drift2 linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+.draw{animation:draw linear both;animation-timeline:view();animation-range:entry 20% cover 55%}
+}
+@keyframes rv{from{opacity:0;transform:translateY(60px)}to{opacity:1;transform:none}}
+@keyframes zoom{from{transform:scale(1.18)}to{transform:scale(1)}}
+@keyframes drift{from{transform:translateX(6%)}to{transform:translateX(-14%)}}
+@keyframes drift2{from{transform:translateX(-14%)}to{transform:translateX(6%)}}
+@keyframes draw{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+/* type picker (Nike-style) */
+.tp{all:unset;cursor:pointer;flex:1;aspect-ratio:1.2;border-radius:18px;overflow:hidden;position:relative;transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .4s}
+.tp img{width:100%;height:100%;object-fit:cover;display:block;filter:saturate(.85)}
+.tp:hover{transform:translateY(-4px)}.tp.on{box-shadow:0 0 0 3px var(--acc)}
+.tp:focus-visible{outline:2px solid var(--acc);outline-offset:3px}
+.tp span{position:absolute;left:10px;bottom:8px;font:800 11px Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#fff;text-shadow:0 1px 6px rgba(0,0,0,.6)}
+.pic{animation:pic .8s cubic-bezier(.16,1,.3,1) both}@keyframes pic{from{opacity:0;transform:scale(.96) translateY(14px)}to{opacity:1;transform:none}}
+.ib{all:unset;cursor:pointer;width:56px;height:56px;border-radius:50%;display:grid;place-items:center;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.ib:hover{transform:scale(1.08) rotate(-6deg)}.ib:focus-visible{outline:2px solid currentColor;outline-offset:3px}
+/* brackets */
+.brk{display:inline-flex;align-items:center;gap:14px}
+.brk .n{position:relative;padding:4px 14px;font-family:Anton,Impact,sans-serif;line-height:1}
+.brk .n::before,.brk .n::after{content:"";position:absolute;top:0;bottom:0;width:10px;border:2px solid currentColor}
+.brk .n::before{left:0;border-right:0}.brk .n::after{right:0;border-left:0}
+.brk .l{font:800 12px Manrope,sans-serif;letter-spacing:.18em;text-transform:uppercase;line-height:1.5}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@media (max-width:900px){.wrap{padding:0 20px}.hide-m{display:none!important}.stk{grid-template-columns:minmax(0,1fr)!important}.bki{--w:220px}}
+
+.atmo .top{filter:saturate(.75) blur(7px)!important}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.h6{height:62vw}
+.h6m,.h6r{position:absolute;left:2.2vw;width:95.6vw;height:auto;overflow:visible;pointer-events:none;display:block}
+.h6m{top:0;z-index:1}
+.h6r{top:41vw;z-index:3;filter:drop-shadow(0 6px 20px rgba(0,0,0,.25))}
+.h6i{position:absolute;z-index:2;left:50%;top:14.5vw;width:32vw;height:43vw;margin:0;transform:translateX(-50%);border-radius:16vw 16vw 32px 32px;overflow:hidden;box-shadow:0 60px 120px -40px rgba(0,0,0,.75),inset 0 0 0 1px rgba(255,246,240,.25)}
+.h6i.in{animation:in6 1.1s cubic-bezier(.16,1,.3,1) both .24s}
+@keyframes in6{from{opacity:0;transform:translate(-50%,40px)}to{opacity:1;transform:translateX(-50%)}}
+.h6i img{width:100%;height:100%;object-fit:cover;display:block;animation:z6 22s ease-in-out infinite alternate}
+@keyframes z6{from{transform:scale(1.04)}to{transform:scale(1.14) translateY(-2%)}}
+.h6i::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 45%,rgba(8,24,20,.55));pointer-events:none}
+.h6b{position:absolute;z-index:3;left:50%;top:26px;margin-left:-39px;width:78px;height:78px;border-radius:50%;display:grid;place-items:center}
+.h6s{position:absolute;z-index:3;left:22px;top:124px;display:flex;align-items:center;gap:12px;padding:12px 18px;border-radius:20px;color:#FFF6F0}
+@media (max-width:900px){.h6{height:116vw;margin-top:22px!important}.h6i{top:19vw;width:66vw;height:88vw;border-radius:33vw 33vw 24px 24px}.h6r{top:89vw}.h6b{width:60px;height:60px;margin-left:-30px;top:16px}.h6s{top:90px;left:14px}}
+
+.e4{position:relative;display:flow-root;font-family:Manrope,sans-serif;color:#FFF6F0;width:100%;overflow:clip;
+background:linear-gradient(180deg,#1C3530 0,#1F4038 9%,#1E4A3E 19%,#1C5343 31%,#1A4C3D 40%,#164034 52%,#12342B 64%,#0F2922 76%,#0B1E19 88%,#061210 100%)}
+.atmo{position:absolute;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.atmo .top{position:absolute;left:0;right:0;top:0;height:1250px;width:100%;object-fit:cover;filter:saturate(.8) blur(2px);
+-webkit-mask-image:linear-gradient(180deg,#000 40%,transparent 100%);mask-image:linear-gradient(180deg,#000 40%,transparent 100%);opacity:.95}
+.atmo .shade{position:absolute;left:0;right:0;top:0;height:1250px;background:linear-gradient(180deg,rgba(12,34,28,.62),rgba(12,34,28,.45) 45%,rgba(16,44,36,.22) 75%,transparent)}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.55;animation:orb 18s ease-in-out infinite alternate}
+@keyframes orb{to{transform:translate(60px,-40px) scale(1.12)}}
+.stars{position:absolute;left:0;right:0;bottom:0;height:1700px;opacity:.7;
+background-image:radial-gradient(1.2px 1.2px at 12% 30%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 28% 62%,#fff 50%,transparent 51%),radial-gradient(1.4px 1.4px at 47% 18%,#F2B880 50%,transparent 51%),radial-gradient(1px 1px at 66% 44%,#fff 50%,transparent 51%),radial-gradient(1.2px 1.2px at 83% 72%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 91% 22%,#fff 50%,transparent 51%),radial-gradient(1px 1px at 6% 82%,#fff 50%,transparent 51%),radial-gradient(1.3px 1.3px at 38% 88%,#fff 50%,transparent 51%);
+background-size:520px 420px;-webkit-mask-image:linear-gradient(180deg,transparent,#000 40%);mask-image:linear-gradient(180deg,transparent,#000 40%);animation:tw 6s ease-in-out infinite alternate}
+@keyframes tw{to{opacity:.35}}
+.grain{position:absolute;inset:0;opacity:.07;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+/* route */
+.route{position:absolute;top:0;left:50%;width:1440px;margin-left:-720px;height:7286px;z-index:1;pointer-events:none}
+.route svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.route .ghost{stroke:rgba(255,246,240,.28);stroke-width:1.5;stroke-dasharray:3 9;fill:none}
+.route .lit{stroke:url(#rg);stroke-width:2.5;fill:none;stroke-linecap:round;filter:drop-shadow(0 0 6px rgba(242,184,128,.7))}
+.route .plane{position:absolute;left:0;top:0;width:34px;height:34px;offset-path:path('M720.0 412.0 C730.0 505.3 890.0 317.3 750.0 692.0 C610.0 1066.7 207.7 1168.0 300.0 1536.0 C392.3 1904.0 710.3 1609.3 1027.0 1796.0 C1343.7 1982.7 1169.0 1869.3 1250.0 2096.0 C1331.0 2322.7 1446.7 2223.0 1270.0 2476.0 C1093.3 2729.0 1056.7 2685.3 720.0 2855.0 C383.3 3024.7 443.3 2801.7 260.0 2985.0 C76.7 3168.3 146.7 3152.7 170.0 3405.0 C193.3 3657.3 300.7 3543.0 330.0 3742.0 C359.3 3941.0 78.0 3836.0 258.0 4002.0 C438.0 4168.0 812.3 4081.3 870.0 4240.0 C927.7 4398.7 431.0 4319.0 431.0 4478.0 C431.0 4637.0 597.0 4540.3 870.0 4717.0 C1143.0 4893.7 1318.0 4824.3 1250.0 5008.0 C1182.0 5191.7 896.0 5071.3 666.0 5268.0 C436.0 5464.7 482.0 5477.0 560.0 5598.0 C638.0 5719.0 693.3 5510.0 900.0 5631.0 C1106.7 5752.0 1240.0 5675.3 1180.0 5961.0 C1120.0 6246.7 835.7 6239.0 720.0 6488.0 C604.3 6737.0 795.3 6634.7 833.0 6708.0');offset-rotate:auto 45deg;offset-distance:0%;color:#F2B880;filter:drop-shadow(0 0 10px rgba(242,184,128,.9))}
+@supports (animation-timeline: scroll()){
+.route .lit{animation:drawp linear both;animation-timeline:scroll(root)}
+.route .plane{animation:flyp linear both;animation-timeline:scroll(root)}
+}
+@keyframes drawp{from{stroke-dasharray:1;stroke-dashoffset:1}to{stroke-dasharray:1;stroke-dashoffset:0}}
+@keyframes flyp{from{offset-distance:0%}to{offset-distance:100%}}
+@media (max-width:1439px){.route{display:none}}
+.dt{display:inline-block;width:14px;height:14px;border-radius:50%;background:#F2B880;box-shadow:0 0 0 6px rgba(242,184,128,.18),0 0 24px rgba(242,184,128,.8);vertical-align:middle}
+/* flow */
+.fl{position:relative;z-index:2}
+.gl{background: rgba(255,246,240,.09); -webkit-backdrop-filter: blur(18px) saturate(1.5); backdrop-filter: blur(18px) saturate(1.5); box-shadow: inset 0 0 0 1px rgba(255,246,240,.22), inset 0 1px 0 rgba(255,255,255,.28), 0 20px 50px -24px rgba(0,0,0,.6)}
+.nav{position:relative;z-index:5;margin:18px 22px 0;border-radius:999px;padding:6px 8px 6px 18px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.big{font-weight:800;letter-spacing:-.045em;line-height:.92;margin:0}
+.say{font-weight:700;letter-spacing:-.03em;line-height:1.16;font-size:clamp(34px,4.6vw,68px);margin:0}
+.say .mu{color:rgba(255,246,240,.42)}
+.pl{display:inline-block;width:1.7em;height:.86em;border-radius:999px;overflow:hidden;vertical-align:-.08em;margin:0 .08em;transition:width .7s cubic-bezier(.16,1,.3,1);box-shadow:0 10px 30px -12px rgba(0,0,0,.6)}
+.pl:hover{width:2.6em}.pl img{width:100%;height:100%;object-fit:cover;display:block}
+.it{font-family:Fraunces,Georgia,serif;font-style:italic;font-weight:400;letter-spacing:-.01em;color:#F2B880}
+.mutet{color:rgba(255,246,240,.72)}
+.ul{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-bottom:1.5px solid rgba(255,246,240,.5);text-decoration:none;font:800 15px Manrope,sans-serif;letter-spacing:.12em;text-transform:uppercase;transition:border-color .3s,padding .5s cubic-bezier(.16,1,.3,1)}
+.ul span{transition:transform .5s cubic-bezier(.16,1,.3,1)}.ul:hover{border-color:#F2B880;padding-left:8px}.ul:hover span{transform:translate(4px,-4px)}
+.ul:focus-visible,.tw:focus-visible,.gb:focus-visible,.ctab:focus-visible{outline:2px solid #F2B880;outline-offset:4px}
+.streak{position:absolute;z-index:1;left:-20%;right:-20%;top:760px;height:3px;background:linear-gradient(90deg,transparent,rgba(242,140,150,.85) 45%,rgba(242,184,128,.9) 55%,transparent 90%);filter:blur(1.5px);transform:rotate(-7deg);animation:streak 7s ease-in-out infinite;mix-blend-mode:screen;pointer-events:none}
+.streak::after{content:"";position:absolute;inset:-14px 0;background:inherit;filter:blur(16px);opacity:.7}
+@keyframes streak{0%,100%{transform:rotate(-7deg) translateX(-8%);opacity:.6}50%{transform:rotate(-6deg) translateX(8%);opacity:1}}
+.mark .plane2{transform-box:fill-box;transform-origin:center;animation:fly 4s ease-in-out infinite}@keyframes fly{50%{transform:translate(4px,-4px) rotate(10deg)}}
+.mark .trail{animation:trail 1.6s linear infinite}@keyframes trail{to{stroke-dashoffset:-10.8}}
+/* book stage */
+.stage{position:relative;height:720px;display:grid;place-items:center}
+.ghostword{position:absolute;inset:0;display:grid;place-items:center;font:800 clamp(120px,19vw,290px)/1 Manrope,sans-serif;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px rgba(255,246,240,.2);white-space:nowrap;pointer-events:none;transition:opacity .6s}
+.hs{position:absolute;display:flex;align-items:center;gap:12px;font:700 14px Manrope,sans-serif;white-space:nowrap}
+.hs .tg{padding:10px 16px;border-radius:999px}
+.hs .ln{width:90px;height:1px;background:linear-gradient(90deg,rgba(255,246,240,.6),transparent)}
+.hs.r .ln{background:linear-gradient(270deg,rgba(255,246,240,.6),transparent)}
+.hs .pt{width:9px;height:9px;border-radius:50%;background:#F2B880;box-shadow:0 0 12px #F2B880}
+.sw{color:#FFF6F0}.sw i{box-shadow:0 0 0 2px transparent,inset 0 0 0 1px rgba(255,255,255,.35)}
+.sw.on i{box-shadow:0 0 0 3px rgba(0,0,0,.25),0 0 0 5px #F2B880}
+.swr{display:flex;gap:22px;padding:14px 22px;border-radius:999px}
+.swr .sw{flex-direction:row;gap:10px}.swr .sw i{width:24px;height:24px}
+/* type words */
+.tw{all:unset;cursor:pointer;display:flex;align-items:baseline;gap:18px;white-space:nowrap;font:800 clamp(52px,7.2vw,112px)/1 Manrope,sans-serif;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px rgba(255,246,240,.42);transition:color .5s,-webkit-text-stroke-color .5s,transform .7s cubic-bezier(.16,1,.3,1)}
+.tw small{font:500 14px 'JetBrains Mono',monospace;letter-spacing:0;-webkit-text-stroke:0;color:rgba(255,246,240,.5)}
+.tw:hover{-webkit-text-stroke-color:#FFF6F0;transform:translateX(12px)}
+.tw.on{color:#FFF6F0;-webkit-text-stroke-color:#FFF6F0}
+.tw.on small{color:#F2B880}.sw.on i{box-shadow:0 0 0 3px rgba(0,0,0,.3),0 0 0 5px #F2B880}
+.gb{all:unset;cursor:pointer;width:58px;height:58px;border-radius:50%;display:grid;place-items:center;color:#FFF6F0;transition:transform .5s cubic-bezier(.3,1.6,.5,1)}
+.gb:hover{transform:scale(1.08) rotate(-6deg)}
+.fade{-webkit-mask-image:linear-gradient(180deg,#000 62%,transparent);mask-image:linear-gradient(180deg,#000 62%,transparent)}
+/* steps */
+.st{position:relative;display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:start;max-width:620px}
+.st .n{font:800 120px/.8 Manrope,sans-serif;letter-spacing:-.06em;color:transparent;-webkit-text-stroke:1.5px #F2B880}
+.st h3{font:800 44px/1 Manrope,sans-serif;letter-spacing:-.04em;margin:6px 0 12px;display:flex;align-items:center;gap:16px}
+.st p{margin:0;line-height:1.65;font-size:17px}
+/* numbers */
+.bn{font-family:Manrope,sans-serif;font-weight:800;color:#F2B880;white-space:nowrap}
+.bn::before{content:"[";font-weight:300;color:rgba(255,246,240,.55);margin-right:.06em}
+.bn::after{content:"]";font-weight:300;color:rgba(255,246,240,.55);margin-left:.06em}
+/* scatter */
+.sc{position:absolute;margin:0;border-radius:22px;overflow:hidden;box-shadow:0 40px 80px -40px rgba(0,0,0,.8)}
+.sc img{width:100%;height:100%;object-fit:cover;display:block;transition:transform 1.2s cubic-bezier(.16,1,.3,1)}
+.sc:hover img{transform:scale(1.06)}
+@supports (animation-timeline: view()){
+.p1{animation:par1 linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+.p2{animation:par2 linear both;animation-timeline:view();animation-range:cover 0% cover 100%}
+}
+@keyframes par1{from{transform:translateY(80px)}to{transform:translateY(-80px)}}
+@keyframes par2{from{transform:translateY(-40px)}to{transform:translateY(60px)}}
+/* cta */
+.ctab{display:grid;grid-template-columns:1fr auto 92px;align-items:stretch;text-decoration:none;color:#FFF6F0;min-height:92px;border-radius:28px;overflow:hidden;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.ctab:hover{transform:translateY(-3px)}
+.ctab .a{display:grid;place-items:center;background:#F2B880;color:#1F1418;transition:background .4s}
+.ctab:hover .a{background:#FFF6F0}
+.fo a{text-decoration:none;color:rgba(255,246,240,.72);transition:color .3s}.fo a:hover{color:#F2B880}
+@media (max-width:900px){
+.nav{margin:12px 12px 0}
+.stage{height:auto;padding:40px 0}
+.hs{display:none}
+.split{grid-template-columns:minmax(0,1fr)!important}
+.st{grid-template-columns:minmax(0,1fr);gap:4px}.st .n{font-size:80px}.st h3{font-size:34px}
+.stx{margin-left:0!important}
+.scat{height:auto!important;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.sc{position:relative!important;inset:auto!important;width:auto!important;height:200px!important}
+.qt{position:relative!important;grid-column:1/-1;order:-1;margin:0 0 20px!important;transform:none!important;left:auto!important;top:auto!important}
+.ctab{grid-template-columns:1fr 70px}.ctab .mid{display:none!important}
+.swr{flex-wrap:wrap;gap:12px 18px;border-radius:24px}
+}
+
+</style>
+</helmet>
+<div class="e4">
+<div class="atmo" aria-hidden="true">
+<img class="top" src="/_blob/6dc6964be6ca87733a870c819d870936" alt="">
+<div class="shade"></div>
+<i class="orb" style="left: -10%; top: 1300px; width: 700px; height: 700px; background: #3E8C6E"></i>
+<i class="orb" style="right: -12%; top: 1900px; width: 800px; height: 800px; background: #C4661A; opacity: .32; animation-delay: -6s"></i>
+<i class="orb" style="left: 20%; top: 3100px; width: 900px; height: 600px; background: #2B6B55; opacity: .6; animation-delay: -3s"></i>
+<i class="orb" style="right: 0; top: 4300px; width: 600px; height: 600px; background: #A9C9A4; opacity: .18; animation-delay: -9s"></i>
+<i class="orb" style="left: 30%; bottom: -200px; width: 800px; height: 500px; background: #C4661A; opacity: .22"></i>
+<div class="stars"></div>
+<div class="grain"></div>
+</div>
+<div class="route" aria-hidden="true"><svg viewBox="0 0 1440 7286" preserveAspectRatio="none"><defs><linearGradient id="rg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF6F0"/><stop offset=".5" stop-color="#F2B880"/><stop offset="1" stop-color="#E8C96E"/></linearGradient></defs><path class="ghost" d="M720.0 412.0 C730.0 505.3 890.0 317.3 750.0 692.0 C610.0 1066.7 207.7 1168.0 300.0 1536.0 C392.3 1904.0 710.3 1609.3 1027.0 1796.0 C1343.7 1982.7 1169.0 1869.3 1250.0 2096.0 C1331.0 2322.7 1446.7 2223.0 1270.0 2476.0 C1093.3 2729.0 1056.7 2685.3 720.0 2855.0 C383.3 3024.7 443.3 2801.7 260.0 2985.0 C76.7 3168.3 146.7 3152.7 170.0 3405.0 C193.3 3657.3 300.7 3543.0 330.0 3742.0 C359.3 3941.0 78.0 3836.0 258.0 4002.0 C438.0 4168.0 812.3 4081.3 870.0 4240.0 C927.7 4398.7 431.0 4319.0 431.0 4478.0 C431.0 4637.0 597.0 4540.3 870.0 4717.0 C1143.0 4893.7 1318.0 4824.3 1250.0 5008.0 C1182.0 5191.7 896.0 5071.3 666.0 5268.0 C436.0 5464.7 482.0 5477.0 560.0 5598.0 C638.0 5719.0 693.3 5510.0 900.0 5631.0 C1106.7 5752.0 1240.0 5675.3 1180.0 5961.0 C1120.0 6246.7 835.7 6239.0 720.0 6488.0 C604.3 6737.0 795.3 6634.7 833.0 6708.0"/><path class="lit" d="M720.0 412.0 C730.0 505.3 890.0 317.3 750.0 692.0 C610.0 1066.7 207.7 1168.0 300.0 1536.0 C392.3 1904.0 710.3 1609.3 1027.0 1796.0 C1343.7 1982.7 1169.0 1869.3 1250.0 2096.0 C1331.0 2322.7 1446.7 2223.0 1270.0 2476.0 C1093.3 2729.0 1056.7 2685.3 720.0 2855.0 C383.3 3024.7 443.3 2801.7 260.0 2985.0 C76.7 3168.3 146.7 3152.7 170.0 3405.0 C193.3 3657.3 300.7 3543.0 330.0 3742.0 C359.3 3941.0 78.0 3836.0 258.0 4002.0 C438.0 4168.0 812.3 4081.3 870.0 4240.0 C927.7 4398.7 431.0 4319.0 431.0 4478.0 C431.0 4637.0 597.0 4540.3 870.0 4717.0 C1143.0 4893.7 1318.0 4824.3 1250.0 5008.0 C1182.0 5191.7 896.0 5071.3 666.0 5268.0 C436.0 5464.7 482.0 5477.0 560.0 5598.0 C638.0 5719.0 693.3 5510.0 900.0 5631.0 C1106.7 5752.0 1240.0 5675.3 1180.0 5961.0 C1120.0 6246.7 835.7 6239.0 720.0 6488.0 C604.3 6737.0 795.3 6634.7 833.0 6708.0" pathLength="1"/></svg>
+<svg class="plane" viewBox="0 0 24 24"><path d="M21 3 3 10.5l7 2.5 2.5 7z" fill="currentColor"/></svg></div>
+<div class="streak" aria-hidden="true"></div>
+
+<div class="fl">
+<header class="nav gl"><a class="lg" href="D1-Motion.dc.html" aria-label="Miles Retold — home"><svg width="40" height="40" viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="16" fill="#FFF6F0"/><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#1F4A3F"/><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#1F4A3F"/><path d="M32 25v18.4" stroke="#FFF6F0" stroke-width="1.6"/><path d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#1F4A3F"/></svg><span class="lgw" style="color: #FFF6F0"><span class="m">MiLes</span><span class="r"><span>R</span><span>E</span><span>T</span><span>O</span><span>L</span><span>D</span></span></span></a><nav class="hide-m" aria-label="Main" style="display: flex; gap: 32px"><a class="nl" href="D21-Books.dc.html">Books</a><a class="nl" href="D14-Lookbook.dc.html">Lookbook</a><a class="nl" href="D13-Story.dc.html">Our story</a><a class="nl" href="D16-Gifts.dc.html">Gifts</a><a class="nl" href="D15-Help.dc.html">Help</a></nav><div style="display: flex; gap: 8px; align-items: center"><a class="cart" href="D19-Cart.dc.html" aria-label="Cart, 2 items" style="color: #FFF6F0"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg><b style="background: #F2B880; color: #1F1418">2</b></a><a class="nl hide-m" href="D11-SignIn.dc.html" style="margin: 0 10px">Sign in</a><a class="btn" href="D2-Builder.dc.html" style="min-height: 48px; padding: 0 22px; font-size: 14px; background: #FFF6F0; color: #1F1418">Start a book</a></div></header>
+
+<div class="h6" style="position: relative; margin-top: 10px">
+<svg class="h6m in" viewBox="0 0 1000 226" aria-hidden="true"><text x="0" y="218" textLength="1000" lengthAdjust="spacingAndGlyphs" font-family="Manrope, sans-serif" font-weight="800" font-size="300" fill="#FFF6F0">MILES</text></svg>
+<figure class="h6i in d2"><img src="/_blob/d79cb5916bf021b810ad3e0168beec13" alt="Miles Retold travel books for Turkey, Dubai, London and more, spread on a table">
+<span class="h6b gl" data-a="mark"><svg class="mark" width="46" height="46" viewBox="0 0 64 64" aria-hidden="true"><path d="M13 42.5c5.8-2.6 12-2.6 19 .9V24.6c-7-3.5-13.2-3.5-19-.9z" fill="#FFF6F0"/><path d="M51 42.5c-5.8-2.6-12-2.6-19 .9V24.6c7-3.5 13.2-3.5 19-.9z" fill="#FFF6F0" opacity=".85"/><path class="trail" d="M14 19c6-7 14-6.5 19-2" fill="none" stroke="#FFF6F0" stroke-width="2" stroke-linecap="round" stroke-dasharray="2.4 3"/><path class="plane2" d="M48 10 35.5 15.6l4.4 1.8 1.8 4.4z" fill="#F2B880"/></svg></span>
+<span class="h6s gl in d4"><span class="bn" style="font-size: 30px">27</span><span style="font: 800 11px/1.4 Manrope, sans-serif; letter-spacing: .16em; text-transform: uppercase">Countries<br>bound</span></span></figure>
+<svg class="h6r in d3" viewBox="0 0 1000 186" aria-hidden="true"><text x="0" y="180" textLength="1000" lengthAdjust="spacingAndGlyphs" font-family="Manrope, sans-serif" font-weight="800" font-size="246" fill="none" stroke="#FFF6F0" stroke-width="2" vector-effect="non-scaling-stroke">RETOLD</text></svg>
+<h1 class="sr">Miles Retold — hand-designed travel photobooks</h1>
+</div>
+<div style="text-align: center; padding: 0 20px; position: relative; z-index: 4">
+<p class="in d3 mutet" style="font-size: 21px; max-width: 580px; margin: 36px auto 0; line-height: 1.6">Hand-designed travel photobooks by two sisters. Your trip, retold page by page.</p>
+<div class="in d4" style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 30px"><a class="btn" href="D2-Builder.dc.html" style="background: #FFF6F0; color: #1F1418; min-height: 58px; padding: 0 28px">Start your book <svg class="ar" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M8 7h9v9"/></svg></a><a class="btn gl" href="#books" style="color: #FFF6F0; min-height: 58px; padding: 0 28px">See the books</a></div>
+</div>
+
+<div class="wrap" style="margin-top: 110px">
+<nav class="stk in d4" aria-label="Book types" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 28px"><a class="ul" href="D21-Books.dc.html">Travel books <span>↗</span></a><a class="ul" href="D21-Books.dc.html">Wedding <span>↗</span></a><a class="ul" href="D21-Books.dc.html">Camera Roll <span>↗</span></a><a class="ul" href="D16-Gifts.dc.html">Gift cards <span>↗</span></a></nav>
+<div style="display: flex; justify-content: space-between; margin-top: 24px; font: 800 13px Manrope, sans-serif; letter-spacing: .18em; text-transform: uppercase; color: rgba(255,246,240,.72)"><span>Tazmeen &amp; Rameen</span><span class="hide-m">Riyadh · Lahore</span><a href="https://instagram.com/milesretold" style="text-decoration: none">@milesretold</a></div>
+
+<p class="say rv" style="margin-top: 170px; max-width: 1180px">We turn your <span class="pl"><img src="/_blob/6dc6964be6ca87733a870c819d870936" alt="Maldives sunset"></span> sunsets, <span class="pl"><img src="/_blob/6b43c91be8c10d0cbed5dc2520dde00d" alt="Paris and Istanbul streets"></span> café stops <span class="mu">and the</span> <span class="pl"><img src="/_blob/40f21930485ef5903566224ed85a9273" alt="handwritten trip notes"></span> scribbled tickets <span class="mu">into a</span> hardcover you’ll keep <span class="it">forever.</span> <i class="dt" data-a="say" aria-hidden="true"></i></p>
+</div>
+
+<div class="stage" style="margin-top: 60px">
+<div class="ghostword" aria-hidden="true">{{colorName}}</div>
+<div class="rv" style="position: relative; z-index: 2"><div class="bk" style="--w: 320px; "><div class="bkf"><div class="bki"><div class="bkb" style="background: {{cover}}"></div><div class="bks" style="background: {{spine}}"></div><div class="bkp"></div><div class="bkc" style="background: {{cover}}; color: {{coverInk}}"><div class="ph"><img src="{{coverImg}}" alt="{{coverAlt}}"></div><div class="t">{{coverTitle}}</div><div class="s">{{coverSub}}</div></div></div></div><div class="shadow"></div></div></div>
+<div class="hs rv" style="left: calc(50% - 520px); top: 150px"><span class="tg gl">Gold-foil title</span><span class="ln" style="transform: scaleX(-1)"></span><span class="pt"></span></div>
+<div class="hs rv" style="left: calc(50% - 560px); top: 430px"><span class="tg gl">Linen cover · 4 colours</span><span class="ln" style="transform: scaleX(-1)"></span><span class="pt"></span></div>
+<div class="hs r rv" style="left: calc(50% + 230px); top: 210px"><span class="pt"></span><span class="ln" style="transform: scaleX(-1)"></span><span class="tg gl">Lay-flat pages</span></div>
+<div class="hs r rv" style="left: calc(50% + 250px); top: 480px"><span class="pt"></span><span class="ln" style="transform: scaleX(-1)"></span><span class="tg gl">Gold ribbon &amp; handwritten note</span></div>
+</div>
+<div style="display: flex; flex-direction: column; align-items: center; gap: 18px; margin-top: 10px; padding: 0 16px">
+<div class="swr gl rv" role="radiogroup" aria-label="Cover colour"><sc-for list="{{swatches}}" as="s" hint-placeholder-count="4"><button class="{{s.cls}}" onClick="{{s.pick}}" role="radio" aria-checked="{{s.on}}"><i style="background: {{s.c}}"></i>{{s.n}}</button></sc-for></div>
+<p class="mutet rv" style="margin: 0; font-size: 15px">Tap a colour — the book changes with you.</p>
+</div>
+
+<div class="wrap" id="books" style="margin-top: 190px">
+<div class="split" style="display: grid; grid-template-columns: 1.05fr 1fr; gap: 60px; align-items: center">
+<div>
+<p class="cap rv" style="color: #F2B880; margin: 0 0 26px">Pick your book <i class="dt" data-a="types" aria-hidden="true"></i></p>
+<div role="tablist" aria-label="Book types" style="display: flex; flex-direction: column; gap: 6px"><sc-for list="{{types}}" as="x" hint-placeholder-count="4"><button class="{{x.cls}}" onClick="{{x.pick}}" role="tab" aria-selected="{{x.on}}"><small>{{x.num}}</small>{{x.n}}</button></sc-for></div>
+</div>
+<div class="pic" key="{{tKey}}">
+<div class="fade" style="border-radius: 28px 28px 0 0; overflow: hidden; aspect-ratio: 1.25"><img src="{{tImg}}" alt="{{tName}} book example" style="width: 100%; height: 100%; object-fit: cover; display: block"></div>
+<div style="margin-top: -40px; position: relative">
+<div class="cap" style="color: rgba(255,246,240,.7)">{{tSize}} · {{tPages}}</div>
+<p style="font-size: 19px; line-height: 1.6; margin: 14px 0 0; max-width: 520px">{{tDesc}}</p>
+<div style="display: flex; justify-content: space-between; align-items: flex-end; gap: 20px; margin-top: 28px">
+<div><div class="mutet" style="font-size: 14px">From</div><div style="font: 800 48px/1 Manrope, sans-serif; letter-spacing: -.04em; margin-top: 6px">SAR [—]</div></div>
+<div style="display: flex; gap: 12px; align-items: center"><a class="gb gl" href="D14-Lookbook.dc.html" aria-label="See real books"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></a><button class="gb" onClick="{{add}}" aria-label="{{addLabel}}" style="background: #F2B880; color: #1F1418"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg></button></div>
+</div>
+<div style="font-size: 13px; font-weight: 800; color: #F2B880; text-align: right; min-height: 18px; margin-top: 10px">{{added}}</div>
+</div></div>
+</div>
+
+<div style="margin-top: 200px">
+<p class="say rv" style="max-width: 900px">Four steps <span class="mu">from camera roll to</span> <span class="it">heirloom.</span></p>
+<div style="margin-top: 90px; display: flex; flex-direction: column; gap: 120px">
+<div class="st rv"><span class="n">01</span><div><h3><i class="dt" data-a="s1" aria-hidden="true"></i>Choose</h3><p class="mutet">Pick a book type and size in the builder. Pay 50% to book your design slot.</p></div></div>
+<div class="st rv stx" style="margin-left: auto"><span class="n">02</span><div><h3><i class="dt" data-a="s2" aria-hidden="true"></i>Upload</h3><p class="mutet">Send photos and story notes from your phone — one folder per trip.</p></div></div>
+<div class="st rv stx" style="margin-left: 14%"><span class="n">03</span><div><h3><i class="dt" data-a="s3" aria-hidden="true"></i>Approve</h3><p class="mutet">Flip through the proof, pin changes, unlimited rounds. Pay the rest when you love it.</p></div></div>
+<div class="st rv stx" style="margin-left: auto"><span class="n">04</span><div><h3><i class="dt" data-a="s4" aria-hidden="true"></i>Unwrap</h3><p class="mutet">Printed, wrapped in gold ribbon with a handwritten note, and couriered to your door.</p></div></div>
+</div>
+</div>
+
+<p class="say rv" style="margin-top: 200px; max-width: 1220px; font-size: clamp(34px, 4.4vw, 64px)">So far <span class="bn">27</span> countries bound, <span class="bn">∞</span> proof rounds until you love it, <span class="bn">50/50</span> <span class="mu">half now, half after you approve</span> — and <span class="bn">2</span> sisters behind every page. <i class="dt" data-a="stats" aria-hidden="true"></i></p>
+</div>
+
+<div class="scat" style="position: relative; height: 1080px; margin: 150px auto 0; max-width: 1440px; padding: 0 16px">
+<figure class="sc p1" style="left: 4%; top: 40px; width: 300px; height: 380px"><img src="/_blob/44c3ed2b417e619b81afb56289c69c25" alt="An open Miles Retold book"></figure>
+<figure class="sc p2" style="left: 30%; top: 0; width: 220px; height: 280px"><img src="/_blob/40f21930485ef5903566224ed85a9273" alt="Handwritten notes inside a book"></figure>
+<figure class="sc p1" style="right: 6%; top: 70px; width: 340px; height: 260px"><img src="/_blob/d79cb5916bf021b810ad3e0168beec13" alt="Photo collage spread"></figure>
+<figure class="sc p2" style="left: 9%; top: 600px; width: 280px; height: 340px"><img src="/_blob/8384abb23ebdfeb24e7152bf3fdd1a9b" alt="Friends celebrating"></figure>
+<figure class="sc p1" style="left: 41%; top: 720px; width: 250px; height: 300px"><img src="/_blob/b305aa7d0c1ed679fe60219a9e088e10" alt="Postcard page"></figure>
+<figure class="sc p2" style="right: 4%; top: 560px; width: 320px; height: 400px"><img src="/_blob/1bebe18032c3ba7f722debbe5fa70f36" alt="A stack of finished books"></figure>
+<blockquote class="qt rv" style="position: absolute; left: 50%; top: 360px; transform: translateX(-50%); width: min(640px, 90%); margin: 0; text-align: center">
+<p class="it" style="font-size: clamp(34px, 3.8vw, 56px); line-height: 1.12; margin: 0; color: #FFF6F0">“Such a beautiful gesture by @milesretold.”</p>
+<footer class="mutet" style="margin-top: 18px; font-weight: 700">Lens &amp; Lights Studio · on Instagram <i class="dt" data-a="quote" aria-hidden="true"></i></footer>
+<a class="nl" href="D14-Lookbook.dc.html" style="display: inline-block; margin-top: 22px; color: #F2B880">Open the lookbook ↗</a>
+</blockquote>
+</div>
+
+<div class="wrap" style="text-align: center; margin-top: 170px; padding-bottom: 40px">
+<p class="cap rv mutet">Where did you go last? <i class="dt" data-a="end" aria-hidden="true"></i></p>
+<h2 class="big rv" style="font-size: clamp(88px, 15vw, 230px); margin-top: 22px">Your trip <span class="it" style="font-weight: 400; letter-spacing: -.03em">next.</span></h2>
+<a href="D2-Builder.dc.html" class="ctab gl rv" style="max-width: 920px; margin: 60px auto 0; text-align: left">
+<span style="display: flex; align-items: center; padding: 0 34px; font: 800 21px Manrope, sans-serif">Start your book · {{colorName}} cover</span>
+<span class="mid" style="display: flex; align-items: center; padding: 0 28px; color: rgba(255,246,240,.75); border-left: 1px solid rgba(255,246,240,.18)">50% now · from SAR [—]</span>
+<span class="a"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M7 17 17 7M8 7h9v9"/></svg></span></a>
+<a class="nl rv" href="https://wa.me/" target="_blank" rel="noopener" style="display: inline-block; margin-top: 26px">Or ask us on WhatsApp ↗</a>
+<div class="fo" style="display: flex; justify-content: space-between; align-items: center; gap: 18px; flex-wrap: wrap; margin-top: 140px; font-size: 14px; color: rgba(255,246,240,.6)">
+<span>© 2026 Miles Retold · Riyadh &amp; Lahore</span>
+<nav aria-label="Footer" style="display: flex; gap: 22px; flex-wrap: wrap"><a href="D7-Tracking.dc.html">Track an order</a><a href="D15-Help.dc.html">Help</a><a href="D24-Project195.dc.html">The 195 Project</a><a href="D15-Help.dc.html#refunds">Refunds</a><a href="https://instagram.com/milesretold">Instagram</a></nav>
+</div>
+</div>
+</div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":1440,"height":7286}}'>
+class Component extends DCLogic {
+  constructor(p){ super(p); this.state = { c: 0, t: 0, added: false }; }
+  renderVals() {
+    const st = this.state;
+
+    const COV = [
+      { n: 'Wine', cover: '#7D1238', spine: '#5E0D2A', ink: '#FFF6F0', field: '#7D1238', deep: '#5E0D2A' },
+      { n: 'Dusty blue', cover: '#7E9CC0', spine: '#5E7FA6', ink: '#FFFFFF', field: '#4E6F96', deep: '#3D5A7E' },
+      { n: 'Sand', cover: '#E4D5C6', spine: '#C9B49E', ink: '#5E0D2A', field: '#B88A5E', deep: '#8E6640' },
+      { n: 'Ink', cover: '#2A1D22', spine: '#1F1418', ink: '#F2B880', field: '#1F1418', deep: '#120B0E' }
+    ];
+    const TYPES = [
+      { n: 'Travel', sub: 'Travel book', title: 'MALDIVES', s: 'MARCH · 2022', img: '/_blob/6dc6964be6ca87733a870c819d870936', thumb: '/_blob/ae8f12954b4a72155451fa4ddff588b7', desc: 'Every stamp, sunset and street-food stop, laid out day by day with your captions and a map of where you went.', pages: '40 pages', size: 'Portrait 8 × 10' },
+      { n: 'Wedding', sub: 'Wedding book', title: 'OUR DAY', s: 'MEHNDI · WALIMA', img: '/_blob/44c3ed2b417e619b81afb56289c69c25', thumb: '/_blob/44c3ed2b417e619b81afb56289c69c25', desc: 'All your events in order, the details you’d forget, and space for family photos. Designed slowly, proofed together.', pages: '48 pages', size: 'Square 8 × 8' },
+      { n: 'Camera Roll', sub: 'Year book', title: '2025', s: 'CAMERA · ROLL', img: '/_blob/1bebe18032c3ba7f722debbe5fa70f36', thumb: '/_blob/1bebe18032c3ba7f722debbe5fa70f36', desc: 'Send us the whole camera roll. We keep the best, keep the funny ones, and turn the year into chapters.', pages: '60 pages', size: 'Landscape 11 × 8.5' },
+      { n: 'Love Story', sub: 'Gift book', title: 'US', s: 'SINCE · 2019', img: '/_blob/3936155b1de2d6f9d237753228c056d0', thumb: '/_blob/3936155b1de2d6f9d237753228c056d0', desc: 'How you met and everything since — written as chapters, with the notes and tickets you kept.', pages: '32 pages', size: 'Square 8 × 8' }
+    ];
+    const c = COV[st.c], t = TYPES[st.t];
+    const r = {
+      cover: c.cover, spine: c.spine, coverInk: c.ink, field: c.field, deep: c.deep, colorName: c.n,
+      coverImg: t.img, coverAlt: t.n + ' photobook cover', coverTitle: t.title, coverSub: t.s,
+      swatches: COV.map((x, i) => ({ n: x.n, c: x.cover, cls: st.c === i ? 'sw on' : 'sw', on: st.c === i ? 'true' : 'false', pick: () => this.setState({ c: i }) })),
+      types: TYPES.map((x, i) => ({ n: x.n, img: x.thumb, cls: st.t === i ? 'tp on' : 'tp', on: st.t === i ? 'true' : 'false', pick: () => this.setState({ t: i }) })),
+      tName: t.n, tSub: t.sub, tDesc: t.desc, tPages: t.pages, tSize: t.size, tKey: 't' + st.t + st.c, tImg: t.img,
+      added: st.added ? 'Added to cart ✓' : '', addLabel: st.added ? 'Added to cart' : 'Add to cart', add: () => this.setState({ added: !st.added }),
+      tNum: st.t + 1
+    };
+    r.types = TYPES.map((x, i) => ({ n: x.n, num: '0' + (i + 1), cls: st.t === i ? 'tw on' : 'tw', on: st.t === i ? 'true' : 'false', pick: () => this.setState({ t: i }) }));
+    return r;
+  }
+}
+</script>
+</body>
+</html>
