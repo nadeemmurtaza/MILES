@@ -228,8 +228,8 @@ class Component extends DCLogic {
     const P = window.milesPricing;   // sample price list (public/pricing.js)
     const U = { a: P.book('portrait', 40), b: P.copy('square', 32), c: P.tiers.popular };   // one Portrait 8 × 10 book, one Square 8 × 8 reprint, one gift card
 
-    const D = { a: ['Maldives · March 2022', 'Travel book · Portrait 8 × 10 · 40 pages · linen hardcover', '#7E9CC0', '/assets/6dc6964be6ca87733a870c819d870936.jpg', '118px', 'Design starts after deposit'],
-      b: ['Extra copy · Paris & Turkey', 'Reprint of order MR-1031 · Square 8 × 8', 'var(--accent)', '/assets/6b43c91be8c10d0cbed5dc2520dde00d.jpg', '92px', 'Reprint price per copy'],
+    const D = { a: ['Maldives · March 2022', 'Travel book · Portrait 8 × 10 · 40 pages · linen hardcover', '#7E9CC0', '/assets/6dc6964be6ca87733a870c819d870936.webp', '118px', 'Design starts after deposit'],
+      b: ['Extra copy · Paris & Turkey', 'Reprint of order MR-1031 · Square 8 × 8', 'var(--accent)', '/assets/6b43c91be8c10d0cbed5dc2520dde00d.webp', '92px', 'Reprint price per copy'],
       c: ['Gift card for Mariam', 'Digital gift card · sent on WhatsApp 14 Oct', 'linear-gradient(135deg,var(--accent),var(--accent-deep))', '', '58px', 'Sent on the date you chose'] };
     const its = st.items;
     const upd = (k, f) => set({ items: its.map((x) => x.k === k ? f(x) : x) });
