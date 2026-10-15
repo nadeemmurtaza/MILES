@@ -1,33 +1,7 @@
-/* Dark edition: a sparse starry sky behind everything. Few stars on purpose.
-   Change the count by editing the dot lists; change the brightness with --star. */
-:root { --star: rgb(from var(--ivory) r g b / .85); }
-.atmo::before, .atmo::after { content: ""; position: absolute; inset: 0; pointer-events: none; background-repeat: repeat; }
-/* tile 1: 9 stars per 1130 x 790 px */
-.atmo::before {
-  background-size: 1130px 790px;
-  background-image:
-    radial-gradient(1.2px 1.2px at 80px 120px, var(--star) 98%, transparent),
-    radial-gradient(1px 1px at 310px 540px, var(--star) 98%, transparent),
-    radial-gradient(1.6px 1.6px at 520px 90px, var(--star) 98%, transparent),
-    radial-gradient(1px 1px at 700px 380px, var(--star) 98%, transparent),
-    radial-gradient(1.2px 1.2px at 890px 690px, var(--star) 98%, transparent),
-    radial-gradient(1px 1px at 1040px 210px, var(--star) 98%, transparent),
-    radial-gradient(1.4px 1.4px at 190px 700px, var(--star) 98%, transparent),
-    radial-gradient(1px 1px at 960px 470px, var(--star) 98%, transparent),
-    radial-gradient(1.2px 1.2px at 440px 330px, var(--star) 98%, transparent);
-  animation: star-a 3.2s ease-in-out infinite;
-}
-/* tile 2: 5 brighter stars per 1470 x 1010 px, twinkling out of step */
-.atmo::after {
-  background-size: 1470px 1010px;
-  background-image:
-    radial-gradient(1.8px 1.8px at 230px 260px, var(--star) 98%, transparent),
-    radial-gradient(1.5px 1.5px at 760px 820px, var(--star) 98%, transparent),
-    radial-gradient(2px 2px at 1210px 140px, var(--star) 98%, transparent),
-    radial-gradient(1.5px 1.5px at 1320px 640px, var(--star) 98%, transparent),
-    radial-gradient(1.8px 1.8px at 560px 560px, var(--star) 98%, transparent);
-  animation: star-b 4.7s ease-in-out -1.8s infinite;
-}
-@keyframes star-a { 0%, 100% { opacity: 1; } 35% { opacity: .12; } 55% { opacity: .85; } 75% { opacity: .2; } }
-@keyframes star-b { 0%, 100% { opacity: .15; } 30% { opacity: 1; } 60% { opacity: .35; } 80% { opacity: .95; } }
-@media (prefers-reduced-motion: reduce) { .atmo::before, .atmo::after { animation: none; } }
+/* Dark edition: a sparse, randomly twinkling sky. The stars are made by stars.js (random place, size, speed and delay).
+   Fewer / more stars: --star-density in stars.js. Brightness: --star here. */
+:root { --star: rgb(from var(--ivory) r g b / .9); }
+.sky-star { position: absolute; border-radius: 50%; background: var(--star); pointer-events: none; opacity: var(--lo, .15);
+  animation: sky-twinkle var(--d, 4s) ease-in-out var(--dl, 0s) infinite; }
+@keyframes sky-twinkle { 0%, 100% { opacity: var(--lo, .15); } 50% { opacity: var(--hi, 1); } }
+@media (prefers-reduced-motion: reduce) { .sky-star { animation: none; opacity: var(--hi, .8); } }
