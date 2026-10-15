@@ -10,12 +10,6 @@
 /* Off-screen loops stop burning frames (set by smooth.js). */
 [data-off]{animation-play-state:paused!important}
 
-/* Frosted glass: keep the look, cut the per-frame blur cost on small screens. */
-@media (max-width:900px){
-  .gl,.inp{-webkit-backdrop-filter:blur(12px) saturate(1.3)!important;backdrop-filter:blur(12px) saturate(1.3)!important}
-  .orb{filter:blur(60px)!important}
-}
-
 /* Cross-fade between pages instead of a white flash (Chromium, Safari 18+). */
 @view-transition{navigation:auto}
 ::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;animation-timing-function:cubic-bezier(.16,1,.3,1)}

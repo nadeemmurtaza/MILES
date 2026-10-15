@@ -1,0 +1,114 @@
+/* Option G · global colour tokens.
+   Every colour used by the G (dark) and GL (light) pages is a variable defined here.
+   Change a value and the whole site follows - no page needs editing.
+
+   * Write colours as hex (#RRGGBB). Transparent versions are derived automatically:
+     the pages use  rgb(from var(--gold) r g b / .3)  so --gold stays the single source.
+   * Names describe the original role, not the colour: --gold can become blue, it is still "the accent".
+   * "c-xxxxxx" tokens are one-off colours kept for fidelity; edit them the same way.
+   * Needs relative colour syntax (Chrome 119+, Safari 16.4+, Firefox 128+). */
+:root{
+
+  /* Brand & text on dark (option G, dark edition) */
+  --ivory: #fff6f0;
+  --gold: #f2b880;
+  --gold-soft: #f4bc85;
+  --gold-deep: #e8a86a;
+  --sand: #e8c96e;
+  --copper: #c4661a;
+  --coral: #ff9a8b;
+  --coral-soft: #ffb3a6;
+  --mint: #7fd9a8;
+  --mint-soft: #9be6bd;
+  --sky: #7e9cc0;
+  --wine: #7d1238;
+  --wine-deep: #5e0d2a;
+  --cream: #fffdf8;
+  --paper-0: #fbf7f1;
+  --white: #ffffff;
+  --black: #000000;
+  --charcoal: #1f1418;
+
+  /* Dark surfaces: page gradient stops (top -> bottom) and cards */
+  --bg-1: #1c3530;
+  --bg-2: #1f4038;
+  --bg-3: #1d4e40;
+  --bg-4: #1a4a3c;
+  --bg-5: #153e33;
+  --bg-6: #10302a;
+  --bg-7: #0b1e19;
+  --forest-card: #1f4a3f;
+  --forest: #2b6b55;
+  --leaf: #3e8c6e;
+  --forest-ink: #12342b;
+
+  /* Light edition: text, accent, paper, status */
+  --ink: #16352d;
+  --rust: #b5541b;
+  --green: #2b8a5e;
+  --green-deep: #1e7a50;
+  --amber: #c98a1b;
+  --amber-deep: #9a6a0b;
+  --brick: #c2412d;
+  --red: #b3261e;
+  --paper: #fffcf7;
+  --paper-4: #f8f3eb;
+  --paper-2: #f5efe6;
+  --paper-3: #f3eee6;
+  --paper-6: #f4eee4;
+  --paper-5: #f1eadf;
+  --paper-7: #eee6d9;
+  --line: #e7dfd2;
+  --lime: #e7f6d5;
+
+  /* One-off colours (kept exactly as designed) */
+  --c-06120f: #06120f;
+  --c-061210: #061210;
+  --c-071a15: #071a15;
+  --c-081814: #081814;
+  --c-0c221c: #0c221c;
+  --c-0e2620: #0e2620;
+  --c-0e2a23: #0e2a23;
+  --c-0f2922: #0f2922;
+  --c-102822: #102822;
+  --c-102c24: #102c24;
+  --c-120b0e: #120b0e;
+  --c-142822: #142822;
+  --c-14342b: #14342b;
+  --c-164034: #164034;
+  --c-1a4c3d: #1a4c3d;
+  --c-1c5343: #1c5343;
+  --c-1e4a3e: #1e4a3e;
+  --c-281e14: #281e14;
+  --c-2a1d22: #2a1d22;
+  --c-3a2830: #3a2830;
+  --c-3d5a7e: #3d5a7e;
+  --c-3e0a1d: #3e0a1d;
+  --c-46321e: #46321e;
+  --c-4e6f96: #4e6f96;
+  --c-5e7fa6: #5e7fa6;
+  --c-6b5a5f: #6b5a5f;
+  --c-7f7f7f: #7f7f7f;
+  --c-8e6640: #8e6640;
+  --c-9e1046: #9e1046;
+  --c-a9c9a4: #a9c9a4;
+  --c-b8304f: #b8304f;
+  --c-b88a5e: #b88a5e;
+  --c-c9b49e: #c9b49e;
+  --c-e4d5c6: #e4d5c6;
+  --c-e8dfd3: #e8dfd3;
+  --c-e9a86a: #e9a86a;
+  --c-f28c96: #f28c96;
+  --c-f3ebdd: #f3ebdd;
+  --c-f7f2ea: #f7f2ea;
+  --c-fffcf6: #fffcf6;
+}
+
+/* Frosted glass: ONE intensity for the whole site. Every backdrop-filter in css/ reads these two tokens,
+   so panels, bars, menus, inputs and toasts all frost the same on every page.
+   More frost: raise --glass-blur.  Clearer glass: lower it.  --glass-sat is the colour boost seen through the glass. */
+:root{
+  --glass-blur: 28px;
+  --glass-sat: 1.9;
+}
+@media (max-width: 900px){ :root{ --glass-blur: 14px; } }   /* lighter on phones: cheaper to paint */
