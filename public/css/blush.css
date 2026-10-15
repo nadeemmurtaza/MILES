@@ -1,11 +1,18 @@
-/* Blush colour blobs wandering behind every page like a screen saver (light and dark).
-   Each blob drifts across the whole screen: x and y move on different periods, so the path never repeats.
-   Made by blush.js. Colours / strength: --blush, --blush-2, --blush-alpha in theme.css. Size: --blush-size below. */
-:root { --blush-size: 34vmin; }
-.blush { position: fixed; left: 0; top: 0; z-index: 0; pointer-events: none;
-  inline-size: var(--blush-size); block-size: var(--blush-size); border-radius: 50%;
-  background: radial-gradient(closest-side, rgb(from var(--bc) r g b / var(--blush-alpha)), rgb(from var(--bc) r g b / 0) 100%);
-  animation: blush-x var(--tx) linear var(--dx) infinite alternate, blush-y var(--ty) linear var(--dy) infinite alternate; }
-@keyframes blush-x { from { translate: -20vw 0; } to { translate: calc(100vw - var(--blush-size) + 20vw) 0; } }
-@keyframes blush-y { from { transform: translateY(-20vh); } to { transform: translateY(calc(100vh - var(--blush-size) + 20vh)); } }
-@media (prefers-reduced-motion: reduce) { .blush { animation: none; translate: var(--sx, 30vw) 0; transform: translateY(var(--sy, 30vh)); } }
+/* Light edition ambience: a slow silk of three brand tones (rose, champagne, sage) with a faint moving sheen and film grain.
+   Soft eased falloffs, no hard edges; everything sits behind the content. Made by blush.js. Tint with --silk-* below. */
+:root { --silk-rose: #e9a9b8; --silk-champagne: #f0d3a8; --silk-sage: #b7cfc0; --silk-alpha: .5; }
+.silk { position: fixed; left: 0; top: 0; z-index: 0; pointer-events: none; inline-size: var(--sz); block-size: calc(var(--sz) * var(--ar));
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgb(from var(--bc) r g b / calc(var(--silk-alpha))) 0%, rgb(from var(--bc) r g b / calc(var(--silk-alpha) * .62)) 30%, rgb(from var(--bc) r g b / calc(var(--silk-alpha) * .24)) 62%, rgb(from var(--bc) r g b / 0) 100%);
+  animation: silk-x var(--tx) ease-in-out var(--dx) infinite alternate, silk-y var(--ty) ease-in-out var(--dy) infinite alternate, silk-r var(--tr) linear var(--dr) infinite; }
+@keyframes silk-x { from { translate: -15vw 0; } to { translate: calc(100vw - var(--sz) + 15vw) 0; } }
+@keyframes silk-y { from { margin-top: -12vh; } to { margin-top: calc(100vh - var(--sz) * var(--ar) + 12vh); } }
+@keyframes silk-r { to { rotate: 360deg; } }
+/* film grain over the silk (very fine, tiny) */
+.atmo::before { content: ""; position: fixed; inset: 0; z-index: 0; pointer-events: none; opacity: .07; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .2 0 0 0 0 .15 0 0 0 0 .12 0 0 0 .9 0'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E"); }
+/* a faint pearl sheen drifting across the page now and then */
+.atmo::after { content: ""; position: fixed; inset: -20%; z-index: 0; pointer-events: none;
+  background: linear-gradient(112deg, transparent 42%, rgb(255 255 255 / .38) 50%, transparent 58%); animation: silk-sheen 36s ease-in-out infinite; }
+@keyframes silk-sheen { 0% { transform: translateX(-60%); opacity: 0; } 12% { opacity: 1; } 45% { transform: translateX(60%); opacity: 0; } 100% { transform: translateX(60%); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .silk, .atmo::after { animation: none; } .silk { translate: var(--sx, 30vw) 0; margin-top: var(--sy, 20vh); } .atmo::after { display: none; } }
