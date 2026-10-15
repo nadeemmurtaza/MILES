@@ -78,8 +78,17 @@
 
 /* ---- print: only the invoice (or the list) leaves the printer, on white ---- */
 @media print {
-  @page { size: A4; margin: 12mm; }
+  @page { size: A4; margin: 0; }
   .iv-noprint { display: none !important; }
+  .iv-paper { font-size: 10.5pt; line-height: 1.45; color: #111 !important; }
+  .iv-ph { gap: 12mm; margin-block-end: 8mm; padding-block-end: 6mm; }
+  .iv-parties { gap: 12mm; margin-block-end: 8mm; }
+  .iv-tbl { inline-size: 100%; margin-block-end: 8mm; }
+  .iv-tbl th, .iv-tbl td { padding: 2.2mm 2mm; }
+  .iv-ph { align-items: flex-start; }
+  .iv-foot { grid-template-columns: 1fr 72mm !important; gap: 10mm; align-items: start; margin-block-start: 4mm; }
+  .iv-legal { margin-block-start: 10mm; font-size: 8pt; }
+  .iv-wrap { max-inline-size: none !important; }
   .iv-paper { box-shadow: none !important; border-radius: 0 !important; padding: 0 !important; max-inline-size: none !important; margin: 0 !important; }
   .iv-split { display: block !important; }
   .iv-row { break-inside: avoid; }

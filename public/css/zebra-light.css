@@ -1,1 +1,2 @@
 :root { --zebra: rgb(from var(--ink) r g b / .045); }
+:root { --blush-alpha: .49; }

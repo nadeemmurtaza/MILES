@@ -1,0 +1,7 @@
+/* Dark edition: a sparse, randomly twinkling sky. The stars are made by stars.js (random place, size, speed and delay).
+   Fewer / more stars: --star-density in stars.js. Brightness: --star here. */
+:root { --star: rgb(from var(--ivory) r g b / .9); }
+.sky-star { position: absolute; border-radius: 50%; background: var(--star); pointer-events: none; opacity: var(--lo, .15);
+  animation: sky-twinkle var(--d, 4s) ease-in-out var(--dl, 0s) infinite; }
+@keyframes sky-twinkle { 0%, 100% { opacity: var(--lo, .15); } 50% { opacity: var(--hi, 1); } }
+@media (prefers-reduced-motion: reduce) { .sky-star { animation: none; opacity: var(--hi, .8); } }
