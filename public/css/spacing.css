@@ -1,0 +1,17 @@
+/* Option G · spacing fixes shared by the G / GL pages.
+   Unlayered on purpose: these are corrections, so they win over the page rules in @layer g. */
+
+/* the first block under the header starts at the same distance on every page (64px, 40px on phones) */
+.u1ae61a1, .u9f62b4e { padding-top: var(--s64, 64px); }
+
+/* a scrolling row of tabs keeps each tab its own width instead of squeezing the labels together */
+.side2 .sidel { flex: none; white-space: nowrap; }
+
+/* size cards (book builder): the row scrolls inside its section instead of running past the page edge */
+.bst > div { min-inline-size: 0; }
+.szs { max-inline-size: 100%; overflow-x: auto; padding-block-end: 6px; scroll-padding-inline: 20px; }
+.szs > .opt { flex: none; }
+
+/* proof pager: Previous / dots / Next wrap instead of squeezing */
+.nav2 { flex-wrap: wrap; row-gap: 12px; }
+.nav2 > .btn { flex: none; }

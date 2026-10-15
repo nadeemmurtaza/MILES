@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/css/p/G11-Proof.css">
 <link rel="stylesheet" href="/css/g-tail.css">
 <link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/spacing.css">
 <link rel="stylesheet" href="/smooth.css">
 <script src="/smooth.js" defer></script>
 <link rel="stylesheet" href="/css/i18n.css">
@@ -42,7 +43,7 @@
 <aside class="uef6d757 sum gl" aria-label="Comments">
 <div class="u1f3eaa0"><h2 class="h3">Comments</h2><span class="u645e823 mu">{{openCount}} open · {{fixedCount}} fixed</span></div>
 <div aria-live="polite"><sc-for list="{{comments}}" as="c" hint-placeholder-count="3"><div class="cm"><span class="n" style="background: {{c.col}}">{{c.n}}</span><div><b class="u645e823">{{c.who}} · spread {{c.sp}}</b><p class="u9fd6fc3">{{c.text}}</p><p class="u31e1e96">{{c.fixed}}</p></div></div></sc-for></div>
-<label class="u4de99d3 fld"><span>{{addLabel}}</span><textarea class="inp" placeholder="e.g. Can this photo be a little brighter?" onInput="{{onText}}">{{text}}</textarea></label>
+<label class="u4de99d3 fld"><span>{{addLabel}}</span><textarea class="inp" placeholder="e.g. Can this photo be a little brighter?" onInput="{{onText}}" value="{{text}}"></textarea></label>
 <div class="ub65f90b"><button class="u1de6939 btn bp mag" onClick="{{post}}">Post comment</button><button class="u1de6939 btn bg gl mag" onClick="{{sendAll}}">{{sendLabel}}</button></div>
 <p class="u12d674c err" aria-live="polite">{{postErr}}</p>
 </aside>

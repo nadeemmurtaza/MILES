@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="/css/p/GL18-Gifts.css">
 <link rel="stylesheet" href="/css/g-tail.css">
 <link rel="stylesheet" href="/css/utilities.css">
+<link rel="stylesheet" href="/css/spacing.css">
 <link rel="stylesheet" href="/smooth.css">
 <script src="/smooth.js" defer></script>
 <link rel="stylesheet" href="/css/i18n.css">
@@ -40,7 +41,7 @@
 <div class="dsg" role="radiogroup" aria-label="Card design"><sc-for list="{{designs}}" as="d" hint-placeholder-count="4"><button class="{{d.cls}}" onClick="{{d.pick}}" role="radio" aria-checked="{{d.on}}" aria-label="{{d.name}}" style="background: {{d.bg}}"></button></sc-for></div></section>
 <section class="gs" aria-labelledby="g3"><h2 id="g3">3 · Your message</h2>
 <div class="u142a6a0"><label class="fld"><span>Their name</span><input class="inp" value="{{to}}" onInput="{{onTo}}" maxlength="24"></label><label class="fld"><span>From</span><input class="inp" value="{{from}}" onInput="{{onFrom}}" maxlength="24"></label>
-<label class="u493b1c8 fld"><span>Message · <span aria-live="polite">{{left}} characters left</span></span><textarea class="inp" maxlength="120" onInput="{{onMsg}}">{{msg}}</textarea></label></div></section>
+<label class="u493b1c8 fld"><span>Message · <span aria-live="polite">{{left}} characters left</span></span><textarea class="inp" maxlength="120" onInput="{{onMsg}}" value="{{msg}}"></textarea></label></div></section>
 <section class="gs" aria-labelledby="g4"><h2 id="g4">4 · Delivery</h2>
 <div class="u2a2dd38" role="radiogroup" aria-label="Send by"><sc-for list="{{chans}}" as="c" hint-placeholder-count="2"><button class="{{c.cls}}" onClick="{{c.pick}}" role="radio" aria-checked="{{c.on}}">{{c.name}}</button></sc-for></div>
 <div class="u6751d4d"><label class="fld"><span>{{chanLabel}}</span><input class="inp" placeholder="{{chanPh}}"></label><label class="fld"><span>Send on</span><input class="inp" type="date"></label></div></section>
