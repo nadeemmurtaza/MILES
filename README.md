@@ -12,6 +12,9 @@ Static site served from `public/` (Cloudflare Workers static assets via `wrangle
 | `public/theme.css` | **every colour and the glass intensity**, as variables (see below) |
 | `public/css/` | all page CSS: `g.css` + `b-*.css` (shared), `p/<page>.css` (per page), `utilities.css` (what used to be `style=""`) |
 | `public/smooth.css`, `public/smooth.js` | shared motion layer, linked from every G / GL page |
+| `public/i18n.js`, `public/i18n/ar.js`, `css/i18n.css` | Arabic (RTL) for the customer pages and the customer editor (see below) |
+| `public/editor/`, `css/editor.css` | live book editor: `G23` / `GL23` (customer), `G70` / `GL70` (studio) |
+| `G71`–`G75`, `GL71`–`GL75` | team & permissions demo: members, invite, roles matrix, profile, activity log (design only) |
 | `archive/concepts/` | options A–F (see `archive/README.md`) |
 
 The pages are Design Component files (`<x-dc>` + `public/support.js`), styled only by the global CSS above, Google Fonts, photos at `/_blob/<id>` (rewritten to `public/assets/` by `public/_redirects`).
@@ -23,6 +26,20 @@ The pages are Design Component files (`<x-dc>` + `public/support.js`), styled on
 * **Utilities.** Every static `style=""` became a class `uXXXXXXX` (a hash of its declarations, shared across pages). Edit the declarations in `css/utilities.css`.
 * **What is still inline.** Only values the page computes at runtime (`width: {{pct}}%`, a chart's `background: {{colour}}`, ...): about 380 attributes. They cannot be a class. They use the colour variables where the colour is fixed.
 * Checked: computed styles (25 properties, every element) are identical to the previous build on all 124 pages, apart from the intended glass unification.
+
+## Arabic (RTL)
+The ع / EN button in the header of every customer page (G1–G23, dark and light) switches the page to Arabic and back; the choice is remembered (`miles.lang`). The studio pages stay English.
+
+* **Translation** happens in the browser (`public/i18n.js`): the page's English text is looked up in `public/i18n/ar.js` and swapped in; switching back restores the English exactly. Headlines split into one span per word are matched as a whole sentence. Sources are in `i18n-src/` (`ar-g.json` for option G, `ar-d.json` from the earlier storefront); rebuild with `node scripts/build-i18n.mjs`. Patterns handle live values (`SAR 140 today`, `Spread 2 of 6`), with Arabic plural forms.
+* **Layout** mirrors through `<html dir="rtl">` and logical CSS properties (`margin-inline-start`, `inset-inline-end` ... in `css/`), checked to give identical results in English. The hero keeps its photo un-mirrored: the dark fade moves to the right and the photo shows on the left. Arrow icons mirror, photos and logos never do.
+* **Type**: IBM Plex Sans Arabic for text, Amiri for display (SIL OFL, `public/fonts/`). No italics or letter-spacing in Arabic.
+* **To add or fix a sentence**: open the page in Arabic, run `milesI18n.keys()` in the console to see the English keys the page asks for, add the Arabic to `i18n-src/ar-g.json`, rebuild. A native reader should review the wording before launch.
+
+## Live book editor
+`G23-Editor` (customer, linked from Account, Order, Upload) and `G70-Editor` (studio, linked from the Design stage) edit the same sample book: six layouts, drag and drop or tap to place photos, zoom / move / brighten, captions, add / duplicate / move / delete spreads, undo / redo, filmstrip, preview, safe-area overlay. Changes autosave to `localStorage` and show up live in the other editor (customer "Send to proof" appears in the studio at once). The studio side adds customer comments, print checks, versions and "Send proof round N". It is a prototype: no server, photos are the site's sample images.
+
+## Team & permissions (demo)
+Design-only pages for showing a client: Members, Invite a user, Roles & permissions matrix, a member profile, and the activity log (`G71`–`G75`, linked from Studio settings → Team). Nothing is saved.
 
 ## Smooth motion
 Applied to all G / GL pages:

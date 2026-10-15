@@ -16,7 +16,7 @@
 }
 .skip {
   position:absolute;
-  left:16px;
+  inset-inline-start:16px;
   top:-60px;
   z-index:100;
   padding:12px 18px;

@@ -101,8 +101,8 @@ a {
 }
 .atmo .top {
   position:absolute;
-  left:0;
-  right:0;
+  inset-inline-start:0;
+  inset-inline-end:0;
   top:0;
   width:100%;
   height:900px;
@@ -275,7 +275,7 @@ a {
 .cart b {
   position:absolute;
   top:4px;
-  right:2px;
+  inset-inline-end:2px;
   min-width:18px;
   height:18px;
   padding:0 5px;
@@ -402,7 +402,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 .ul:hover {
   border-color:var(--gold);
-  padding-left:8px;
+  padding-inline-start:8px;
 }
 .ul:hover span {
   transform:translate(4px,-4px);
@@ -513,7 +513,7 @@ textarea.inp {
 .tgl::after {
   content:"";
   position:absolute;
-  left:3px;
+  inset-inline-start:3px;
   top:3px;
   width:24px;
   height:24px;
@@ -631,12 +631,12 @@ textarea.inp {
 }
 .tl {
   position:relative;
-  padding-left:44px;
+  padding-inline-start:44px;
 }
 .tl::before {
   content:"";
   position:absolute;
-  left:15px;
+  inset-inline-start:15px;
   top:8px;
   bottom:8px;
   width:2px;
@@ -644,7 +644,7 @@ textarea.inp {
 }
 .tl .tf {
   position:absolute;
-  left:15px;
+  inset-inline-start:15px;
   top:8px;
   width:2px;
   background:linear-gradient(var(--gold),var(--sand));
@@ -659,7 +659,7 @@ textarea.inp {
 .te::before {
   content:"";
   position:absolute;
-  left:-36px;
+  inset-inline-start:-36px;
   top:3px;
   width:16px;
   height:16px;
@@ -769,7 +769,7 @@ textarea.inp {
 }
 .cur {
   position:fixed;
-  left:0;
+  inset-inline-start:0;
   top:0;
   z-index:90;
   pointer-events:none;
@@ -777,7 +777,7 @@ textarea.inp {
 }
 .cur i {
   position:absolute;
-  left:-18px;
+  inset-inline-start:-18px;
   top:-18px;
   width:36px;
   height:36px;
@@ -1258,13 +1258,13 @@ textarea.inp {
     gap:16px;
     border:0!important;
     padding:6px 0!important;
-    text-align:right;
+    text-align:end;
   }
   table td::before {
     content:attr(data-label);
     font:700 13px Manrope,sans-serif;
     color:rgb(from var(--ivory) r g b / .66);
-    text-align:left;
+    text-align:start;
   }
   table td[data-label=""]::before {
     content:none;
@@ -1349,7 +1349,7 @@ textarea.inp {
   bottom:3px;
   width:4px;
   height:4px;
-  margin-left:-2px;
+  margin-inline-start:-2px;
   border-radius:50%;
   background:var(--gold);
   transform:scale(0);
@@ -1374,7 +1374,7 @@ textarea.inp {
 .nv2 .rg {
   display:inline-flex;
   padding:3px;
-  margin-right:4px;
+  margin-inline-end:4px;
   border-radius:12px;
   box-shadow:inset 0 0 0 1px rgb(from var(--ivory) r g b / .14);
 }
@@ -1413,7 +1413,7 @@ textarea.inp {
 }
 .nv2 .cart b {
   top:4px;
-  right:3px;
+  inset-inline-end:3px;
 }
 .nv2 .nsi {
   padding:0 12px;
@@ -1432,7 +1432,7 @@ textarea.inp {
 .nv2 .nst {
   min-height:44px;
   padding:0 20px;
-  margin-left:6px;
+  margin-inline-start:6px;
   font-size:14px;
   border-radius:12px;
 }
@@ -1447,8 +1447,8 @@ textarea.inp {
 }
 .nv2 .mnb i {
   position:absolute;
-  left:12px;
-  right:12px;
+  inset-inline-start:12px;
+  inset-inline-end:12px;
   height:2px;
   border-radius:2px;
   background:currentColor;
@@ -1592,7 +1592,7 @@ textarea.inp {
 .thf {
   position:absolute!important;
   top:12px;
-  right:12px;
+  inset-inline-end:12px;
   z-index:60;
   width:44px;
   height:44px;

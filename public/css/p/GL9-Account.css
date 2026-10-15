@@ -73,7 +73,7 @@
 }
 @keyframes plin {
   from {
-    left:12px!important;
+    inset-inline-start:12px!important;
     opacity:0;
   }
 }
@@ -107,8 +107,8 @@ a {
 }
 .atmo .top {
   position:absolute;
-  left:0;
-  right:0;
+  inset-inline-start:0;
+  inset-inline-end:0;
   top:0;
   width:100%;
   height:900px;
@@ -281,7 +281,7 @@ a {
 .cart b {
   position:absolute;
   top:4px;
-  right:2px;
+  inset-inline-end:2px;
   min-width:18px;
   height:18px;
   padding:0 5px;
@@ -408,7 +408,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 .ul:hover {
   border-color:var(--rust);
-  padding-left:8px;
+  padding-inline-start:8px;
 }
 .ul:hover span {
   transform:translate(4px,-4px);
@@ -519,7 +519,7 @@ textarea.inp {
 .tgl::after {
   content:"";
   position:absolute;
-  left:3px;
+  inset-inline-start:3px;
   top:3px;
   width:24px;
   height:24px;
@@ -637,12 +637,12 @@ textarea.inp {
 }
 .tl {
   position:relative;
-  padding-left:44px;
+  padding-inline-start:44px;
 }
 .tl::before {
   content:"";
   position:absolute;
-  left:15px;
+  inset-inline-start:15px;
   top:8px;
   bottom:8px;
   width:2px;
@@ -650,7 +650,7 @@ textarea.inp {
 }
 .tl .tf {
   position:absolute;
-  left:15px;
+  inset-inline-start:15px;
   top:8px;
   width:2px;
   background:linear-gradient(var(--rust),var(--amber));
@@ -665,7 +665,7 @@ textarea.inp {
 .te::before {
   content:"";
   position:absolute;
-  left:-36px;
+  inset-inline-start:-36px;
   top:3px;
   width:16px;
   height:16px;
@@ -775,7 +775,7 @@ textarea.inp {
 }
 .cur {
   position:fixed;
-  left:0;
+  inset-inline-start:0;
   top:0;
   z-index:90;
   pointer-events:none;
@@ -783,7 +783,7 @@ textarea.inp {
 }
 .cur i {
   position:absolute;
-  left:-18px;
+  inset-inline-start:-18px;
   top:-18px;
   width:36px;
   height:36px;
@@ -984,8 +984,8 @@ textarea.inp {
 }
 .stg .pl2 {
   position:absolute;
-  left:12px;
-  right:12px;
+  inset-inline-start:12px;
+  inset-inline-end:12px;
   top:4px;
 }
 .stg .dots {
@@ -1029,7 +1029,7 @@ textarea.inp {
   top:-12px;
   width:30px;
   height:30px;
-  margin-left:-15px;
+  margin-inline-start:-15px;
   color:var(--rust);
   rotate:90deg;
   filter:drop-shadow(0 0 8px rgb(from var(--gold) r g b / 0.5));
@@ -1139,7 +1139,7 @@ table {
   font-size:15px;
 }
 th {
-  text-align:left;
+  text-align:start;
   font:800 12px Manrope,sans-serif;
   letter-spacing:.16em;
   text-transform:uppercase;
@@ -1429,13 +1429,13 @@ td {
     gap:16px;
     border:0!important;
     padding:6px 0!important;
-    text-align:right;
+    text-align:end;
   }
   table td::before {
     content:attr(data-label);
     font:700 13px Manrope,sans-serif;
     color:rgb(from var(--ink) r g b / .66);
-    text-align:left;
+    text-align:start;
   }
   table td[data-label=""]::before {
     content:none;
@@ -1520,7 +1520,7 @@ td {
   bottom:3px;
   width:4px;
   height:4px;
-  margin-left:-2px;
+  margin-inline-start:-2px;
   border-radius:50%;
   background:var(--rust);
   transform:scale(0);
@@ -1545,7 +1545,7 @@ td {
 .nv2 .rg {
   display:inline-flex;
   padding:3px;
-  margin-right:4px;
+  margin-inline-end:4px;
   border-radius:12px;
   box-shadow:inset 0 0 0 1px rgb(from var(--ink) r g b / .14);
 }
@@ -1584,7 +1584,7 @@ td {
 }
 .nv2 .cart b {
   top:4px;
-  right:3px;
+  inset-inline-end:3px;
 }
 .nv2 .nsi {
   padding:0 12px;
@@ -1603,7 +1603,7 @@ td {
 .nv2 .nst {
   min-height:44px;
   padding:0 20px;
-  margin-left:6px;
+  margin-inline-start:6px;
   font-size:14px;
   border-radius:12px;
 }
@@ -1618,8 +1618,8 @@ td {
 }
 .nv2 .mnb i {
   position:absolute;
-  left:12px;
-  right:12px;
+  inset-inline-start:12px;
+  inset-inline-end:12px;
   height:2px;
   border-radius:2px;
   background:currentColor;
@@ -1926,7 +1926,7 @@ body {
 .thf {
   position:absolute!important;
   top:12px;
-  right:12px;
+  inset-inline-end:12px;
   z-index:60;
   width:44px;
   height:44px;
