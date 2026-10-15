@@ -5,8 +5,8 @@ Static site served from `public/` (Cloudflare Workers static assets via `wrangle
 
 | Path | What |
 | --- | --- |
-| `/` | G1 · Home (dark edition) |
-| `/studio` | G30 · Studio pipeline (back-office) |
+| `/` | GL1 · Home (light edition is the default; the moon button switches to dark) |
+| `/studio` | GL30 · Studio pipeline (back-office, light by default) |
 | `public/G*.dc.html` | dark edition: customer pages `G0`–`G22`, studio `G30`–`G69` |
 | `public/GL*.dc.html` | the same pages in the light edition (the moon / sun button in the header switches between them) |
 | `public/theme.css` | **every colour and the glass intensity**, as variables (see below) |
