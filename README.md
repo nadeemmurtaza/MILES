@@ -1,62 +1,36 @@
-# Miles Retold — storefront (variant D)
-
-> All design rules for this project (principles, the human-vs-AI checklist, logo/type/shadow/colour rules, brief) and how each is applied: **[DESIGN-RULES.md](DESIGN-RULES.md)**.
+# Miles Retold — Option G
 
 Static site served from `public/` (Cloudflare Workers static assets via `wrangler.jsonc`, or Vercel via `public/vercel.json`).
-`/` redirects to the storefront (`D1-Motion`), `/studio` to the studio back-office. `archive/` holds the older concepts and is not deployed.
+**Only option G is deployed.** Every other option is kept in `archive/` and is not reachable on the live site.
 
-## One header and one footer, everywhere
-The customer pages (D1–D7, D11–D16, D19–D25) share a single header and footer.
+| Path | What |
+| --- | --- |
+| `/` | G1 · Home (dark edition) |
+| `/studio` | G30 · Studio pipeline (back-office) |
+| `public/G*.dc.html` | dark edition: customer pages `G0`–`G22`, studio `G30`–`G69` |
+| `public/GL*.dc.html` | the same pages in the light edition (the moon / sun button in the header switches between them) |
+| `public/smooth.css`, `public/smooth.js` | shared motion layer, linked from every G / GL page |
+| `archive/concepts/` | options A–F (see `archive/README.md`) |
 
-* Edit `shared/header.html` / `shared/footer.html` (and the `.sh-*` / `.sf-*` rules in `public/site.css`).
-* Then run `node scripts/sync-chrome.mjs` — it stamps the blocks into every page between `<!--chrome:header-->` / `<!--chrome:footer-->` markers (safe to re-run).
-* Needs `parse5`: `npm i --no-save parse5`.
-* Behaviour (language switch, cart count, signed-in label, newsletter form) lives in `public/chrome.js`.
+The pages are Design Component files (`<x-dc>` + `public/support.js`), self-contained: inline styles, Google Fonts, photos at `/_blob/<id>` (rewritten to `public/assets/` by `public/_redirects`).
 
-## Studio (admin) pages on phones
-The studio pages (`public/D8-*.dc.html`: pipeline, stage pages, orders, customers, payments, print queue, shipping, reviews, calendar, codes, reports, settings, team, sign-in) have their own dark sidebar (`aside.rail`), not the customer header.
+## Smooth motion
+Applied to all G / GL pages:
 
-* Run `node scripts/sync-studio.mjs` — it stamps `<link rel="stylesheet" href="/studio.css">` and `<script src="/studio.js" defer></script>` into the `<head>` of every studio page between `<!--studio:chrome-->` markers (safe to re-run; no dependencies). Run it after adding a studio page.
-* At 900px and below, `public/studio.js` adds a sticky top bar (logo -> pipeline, the page title, a 44px menu button) and turns the page's **own** sidebar into a slide-in drawer, so there is one list of navigation links to maintain (the `<aside class="rail">` in each page). It waits for the x-dc runtime to render the sidebar, never moves framework nodes, and does nothing above 900px. Esc, the scrim and the close button close it; focus moves into the drawer and back; the page behind does not scroll.
-* **Settings → Team members** (`public/D8-A7b-Team.dc.html`): the team list (Tazmeen and Rameen are the two owners), an add-a-member form (name, WhatsApp number or email, role) with validation, resend / cancel-invite with Undo, and a "who can open what" summary per role (Owner, Designer, Print & shipping, Customer support, Finance). It is a prototype: no invitation is sent and nothing is stored. The Settings page links to it from the header and from its Team tab.
-* `public/studio.css` holds the phone rules the studio pages share (swipeable filter strips with an edge fade, table rows that become labelled cards, 44px targets, stat-card and tracker layouts). Colours, radii and shadows there and in the pages are the `var(--token)`s from `site.css`; `node scripts/check-palette.mjs` checks the studio pages too.
+* **No layout thrash on scroll.** `update()` reads every rect first, then writes custom properties (it used to interleave them, forcing a style + layout pass per element per frame).
+* **Scoped custom properties.** The scroll-progress value is set on `.sprog` and each pinned scene's progress on its own section, not on the page root, so a scroll tick no longer re-styles the whole tree (style recalculation while scrolling in a headless run: home 3.4 s → 0.7 s, Builder 228 → 45 ms, Tracking 264 → 29 ms).
+* **Cached marquee / cursor nodes and sizes** in the animation loop (no per-frame `querySelector` / `scrollWidth`); the pointless 6.5 s re-render timer on the home page is removed.
+* **Scroll-linked word reveal** no longer carries a transition on top of the scroll value (`.wr .w`), so words follow the scroll instead of lagging and restarting.
+* **Off-screen loops pause** (`smooth.js`: orbs, marquees, floating books, shimmer), and the frosted-glass blur is lighter at 900px and below.
+* **Page-to-page cross-fade** with `@view-transition` (Chromium, Safari 18+; ignored elsewhere, off under `prefers-reduced-motion`).
 
-## Surfaces and pointer
-* `public/site.css`: `--bg-page`, `--bg-band`, `--bg-ink`, `--bg-wine` are the static bases; the slow-moving light is the `body::before/::after` layers and the `::before` layer inside any element whose inline style uses a `--bg-*` token (plus `.sf` and `.rail`). Keep `background: var(--bg-…)` on a section and it drifts automatically; the page wrapper stays `background: transparent`.
-* Section edges: every dark / wine / band section (and the footer) draws its background in a layer taller than the section, masked with a long eased ramp (`--fb` in `site.css`, about 40% of the screen height on desktop, 26% on phones). Content sits clear of the ramp through the section margins. The grain (`--grain`) and the moving glow live in that layer. Cards, fields and buttons keep their own fill and border.
-* `public/pointer.js` (stamped into every page by `sync-chrome.mjs` / `sync-studio.mjs`, and in `404.html`): the adaptive pointer described in `DESIGN-RULES.md`. To turn it off on a page, drop the script tag; nothing else depends on it.
-
-## Arabic (RTL)
-The language button (and Account → Language) switches the whole site between English and Arabic; the choice is remembered.
-
-* Source strings and translations: `i18n-src/` — `keys.json` (English, numbered), `part-*.json` (first-pass Arabic by index), `fix-*.json` (professional-register Arabic, applied over the parts — edit these), `extra.json` (strings built in code), `scoped.json` (per-page overrides), `patterns.json` (strings with live values; `@1[zero|one|two|few|many]` picks the Arabic plural form for capture 1). Rebuild with `node scripts/build-i18n.mjs`.
-* Build: `node scripts/build-i18n.mjs` → `public/i18n/ar.js`.
-* Type: **IBM Plex Sans Arabic** for text and **Amiri** for display, both SIL Open Font License, self-hosted in `public/fonts/` (Arabic glyphs only; licences alongside). Latin letters, digits and prices stay Manrope / Fraunces so they look the same in both languages. The `@font-face` rules and the `--ar-font` / `--ar-display` stacks are at the top and in the "Arabic / right-to-left" block of `public/site.css` — to use a commercially licensed face instead, change those two variables and the `@font-face` sources.
-* Arabic never gets italics or letter-spacing (both break the script); `public/site.css` switches them off under `html.is-ar`.
-* A sentence is matched as a whole (live values and inline elements are `{0}`, `{1}` slots), so Arabic word order is kept while the page's own bindings keep working.
-
-## Colour system (60 / 30 / 10)
-Colour has a job; nothing is coloured just to be colourful. The tokens and rules are documented at the top of `public/site.css`, and `node scripts/check-palette.mjs` fails if a customer page uses a colour outside the palette.
-
-| Share | Role | Colours | Used for |
-| --- | --- | --- | --- |
-| 60 | Canvas | ivory `#F6F1EA`, deeper band `#EFE5DA` | the page itself; photos and books carry the colour |
-| 30 | Surface + ink | white, charcoal `#1F1418`, greys `#5C4B50` `#6B5A5F`, hairlines `#E7DDD4` `#CBB8AD` | cards, fields, text, dark bands (footer, proof, finale) |
-| 10 | Accent | wine `#7D1238` (deeper `#5E0D2A` on hover, blush `#F5E4DF` for selected backgrounds); gold `#F2B880` on charcoal only | the primary button, the one highlighted word in a headline, the selected / current state, links, the price total |
-| – | Status | green (done / paid), amber (due), red (error) | status only, never decoration |
-| – | Product | book covers, gift-card designs, paper | content, not interface |
-
-Removed in this pass: the wine → red → copper gradients (progress bars, shimmering headline words), copper (step 5, ratings, dots), the green WhatsApp button and toggles (accent now), the pastel icon bubbles (one tint), the per-type pastel backdrops on the Books page, the wine sign-in panel (now the deeper ivory band) and the multicolour confetti.
-
-## Sample data to confirm with the studio
-Nothing on the customer pages shows `[brackets]` any more, but some content is sample wording or numbers until Tazmeen & Rameen confirm it:
-
-* **Prices** — all in `public/pricing.js` (builder, cart, checkout, balance, order, gift cards and book pages read it). Change a number there and every page follows. PKR = SAR × `rate`. The chosen currency is remembered (`miles.cur`) across pages.
-* **Contact details** — the footer and Help page no longer show a WhatsApp number, e-mail address, CR number or VAT number (none were confirmed). Add them back where you see "Message us" / the invoice line: Help page contact cards (`public/D15-Help.dc.html`, the WhatsApp card links to the form until a `https://wa.me/<number>` link is set) and `shared/footer.html` (then `node scripts/sync-chrome.mjs`).
-* **Policies** — the three summaries on the Help page (refunds, terms, privacy) are plain-language drafts built only from facts already on the site (50% deposit, pay the rest after approval, made to order). The studio should review or replace them.
-* **Reviews** — only the one real quote (Lens & Lights Studio) is shown; the home page rail shows real books from the lookbook instead of review cards. Add real client quotes to `D15-Help.dc.html` (#reviews) when available.
-* **Sample order** — MR-1042 (dates 14 Sep → 29 Oct estimated delivery, SMSA tracking no.) is demo data used by the tracking, portal, balance and order pages.
-* **Deep links** — `D2-Builder.dc.html?type=honeymoon&size=landscape` opens the builder with that choice made (`type`: travel, wedding, honeymoon, love-story, multi-city, camera-roll; `size`: portrait, landscape, square). The home page, Books page and Lookbook use these.
+Forcing compositor layers (`will-change` on the blurred orbs) was tried and made scrolling slower, so it is not used.
 
 ## Preview locally
-`npx wrangler dev` (serves `public/` with the same redirect/headers rules as production).
+`node scripts/serve.mjs` (http://127.0.0.1:8792, same `/_blob` rewrites as production) or `npx wrangler dev`.
+
+## Deploy
+`wrangler deploy` (or the Cloudflare Workers Git integration) publishes `public/` only. Nothing under `archive/` is uploaded.
+
+## Previous option D
+The D storefront, studio, Arabic (RTL) build, shared header/footer scripts and `DESIGN-RULES.md` live in `archive/concepts/D/`; `archive/README.md` explains how to put it back.

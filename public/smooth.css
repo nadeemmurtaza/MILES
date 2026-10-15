@@ -1,0 +1,26 @@
+/* Option G · motion smoothing layer (linked from every G / GL page).
+   Rules: animate only transform / opacity, pause what is off screen, never restart a
+   transition on every scroll tick, and do not force-promote big blurred layers
+   (measured: will-change on the orbs made scrolling slower, so it is left to the browser). */
+
+/* Scroll-linked word reveal: the value already follows the scroll, so a transition on top
+   only makes the words lag and restart on every tick. */
+.wr .w{transition:none!important}
+
+/* Off-screen loops stop burning frames (set by smooth.js). */
+[data-off]{animation-play-state:paused!important}
+
+/* Frosted glass: keep the look, cut the per-frame blur cost on small screens. */
+@media (max-width:900px){
+  .gl,.inp{-webkit-backdrop-filter:blur(12px) saturate(1.3)!important;backdrop-filter:blur(12px) saturate(1.3)!important}
+  .orb{filter:blur(60px)!important}
+}
+
+/* Cross-fade between pages instead of a white flash (Chromium, Safari 18+). */
+@view-transition{navigation:auto}
+::view-transition-old(root),::view-transition-new(root){animation-duration:.32s;animation-timing-function:cubic-bezier(.16,1,.3,1)}
+
+@media (prefers-reduced-motion:reduce){
+  @view-transition{navigation:none}
+  .orb,.mq,.mq1,.mq2,.mq3,.vq1,.vq2,.zoom,.bkf,.gci,.streak{animation:none!important}
+}

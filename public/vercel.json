@@ -3,37 +3,47 @@
   "redirects": [
     {
       "source": "/",
-      "destination": "/D1-Motion.dc.html",
+      "destination": "/G1-Home.dc.html",
       "permanent": false
     },
     {
       "source": "/studio",
-      "destination": "/D8-Studio.dc.html",
+      "destination": "/G30-Studio.dc.html",
       "permanent": false
     },
     {
       "source": "/index.html",
-      "destination": "/D1-Motion.dc.html",
+      "destination": "/G1-Home.dc.html",
       "permanent": false
     },
     {
       "source": "/Main.dc.html",
-      "destination": "/D1-Motion.dc.html",
+      "destination": "/G1-Home.dc.html",
       "permanent": false
     },
     {
       "source": "/Postcard.dc.html",
-      "destination": "/D1-Motion.dc.html",
+      "destination": "/G1-Home.dc.html",
       "permanent": false
     },
     {
       "source": "/Atlas.dc.html",
-      "destination": "/D1-Motion.dc.html",
+      "destination": "/G1-Home.dc.html",
+      "permanent": false
+    },
+    {
+      "source": "/D1-Motion.dc.html",
+      "destination": "/G1-Home.dc.html",
       "permanent": false
     },
     {
       "source": "/D1-Home.dc.html",
-      "destination": "/D1-Motion.dc.html",
+      "destination": "/G1-Home.dc.html",
+      "permanent": false
+    },
+    {
+      "source": "/D8-Studio.dc.html",
+      "destination": "/G30-Studio.dc.html",
       "permanent": false
     }
   ],
