@@ -1,2 +1,7 @@
 :root { --zebra: rgb(from var(--ink) r g b / .045); }
 :root { --blush-alpha: .49; }
+/* light home: review cards */
+.rev-card { background: rgb(from var(--white) r g b / .7); border-color: rgb(from var(--ink) r g b / .14); }
+.rev-card p, .rev-card footer { color: var(--ink); }
+.rev-card .st { color: var(--rust); }
+.rev-card .rav { background: var(--ink); color: var(--paper); }

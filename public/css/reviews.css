@@ -1,0 +1,20 @@
+/* "Kind words": reviews slide past on their own (home pages). Hover or focus pauses; reduced motion gives a swipeable row. */
+.rev-slide { margin-block-start: 40px; overflow: hidden; margin-inline: calc(50% - 50vw); padding-block: 8px;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+.rev-track { display: flex; gap: 22px; inline-size: max-content; animation: rev-run 70s linear infinite; }
+.rev-slide:hover .rev-track, .rev-slide:focus-within .rev-track { animation-play-state: paused; }
+.rev-card { flex: none; inline-size: clamp(300px, 34vw, 460px); margin: 0; padding: 26px 28px; border-radius: 22px; box-sizing: border-box;
+  background: rgb(from var(--ivory) r g b / .08); border: 1px solid rgb(from var(--ivory) r g b / .2);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); }
+.rev-card .st { color: var(--gold); font-size: 18px; letter-spacing: 5px; }
+.rev-card blockquote { margin: 0; }
+.rev-card p { margin: 14px 0 22px; font-size: clamp(18px, 1.6vw, 22px); line-height: 1.45; color: var(--ivory); }
+.rev-card footer { display: flex; align-items: center; gap: 12px; }
+.rev-card footer b { display: block; font-size: 15px; }
+.rev-card footer small { display: block; opacity: .7; font-size: 13px; }
+.rev-card .rav { inline-size: 40px; block-size: 40px; border-radius: 50%; display: grid; place-items: center; font-weight: 800; background: var(--gold); color: var(--charcoal); flex: none; }
+@keyframes rev-run { to { transform: translateX(calc(-50% - 11px)); } }
+html[dir="rtl"] .rev-track { animation-name: rev-run-rtl; }
+@keyframes rev-run-rtl { to { transform: translateX(calc(50% + 11px)); } }
+.rev-dup { display: contents; }
+@media (prefers-reduced-motion: reduce) { .rev-slide { overflow-x: auto; -webkit-mask-image: none; mask-image: none; } .rev-track { animation: none; } .rev-track .rev-dup { display: none; } }
