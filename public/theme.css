@@ -108,6 +108,9 @@
    so panels, bars, menus, inputs and toasts all frost the same on every page.
    More frost: raise --glass-blur.  Clearer glass: lower it.  --glass-sat is the colour boost seen through the glass. */
 :root{
+  --blush: #f4a9b8;       /* drifting blush clouds (css/blush.css) */
+  --blush-2: #f7c4a8;
+  --blush-alpha: .26;
   --zebra: rgb(from var(--ivory) r g b / .05);   /* alternate row tint on lists and tables */
   --glass-blur: 28px;
   --glass-sat: 1.9;

@@ -1,0 +1,18 @@
+/* Blush colour clouds drifting slowly behind every page (light and dark).
+   Retint with --blush / --blush-2 / --blush-alpha in theme.css. */
+.atmo::before, .atmo::after { content: ""; position: fixed; inset: -25%; pointer-events: none; z-index: 0; }
+.atmo::before {
+  background:
+    radial-gradient(34% 30% at 22% 28%, rgb(from var(--blush) r g b / var(--blush-alpha)), transparent 70%),
+    radial-gradient(30% 28% at 78% 62%, rgb(from var(--blush-2) r g b / var(--blush-alpha)), transparent 70%);
+  animation: blush-a 34s ease-in-out infinite alternate;
+}
+.atmo::after {
+  background:
+    radial-gradient(28% 26% at 68% 20%, rgb(from var(--blush-2) r g b / var(--blush-alpha)), transparent 70%),
+    radial-gradient(36% 30% at 30% 78%, rgb(from var(--blush) r g b / var(--blush-alpha)), transparent 70%);
+  animation: blush-b 46s ease-in-out -12s infinite alternate;
+}
+@keyframes blush-a { 0% { transform: translate(-6%, -4%) scale(1); } 50% { transform: translate(8%, 5%) scale(1.12); } 100% { transform: translate(-2%, 9%) scale(.94); } }
+@keyframes blush-b { 0% { transform: translate(7%, 6%) scale(1.05); } 50% { transform: translate(-8%, -3%) scale(.92); } 100% { transform: translate(4%, -8%) scale(1.1); } }
+@media (prefers-reduced-motion: reduce) { .atmo::before, .atmo::after { animation: none; } }
