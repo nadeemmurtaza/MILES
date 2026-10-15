@@ -32,3 +32,12 @@ html[dir="rtl"] .vt-dot { margin: -7px -7px 0 0; }
 @keyframes vt-pulse { 0% { box-shadow: 0 0 0 0 rgb(from var(--vt-acc, var(--gold)) r g b / .5); } 70% { box-shadow: 0 0 0 12px rgb(from var(--vt-acc, var(--gold)) r g b / 0); } 100% { box-shadow: 0 0 0 0 rgb(from var(--vt-acc, var(--gold)) r g b / 0); } }
 @media (max-width: 760px) { .vt-card { padding: 22px 16px 16px; } .vt-lab { font-size: 9.5px; } .vt-lab span:not(.now) { opacity: .55; } }
 @media (prefers-reduced-motion: reduce) { .vt-fill, .vt-van, .vt-van > div, .vt-van .wh, .vt-puff, .vt-live i { animation: none; transition: none; } }
+/* phones: nine labels cannot sit side by side, so only the start, the current stop and the end are named */
+@media (max-width: 760px) {
+  .vt-lab { font-size: 10px; gap: 0; }
+  .vt-lab span { overflow-wrap: normal; hyphens: none; white-space: nowrap; }
+  .vt-lab span:not(.now):not(:first-child):not(:last-child) { visibility: hidden; }
+  .vt-lab .now + span { visibility: hidden; }
+  .vt-lab span:first-child { text-align: start; margin-inline-start: -4px; }
+  .vt-lab span:last-child { text-align: end; }
+}

@@ -72,3 +72,11 @@ html[dir="rtl"] .dtk-fillw { transform-origin: right; }
 .dtk .dtk-d0 { inset-inline-start: 7.14%; } .dtk .dtk-d1 { inset-inline-start: 21.43%; } .dtk .dtk-d2 { inset-inline-start: 35.71%; } .dtk .dtk-d3 { inset-inline-start: 50%; } .dtk .dtk-d4 { inset-inline-start: 64.29%; } .dtk .dtk-d5 { inset-inline-start: 78.57%; }
 .dtk > div:first-child { text-align: start; }
 @media (max-width: 900px) { .dtk { grid-template-columns: 1fr; gap: 28px; } }
+/* phones: seven labels cannot sit side by side, so only the start, the current stop and the end are named */
+@media (max-width: 700px) {
+  .dtk-card { padding: 22px 18px 18px; }
+  .dtk-lab { font-size: 10.5px; gap: 0; }
+  .dtk-lab span:not(.dtk-l0):not(.dtk-l5):not(.dtk-l6) { visibility: hidden; }
+  .dtk-lab span { overflow-wrap: normal; hyphens: none; }
+  .dtk-lab .dtk-l5, .dtk-lab .dtk-l6 { white-space: normal; line-height: 1.15; font-size: 10px; letter-spacing: -.01em; }
+}
