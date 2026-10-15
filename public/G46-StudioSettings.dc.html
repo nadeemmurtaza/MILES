@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="/css/b-glstudio-gstudio.css">
 <link rel="stylesheet" href="/css/b-gstudio.css">
 <link rel="stylesheet" href="/css/p/G46-StudioSettings.css">
+<link rel="stylesheet" href="/css/users.css">
 <link rel="stylesheet" href="/css/g-tail.css">
 <link rel="stylesheet" href="/css/utilities.css">
 <link rel="stylesheet" href="/smooth.css">
@@ -57,7 +58,7 @@
 <aside class="box side"><div class="lab">Preview</div><div class="u95cd805"><div class="u4413639">{{preview}}</div></div><div class="ub85a65f">WhatsApp business templates must be approved by Meta before they can be sent. Edits go back for review.</div><a class="u5360224 btn bs" href="G55-Inbox.dc.html">See messages on a phone</a></aside>
 </div></sc-if>
 
-<sc-if value="{{isTeam}}" hint-placeholder-val="{{ false }}"><div class="udc105e5">
+<sc-if value="{{isTeam}}" hint-placeholder-val="{{ false }}"><div class="udc105e5"><div class="us us-banner"><span>Invite people, change roles and see who did what.</span><a class="us-btn pri" href="G71-Users.dc.html">Open team &amp; permissions</a></div>
 <sc-for list="{{team}}" as="p" hint-placeholder-count="2"><div class="u5032b53 box"><span class="uc195967 av" style="background: {{p.bg}}">{{p.i}}</span><div class="ud2dc0a7"><b class="u4e0dc06">{{p.n}}</b><div class="u9a635e6">{{p.r}}</div></div><span class="u53d430c chip"><i></i>Owner</span></div></sc-for>
 <button class="u0f351b1 ix box" onClick="{{doInv}}">{{invLabel}}</button>
 </div></sc-if>
