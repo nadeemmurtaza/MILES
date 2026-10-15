@@ -1,0 +1,19 @@
+/* Phones and touch screens: bigger tap areas without moving anything, no iOS zoom on form fields, safe areas, no tap delay. */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+@media (hover: none), (pointer: coarse) {
+  a, button, summary, label, input, select, textarea { touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  /* iPhone zooms the page when a field under 16px gets focus */
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]), select, textarea { font-size: max(16px, 1em) !important; }
+  /* small links and switches get a 44px invisible hit area (padding/margin cancel out, nothing shifts) */
+  .iv-row a:not(.us-btn), .us-row a:not(.us-btn), .us-who a, .us-log a, .u776ba82, .ua5e2999, .u8e8a946, .u73bb352, .nl, .s2g + a, .ulb a, td a { padding-block: 13px; margin-block: -13px; }
+  .tgl, .tr, .chip, .rd, .us-pill { position: relative; }
+  .tgl::after, .rd::after { content: ""; position: absolute; inset: -9px -5px; }
+}
+@media (max-width: 760px) {
+  /* the studio / account menus and the floating dock clear the phone's home bar and notch */
+  header.nav, .sbar { padding-top: max(var(--sbar-pt, 0px), env(safe-area-inset-top)); }
+  .dock { bottom: calc(20px + env(safe-area-inset-bottom)); }
+  main, .u6b7428d { padding-inline-start: max(0px, env(safe-area-inset-left)); padding-inline-end: max(0px, env(safe-area-inset-right)); }
+  img, video, svg { max-inline-size: 100%; }
+  table { display: block; max-inline-size: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
