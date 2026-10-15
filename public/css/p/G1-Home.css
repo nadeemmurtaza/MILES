@@ -1876,6 +1876,8 @@ a:hover {
   pointer-events:none;
 }
 .route svg {
+  -webkit-mask-image:linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent);
+  mask-image:linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent);
   position:absolute;
   inset:0;
   width:100%;
@@ -1891,9 +1893,9 @@ a:hover {
 .route .lit {
   stroke:url(#rg);
   stroke-width:2.5;
+  opacity:.4;
   fill:none;
   stroke-linecap:round;
-  filter:drop-shadow(0 0 6px rgb(from var(--gold) r g b / 0.5));
 }
 .route .plane {
   position:absolute;
@@ -1905,7 +1907,7 @@ a:hover {
   offset-rotate:auto 90deg;
   offset-distance:0%;
   color:var(--gold);
-  filter:drop-shadow(0 0 10px rgb(from var(--gold) r g b / 0.5));
+  opacity:.5;
 }
 @supports (animation-timeline: scroll()) {
   .route .lit {
@@ -3029,7 +3031,7 @@ a:hover {
   transform-origin:left;
   transform:scaleX(var(--ps,0));
   background:linear-gradient(90deg,var(--ivory),var(--gold) 60%,var(--sand));
-  box-shadow:0 0 14px rgb(from var(--gold) r g b / 0.5);
+  opacity:.5;
 }
 .hplane {
   position:absolute;
@@ -3040,7 +3042,7 @@ a:hover {
   margin-inline-start:-17px;
   color:var(--gold);
   rotate:90deg;
-  filter:drop-shadow(0 0 10px rgb(from var(--gold) r g b / 0.5));
+  opacity:.5;
 }
 .hplane svg {
   width:100%;
