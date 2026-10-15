@@ -1,10 +1,11 @@
 /* Printing any page of option G: no chrome, no glass, dark text on white. */
 @media print {
-  @page { margin: 12mm; }
+  @page { size: A4; margin: 0; }   /* margins are padding on <main>, so "Margins: None" in the print dialog still leaves a clean border */
   html, body { background: #fff !important; color: #111 !important; }
   * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .atmo, .orb, .grain, .cur, .cud, .sprog, header.nav, .nav, .sbar, .rail, .sub2, .smenu, .ft, footer, .wa, .stl, .skip, .mnu, .ed-toast, .ed-prev, .toast, .us-tabs, .iv-noprint, .lang-btn { display: none !important; }
-  .f, .gs, .fl, .u6b7428d, main { background: #fff !important; position: static !important; overflow: visible !important; padding-inline: 0 !important; margin: 0 !important; min-height: 0 !important; }
+  header, .sbar, .atmo, .orb, .grain, .cur, .cud, .sprog, header.nav, .nav, .sbar, .rail, .sub2, .smenu, .ft, footer, .wa, .stl, .skip, .mnu, .ed-toast, .ed-prev, .toast, .us-tabs, .iv-noprint, .lang-btn { display: none !important; }
+  .f, .gs, .fl, .u6b7428d, main { background: #fff !important; position: static !important; overflow: visible !important; padding: 16mm 16mm 18mm !important; margin: 0 !important; min-height: 0 !important; max-inline-size: none !important; box-sizing: border-box; }
+  .f, .gs, .fl, .u6b7428d { padding: 0 !important; }
   .gs { display: block !important; }
   body *:not(.iv-paper):not(.iv-paper *) { color: #111 !important; text-shadow: none !important; box-shadow: none !important; background-image: none !important; -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
   .us-panel, .us-stat, .us-chip, .box { background: #fff !important; border: 1px solid #bbb !important; }
