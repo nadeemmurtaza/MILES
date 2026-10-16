@@ -691,7 +691,18 @@
 "Proof": "البروفة",
 "Printing": "قيد الطباعة",
 "Delivered": "تم التسليم",
-"Tracked couriers across Saudi Arabia and Pakistan. Pay your way:": "مندوبو توصيل مع تتبع في السعودية وباكستان. وادفع بالطريقة التي تناسبك:"
+"Tracked couriers across Saudi Arabia and Pakistan. Pay your way:": "مندوبو توصيل مع تتبع في السعودية وباكستان. وادفع بالطريقة التي تناسبك:",
+"Order a book": "اطلب كتابًا",
+"About": "من نحن",
+"Help": "المساعدة",
+"Overview": "نظرة عامة",
+"Photos": "الصور",
+"Tracking": "التتبع",
+"Live editor": "المحرر المباشر",
+"Confirmed": "تم التأكيد",
+"Our story": "قصتنا",
+"Lookbook": "معرض الأعمال",
+"Empty & error states": "حالات الفراغ والأخطاء"
 },
 "patterns": [
 [

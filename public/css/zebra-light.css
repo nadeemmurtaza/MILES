@@ -16,3 +16,7 @@
 .dtk-puff { background: rgb(from var(--rust) r g b / .3); }
 /* light tracking page: van line */
 .vt-card { --vt-fg: var(--ink); --vt-acc: var(--rust); --vt-on: var(--paper); --vt-card-bg: #fffcf7; background: rgb(from var(--white) r g b / .7); }
+/* light: storefront sub-navigation */
+.subnav a { color: var(--ink); background: rgb(from var(--white) r g b / .6); border-color: rgb(from var(--ink) r g b / .16); }
+.subnav a:hover { background: rgb(from var(--white) r g b / .9); }
+.subnav a[aria-current="page"] { background: var(--ink); color: var(--paper); }

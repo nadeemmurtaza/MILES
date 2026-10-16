@@ -1,0 +1,15 @@
+/* Storefront sub-navigation: a pill row at the top of each group of pages (account, shop steps, about, help and reference). */
+.subnav { display: flex; gap: 8px; margin: 0 0 clamp(18px, 3vw, 30px); padding: 2px 0 6px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+.subnav::-webkit-scrollbar { display: none; }
+.subnav b { flex: none; align-self: center; margin-inline-end: 6px; font: 800 11px/1 Manrope, sans-serif; letter-spacing: .14em; text-transform: uppercase; opacity: .6; }
+.subnav a { flex: none; padding: 10px 16px; border-radius: 999px; font: 700 13px/1 Manrope, sans-serif; text-decoration: none; white-space: nowrap; color: var(--ivory);
+  background: rgb(from var(--ivory) r g b / .07); border: 1px solid rgb(from var(--ivory) r g b / .2);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); transition: background-color .25s, color .25s; }
+.subnav a:hover { background: rgb(from var(--ivory) r g b / .15); }
+.subnav a[aria-current="page"] { background: var(--ivory); color: var(--forest-ink); border-color: transparent; }
+.subnav a:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+/* app-style pages (messages, mobile preview, live editor): the row sits above the page */
+.subnav-top { position: relative; z-index: 3; padding: 14px clamp(16px, 4vw, 48px) 0; max-inline-size: 1280px; margin-inline: auto; box-sizing: border-box; }
+.subnav-top .subnav { margin: 0; }
+.subnav-23 { padding-top: 112px; }
+.subnav-23 + main { padding-top: 0 !important; }
