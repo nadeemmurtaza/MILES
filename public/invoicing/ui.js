@@ -18,7 +18,7 @@
     var self = {}, toastT = 0, pre = opts.pre || 'G';
     function set(o) { c.setState(o); }
     function toast(m) { set({ toast: m }); clearTimeout(toastT); toastT = setTimeout(function () { set({ toast: '' }); }, 3600); }
-    function href(id, extra) { return pre + '77-Invoice.dc.html?id=' + encodeURIComponent(id) + (opts.studio ? '&role=studio' : '') + (extra || ''); }
+    function href(id, extra) { return pre + (opts.studio ? '79-InvoiceFile' : '77-Invoice') + '.dc.html?id=' + encodeURIComponent(id) + (extra || ''); }
     function chip(st) { var s = M.ST[st] || M.ST.draft; return { t: s.t, cls: 'us-chip ' + s.cls }; }
 
     self.initial = function () {
@@ -104,7 +104,7 @@
         v.steps = M.stage(inv).map(function (x) { return { t: x.t, cls: 'iv-step ' + x.cls, at: x.at }; });
         v.canSend = inv.st === 'pending' || inv.st === 'rejected' || inv.st === 'draft'; v.sent = !v.canSend; v.busy = !!s.busy;
         v.sendLabel = inv.st === 'rejected' ? 'Fix and resend' : inv.st === 'draft' ? 'Issue and send' : 'Send to ' + inv.authority;
-        v.isStudio = !!opts.studio || new URLSearchParams(location.search).get('role') === 'studio';
+        v.isStudio = !!opts.studio;
         v.backHref = v.isStudio ? pre + '76-Invoices.dc.html' : pre + '24-Invoices.dc.html'; v.backLabel = v.isStudio ? 'All invoices' : 'My invoices';
         v.print = function () { window.print(); };
         v.pdf = function () { toast('Choose “Save as PDF” as the printer in the print window.'); setTimeout(function () { window.print(); }, 600); };
