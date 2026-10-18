@@ -11,7 +11,7 @@
     22: ['Messages', 'Messages'], 17: ['Messages', 'Help'], 12: ['Billing', 'Balance'], 24: ['Billing', 'Invoices'], 77: ['Billing', 'Invoice'], 14: ['Settings', 'Settings']
   };
   var FILE = { 9: 'Account', 10: 'Order', 13: 'Tracking', 11: 'Proof', 7: 'Upload', 23: 'Editor', 22: 'Messages', 17: 'Help', 12: 'Balance', 24: 'Invoices', 77: 'Invoice', 14: 'Settings',
-    80: 'EdStoryboard', 81: 'EdPhotos', 82: 'EdLayouts', 83: 'EdText', 84: 'EdCover', 85: 'EdStyle', 86: 'EdFlipbook', 87: 'EdPrintCheck', 88: 'EdHistory', 89: 'EdSend', 100: 'EasyHome',
+    101: 'EasyPhotos', 102: 'EasyPage', 103: 'EasyCover', 104: 'EasySend', 80: 'EdStoryboard', 81: 'EdPhotos', 82: 'EdLayouts', 83: 'EdText', 84: 'EdCover', 85: 'EdStyle', 86: 'EdFlipbook', 87: 'EdPrintCheck', 88: 'EdHistory', 89: 'EdSend', 100: 'EasyHome',
     120: 'Privacy', 121: 'PrivateUpload', 122: 'ShareLinks', 123: 'Consent', 124: 'DeleteData', 125: 'AccessLog', 126: 'Security', 127: 'SmartAssist', 128: 'Approvals', 129: 'ArabicText', 130: 'TripMap', 131: 'Shortcuts', 8: 'SignIn', 1: 'Home' };
   var href = function (n) { return ed + n + '-' + FILE[n] + '.dc.html'; };
   var I = {
@@ -42,8 +42,10 @@
     ['priv', 'Privacy', 'lock', 120, 'Privacy & security', [['Your photos', L([120, 121, 122, 123, 124, 125, 126])]]],
     ['set', 'Settings', 'gear', 14, 'Settings', [['Account', L([14])]]]
   ];
+  var EASY = cur >= 100 && cur <= 104;                  /* step-by-step editing: phone-first, so the tab bar only */
+  var look = EASY ? 100 : cur;
   var cs = null;
-  S.forEach(function (s) { s[5].forEach(function (g) { g[1].forEach(function (p) { if (p[0] === cur) cs = s; }); }); });
+  S.forEach(function (s) { s[5].forEach(function (g) { g[1].forEach(function (p) { if (p[0] === look) cs = s; }); }); });
   if (!cs) return;
   var get = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
   var put = function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} };
@@ -75,6 +77,7 @@
     t.classList.toggle('on', o);
   };
   var go = function () {
+    if (EASY) return;
     document.body.appendChild(root);
     document.body.classList.add('an-on');
     if (ed === 'GL') document.body.classList.add('an-light');
@@ -87,19 +90,18 @@
   if (document.body) go(); else document.addEventListener('DOMContentLoaded', go);
 
   /* ---- phones and small tablets: one bottom tab bar (1st bar) + a "pages" sheet (2nd bar) ---- */
-  var QUIET = cur === 11 || cur === 12;                 /* proof and balance: nothing to tap but the task */
-  var EDIT = cur === 23 || (cur >= 80 && cur <= 89);    /* editor screens keep their own bars */
+  var NOCHIP = EASY || cur === 23 || (cur >= 80 && cur <= 89);   /* screens with their own bottom tools: tab bar only, no floating chip */
   var pageName = '';
-  cs[5].forEach(function (g) { g[1].forEach(function (p) { if (p[0] === cur) pageName = p[1]; }); });
+  cs[5].forEach(function (g) { g[1].forEach(function (p) { if (p[0] === look) pageName = p[1]; }); });
   var TABS = S.slice(0, 4), MORE = S.slice(4), inMore = MORE.indexOf(cs) > -1;
   var mroot = document.createElement('div');
   mroot.className = 'an-m';
-  var sheetLinks = function (groups) { return groups.map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === cur ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join(''); };
+  var sheetLinks = function (groups) { return groups.map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === look ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join(''); };
   var moreHtml = '<div class="an-sg">More</div>' + MORE.map(function (s) { return '<a href="' + href(s[3]) + '"' + (s === cs ? ' class="on" aria-current="page"' : '') + '>' + s[1] + '</a>'; }).join('') +
     '<div class="an-sg">Elsewhere</div><a href="' + twin + '">' + (dark ? 'Light theme' : 'Dark theme') + '</a><a href="' + href(1) + '">Back to the shop</a><a href="' + href(8) + '">Sign out</a>';
   mroot.innerHTML =
-    (EDIT || QUIET ? '' : '<button type="button" class="an-chip" aria-haspopup="dialog">' + '<span>' + cs[4] + '</span><b>' + pageName + '</b>' + svg('up', 16) + '</button>') +
-    (EDIT || QUIET ? '' : '<nav class="an-tabs" aria-label="Account sections">' +
+    (NOCHIP ? '' : '<button type="button" class="an-chip" aria-haspopup="dialog">' + '<span>' + cs[4] + '</span><b>' + pageName + '</b>' + svg('up', 16) + '</button>') +
+    ('<nav class="an-tabs" aria-label="Account sections">' +
       TABS.map(function (s) { return '<a href="' + href(s[3]) + '"' + (s === cs ? ' class="on" aria-current="true"' : '') + '>' + svg(s[2], 22) + '<span>' + s[1] + '</span></a>'; }).join('') +
       '<button type="button" class="an-more' + (inMore ? ' on' : '') + '" aria-haspopup="dialog">' + svg('dots', 22) + '<span>More</span></button></nav>') +
     '<div class="an-scrim" hidden></div><div class="an-sheet" role="dialog" aria-modal="true" aria-label="Pages" hidden><div class="an-sh"><b></b><button type="button" class="an-x" aria-label="Close">' + svg('close') + '</button></div><div class="an-sl"></div></div>';
@@ -122,8 +124,8 @@
     document.body.appendChild(mroot);
     sheet = mroot.querySelector('.an-sheet'); scrim = mroot.querySelector('.an-scrim');
     document.body.classList.add('an-m-on');
-    if (!EDIT && !QUIET) document.body.classList.add('an-tabs-on');
-    if (QUIET) document.body.classList.add('an-quiet');
+    if (ed === 'GL') document.body.classList.add('an-light');
+    document.body.classList.add('an-tabs-on');
     mroot.addEventListener('click', function (e) {
       if (e.target.closest('.an-chip')) openSheet(false);
       else if (e.target.closest('.an-more')) openSheet(true);

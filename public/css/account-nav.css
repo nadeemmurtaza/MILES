@@ -52,7 +52,11 @@
   body.an-m-on.an-light { --an-fg: var(--forest-ink); --an-bg: rgb(from var(--c-fffcf6) r g b / .94); }
   body.an-tabs-on { padding-block-end: calc(var(--an-tabh) + 24px + env(safe-area-inset-bottom, 0px)); }
   body.an-tabs-on nav.subnav { display: none; }
-  body.an-quiet nav.subnav { display: none; }       /* proof and balance: no navigation, only the task */
+  /* screens that already have their own bottom bar or sheet sit above the tab bar */
+  body.an-tabs-on .ez-bar { inset-block-end: var(--an-tabh); }
+  body.an-tabs-on .ez-sheet-bg, body.an-tabs-on .an-scrim { z-index: 90; } body.an-tabs-on .ez-sheet, body.an-tabs-on .an-sheet { z-index: 91; }
+  body.an-tabs-on .ed-toast { inset-block-end: calc(var(--an-tabh) + 16px + env(safe-area-inset-bottom, 0px)); }
+  body.an-tabs-on.ezm .ed-toast { inset-block-end: calc(var(--an-tabh) + 92px + env(safe-area-inset-bottom, 0px)); }
   .an-tabs { position: fixed; inset-inline: 0; inset-block-end: 0; z-index: 70; display: grid; grid-template-columns: repeat(5, 1fr); box-sizing: border-box; padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px)); min-block-size: var(--an-tabh);
     background: var(--an-bg); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); box-shadow: 0 -1px 0 rgb(from var(--an-fg) r g b / .14), 0 -18px 40px -26px rgb(from var(--c-071a15) r g b / .5); }
   .an-tabs a, .an-tabs button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; min-block-size: 48px; border: 0; border-radius: 12px; background: none; color: rgb(from var(--an-fg) r g b / .68); font: 700 11px/1.1 Manrope, sans-serif; text-decoration: none; cursor: pointer; position: relative; -webkit-tap-highlight-color: transparent; }
