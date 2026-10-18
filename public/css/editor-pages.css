@@ -498,3 +498,33 @@
   .ed-studio .ez-cms { display: grid; gap: 8px; }
   .ed-studio .ed-cm { padding: 14px; font-size: 15px; } .ed-studio .ed-cm footer .ed-btn { min-block-size: 48px; }
 }
+
+/* ---------- photo gestures: drag = focus area, pinch = zoom, hold + drag onto another frame = swap ---------- */
+@layer g {
+  [data-gf] { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; touch-action: pan-y; }
+  [data-gf][data-has="1"][data-sel="1"] { touch-action: none; cursor: grab; }
+  [data-gf][data-has="1"][data-sel="1"]:active { cursor: grabbing; }
+  [data-gf] img { -webkit-user-drag: none; pointer-events: none; }
+  .gx-active, .gx-active * { cursor: grabbing !important; }
+  .gx-active [data-gf] img { transition: none !important; }
+  [data-gf].gx-src { opacity: .45; }
+  [data-gf].gx-over { outline: 4px solid var(--e-ok); outline-offset: -4px; background: rgb(from var(--e-ok) r g b / .2); }
+  .gx-ghost { position: fixed; inset: 0 auto auto 0; inline-size: 96px; block-size: 96px; border-radius: 14px; background: center / cover no-repeat var(--e-glass-2); box-shadow: 0 18px 40px -10px rgb(from var(--black) r g b / .55), 0 0 0 3px var(--e-acc); z-index: 999; pointer-events: none; opacity: .94; }
+
+  /* two pages at once on the phone */
+  .ez-view { margin: 0; }
+  .ez-spreadv { position: relative; inline-size: 100%; aspect-ratio: 1.6; background: var(--pg-bg, var(--e-paper)); color: var(--pg-ink, var(--e-paper-ink)); border-radius: 4px 10px 10px 4px; box-shadow: 0 24px 50px -26px var(--e-shadow), 0 0 0 1px rgb(from var(--black) r g b / .08); overflow: hidden; }
+  .ez-fold { position: absolute; inset-block: 0; inset-inline-start: 50%; inline-size: 36px; margin-inline-start: -18px; background: linear-gradient(90deg, transparent, rgb(from var(--black) r g b / .13) 50%, transparent); pointer-events: none; }
+  .ez-spreadv .ez-fr { padding: 2px; min-inline-size: 28px; min-block-size: 28px; }
+  .ez-spreadv .ez-add small { display: none; } .ez-spreadv .ez-no { inset-block-start: 3px; inset-inline-end: 3px; min-inline-size: 20px; block-size: 20px; font-size: 11px; }
+  .ez-spreadv .ez-text.l { inset: 0 50% 0 0; } .ez-spreadv .ez-text.r { inset: 0 0 0 50%; }
+  .ez-spreadv .ez-text textarea { font-size: 13px; }
+  .ez-hint { margin: 0; text-align: center; font-size: 14px; line-height: 1.45; }
+}
+
+@layer g {
+  /* spread layouts are landscape icons; one-page icons stay portrait */
+  .ez-lay .ed-mini:not([data-lay="pagei"]) { inline-size: 64px; aspect-ratio: 1.6; }
+  /* messages sit above the fixed Back / Next bar, not on top of it */
+  .ezm .ed-toast { inset-block-end: calc(92px + env(safe-area-inset-bottom)); max-inline-size: calc(100vw - 32px); text-align: center; }
+}

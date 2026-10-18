@@ -8,6 +8,7 @@
 <script src="./support.js"></script>
 <script src="/editor/core.js"></script>
 <script src="/editor/ui.js"></script>
+<script src="/editor/gestures.js"></script>
 <script src="/editor/pages.js"></script>
 <link rel="stylesheet" href="/theme.css">
 <link rel="stylesheet" href="/css/g.css">
@@ -58,7 +59,7 @@
 <div class="{{spreadCls}}" data-lay="{{lay}}">
 <sc-if value="{{isStory}}" hint-placeholder-val="{{ false }}"><div class="ed-text l"><label class="ed-vh" for="ed-story">Story text</label><textarea id="ed-story" class="ed-cap ed-story" rows="6" placeholder="Write the story for this page" value="{{storyText}}" onInput="{{onStory}}"></textarea></div></sc-if>
 <sc-if value="{{isStoryR}}" hint-placeholder-val="{{ false }}"><div class="ed-text r"><label class="ed-vh" for="ed-story-r">Story text, right page</label><textarea id="ed-story-r" class="ed-cap ed-story" rows="6" placeholder="Write the story for this page" value="{{storyTextR}}" onInput="{{onStoryR}}"></textarea></div></sc-if>
-<sc-for list="{{slots}}" as="s" hint-placeholder-count="3"><div class="{{s.cls}}" role="button" tabindex="0" aria-label="{{s.label}}" draggable="{{s.has}}" onClick="{{s.pick}}" onKeyDown="{{s.key}}" onDragStart="{{s.dragStart}}" onDragOver="{{s.dragOver}}" onDragLeave="{{s.dragLeave}}" onDrop="{{s.drop}}">
+<sc-for list="{{slots}}" as="s" hint-placeholder-count="3"><div class="{{s.cls}}" role="button" tabindex="0" aria-label="{{s.label}}" data-gf="1" data-si="{{s.si}}" data-fi="{{s.i}}" data-has="{{s.hasAttr}}" data-sel="{{s.selAttr}}" data-src="{{s.src}}" onClick="{{s.pick}}" onKeyDown="{{s.key}}" onDragStart="{{s.dragStart}}" onDragOver="{{s.dragOver}}" onDragLeave="{{s.dragLeave}}" onDrop="{{s.drop}}">
 <sc-if value="{{s.has}}" hint-placeholder-val="{{ true }}"><img src="{{s.src}}" alt="{{s.alt}}" draggable="false" style="{{s.img}}"><sc-if value="{{s.low}}" hint-placeholder-val="{{ false }}"><span class="ed-warn">May print soft</span></sc-if><button class="ed-x" onClick="{{s.clear}}" aria-label="Remove photo from this frame"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button></sc-if>
 <sc-if value="{{s.empty}}" hint-placeholder-val="{{ false }}"><span class="ed-empty"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Drop a photo here</span></sc-if></div></sc-for>
 <div class="{{safeCls}}" aria-hidden="true"></div>
@@ -66,6 +67,7 @@
 <span class="ed-pgn l">{{pgL}}</span><span class="ed-pgn r">{{pgR}}</span>
 </div>
 <p class="ed-hint"><kbd>←</kbd> <kbd>→</kbd> change spread · drag a photo into a frame, or tap a photo to place it · <kbd>Ctrl</kbd>+<kbd>Z</kbd> undo</p>
+<p class="ed-hint">Click a photo, then drag it to choose what shows · <kbd>Ctrl</kbd> + scroll (or pinch) to zoom · drag one photo onto another frame to swap them</p>
 </div>
 <div class="ed-film" role="list" aria-label="All spreads"><sc-for list="{{film}}" as="f" hint-placeholder-count="6"><button class="ed-th" role="listitem" onClick="{{f.go}}" aria-current="{{f.cur}}" aria-label="{{f.label}}"><span class="ed-mini" data-lay="{{f.lay}}"><sc-for list="{{f.cells}}" as="c" hint-placeholder-count="2"><span class="ed-ms {{c.cls}}"><sc-if value="{{c.has}}" hint-placeholder-val="{{ true }}"><img src="{{c.src}}" alt=""></sc-if></span></sc-for></span><b><span>Spread {{f.n}}</span><i>{{f.missLabel}}</i></b></button></sc-for><button class="ed-add" onClick="{{addSpread}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add a spread</span></button></div>
 </section><aside class="ed-side" aria-label="Spread tools"><div class="ed-panel"><h2>This spread</h2>

@@ -82,6 +82,13 @@
       var what = idxs.length === 1 ? 'Spread ' + (idxs[0] + 1) : plural(idxs.length, 'spread');
       commit(nb, what + ' set to ' + name, '', 'Changed ' + what.toLowerCase() + ' to ' + name);
     }
+    /* photo gestures (editor/gestures.js): drag = focus area, pinch / Ctrl+wheel = zoom, hold + drag onto another frame = swap */
+    self.gesture = {
+      getSlot: function (si, fi) { var sp = book().spreads[si], t = sp && sp.slots[fi]; return t ? { z: t.z, x: t.x, y: t.y } : null; },
+      adjust: function (si, fi, p) { commit(E.ops.adjust(book(), si, fi, p), '', 'gest:' + si + ':' + fi); },
+      swap: function (si, a, c) { commit(E.ops.swapSlots(book(), si, a, c), 'Photos swapped', '', 'Swapped two photos on spread ' + (si + 1)); },
+      afterSwap: function (si, a, c) { set({ slot: c }); }
+    };
     self.layoutChoices = choices; self.applyLayout = applyLayout; self.target = lt;
     self.initial = function () {
       var bk = E.load(), pos = recall(), sp0 = pos ? Math.max(0, Math.min(bk.spreads.length - 1, pos.sp)) : 0;
@@ -108,11 +115,13 @@
         else if (!opts.noArrows && (e.key === 'Delete' || e.key === 'Backspace') && S().slot != null) { commit(E.ops.clearSlot(book(), S().sp, S().slot)); }
       };
       self._store = function (e) { if (e.key === E.KEY) set({ book: E.load(), tick: Date.now() }); };
+      if (window.MilesGestures) self._gx = MilesGestures.attach(self.gesture);
       document.addEventListener('keydown', self._key);
       window.addEventListener('storage', self._store);
       self._iv = setInterval(function () { set({ clock: Date.now() }); }, 15000);
     };
     self.unmount = function () {
+      if (self._gx) self._gx();
       document.removeEventListener('keydown', self._key); window.removeEventListener('storage', self._store); clearInterval(self._iv); clearTimeout(toastT);
     };
     self.undo = function () { var p = hist.undo(book()); if (p) { var b = E.save(p); set({ book: b, tick: Date.now(), sp: clampSp(b, S().sp), slot: null }); } };
@@ -135,7 +144,8 @@
         return {
           i: i, has: !!ph, empty: !ph, src: ph ? ph.src : '', alt: ph ? ph.name : '',
           cls: 'ed-slot' + (s.slot === i ? ' sel' : '') + (s.over === i ? ' over' : '') + (full ? ' full' : '') + ' ' + E.slotCls(sp, i),
-          img: ph ? 'object-position:' + sl.x + '% ' + sl.y + '%;transform:scale(' + sl.z + ');filter:brightness(' + (sl.b / 100) + ')' : '',
+          img: ph ? 'object-position:' + sl.x + '% ' + sl.y + '%;transform-origin:' + sl.x + '% ' + sl.y + '%;transform:scale(' + sl.z + ');filter:brightness(' + (sl.b / 100) + ')' : '',
+          si: s.sp, hasAttr: ph ? '1' : '0', selAttr: s.slot === i ? '1' : '0',
           low: !!(ph && ph.low), label: 'Frame ' + (i + 1) + (ph ? ': ' + ph.name : ': empty'),
           pick: function () { set({ slot: s.slot === i ? null : i }); },
           key: function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); set({ slot: s.slot === i ? null : i }); } },
@@ -218,7 +228,7 @@
         layouts: choices(s.sp).map(function (l) { return { id: l.id, name: l.name, mini: l.mini, cells: l.cells, on: l.on ? 'true' : 'false', pick: function () { applyLayout(l.id, [s.sp]); set({ slot: null }); } }; }),
         ltBoth: pressed(lt() === 'both'), ltLeft: pressed(lt() === 'left'), ltRight: pressed(lt() === 'right'),
         setLtBoth: function () { set({ lt: 'both' }); }, setLtLeft: function () { set({ lt: 'left' }); }, setLtRight: function () { set({ lt: 'right' }); },
-        ltHint: lt() === 'both' ? 'These layouts can run across both pages.' : 'Only the ' + lt() + ' page changes. The other page keeps its layout.',
+        ltHint: lt() === 'both' ? 'Full bleed and Panorama run one photo across both pages with no break in the middle.' : 'Only the ' + lt() + ' page changes. The other page keeps its layout.',
         layName: lay.name,
         hasSel: !!sel, hasPhoto: !!selPhoto, noSel: !sel, selName: selPhoto ? selPhoto.name : (sel ? 'Empty frame' : ''), selNo: s.slot != null ? s.slot + 1 : 0,
         selLow: !!(selPhoto && selPhoto.low),
