@@ -152,7 +152,7 @@ class Component extends DCLogic {
       send: (e) => { if (e && e.preventDefault) e.preventDefault(); if (digits.length < 9) set({ tried: true }); else set({ s: 1 }); },
       last4: digits.slice(-4) || '4567', back: () => set({ s: 0 }), verify: () => set({ s: 2 }),
       useEmail: () => set({ em: !st.em }), emailLabel: st.em ? 'We’ll email you a sign-in link instead ✓' : 'Continue with email',
-      boxes: code.map((d, i) => ({ v: d, cls: 'gl f', d: (i * 0.06) + 's' }))
+      boxes: code.map((d, i) => ({ v: d, cls: 'gl on', d: (i * 0.06) + 's' }))
     };
     return Object.assign(base, v);
   }
