@@ -13,7 +13,7 @@ Static site served from `public/` (Cloudflare Workers static assets via `wrangle
 | `public/css/` | all page CSS: `g.css` + `b-*.css` (shared), `p/<page>.css` (per page), `utilities.css` (what used to be `style=""`) |
 | `public/smooth.css`, `public/smooth.js` | shared motion layer, linked from every G / GL page |
 | `public/i18n.js`, `public/i18n/ar.js`, `css/i18n.css` | Arabic (RTL) for the customer pages and the customer editor (see below) |
-| `public/editor/`, `css/editor.css` | live book editor: `G23` / `GL23` (customer), `G70` / `GL70` (studio) |
+| `public/editor/`, `css/editor*.css` | live book editor workspace: `G23` / `G80`–`G89` (customer), `G70` / `G90`–`G99` (studio), see below |
 | `G71`–`G75`, `GL71`–`GL75` | team & permissions demo: members, invite, roles matrix, profile, activity log (design only) |
 | `archive/concepts/` | options A–F (see `archive/README.md`) |
 
@@ -36,7 +36,27 @@ The ع / EN button in the header of every customer page (G1–G23, dark and ligh
 * **To add or fix a sentence**: open the page in Arabic, run `milesI18n.keys()` in the console to see the English keys the page asks for, add the Arabic to `i18n-src/ar-g.json`, rebuild. A native reader should review the wording before launch.
 
 ## Live book editor
-`G23-Editor` (customer, linked from Account, Order, Upload) and `G70-Editor` (studio, linked from the Design stage) edit the same sample book: six layouts, drag and drop or tap to place photos, zoom / move / brighten, captions, add / duplicate / move / delete spreads, undo / redo, filmstrip, preview, safe-area overlay. Changes autosave to `localStorage` and show up live in the other editor (customer "Send to proof" appears in the studio at once). The studio side adds customer comments, print checks, versions and "Send proof round N". It is a prototype: no server, photos are the site's sample images.
+An eleven-page workspace per side, all editing the same sample book. Customer: `G23` canvas + `G80`–`G89`; studio: `G70` canvas + `G90`–`G99` (each with a `GL` light twin, 88 files).
+
+| Page | Customer | Studio | What it does |
+| --- | --- | --- | --- |
+| Canvas | `23` | `70` | drag and drop / tap to place photos, zoom, move, brighten, captions, 9 layouts, undo / redo, filmstrip, safe area |
+| Storyboard | `80` | `90` | every spread as a card: drag to reorder, multi-select, bulk layout / duplicate / delete, filters, flat plan by printed signature, print overview |
+| Photos | `81` | `91` | library: search, sort, filters, stars, notes, usage, possible duplicates, remove / restore, simulated upload |
+| Layouts | `82` | `92` | layout gallery for one or many spreads, fill empty frames, build spreads from unused photos |
+| Text | `83` | `93` | every caption in one list, proof-reader (double spaces, repeated words, ...), find and replace, caption font / size / alignment, CSV export |
+| Cover | `84` | `94` | live front / spine / back / open-flat cover: colour, foil, photo, title, back text |
+| Style | `85` | `95` | themes, page and text colour, margin, photo spacing, corners, photo border (the canvas, storyboard and flipbook follow) |
+| Flipbook | `86` | `96` | cover to cover reader: arrow keys, autoplay, zoom, full screen |
+| Print check | `87` | `97` | score, issues with one-tap fixes, pixel density per frame (studio can mark the book print-ready), CSV / JSON export |
+| History | `88` | `98` | saved versions (compare, restore with a safety copy), comments with replies, activity log |
+| Send / Hand-off | `89` | `99` | customer: checklist, diff since last proof, note, "Send to proof"; studio: print pack, send proof, lock design |
+
+* **One document.** `public/editor/core.js` holds the book (`localStorage` key `miles.editor.v1`) and every operation (pure functions returning a new book), plus the print check (`preflight`), version `diff`, text helpers and CSV. Customer and studio tabs see each other's changes live through the `storage` event.
+* **UI layer.** `editor/ui.js` (shared header values, undo / redo with typing coalesced into one step, activity log) and `editor/pages.js` (state and values for each workspace page).
+* **Pages are generated.** `node scripts/build-editor-pages.mjs` writes all 40 workspace pages (dark and light, both sides) from one source and patches the tab bar into the four canvas pages. Header, menus and footer are copied from `G23` / `GL23` and `G70` / `GL70`. Edit the script, not the generated files. It refuses static `style=""` (use a utility class in `css/editor-pages.css`).
+* **Styles.** `css/editor.css` (canvas) and `css/editor-pages.css` (workspace, tab bar, the book-look variables the canvas honours).
+* It is a prototype: no server, photos are the site's sample images, the print-check pixel sizes are sample metadata, and "upload" adds sample photos.
 
 ## Team & permissions (demo)
 Design-only pages for showing a client: Members, Invite a user, Roles & permissions matrix, a member profile, and the activity log (`G71`–`G75`, linked from Studio settings → Team). Nothing is saved.
