@@ -399,7 +399,7 @@
   }
 
   window.MilesEditor = {
-    KEY: KEY, load: load, save: save, reset: reset, layouts: layouts, layout: function (id) { return LAY[id]; }, lay: lay, pageLayouts: pageLayouts, pageLayout: function (id) { return PL[id]; }, slotCls: slotCls, cellsFor: cellsFor, photos: photos, photoById: photoById,
+    KEY: KEY, load: load, save: save, reset: reset, layouts: layouts, layout: function (id) { return LAY[id]; }, lay: lay, pageLayouts: pageLayouts, pageLayout: function (id) { return PL[id]; }, slotCls: slotCls, slotGeo: slotGeo, cellsFor: cellsFor, photos: photos, photoById: photoById,
     ops: ops, stats: stats, usedMap: usedMap, History: History, timeLabel: timeLabel, ago: ago, clone: clone,
     themes: THEMES, fonts: FONTS, coverColours: COVER_COLOURS, foils: FOILS, defaults: { style: DEFAULT_STYLE, cover: DEFAULT_COVER },
     library: visible, inLibrary: inLibrary, isStar: isStar, dpi: dpi, preflight: preflight, diff: diff, textItems: textItems, proof: proof, csv: csv, base: BASE

@@ -570,6 +570,153 @@
     };
   };
 
+
+  /* =========================================================================================================
+     EASY MODE (phones): the same book, one job per screen.
+       Photos  ->  Pages (one screen per book page, with an overview on every screen)  ->  Cover  ->  Send
+     ========================================================================================================= */
+  var EZ_N = 'miles.editor.easy.n';
+  /* what a single book page (1-based) holds: its frames (as fractions of that page), text, and whether it is finished */
+  function pageInfo(b, n) {
+    var si = Math.floor((n - 1) / 2), side = (n - 1) % 2, sp = b.spreads[si];
+    if (!sp) return null;
+    var L = E.lay(sp), x0 = side ? .5 : 0, x1 = x0 + .5, frames = [];
+    sp.slots.forEach(function (t, i) {
+      var g = E.slotGeo(sp, i); if (!g) return;
+      var a = Math.max(g[0], x0), c = Math.min(g[0] + g[2], x1); if (c - a <= .001) return;
+      frames.push({ i: i, x: (a - x0) * 2, y: g[1], w: (c - a) * 2, h: g[3], spans: g[2] > .51 });
+    });
+    var text = side ? L.textR : L.textL;
+    var done = frames.every(function (f) { return sp.slots[f.i].p; }) && (!text || !!sp.caps[side].trim());
+    return { n: n, si: si, side: side, sp: sp, L: L, frames: frames, text: text, done: done };
+  }
+  function readN(total) {
+    var n = 0;
+    try { var m = /[?&]n=(\d+)/.exec(location.search); n = m ? +m[1] : +(localStorage.getItem(EZ_N) || 0); } catch (e) {}
+    return Math.max(1, Math.min(total, n || 1));
+  }
+  function easyCommon(x, step) {
+    var S = x.S, set = x.set, ed = x.ed, H = x.opts.easy || {};
+    function go(href) { location.href = href; }
+    function openPage(n) { try { localStorage.setItem(EZ_N, String(n)); } catch (e) {} if (step === 2) { set({ ezn: n, fr: 0, sheet: false }); try { history.replaceState(null, '', '?n=' + n); } catch (e) {} window.scrollTo && window.scrollTo(0, 0); } else go(H.page + '?n=' + n); }
+    return {
+      mount: function () { try { sessionStorage.removeItem('miles.easy.off'); } catch (e) {} },
+      vals: function (cur) {
+        var b = ed.book(), total = b.spreads.length * 2, infos = []; for (var n = 1; n <= total; n++) infos.push(pageInfo(b, n));
+        var doneN = infos.filter(function (i) { return i.done; }).length, st = E.stats(b), cv = b.coverDesign;
+        var frames = infos.reduce(function (s, i) { return s + i.frames.length; }, 0);
+        var done = { 1: E.library(b).length >= Math.min(frames, 8), 2: doneN === total, 3: !!cv.title.trim(), 4: b.status !== 'draft' };
+        var STEP = [[1, 'Photos', H.photos], [2, 'Pages', H.page], [3, 'Cover', H.cover], [4, 'Send', H.send]];
+        var firstTodo = infos.filter(function (i) { return !i.done; })[0];
+        var curN = cur || 0;
+        var nextHref = !done[1] ? H.photos : firstTodo ? H.page + '?n=' + firstTodo.n : !done[3] ? H.cover : H.send;
+        return {
+          ezSteps: STEP.map(function (s) { return { n: s[0], name: s[1], href: s[2], cls: 'ez-st' + (s[0] === step ? ' now' : '') + (done[s[0]] && s[0] !== step ? ' done' : ''), cur: s[0] === step ? 'step' : 'false', done: !!done[s[0]], label: 'Step ' + s[0] + ', ' + s[1] + (done[s[0]] ? ', done' : '') }; }),
+          ezStepNo: step, ezPagesN: total, ezDoneN: doneN, ezTodoN: total - doneN, ezPct: (doneN / total).toFixed(3), ezAllDone: doneN === total,
+          ezOvLabel: doneN + ' of ' + total + ' pages done' + (total < b.pagesTotal ? ' · your book has ' + b.pagesTotal + ' pages' : ''),
+          ezPages: infos.map(function (i) {
+            return { n: i.n, lay: i.sp.lay, cells: E.cellsFor(i.sp, E.photoById), sideCls: 'ew-half ' + (i.side ? 'r' : 'l'), cls: 'ez-pg' + (i.n === curN ? ' now' : '') + (i.done ? ' done' : ''), cur: i.n === curN ? 'page' : 'false',
+              done: i.done, todo: !i.done, label: 'Page ' + i.n + (i.done ? ', done' : ', still to do'), go: function () { openPage(i.n); } };
+          }),
+          ezAdd: function () { ed.commit(E.ops.addSpread(ed.book(), ed.book().spreads.length - 1), 'Two pages added at the end', '', 'Added 2 pages'); },
+          ezFull: H.full, ezHome: H.home, ezNextHref: nextHref, ezContinue: function () { go(nextHref); },
+          ezGoHome: function () { go(H.home); }, ezTitle: b.title, ezBookPages: b.pagesTotal,
+          ezNextLabel: !done[1] ? 'Add your photos' : firstTodo ? 'Design page ' + firstTodo.n : !done[3] ? 'Finish the cover' : done[4] ? 'See where it is' : 'Send to proof',
+          ezStartLabel: doneN === 0 ? 'Start designing' : doneN === total ? 'Review and send' : 'Continue with page ' + (firstTodo ? firstTodo.n : 1),
+          ezDoneSteps: STEP.map(function (s) { return { n: s[0], name: s[1], href: s[2], done: !!done[s[0]], cls: 'ez-card ez-step' + (done[s[0]] ? ' done' : ''), line: ({ 1: E.library(b).length + ' photos ready', 2: doneN + ' of ' + total + ' pages done', 3: (cv.title || 'No title yet') + ' · ' + cv.color, 4: b.status === 'draft' ? 'Not sent yet' : b.status === 'proof-requested' ? 'Waiting for the studio' : b.status === 'proof-sent' ? 'Proof sent to you' : 'Design locked' })[s[0]], go: function () { go(s[2]); } }; }),
+          ezNextStepLabel: STEP[Math.min(step, 3)][1]
+        };
+      }
+    };
+  }
+  builders.easyhome = function (x) {
+    var c = easyCommon(x, 0);
+    return { initial: function () { return {}; }, mount: c.mount, vals: function () { return c.vals(0); } };
+  };
+  builders.easyphotos = function (x) {
+    var inner = builders.photos(x), c = easyCommon(x, 1), H = x.opts.easy, ed = x.ed;
+    return {
+      initial: function () { var s = inner.initial(); s.phf = 'all'; return s; },
+      mount: c.mount, unmount: inner.unmount,
+      vals: function () {
+        var v = Object.assign(inner.vals(), c.vals(0)), b = ed.book();
+        v.phTiles = v.phTiles.map(function (t) { var p = E.photoById(t.id); t.tog = function () { ed.commit(E.ops.setStar(ed.book(), p.id, !E.isStar(ed.book(), p))); }; t.starOn = pressed(t.star); return t; });
+        v.ezBackLabel = 'Back'; v.ezBack = c.vals(0).ezGoHome; v.ezNext = function () { location.href = H.page; }; v.ezNextBtn = 'Next: design pages';
+        v.ezPhHint = E.library(b).length + ' photos. Tap the star on the ones you love most.';
+        return v;
+      }
+    };
+  };
+  builders.easycover = function (x) {
+    var inner = builders.cover(x), c = easyCommon(x, 3), H = x.opts.easy;
+    return {
+      initial: inner.initial, mount: c.mount,
+      vals: function () { var v = Object.assign(inner.vals(), c.vals(0)); v.ezBack = function () { location.href = H.page; }; v.ezNext = function () { location.href = H.send; }; v.ezBackLabel = 'Back'; v.ezNextBtn = 'Next: send'; return v; }
+    };
+  };
+  builders.easysend = function (x) {
+    var inner = builders.send(x), c = easyCommon(x, 4), H = x.opts.easy;
+    return {
+      initial: inner.initial, mount: c.mount,
+      vals: function () { var v = Object.assign(inner.vals(), c.vals(0)); v.ezBack = function () { location.href = H.cover; }; v.ezBackLabel = 'Back'; return v; }
+    };
+  };
+  /* Step 2: the main job. One book page per screen. */
+  builders.easypage = function (x) {
+    var S = x.S, set = x.set, ed = x.ed, H = x.opts.easy, c = easyCommon(x, 2);
+    return {
+      initial: function () { return { ezn: readN(E.load().spreads.length * 2), fr: 0, sheet: false, shf: 'unused' }; },
+      mount: function () { c.mount(); var t = S().ezn; try { localStorage.setItem(EZ_N, String(t)); } catch (e) {} },
+      vals: function () {
+        var s = S(), b = ed.book(), total = b.spreads.length * 2, n = Math.max(1, Math.min(total, s.ezn)), info = pageInfo(b, n), sp = info.sp, side = info.side;
+        var base = c.vals(n), fr = Math.max(0, Math.min(info.frames.length - 1, s.fr)), cur = info.frames[fr], slot = cur ? sp.slots[cur.i] : null, ph = slot && slot.p ? E.photoById(slot.p) : null;
+        var used = E.usedMap(b);
+        function move(to) { if (to < 1) { location.href = H.photos; return; } if (to > total) { location.href = H.cover; return; } try { localStorage.setItem(EZ_N, String(to)); history.replaceState(null, '', '?n=' + to); } catch (e) {} set({ ezn: to, fr: 0, sheet: false }); window.scrollTo && window.scrollTo(0, 0); }
+        function adj(patch, key) { if (!cur) return; ed.commit(E.ops.adjust(ed.book(), info.si, cur.i, patch), '', 'ez:' + n + ':' + cur.i + ':' + key); }
+        var pageName = 'Page ' + n;
+        var boxes = info.frames.map(function (f, k) {
+          var t = sp.slots[f.i], p = t.p ? E.photoById(t.p) : null, on = k === fr;
+          return { k: k + 1, has: !!p, empty: !p, src: p ? p.src : '', alt: p ? p.name : '', img: p ? imgStyle(t) : '', low: !!(p && p.low),
+            box: 'left:' + (f.x * 100).toFixed(2) + '%;top:' + (f.y * 100).toFixed(2) + '%;width:' + (f.w * 100).toFixed(2) + '%;height:' + (f.h * 100).toFixed(2) + '%',
+            cls: 'ez-fr' + (on ? ' sel' : ''), label: 'Frame ' + (k + 1) + (p ? ': ' + p.name : ': empty') + (on ? ', selected' : ''), pick: function () { set({ fr: k }); if (!p) set({ sheet: true }); } };
+        });
+        var tiles = E.library(b).filter(function (p) { return s.shf === 'all' || !used[p.id] || (slot && slot.p === p.id); }).sort(function (a, c2) { return (a.low ? 1 : 0) - (c2.low ? 1 : 0); }).map(function (p) {
+          return { id: p.id, src: p.src, name: p.name, low: p.low, onPage: used[p.id] ? 'Page ' + (used[p.id] * 2 - 1) + '–' + (used[p.id] * 2) : '', hasOn: !!used[p.id], cls: 'ez-tile' + (slot && slot.p === p.id ? ' sel' : ''), label: p.name + (used[p.id] ? ', already used on spread ' + used[p.id] : ''),
+            pick: function () { if (!cur) return; ed.commit(E.ops.place(ed.book(), info.si, cur.i, p.id), 'Photo added to page ' + n, '', 'Placed ' + p.name + ' on page ' + n); set({ sheet: false }); } };
+        });
+        var lays = E.pageLayouts.map(function (l) {
+          var cells = l.cells.map(function (cc, i) { return { k: i, cls: 'gc' + cc[0] + '_' + cc[1] + ' gr' + cc[2] + '_' + cc[3] }; }); if (l.text) cells.push({ k: 0, cls: 'txt gc1_3 gr1_7' });
+          var mine = info.L.split ? (side ? info.L.right : info.L.left) : null;
+          return { id: l.id, name: l.name, mini: 'pagei', cells: cells, on: pressed(!!mine && mine.id === l.id), label: l.name + ' layout for page ' + n,
+            pick: function () { ed.commit(E.ops.setPageLayout(ed.book(), info.si, side, l.id), 'Page ' + n + ': ' + l.name, '', 'Page ' + n + ' set to ' + l.name); set({ fr: 0 }); } };
+        });
+        var spans = info.frames.some(function (f) { return f.spans; });
+        var v = {
+          ezN: n, ezTotal: total, ezHead: pageName, ezOf: 'Page ' + n + ' of ' + total, ezSpread: 'Spread ' + (info.si + 1) + ' · pages ' + (info.si * 2 + 1) + '–' + (info.si * 2 + 2) + (side ? ' · right page' : ' · left page'),
+          ezBoxes: boxes, ezHasFrames: boxes.length > 0, ezNoFrames: boxes.length === 0, ezIsText: info.text, ezNotText: !info.text, ezBlank: !boxes.length && !info.text,
+          ezSpans: spans, ezSpansLabel: 'A photo runs across pages ' + (info.si * 2 + 1) + '–' + (info.si * 2 + 2) + '. Pick a layout below to give this page its own design.',
+          ezLays: lays, ezCap: sp.caps[side], ezCapLabel: info.text ? 'Write the story for this page' : 'Caption (optional)',
+          onEzCap: function (e) { ed.commit(E.ops.setCaption(ed.book(), info.si, side, e.target.value), '', 'ezcap:' + n); },
+          ezHasFr: !!cur, ezFrLabel: cur ? 'Frame ' + (fr + 1) + ' of ' + info.frames.length : '', ezHasPhoto: !!ph, ezNoPhoto: !ph && !!cur, ezFrName: ph ? ph.name : 'Empty frame',
+          ezFrLow: !!(ph && ph.low), ezChoose: function () { set({ sheet: true }); }, ezChooseLabel: ph ? 'Change photo' : 'Choose a photo',
+          ezRemove: function () { if (!cur) return; ed.commit(E.ops.clearSlot(ed.book(), info.si, cur.i), 'Photo removed'); },
+          ezZin: function () { adj({ z: Math.min(3, +((slot.z || 1) + .2).toFixed(2)) }, 'z'); }, ezZout: function () { adj({ z: Math.max(1, +((slot.z || 1) - .2).toFixed(2)) }, 'z'); },
+          ezZ: slot ? Math.round(slot.z * 100) + '%' : '', ezReset: function () { adj({ z: 1, x: 50, y: 50, b: 100 }, 'r'); },
+          ezPx: slot ? slot.x : 50, ezPy: slot ? slot.y : 50, ezPxL: slot ? slot.x + '%' : '', ezPyL: slot ? slot.y + '%' : '',
+          onEzPx: function (e) { adj({ x: +e.target.value }, 'x'); }, onEzPy: function (e) { adj({ y: +e.target.value }, 'y'); },
+          ezSheet: s.sheet && !!cur, ezCloseSheet: function () { set({ sheet: false }); }, ezTiles: tiles, ezNoTiles: tiles.length === 0,
+          ezShUn: pressed(s.shf === 'unused'), ezShAll: pressed(s.shf === 'all'), ezSetUn: function () { set({ shf: 'unused' }); }, ezSetAll: function () { set({ shf: 'all' }); },
+          ezShTitle: 'Choose a photo for page ' + n,
+          ezPrev: function () { move(n - 1); }, ezNext: function () { move(n + 1); },
+          ezBackBtn: n === 1 ? 'Photos' : 'Page ' + (n - 1), ezNextBtn: n === total ? 'Cover' : 'Page ' + (n + 1),
+          ezPageDone: info.done, ezPageTodo: !info.done, ezDoneLabel: info.done ? 'This page is done' : (info.frames.some(function (f) { return !sp.slots[f.i].p; }) ? 'Add a photo to every frame' : 'Write the story'),
+          ezDup: function () { ed.commit(E.ops.duplicateSpread(ed.book(), info.si), 'Spread duplicated (photos not copied)'); }
+        };
+        return Object.assign(base, v);
+      }
+    };
+  };
+
   /* ---------- glue ---------- */
   function create(name, ed, c, opts) {
     opts = opts || {};

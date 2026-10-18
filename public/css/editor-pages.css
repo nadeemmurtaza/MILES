@@ -379,3 +379,112 @@
   .ed .ew-lay .ed-mini[data-lay="pagei"] { inline-size: 52%; justify-self: center; }
   .ed .ew-layrow .ed-mini[data-lay="pagei"] { inline-size: 62%; }
 }
+
+/* ---------- Easy mode (phones): one job per screen. Every control is at least 44 px, text fields are 16 px (no iOS zoom),
+   the Back / Next bar is fixed to the bottom edge and respects the home-indicator safe area. ---------- */
+@layer g {
+  .ed.ezm:not(.ed-studio) { padding-inline: 0; padding-block-start: 104px; }
+  .ez { max-inline-size: 760px; margin-inline: auto; padding: 0 16px 120px; display: grid; gap: 16px; }
+  .ez * { box-sizing: border-box; }
+  .ez-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+  .ez-h1 { font: 400 clamp(28px, 7vw, 40px)/1.1 Fraunces, Georgia, serif; margin: 2px 0 0; }
+  .ez-lead { margin: 8px 0 0; font-size: 16px; line-height: 1.5; color: var(--e-mu); }
+  .ez-card { padding: 16px; border-radius: 20px; background: var(--e-glass); box-shadow: inset 0 0 0 1px var(--e-line), 0 24px 50px -34px var(--e-shadow); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); display: grid; gap: 12px; min-inline-size: 0; }
+  .ez-card h2 { margin: 0; }
+  .ez .ed-btn.lg { min-block-size: 56px; padding-inline: 20px; font-size: 16px; border-radius: 16px; }
+  .ez .ed-btn.lg.pri { flex: 1; }
+  .ez .ed-btn.sq { min-block-size: 48px; inline-size: 48px; }
+  .ez input[type="text"], .ez textarea { font-size: 16px; min-block-size: 52px; }
+  .ez .ed-field label { font-size: 15px; }
+  .ez .ed-seg button { min-block-size: 44px; font-size: 14px; }
+  .ez .ew-sw button { inline-size: 48px; block-size: 48px; }
+  .ez .ew-sw2 { inline-size: 56px; block-size: 32px; border-radius: 16px; } .ez .ew-sw2::after { inline-size: 26px; block-size: 26px; } .ez .ew-sw2[aria-pressed="true"]::after { transform: translateX(24px); }
+  [dir="rtl"] .ez .ew-sw2[aria-pressed="true"]::after { transform: translateX(-24px); }
+
+  /* progress: Photos / Pages / Cover / Send */
+  .ez-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; }
+  .ez-st { display: grid; justify-items: center; gap: 4px; padding: 8px 4px; min-block-size: 60px; border-radius: 14px; text-decoration: none; color: var(--e-mu); font-size: 13px; font-weight: 800; background: var(--e-glass); box-shadow: inset 0 0 0 1px var(--e-line); }
+  .ez-st i { inline-size: 28px; block-size: 28px; border-radius: 50%; display: grid; place-items: center; font-style: normal; font-size: 14px; background: var(--e-line); color: var(--e-fg); }
+  .ez-st.done i { background: var(--e-ok); color: var(--black); font-size: 0; } .ez-st.done i::after { content: "✓"; font-size: 15px; }
+  .ez-st.now { background: var(--e-acc); color: var(--e-on-acc); box-shadow: none; } .ez-st.now i { background: var(--e-on-acc); color: var(--e-acc); }
+
+  /* home */
+  .ez-hero { text-align: center; justify-items: stretch; }
+  .ez-stepcards { display: grid; gap: 10px; }
+  .ez-step { grid-template-columns: auto minmax(0, 1fr) auto; align-items: center; text-align: start; border: 0; cursor: pointer; font: inherit; color: inherit; min-block-size: 76px; }
+  .ez-step i { inline-size: 40px; block-size: 40px; border-radius: 50%; display: grid; place-items: center; background: var(--e-line); font-style: normal; font-weight: 800; }
+  .ez-step.done i { background: var(--e-ok); color: var(--black); }
+  .ez-step b { display: block; font-size: 17px; } .ez-step small { color: var(--e-mu); font-size: 14px; font-weight: 600; }
+
+  /* the page being designed */
+  .ez-pagev { position: relative; inline-size: min(100%, 360px); aspect-ratio: .8; margin-inline: auto; background: var(--pg-bg, var(--e-paper)); color: var(--pg-ink, var(--e-paper-ink)); border-radius: 6px; box-shadow: 0 24px 50px -26px var(--e-shadow), 0 0 0 1px rgb(from var(--black) r g b / .08); overflow: hidden; }
+  .ez-fr { position: absolute; padding: 4px; border: 0; background: transparent; cursor: pointer; min-inline-size: 44px; min-block-size: 44px; }
+  .ez-fi { position: relative; display: block; inline-size: 100%; block-size: 100%; overflow: hidden; border-radius: var(--rad, 2px); background: rgb(from var(--pg-ink, var(--e-paper-ink)) r g b / .07); outline: 2px dashed rgb(from var(--pg-ink, var(--e-paper-ink)) r g b / .3); outline-offset: -2px; }
+  .ez-fr:has(img) .ez-fi { outline: 0; }
+  .ez-fr.sel .ez-fi { outline: 4px solid var(--e-acc); outline-offset: -4px; }
+  .ez-fi img { position: absolute; inset: 0; inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+  .ez-add { position: absolute; inset: 0; display: grid; place-content: center; justify-items: center; gap: 4px; font-size: 14px; font-weight: 800; color: rgb(from var(--pg-ink, var(--e-paper-ink)) r g b / .7); text-align: center; padding: 4px; }
+  .ez-no { position: absolute; inset-block-start: 6px; inset-inline-end: 6px; min-inline-size: 24px; block-size: 24px; border-radius: 12px; padding-inline: 6px; display: grid; place-items: center; font-size: 12px; background: var(--e-acc); color: var(--e-on-acc); }
+  .ez-fi .ed-warn { position: absolute; inset-block-end: 6px; inset-inline-start: 6px; padding: 3px 8px; border-radius: 8px; background: var(--e-warn); color: var(--black); font-size: 11px; font-weight: 800; }
+  .ez-text { position: absolute; inset: 0; display: grid; padding: 8%; }
+  .ez-text textarea { inline-size: 100%; block-size: 100%; border: 0; background: transparent; resize: none; font: 400 20px/1.4 Fraunces, Georgia, serif; font-style: italic; color: inherit; text-align: var(--cap-align, start); padding: 8px; }
+  .ez-blank { position: absolute; inset: 0; display: grid; place-content: center; padding: 12%; text-align: center; font-weight: 700; opacity: .55; }
+  .ez-state { display: flex; align-items: center; justify-content: center; gap: 8px; margin: 0; font-size: 15px; font-weight: 800; color: var(--e-mu); }
+  .ez-state.true { color: var(--e-ok); }
+  .ez-lab { display: flex; align-items: center; gap: 10px; font: 800 14px/1.2 Manrope, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: var(--e-mu); }
+  .ez-lab i { inline-size: 28px; block-size: 28px; border-radius: 50%; display: grid; place-items: center; background: var(--e-acc); color: var(--e-on-acc); font-style: normal; letter-spacing: 0; }
+  .ez-lays { display: flex; gap: 8px; overflow-x: auto; padding: 4px 2px 8px; scroll-snap-type: x proximity; -webkit-overflow-scrolling: touch; }
+  .ez-lay { flex: none; inline-size: 84px; display: grid; justify-items: center; gap: 6px; padding: 8px 4px; border: 0; border-radius: 14px; background: var(--e-glass); box-shadow: inset 0 0 0 1px var(--e-line); cursor: pointer; scroll-snap-align: start; color: var(--e-mu); font-weight: 800; }
+  .ez-lay small { font-size: 12px; line-height: 1.2; text-align: center; }
+  .ez-lay[aria-pressed="true"] { box-shadow: inset 0 0 0 3px var(--e-acc); color: var(--e-fg); }
+  .ez-lay .ed-mini { inline-size: 44px; aspect-ratio: .8; background: var(--e-paper); border-radius: 3px; display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: repeat(6, 1fr); padding: 8%; }
+  .ez-lay .ed-ms { margin: 1px; background: rgb(from var(--e-paper-ink) r g b / .4); }
+  .ez-zoom { display: flex; align-items: center; gap: 10px; font-weight: 800; flex-wrap: wrap; } .ez-zoom b { min-inline-size: 56px; text-align: center; font-variant-numeric: tabular-nums; }
+  .ez-more summary { cursor: pointer; min-block-size: 44px; display: flex; align-items: center; font-weight: 800; font-size: 15px; color: var(--e-acc); }
+  .ez-phgrid { --ph: 96px; }
+  .ez-phgrid .ew-ph .ed-st { inset-block-start: 6px; inset-inline-end: 6px; }
+
+  /* overview on every screen */
+  .ez-ovh { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+  .ez-ovgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 10px 8px; }
+  .ez-pg { position: relative; display: grid; gap: 4px; justify-items: center; padding: 6px 4px; border: 0; border-radius: 12px; background: transparent; cursor: pointer; color: inherit; font-weight: 800; font-size: 13px; min-block-size: 44px; font-variant-numeric: tabular-nums; }
+  .ez-pg .ew-half { inline-size: 100%; }
+  .ez-pg.now { background: var(--e-glass-2); box-shadow: inset 0 0 0 3px var(--e-acc); }
+  .ez-pg.done b::after { content: " ✓"; color: var(--e-ok); }
+  .ez-dot { position: absolute; inset-block-start: 4px; inset-inline-end: 6px; inline-size: 12px; block-size: 12px; border-radius: 50%; background: var(--e-warn); box-shadow: 0 0 0 2px var(--e-paper); }
+  .ez-full { text-align: center; margin: 0; }
+
+  /* sticky Back / Next */
+  .ez-bar { position: fixed; inset-inline: 0; inset-block-end: 0; z-index: 40; display: flex; gap: 10px; padding: 12px 16px calc(12px + env(safe-area-inset-bottom)); background: rgb(from var(--e-paper) r g b / .86); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); box-shadow: 0 -1px 0 var(--e-line), 0 -20px 40px -30px var(--e-shadow); justify-content: center; }
+  .ez-bar .ed-btn { max-inline-size: 360px; } .ez-bar .ed-btn:not(.pri) { flex: 0 0 auto; } .ez-bar .ed-btn.pri { flex: 1; }
+
+  /* photo chooser: a bottom sheet */
+  .ez-sheet-bg { position: fixed; inset: 0; z-index: 60; background: rgb(from var(--black) r g b / .5); }
+  .ez-sheet { position: fixed; inset-inline: 0; inset-block-end: 0; z-index: 61; max-block-size: 82vh; display: grid; grid-template-rows: auto auto minmax(0, 1fr); gap: 12px; padding: 16px 16px calc(16px + env(safe-area-inset-bottom)); border-radius: 24px 24px 0 0; background: var(--e-paper); color: var(--e-paper-ink); box-shadow: 0 -30px 60px -20px var(--e-shadow); animation: ez-up .35s cubic-bezier(.16, 1, .3, 1) both; max-inline-size: 760px; margin-inline: auto; }
+  @keyframes ez-up { from { transform: translateY(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+  .ez-sheet header { display: flex; align-items: center; justify-content: space-between; gap: 12px; font-size: 17px; }
+  .ez-sheet .ed-seg { margin: 0; }
+  .ez-tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; overflow-y: auto; align-content: start; -webkit-overflow-scrolling: touch; padding: 2px; }
+  .ez-tile { position: relative; aspect-ratio: 1; padding: 0; border: 0; border-radius: 12px; overflow: hidden; cursor: pointer; background: var(--e-glass); box-shadow: inset 0 0 0 1px var(--e-line); }
+  .ez-tile img { inline-size: 100%; block-size: 100%; object-fit: cover; display: block; }
+  .ez-tile.sel { box-shadow: 0 0 0 4px var(--e-acc); }
+  .ez-tile .ed-lo { position: absolute; inset-block-start: 6px; inset-inline-start: 6px; padding: 2px 6px; border-radius: 6px; background: var(--e-warn); color: var(--black); font-size: 11px; font-weight: 800; }
+  .ez-on { position: absolute; inset-block-end: 6px; inset-inline-start: 6px; padding: 2px 6px; border-radius: 6px; background: rgb(from var(--black) r g b / .62); color: var(--white); font-size: 11px; font-weight: 800; }
+
+  /* how the full editor points at this mode */
+  .ed-ws-easy { background: var(--e-acc); color: var(--e-on-acc) !important; } .ed-ws-easy:hover { filter: brightness(1.08); }
+  .ed-ws-hint { display: none; margin: 0 0 10px; padding: 12px 14px; border-radius: 14px; background: var(--e-glass); box-shadow: inset 0 0 0 1px var(--e-line); font-size: 15px; font-weight: 700; }
+  @media (max-width: 700px) { .ed-ws-hint { display: block; } .ez-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  @media (min-width: 701px) { .ez-tiles { grid-template-columns: repeat(5, minmax(0, 1fr)); } .ez-bar { padding-inline: max(16px, calc((100vw - 760px) / 2)); } }
+  @media print { .ez-bar, .ez-sheet, .ez-sheet-bg { display: none !important; } }
+  @media (prefers-reduced-motion: reduce) { .ez-sheet { animation: none; } }
+}
+
+@layer g {
+  /* the chooser scrolls, so its square tiles need explicit row heights (a height-limited grid of overflow:hidden items would collapse) */
+  .ez-tiles { --cols: 3; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); grid-auto-rows: calc((min(100vw, 760px) - 32px - (var(--cols) - 1) * 8px - 4px) / var(--cols)); }
+  @media (min-width: 701px) { .ez-tiles { --cols: 5; } }
+  .ez-tile { aspect-ratio: auto; min-block-size: 0; }
+  .ez .ew-step small { display: none; }
+  .ez .ew-step { padding-block-start: 16px; font-size: 14px; }
+}
