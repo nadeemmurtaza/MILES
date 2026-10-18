@@ -308,10 +308,11 @@ function wsNav(side, edition, page) {
   const badge = { printcheck: IF('hasBadgeCheck', '<b class="{{badgeCheckCls}}">{{badgeCheck}}</b>', false), history: IF('hasBadgeHist', '<b class="ed-badge">{{badgeHist}}</b>', false) };
   const easy = `<a class="ed-ws-easy" href="${easyFile(edition, 'home', side)}">${ic('steps')}<span>Step by step</span></a>`;
   const hint = `<p class="ed-ws-hint">On a phone? <a class="ew-link" href="${easyFile(edition, 'home', side)}">Step-by-step mode</a> is much easier.</p>`;
+  const more = s.studio ? `<a class="ed-ws-more" href="${edition}132-PhotoAccess.dc.html">${ic('check')}<span>Privacy &amp; data</span></a>` : `<a class="ed-ws-more" href="${edition}127-SmartAssist.dc.html">${ic('wand')}<span>Extras</span></a>`;   // design-only pages: build-design-pages.mjs
   return `<!--ws-->${hint}<nav class="ed-ws" aria-label="Editor pages">${easy}${PAGES.map(([id, label, , icon]) => {
     const l = id === 'send' ? s.sendLabel : label;
     return `<a href="${h[id]}"${id === page ? ' aria-current="page"' : ''}>${ic(icon)}<span>${l}</span>${badge[id] || ''}</a>`;
-  }).join('')}</nav><!--/ws-->`;
+  }).join('')}${more}</nav><!--/ws-->`;
 }
 
 function assemble(side, edition, page) {
