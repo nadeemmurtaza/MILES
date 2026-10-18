@@ -1,0 +1,45 @@
+/* Customer account sidebars: a slim rail of sections, then the pages of the section you are in (built by /account-nav.js). Desktop only. */
+.an { display: none; }
+@media (min-width: 1100px) {
+  .an { display: block; }
+  body.an-on { --an-fg: var(--ivory); --an-bg: rgb(from var(--c-0e2620) r g b / .6); --an-rail: 76px; --an-sub: 0px; --an-top: 108px; }
+  body.an-on:has([data-hide="1"]) { --an-top: 12px; }
+  body.an-on .nav.nv2 ~ * { padding-inline-start: calc(var(--an-rail) + var(--an-sub) + 22px); transition: padding .4s cubic-bezier(.16, 1, .3, 1); }
+  body.an-on.an-light { --an-fg: var(--forest-ink); --an-bg: rgb(from var(--c-fffcf6) r g b / .88); }
+  body.an-on.an-sub-on { --an-sub: 232px; }
+  body.an-on nav.subnav { display: none; }
+  body.an-on .subnav-top { display: none; }
+  .an-rail, .an-sub { position: fixed; inset-block: var(--an-top) 12px; transition: inset-block-start .5s cubic-bezier(.16, 1, .3, 1); z-index: 55; display: flex; flex-direction: column; gap: 2px; box-sizing: border-box; border-radius: 16px; color: var(--an-fg);
+    background: var(--an-bg); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat));
+    box-shadow: inset 0 0 0 1px rgb(from var(--an-fg) r g b / .14), 0 24px 48px -28px rgb(from var(--c-071a15) r g b / .5); }
+  .an-rail { inset-inline-start: 12px; inline-size: 64px; padding: 14px 8px; }
+  .an-sub { inset-inline-start: 84px; inline-size: 224px; padding: 18px 10px; overflow-y: auto; scrollbar-width: thin; transform: translateX(-12px); opacity: 0; visibility: hidden; pointer-events: none; transition: opacity .35s, transform .45s cubic-bezier(.16, 1, .3, 1), visibility 0s .45s, inset-block-start .5s cubic-bezier(.16, 1, .3, 1); }
+  [dir="rtl"] .an-sub { transform: translateX(12px); }
+  body.an-sub-on .an-sub { transform: none; opacity: 1; visibility: visible; pointer-events: auto; transition-delay: 0s; }
+  .an-rl { position: relative; display: grid; place-items: center; min-block-size: 44px; border-radius: 12px; border: 0; background: none; font: 0/0 Manrope, sans-serif; color: rgb(from var(--an-fg) r g b / .74); text-decoration: none; cursor: pointer; transition: background .3s, color .3s; }
+  .an-rl span { position: absolute; inline-size: 1px; block-size: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .an-rl:hover { background: rgb(from var(--an-fg) r g b / .08); color: var(--an-fg); }
+  .an-rl.on, .an-tog.on { background: rgb(from var(--an-fg) r g b / .14); color: var(--an-fg); }
+  .an-rl.on::before { content: ""; position: absolute; inset-inline-start: -4px; inset-block: 14px; inline-size: 4px; border-radius: 4px; background: var(--gold); }
+  .an-tog svg { transition: transform .35s; }
+  .an-tog.on svg { transform: rotate(180deg); }
+  [dir="rtl"] .an-tog svg { transform: scaleX(-1); }
+  [dir="rtl"] .an-tog.on svg { transform: none; }
+  .an-gap { flex: 1; }
+  .an-rl:focus-visible, .an-sub a:focus-visible, .an-x:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+  /* tooltip so the icon-only rail is still readable */
+  .an-rl::after { content: attr(title); position: absolute; inset-inline-start: calc(100% + 10px); inset-block-start: 50%; translate: 0 -50%; padding: 6px 10px; border-radius: 8px; background: var(--forest-ink); color: #fff; font: 700 12px/1 Manrope, sans-serif; white-space: nowrap; opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 2; }
+  .an-rl:hover::after, .an-rl:focus-visible::after { opacity: 1; }
+  .an-sh { display: flex; align-items: center; justify-content: space-between; padding: 2px 6px 12px 12px; }
+  .an-sh b { font: 600 21px/1.15 Fraunces, serif; color: var(--an-fg); }
+  .an-x { inline-size: 36px; block-size: 36px; display: grid; place-items: center; border: 0; border-radius: 8px; background: none; color: rgb(from var(--an-fg) r g b / .74); cursor: pointer; flex: none; }
+  .an-x:hover { background: rgb(from var(--an-fg) r g b / .08); color: var(--an-fg); }
+  [dir="rtl"] .an-x svg { transform: scaleX(-1); }
+  .an-sg { font: 800 12px Manrope, sans-serif; letter-spacing: .14em; text-transform: uppercase; color: rgb(from var(--an-fg) r g b / .56); padding: 14px 12px 6px; }
+  .an-sub a { position: relative; display: flex; align-items: center; gap: 10px; min-block-size: 40px; padding: 0 12px; border-radius: 12px; color: rgb(from var(--an-fg) r g b / .74); font: 600 14px Manrope, sans-serif; text-decoration: none; transition: background .3s, color .3s, transform .3s; }
+  .an-sub a::before { content: ""; inline-size: 6px; block-size: 6px; border-radius: 50%; background: rgb(from var(--an-fg) r g b / .3); flex: none; transition: background .3s, transform .3s; }
+  .an-sub a:hover { background: rgb(from var(--an-fg) r g b / .08); color: var(--an-fg); }
+  .an-sub a.on { background: rgb(from var(--an-fg) r g b / .14); color: var(--an-fg); }
+  .an-sub a.on::before { background: var(--gold); transform: scale(1.4); }
+}
+@media print { .an { display: none !important; } body.an-on { padding: 0 !important; } }

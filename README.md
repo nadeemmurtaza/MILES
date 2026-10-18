@@ -114,3 +114,8 @@ The D storefront, studio, Arabic (RTL) build, shared header/footer scripts and `
 Pages `G24/GL24` (my invoices), `G77/GL77` (invoice document), `G76/GL76` (studio invoices) and `G78/GL78` (ZATCA / FBR connections) show invoice records with open, download (XML/CSV), print and a simulated send to the Saudi ZATCA and Pakistan FBR systems. See `docs/invoicing-integration.md` for what a live connection needs.
 
 Every page is reachable from a nav: the studio side menu, the Money and Team sub-menus, and the customer footer.
+
+## Customer account sidebars
+
+On screens 1100px and wider, every customer account page (account, order, proof, billing, messages, settings, live editor and its workspace pages, privacy and extras pages) gets two sidebars under the header, like the studio: a slim rail of sections, then a second bar with the pages of the section you are in. The second bar can be hidden (remembered per browser; it starts closed on editor screens). On phones the original pill row stays.
+`public/account-nav.js` holds the links in one place; `node scripts/add-account-nav.mjs` adds it to the pages (safe to run again).

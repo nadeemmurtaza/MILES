@@ -702,105 +702,46 @@
 "Confirmed": "تم التأكيد",
 "Our story": "قصتنا",
 "Lookbook": "معرض الأعمال",
-"Empty & error states": "حالات الفراغ والأخطاء"
+"Empty & error states": "حالات الفراغ والأخطاء",
+"My order": "طلبي",
+"My book": "كتابي",
+"Make the book": "أنشئ الكتاب",
+"Step by step": "خطوة بخطوة",
+"Editor pages": "صفحات المحرر",
+"Storyboard": "لوحة القصة",
+"Layouts": "التخطيطات",
+"Text": "النص",
+"Style": "النمط",
+"Flipbook": "معاينة التقليب",
+"Print check": "فحص الطباعة",
+"History": "السجل",
+"Editor extras": "إضافات المحرر",
+"Smart help": "مساعدة ذكية",
+"Approvals": "الموافقات",
+"Arabic captions": "التعليقات العربية",
+"Trip map": "خريطة الرحلة",
+"Shortcuts & access": "الاختصارات وإمكانية الوصول",
+"Talk to us": "تواصل معنا",
+"Billing": "الفواتير والدفع",
+"Privacy & security": "الخصوصية والأمان",
+"Protected upload": "رفع محمي",
+"Sharing": "المشاركة",
+"Your choices": "خياراتك",
+"Delete data": "حذف البيانات",
+"Who has looked": "من اطّلع",
+"Sign-in & devices": "تسجيل الدخول والأجهزة",
+"Light theme": "المظهر الفاتح",
+"Dark theme": "المظهر الداكن",
+"Back to the shop": "العودة إلى المتجر",
+"Show or hide the page list": "إظهار قائمة الصفحات أو إخفاؤها",
+"Hide the page list": "إخفاء قائمة الصفحات",
+"My order pages": "صفحات طلبي",
+"My book pages": "صفحات كتابي",
+"Messages pages": "صفحات الرسائل",
+"Billing pages": "صفحات الفواتير",
+"Privacy & security pages": "صفحات الخصوصية والأمان",
+"Settings pages": "صفحات الإعدادات"
 },
-"patterns": [
-[
-"^SAR ([\\d,]+)$",
-"$1 ر.س"
-],
-[
-"^PKR ([\\d,]+)$",
-"$1 ر.ب"
-],
-[
-"^SAR ([\\d,]+) due only after you approve the proof\\.$",
-"$1 ر.س مستحقة فقط بعد اعتمادك المسودة."
-],
-[
-"^Pay SAR ([\\d,]+) with (.+)$",
-"ادفع $1 ر.س عبر $2"
-],
-[
-"^Spread (\\d+) of (\\d+)$",
-"الصفحتان $1 من $2"
-],
-[
-"^Spread (\\d+)$",
-"الصفحتان $1"
-],
-[
-"^Go to spread (\\d+)$",
-"اذهب إلى الصفحتين $1"
-],
-[
-"^Frame (\\d+): (.+)$",
-"الإطار $1: $2"
-],
-[
-"^(.+), used on spread (\\d+)$",
-"$1، مستخدمة في الصفحتين $2"
-],
-[
-"^(Jetty sunset|Beach walk|Dinner by the water|Boat ride|Market stall|Old town street|Rooftop view|Coffee stop|Postcard wall|Train platform|Night lights|Handwritten note) ([23])$",
-"$1 $2"
-],
-[
-"^(\\d+) of (\\d+) pages designed$",
-"تم تصميم $1 من $2 صفحة"
-],
-[
-"^(\\d+) of (\\d+) photos$",
-"$1 من $2 صورة"
-],
-[
-"^(\\d+) empty$",
-"$1 فارغ"
-],
-[
-"^(\\d+) questions$",
-"$1 سؤالًا"
-],
-[
-"^(\\d+) characters left$",
-"@1[لا أحرف|حرف واحد|حرفان|# أحرف|# حرفًا] متبقية"
-],
-[
-"^Saved (\\d+) (min|h) ago$",
-"حُفظ قبل $1 $2"
-],
-[
-"^Saved just now$",
-"حُفظ الآن"
-],
-[
-"^(\\d+) starred$",
-"$1 مميّزة بنجمة"
-],
-[
-"^Order (MR-\\d+) confirmed$",
-"تم تأكيد الطلب $1"
-],
-[
-"^Keep scrolling to flip through · 0 (\\d) / (\\d+)$",
-"تابع التمرير لتقلّب الصفحات · 0$1 / $2"
-],
-[
-"^Keep scrolling · 0 (\\d) / (\\d+)$",
-"تابع التمرير · 0$1 / $2"
-],
-[
-"^SAR ([\\d,]+) today · SAR ([\\d,]+) after (you approve|approval)$",
-"$1 ر.س اليوم · $2 ر.س بعد الاعتماد"
-],
-[
-"^SAR ([\\d,]+) today$",
-"$1 ر.س اليوم"
-],
-[
-"^From SAR ([\\d,]+)$",
-"ابتداءً من $1 ر.س"
-]
-],
+"patterns": [["^SAR ([\\d,]+)$", "$1 ر.س"], ["^PKR ([\\d,]+)$", "$1 ر.ب"], ["^SAR ([\\d,]+) due only after you approve the proof\\.$", "$1 ر.س مستحقة فقط بعد اعتمادك المسودة."], ["^Pay SAR ([\\d,]+) with (.+)$", "ادفع $1 ر.س عبر $2"], ["^Spread (\\d+) of (\\d+)$", "الصفحتان $1 من $2"], ["^Spread (\\d+)$", "الصفحتان $1"], ["^Go to spread (\\d+)$", "اذهب إلى الصفحتين $1"], ["^Frame (\\d+): (.+)$", "الإطار $1: $2"], ["^(.+), used on spread (\\d+)$", "$1، مستخدمة في الصفحتين $2"], ["^(Jetty sunset|Beach walk|Dinner by the water|Boat ride|Market stall|Old town street|Rooftop view|Coffee stop|Postcard wall|Train platform|Night lights|Handwritten note) ([23])$", "$1 $2"], ["^(\\d+) of (\\d+) pages designed$", "تم تصميم $1 من $2 صفحة"], ["^(\\d+) of (\\d+) photos$", "$1 من $2 صورة"], ["^(\\d+) empty$", "$1 فارغ"], ["^(\\d+) questions$", "$1 سؤالًا"], ["^(\\d+) characters left$", "@1[لا أحرف|حرف واحد|حرفان|# أحرف|# حرفًا] متبقية"], ["^Saved (\\d+) (min|h) ago$", "حُفظ قبل $1 $2"], ["^Saved just now$", "حُفظ الآن"], ["^(\\d+) starred$", "$1 مميّزة بنجمة"], ["^Order (MR-\\d+) confirmed$", "تم تأكيد الطلب $1"], ["^Keep scrolling to flip through · 0 (\\d) / (\\d+)$", "تابع التمرير لتقلّب الصفحات · 0$1 / $2"], ["^Keep scrolling · 0 (\\d) / (\\d+)$", "تابع التمرير · 0$1 / $2"], ["^SAR ([\\d,]+) today · SAR ([\\d,]+) after (you approve|approval)$", "$1 ر.س اليوم · $2 ر.س بعد الاعتماد"], ["^SAR ([\\d,]+) today$", "$1 ر.س اليوم"], ["^From SAR ([\\d,]+)$", "ابتداءً من $1 ر.س"]],
 "page": {}
 }
