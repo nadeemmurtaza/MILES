@@ -23,6 +23,7 @@
     gear: '<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1c.6.5 1.3.9 2 1.2L10 21h4l.5-2.6c.7-.3 1.4-.7 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"/>',
     sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/>',
     moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>', out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/>', site: '<path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/><circle cx="12" cy="12" r="9"/>',
+    dots: '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>', up: '<path d="M6 15l6-6 6 6"/>', close: '<path d="M6 6l12 12M18 6L6 18"/>',
     next: '<path d="M9 6l6 6-6 6"/>', back: '<path d="M15 6l-6 6 6 6"/>'
   };
   var svg = function (k, s) { return '<svg width="' + (s || 18) + '" height="' + (s || 18) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[k] + '</svg>'; };
@@ -84,4 +85,51 @@
     });
   };
   if (document.body) go(); else document.addEventListener('DOMContentLoaded', go);
+
+  /* ---- phones and small tablets: one bottom tab bar (1st bar) + a "pages" sheet (2nd bar) ---- */
+  var QUIET = cur === 11 || cur === 12;                 /* proof and balance: nothing to tap but the task */
+  var EDIT = cur === 23 || (cur >= 80 && cur <= 89);    /* editor screens keep their own bars */
+  var pageName = '';
+  cs[5].forEach(function (g) { g[1].forEach(function (p) { if (p[0] === cur) pageName = p[1]; }); });
+  var TABS = S.slice(0, 4), MORE = S.slice(4), inMore = MORE.indexOf(cs) > -1;
+  var mroot = document.createElement('div');
+  mroot.className = 'an-m';
+  var sheetLinks = function (groups) { return groups.map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === cur ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join(''); };
+  var moreHtml = '<div class="an-sg">More</div>' + MORE.map(function (s) { return '<a href="' + href(s[3]) + '"' + (s === cs ? ' class="on" aria-current="page"' : '') + '>' + s[1] + '</a>'; }).join('') +
+    '<div class="an-sg">Elsewhere</div><a href="' + twin + '">' + (dark ? 'Light theme' : 'Dark theme') + '</a><a href="' + href(1) + '">Back to the shop</a><a href="' + href(8) + '">Sign out</a>';
+  mroot.innerHTML =
+    (EDIT || QUIET ? '' : '<button type="button" class="an-chip" aria-haspopup="dialog">' + '<span>' + cs[4] + '</span><b>' + pageName + '</b>' + svg('up', 16) + '</button>') +
+    (EDIT || QUIET ? '' : '<nav class="an-tabs" aria-label="Account sections">' +
+      TABS.map(function (s) { return '<a href="' + href(s[3]) + '"' + (s === cs ? ' class="on" aria-current="true"' : '') + '>' + svg(s[2], 22) + '<span>' + s[1] + '</span></a>'; }).join('') +
+      '<button type="button" class="an-more' + (inMore ? ' on' : '') + '" aria-haspopup="dialog">' + svg('dots', 22) + '<span>More</span></button></nav>') +
+    '<div class="an-scrim" hidden></div><div class="an-sheet" role="dialog" aria-modal="true" aria-label="Pages" hidden><div class="an-sh"><b></b><button type="button" class="an-x" aria-label="Close">' + svg('close') + '</button></div><div class="an-sl"></div></div>';
+
+  var sheet, scrim, lastFocus;
+  var openSheet = function (more) {
+    lastFocus = document.activeElement;
+    sheet.querySelector('.an-sh b').textContent = more ? 'More' : cs[4];
+    sheet.querySelector('.an-sl').innerHTML = more ? moreHtml : sheetLinks(cs[5]);
+    sheet.hidden = scrim.hidden = false;
+    requestAnimationFrame(function () { document.body.classList.add('an-sheet-on'); });
+    var cur2 = sheet.querySelector('a.on') || sheet.querySelector('a'); if (cur2) { cur2.scrollIntoView({ block: 'nearest' }); sheet.querySelector('.an-x').focus(); }
+  };
+  var closeSheet = function () {
+    document.body.classList.remove('an-sheet-on');
+    setTimeout(function () { sheet.hidden = scrim.hidden = true; }, 260);
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  };
+  var goMobile = function () {
+    document.body.appendChild(mroot);
+    sheet = mroot.querySelector('.an-sheet'); scrim = mroot.querySelector('.an-scrim');
+    document.body.classList.add('an-m-on');
+    if (!EDIT && !QUIET) document.body.classList.add('an-tabs-on');
+    if (QUIET) document.body.classList.add('an-quiet');
+    mroot.addEventListener('click', function (e) {
+      if (e.target.closest('.an-chip')) openSheet(false);
+      else if (e.target.closest('.an-more')) openSheet(true);
+      else if (e.target.closest('.an-x') || e.target === scrim) closeSheet();
+    });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sheet.hidden) closeSheet(); });
+  };
+  if (document.body) goMobile(); else document.addEventListener('DOMContentLoaded', goMobile);
 })();
