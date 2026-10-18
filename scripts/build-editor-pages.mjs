@@ -232,7 +232,7 @@ function utilStyles(html, where) {
 
 /* ---------- Easy mode (customer, phones): one job per screen ---------- */
 const EASY = [['home', 'Home', 'Home'], ['photos', 'Photos', 'Photos'], ['page', 'Page', 'Page'], ['cover', 'Cover', 'Cover'], ['send', 'Send', 'Send']];
-const easyFile = (edition, key) => `${edition}${100 + EASY.findIndex((e) => e[0] === key)}-Easy${EASY.find((e) => e[0] === key)[2]}.dc.html`;
+const easyFile = (edition, key, side = 'customer') => `${edition}${(side === 'studio' ? 110 : 100) + EASY.findIndex((e) => e[0] === key)}-Easy${EASY.find((e) => e[0] === key)[2]}.dc.html`;   // customer 100-104, studio 110-114
 const ez = {
   top: (kick, h1, lead) => `<header class="ez-top"><div><p class="ed-kicker">${kick}</p><h1 class="ez-h1">${h1}</h1>${lead ? `<p class="ez-lead">${lead}</p>` : ''}</div><button class="ed-btn sq" onClick="{{undo}}" disabled="{{noUndo}}" aria-label="Undo">${ic('undo', 20)}</button></header>`,
   steps: `<nav class="ez-steps" aria-label="Steps">${FOR('ezSteps', 's', '<a class="{{s.cls}}" href="{{s.href}}" aria-current="{{s.cur}}" aria-label="{{s.label}}"><i>{{s.n}}</i><span>{{s.name}}</span></a>', 4)}</nav>`,
@@ -240,18 +240,18 @@ const ez = {
   bar: (back, next, single = false) => `<div class="ez-bar">${back ? `<button class="ed-btn lg" onClick="{{${back[0]}}}">${ic('back', 20)}<span>${back[1]}</span></button>` : ''}${next ? `<button class="ed-btn lg pri" onClick="{{${next[0]}}}"><span>${next[1]}</span>${ic('next', 20)}</button>` : ''}</div>`,
   full: `<p class="ez-full"><a class="ew-link" href="{{ezFull}}">Use the full editor instead</a></p>`
 };
-const EASY_BODY = {};
-EASY_BODY.home = () => `${ez.top('Your book · {{ezTitle}}', 'Make your book, one step at a time', 'Four short steps. You can stop any time: everything is saved, and you can come back to where you left off.')}
+const EASY_BODY = {};   // each body is built for a side: (studio) => html
+EASY_BODY.home = (S) => `${ez.top(S ? 'Studio · {{ezOrder}} · {{ezTitle}}' : 'Your book · {{ezTitle}}', S ? 'Work through this book, one step at a time' : 'Make your book, one step at a time', S ? 'Four short steps for {{ezOwner}}’s book. Everything is saved, and the customer sees your changes straight away.' : 'Four short steps. You can stop any time: everything is saved, and you can come back to where you left off.')}
 <section class="ez-card ez-hero"><p class="ed-muted">{{ezOvLabel}}</p><div class="ed-prog" aria-hidden="true"><i style="transform: scaleX({{ezPct}})"></i></div><button class="ed-btn lg pri" onClick="{{ezContinue}}"><span>{{ezStartLabel}}</span>${ic('next', 20)}</button></section>
 <div class="ez-stepcards">${FOR('ezDoneSteps', 's', `<button class="{{s.cls}}" onClick="{{s.go}}"><i>{{s.n}}</i><span><b>{{s.name}}</b><small>{{s.line}}</small></span>${ic('next', 20)}</button>`, 4)}</div>
 ${ez.overview}${ez.full}`;
-EASY_BODY.photos = () => `${ez.top('Step 1 of 4 · {{ezTitle}}', 'Your photos', '{{ezPhHint}}')}${ez.steps}
+EASY_BODY.photos = (S) => `${ez.top('Step 1 of 4 · {{ezTitle}}', 'Your photos', '{{ezPhHint}}')}${ez.steps}
 <section class="ez-card"><div class="ew-actions"><button class="ed-btn lg pri" onClick="{{addPhotos}}" disabled="{{upDone}}">${ic('camera', 20)}<span>{{upLabel}}</span></button></div>${IF('upBusy', '<div class="ew-bar-up ew-mt10" aria-hidden="true"><i style="{{upBar}}"></i></div><p class="ed-muted">Adding photos…</p>', false)}
 <div class="ew-bar ew-mt12">${seg('Show', [['All', 'fAll', 'pAll', 'nAll'], ['Not used', 'fUn', 'pUn', 'nUn'], ['Starred', 'fSt', 'pSt', 'nSt']])}</div></section>
 <div class="ew-phgrid ez-phgrid">${FOR('phTiles', 'p', `<button class="{{p.cls}}" onClick="{{p.tog}}" aria-pressed="{{p.starOn}}" aria-label="{{p.label}}. Tap to star or unstar."><img src="{{p.src}}" alt="">${IF('p.hasN', '<span class="ed-n">{{p.n}}</span>', false)}${IF('p.star', `<span class="ed-st">${ic('star', 22)}</span>`, false)}${IF('p.low', '<span class="ed-lo">Low-res</span>', false)}</button>`, 9)}</div>
 ${IF('phNone', '<div class="ew-empty">No photos here.</div>', false)}
 ${ez.overview}${ez.bar(['ezBack', 'Home'], ['ezNext', 'Next: pages'])}`;
-EASY_BODY.page = () => `${ez.top('Step 2 of 4 · {{ezOf}}', 'Design {{ezHead}}', '{{ezSpread}}')}${ez.steps}
+EASY_BODY.page = (S) => `${ez.top('Step 2 of 4 · {{ezOf}}', 'Design {{ezHead}}', '{{ezSpread}}')}${ez.steps}
 <section class="ez-card">
 ${IF('ezSpans', '<p class="ew-note">{{ezSpansLabel}}</p>', false)}
 <div class="ez-pagev" aria-label="{{ezHead}} preview">
@@ -259,20 +259,27 @@ ${FOR('ezBoxes', 'f', `<button class="{{f.cls}}" style="{{f.box}}" onClick="{{f.
 ${IF('ezIsText', '<div class="ez-text"><label class="ed-vh" for="ez-story">{{ezCapLabel}}</label><textarea id="ez-story" placeholder="Write the story for this page" value="{{ezCap}}" onInput="{{onEzCap}}"></textarea></div>', false)}
 ${IF('ezBlank', '<div class="ez-blank">A blank page. Pick a layout below to use it.</div>', false)}
 </div>
+${S ? `${IF('ezShowCms', `<div class="ez-cms"><p class="ez-lab">{{ezCmsLabel}}</p>${FOR('ezCms', 'c', `<div class="ed-cm"><header><span>{{c.who}}</span><span>{{c.when}}</span></header><p class="ew-m0">{{c.t}}</p><footer><button class="ed-btn" onClick="{{c.fix}}">${ic('tick', 18)}<span>{{c.fixLabel}}</span></button></footer></div>`, 1)}</div>`, false)}` : ''}
 <p class="ez-state {{ezPageDone}}">${IF('ezPageDone', `${ic('tick', 18)}<span>This page is done</span>`, false)}${IF('ezPageTodo', '<span>{{ezDoneLabel}}</span>', false)}</p></section>
 <section class="ez-card"><h2 class="ez-lab"><i>1</i> Choose a layout</h2><div class="ez-lays" role="group" aria-label="Page layout">${FOR('ezLays', 'l', `<button class="ez-lay" onClick="{{l.pick}}" aria-pressed="{{l.on}}" aria-label="{{l.label}}"><span class="ed-mini" data-lay="{{l.mini}}">${FOR('l.cells', 'c', '<i class="ed-ms {{c.cls}}"></i>', 2)}</span><small>{{l.name}}</small></button>`, 6)}</div></section>
-${IF('ezHasFr', `<section class="ez-card"><h2 class="ez-lab"><i>2</i> Add your photo</h2><p class="ed-muted">{{ezFrLabel}} · {{ezFrName}}</p><div class="ew-actions"><button class="ed-btn lg pri" onClick="{{ezChoose}}">${ic('photos', 20)}<span>{{ezChooseLabel}}</span></button>${IF('ezHasPhoto', btn('Remove', 'ezRemove', { icon: 'trash', cls: 'lg' }), false)}</div>${IF('ezFrLow', '<p class="ew-note is-bad ew-mt10">This photo is low resolution and may print soft at this size.</p>', false)}${IF('ezHasPhoto', `<div class="ez-zoom ew-mt12"><span>Zoom</span><button class="ed-btn sq" onClick="{{ezZout}}" aria-label="Zoom out">−</button><b>{{ezZ}}</b><button class="ed-btn sq" onClick="{{ezZin}}" aria-label="Zoom in">+</button><button class="ed-btn" onClick="{{ezReset}}">Reset</button></div><details class="ez-more"><summary>Move the photo inside the frame</summary>${slider('ez-px', 'Left / right', 'ezPx', 'onEzPx', 'ezPxL', 0, 100, 1)}${slider('ez-py', 'Up / down', 'ezPy', 'onEzPy', 'ezPyL', 0, 100, 1)}</details>`, false)}</section>`, false)}
+${IF('ezHasFr', `<section class="ez-card"><h2 class="ez-lab"><i>2</i> Add your photo</h2><p class="ed-muted">{{ezFrLabel}} · {{ezFrName}}</p><div class="ew-actions"><button class="ed-btn lg pri" onClick="{{ezChoose}}">${ic('photos', 20)}<span>{{ezChooseLabel}}</span></button>${IF('ezHasPhoto', btn('Remove', 'ezRemove', { icon: 'trash', cls: 'lg' }), false)}</div>${IF('ezFrLow', '<p class="ew-note is-bad ew-mt10">This photo is low resolution and may print soft at this size.</p>', false)}${S ? IF('ezShowDpi', '<p class="{{ezDpiCls}} ew-mt10">{{ezDpi}}</p>', false) : ''}${IF('ezHasPhoto', `<div class="ez-zoom ew-mt12"><span>Zoom</span><button class="ed-btn sq" onClick="{{ezZout}}" aria-label="Zoom out">−</button><b>{{ezZ}}</b><button class="ed-btn sq" onClick="{{ezZin}}" aria-label="Zoom in">+</button><button class="ed-btn" onClick="{{ezReset}}">Reset</button></div><details class="ez-more"><summary>Move the photo inside the frame</summary>${slider('ez-px', 'Left / right', 'ezPx', 'onEzPx', 'ezPxL', 0, 100, 1)}${slider('ez-py', 'Up / down', 'ezPy', 'onEzPy', 'ezPyL', 0, 100, 1)}</details>`, false)}</section>`, false)}
 ${IF('ezNotText', '<section class="ez-card"><h2 class="ez-lab"><i>3</i> Caption</h2><div class="ed-field"><label for="ez-cap">{{ezCapLabel}}</label><input id="ez-cap" type="text" maxlength="90" placeholder="A few words about this page" value="{{ezCap}}" onInput="{{onEzCap}}"></div></section>', false)}
 ${ez.overview}
 ${IF('ezSheet', `<div class="ez-sheet-bg" onClick="{{ezCloseSheet}}"></div><div class="ez-sheet" role="dialog" aria-modal="true" aria-label="{{ezShTitle}}"><header><b>{{ezShTitle}}</b><button class="ed-btn sq" onClick="{{ezCloseSheet}}" aria-label="Close">${ic('cross', 20)}</button></header><div class="ed-seg" role="group" aria-label="Which photos"><button onClick="{{ezSetUn}}" aria-pressed="{{ezShUn}}">Not used yet</button><button onClick="{{ezSetAll}}" aria-pressed="{{ezShAll}}">All photos</button></div><div class="ez-tiles">${FOR('ezTiles', 't', '<button class="{{t.cls}}" onClick="{{t.pick}}" aria-label="{{t.label}}"><img src="{{t.src}}" alt="">' + IF('t.hasOn', '<span class="ez-on">{{t.onPage}}</span>', false) + IF('t.low', '<span class="ed-lo">Low-res</span>', false) + '</button>', 9)}</div>${IF('ezNoTiles', '<p class="ed-muted">Every photo is already used. Choose All photos to move one here.</p>', false)}</div>`, false)}
 ${ez.bar(['ezPrev', '{{ezBackBtn}}'], ['ezNext', '{{ezNextBtn}}'])}`;
-EASY_BODY.cover = () => `${ez.top('Step 3 of 4 · {{ezTitle}}', 'Your cover', 'The front is what everyone sees first.')}${ez.steps}
+EASY_BODY.cover = (S) => `${ez.top('Step 3 of 4 · {{ezTitle}}', 'Your cover', 'The front is what everyone sees first.')}${ez.steps}
 <section class="ez-card"><div class="ew-stage">${coverView('{{cvFace}}')}</div><div class="ed-seg ew-mt12" role="group" aria-label="Cover side">${FOR('cvFaces', 'f', '<button onClick="{{f.pick}}" aria-pressed="{{f.on}}">{{f.name}}</button>', 4)}</div></section>
 <section class="ez-card"><h2 class="ez-lab"><i>1</i> Title</h2><div class="ed-field"><label class="ed-vh" for="cv-title">Title</label><input id="cv-title" type="text" maxlength="40" value="{{cvTitle}}" onInput="{{onTitle}}"></div><div class="ed-field"><label for="cv-sub">Line under the title</label><input id="cv-sub" type="text" maxlength="40" value="{{cvSub}}" onInput="{{onSub}}"></div></section>
 <section class="ez-card"><h2 class="ez-lab"><i>2</i> Colour</h2><div class="ew-sw" role="group" aria-label="Cover colour">${FOR('cvColours', 'c', '<button style="{{c.sw}}" onClick="{{c.pick}}" aria-pressed="{{c.on}}" aria-label="{{c.label}}" title="{{c.name}}"></button>', 8)}</div><p class="ew-mini-h ew-mt14">Foil</p><div class="ew-sw" role="group" aria-label="Foil colour">${FOR('cvFoils', 'f', '<button class="{{f.cls}}" style="{{f.sw}}" onClick="{{f.pick}}" aria-pressed="{{f.on}}" aria-label="{{f.label}}" title="{{f.name}}"></button>', 5)}</div></section>
 <section class="ez-card"><h2 class="ez-lab"><i>3</i> Photo</h2><div class="ed-seg" role="group" aria-label="Cover style">${FOR('cvKinds', 'k', '<button onClick="{{k.pick}}" aria-pressed="{{k.on}}">{{k.name}}</button>', 3)}</div><div class="ew-cvp ew-mt12" role="group" aria-label="Cover photo">${FOR('cvPhotos', 'p', '<button onClick="{{p.pick}}" aria-pressed="{{p.on}}" aria-label="{{p.label}}" title="{{p.name}}"><img src="{{p.src}}" alt=""></button>', 8)}</div></section>
 ${ez.overview}${ez.bar(['ezBack', 'Pages'], ['ezNext', 'Next: send'])}`;
-EASY_BODY.send = () => `${ez.top('Step 4 of 4 · {{ezTitle}}', 'Send to proof', 'The studio checks your pages and sends you the next proof.')}${ez.steps}
+EASY_BODY.send = (S) => S ? `${ez.top('Step 4 of 4 · {{ezOrder}} · {{ezTitle}}', 'Hand-off', 'Send the next proof, or lock the design once the customer has approved.')}${ez.steps}
+<section class="ez-card"><h2 class="ez-lab">Where the book is</h2>${STEPS}</section>
+<section class="ez-card"><h2 class="ez-lab">Print pack</h2>${FOR('sdPack', 'r', `<div class="{{r.cls}}">${IF('r.ok', ic('tick', 18))}${IF('r.bad', ic('cross', 18), false)}<span><b>{{r.name}}</b><br><span class="ed-muted">{{r.t}}</span></span></div>`, 4)}</section>
+<section class="ez-card"><h2 class="ez-lab">Before you send</h2>${FOR('sdChecks', 'c', `<div class="{{c.cls}}">${IF('c.ok', ic('tick', 18))}${IF('c.bad', ic('cross', 18), false)}<span>{{c.t}}</span>${IF('c.linkLabel', '<a class="ew-link" href="{{c.href}}">{{c.linkLabel}}</a>', false)}</div>`, 4)}</section>
+${IF('sdHasCustNote', '<section class="ez-card"><h2 class="ez-lab">Note from the customer</h2><p class="ew-m0">{{sdCustNote}}</p></section>', false)}
+<section class="ez-card"><h2 class="ez-lab">Actions</h2><div class="ez-acts"><button class="ed-btn lg pri" onClick="{{sdSend}}" disabled="{{sdNoSend}}">${ic('send', 20)}<span>{{sdSendLabel}}</span></button><button class="ed-btn lg" onClick="{{ezMark}}" aria-pressed="{{ezMarkOn}}" disabled="{{ezNoMark}}">${ic('check', 20)}<span>{{ezMarkLabel}}</span></button><button class="ed-btn lg" onClick="{{sdLock}}" disabled="{{sdNoLock}}">${ic('lock', 20)}<span>Lock design</span></button></div></section>
+${ez.overview}${ez.bar(['ezBack', 'Cover'], null)}` : `${ez.top('Step 4 of 4 · {{ezTitle}}', 'Send to proof', 'The studio checks your pages and sends you the next proof.')}${ez.steps}
 <section class="ez-card"><h2 class="ez-lab">Where your book is</h2>${STEPS}</section>
 <section class="ez-card"><h2 class="ez-lab">Before you send</h2>${FOR('sdChecks', 'c', `<div class="{{c.cls}}">${IF('c.ok', ic('tick', 18))}${IF('c.bad', ic('cross', 18), false)}<span>{{c.t}}</span>${IF('c.linkLabel', '<a class="ew-link" href="{{c.href}}">{{c.linkLabel}}</a>', false)}</div>`, 4)}<p class="ed-muted ew-mt10">None of these stop you. The studio can fix most things for you.</p></section>
 <section class="ez-card"><h2 class="ez-lab">Send</h2>${IF('sdCanRequest', `<div class="ed-field"><label for="sd-note">Anything the designer should know?</label><textarea id="sd-note" placeholder="For example: please use the sunset photo on the cover." value="{{sdNote}}" onInput="{{onNote}}"></textarea></div><div class="ew-confirm"><button class="ew-sw2" onClick="{{toggleSure}}" aria-pressed="{{sdSureOn}}" aria-label="I have checked my changes"></button><span>I have checked my pages and I am ready for proof round {{sdRound}}.</span></div><div class="ew-actions ew-mt14"><button class="ed-btn lg pri" onClick="{{sdRequest}}" disabled="{{sdBlock}}">${ic('send', 20)}<span>{{sdReqLabel}}</span></button></div>`)}${IF('sdWait', '<div class="ew-note is-ok">Sent. Rameen will review your changes and send proof round {{sdRound}} within 2 days.</div>', false)}${IF('sdLocked', '<div class="ew-note is-ok">Your design is locked. Nothing left to send.</div>', false)}</section>
@@ -291,8 +298,8 @@ function topbar(side, edition, page) {
 function wsNav(side, edition, page) {
   const s = SIDES[side], h = NAV_HREF(side, edition);
   const badge = { printcheck: IF('hasBadgeCheck', '<b class="{{badgeCheckCls}}">{{badgeCheck}}</b>', false), history: IF('hasBadgeHist', '<b class="ed-badge">{{badgeHist}}</b>', false) };
-  const easy = s.studio ? '' : `<a class="ed-ws-easy" href="${easyFile(edition, 'home')}">${ic('steps')}<span>Step by step</span></a>`;
-  const hint = s.studio ? '' : `<p class="ed-ws-hint">On a phone? <a class="ew-link" href="${easyFile(edition, 'home')}">Step-by-step mode</a> is much easier.</p>`;
+  const easy = `<a class="ed-ws-easy" href="${easyFile(edition, 'home', side)}">${ic('steps')}<span>Step by step</span></a>`;
+  const hint = `<p class="ed-ws-hint">On a phone? <a class="ew-link" href="${easyFile(edition, 'home', side)}">Step-by-step mode</a> is much easier.</p>`;
   return `<!--ws-->${hint}<nav class="ed-ws" aria-label="Editor pages">${easy}${PAGES.map(([id, label, , icon]) => {
     const l = id === 'send' ? s.sendLabel : label;
     return `<a href="${h[id]}"${id === page ? ' aria-current="page"' : ''}>${ic(icon)}<span>${l}</span>${badge[id] || ''}</a>`;
@@ -337,26 +344,40 @@ class Component extends DCLogic {
   return top + utilStyles(main, `${edition}${page}`) + tail + script;
 }
 
-function assembleEasy(edition, key) {
-  const D = edition === 'G', base = rd(`${edition}23-Editor.dc.html`);
+function assembleEasy(edition, key, side = 'customer') {
+  const s = SIDES[side], D = edition === 'G', base = rd(`${edition}${s.canvasNum}-${s.canvas}.dc.html`);
   const mIdx = base.indexOf('<main id="main"'), eIdx = base.indexOf('</main>'), sIdx = base.indexOf('<script type="text/x-dc"');
   let top = base.slice(0, mIdx), tail = base.slice(eIdx, sIdx), script = base.slice(sIdx);
   top = top.replace(/<div class="subnav-top subnav-23">[\s\S]*?<\/nav><\/div>/, '');       // the account pills are noise on a phone
   const label = EASY.find((e) => e[0] === key)[1];
-  top = top.replace(/<title>[\s\S]*?<\/title>/, `<title>${D ? '' : 'Light · '}Step by step · ${label} · Miles Retold</title>`);
-  top = top.replace(/(<a class="thm" href=")[^"]*(")/, `$1${easyFile(D ? 'GL' : 'G', key)}$2`);
+  top = top.replace(/<title>[\s\S]*?<\/title>/, `<title>${s.studio ? `${D ? '' : 'Light · '}Studio · Step by step · ${label}` : `${D ? '' : 'Light · '}Step by step · ${label} · Miles Retold`}</title>`);
+  const twin = easyFile(D ? 'GL' : 'G', key, side);
+  top = top.replace(/(<a class="thm" href=")[^"]*(")/, `$1${twin}$2`).replace(/(<a class="rl thr" href=")[^"]*(")/, `$1${twin}$2`).replace(/(<a href=")[^"]*(">(?:Dark|Light) theme<\/a>)/, `$1${twin}$2`);
   top = withAssets(top);
-  const H = Object.fromEntries(EASY.map(([k]) => [k, easyFile(edition, k)])); H.full = `${edition}23-Editor.dc.html?full=1`;
+  const H = Object.fromEntries(EASY.map(([k]) => [k, easyFile(edition, k, side)])); H.full = `${edition}${s.canvasNum}-${s.canvas}.dc.html?full=1`;
   const pages = { storyboard: H.page, layouts: H.page, printcheck: H.page, history: H.home };
-  const hasBar = key !== 'home';
-  const main = `<main id="main" class="{{edCls}} ezm">\n<div class="ez" style="{{styleVars}}">\n${EASY_BODY[key]()}\n</div>\n${IF('hasToast', '<div class="ed-toast" role="status">{{toast}}</div>', false)}\n`;
-  const opts = `{ studio: false, light: ${!D}, canvas: '${edition}23-Editor.dc.html', pages: ${JSON.stringify(pages)}, easy: ${JSON.stringify(H)} }`;
-  script = script
-    .replace(/this\.ed = MilesEditorUI\.create\(this, \{ studio: false, light: (?:true|false)(?:, easy: '[^']*')? \}\);/, `this.ed = MilesEditorUI.create(this, { studio: false, light: ${!D}, noArrows: true }); this.pg = MilesEditorPages.create('easy${key}', this.ed, this, ${opts});`)
-    .replace('this.ed.initial()); }', 'this.ed.initial(), this.pg.initial()); }')
-    .replace('mountPage() { this.ed.mount(); }', 'mountPage() { this.ed.mount(); this.pg.mount(); }')
-    .replace('unmountPage() { this.ed.unmount(); }', 'unmountPage() { this.pg.unmount(); this.ed.unmount(); }')
-    .replace('const v = this.ed.vals();', 'const v = Object.assign(this.ed.vals(), this.pg.vals());');
+  const main = `<main id="main" class="{{edCls}} ezm${s.studio ? ' ezs' : ''}">\n<div class="ez" style="{{styleVars}}">\n${EASY_BODY[key](s.studio)}\n</div>\n${IF('hasToast', '<div class="ed-toast" role="status">{{toast}}</div>', false)}\n`;
+  const opts = `{ studio: ${s.studio}, light: ${!D}, canvas: '${edition}${s.canvasNum}-${s.canvas}.dc.html', pages: ${JSON.stringify(pages)}, easy: ${JSON.stringify(H)} }`;
+  if (s.studio) {
+    script = `<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  constructor(p) { super(p); this.ed = MilesEditorUI.create(this, { studio: true, light: ${!D}, noArrows: true }); this.pg = MilesEditorPages.create('easy${key}', this.ed, this, ${opts}); this.state = Object.assign({}, this.ed.initial(), this.pg.initial()); }
+  componentDidMount() { this.ed.mount(); this.pg.mount(); }
+  componentWillUnmount() { this.pg.unmount(); this.ed.unmount(); }
+  renderVals() { return Object.assign(this.ed.vals(), this.pg.vals()); }
+}
+</script>
+</body>
+</html>
+`;
+  } else {
+    script = script
+      .replace(/this\.ed = MilesEditorUI\.create\(this, \{ studio: false, light: (?:true|false)(?:, easy: '[^']*')? \}\);/, `this.ed = MilesEditorUI.create(this, { studio: false, light: ${!D}, noArrows: true }); this.pg = MilesEditorPages.create('easy${key}', this.ed, this, ${opts});`)
+      .replace('this.ed.initial()); }', 'this.ed.initial(), this.pg.initial()); }')
+      .replace('mountPage() { this.ed.mount(); }', 'mountPage() { this.ed.mount(); this.pg.mount(); }')
+      .replace('unmountPage() { this.ed.unmount(); }', 'unmountPage() { this.pg.unmount(); this.ed.unmount(); }')
+      .replace('const v = this.ed.vals();', 'const v = Object.assign(this.ed.vals(), this.pg.vals());');
+  }
   return top + utilStyles(main, `${edition}easy${key}`) + tail + script;
 }
 
@@ -377,7 +398,7 @@ function patchCanvas(side, edition) {
   html = html.replace(/<div class="ed-prev"(?: style="\{\{styleVars\}\}")? role="dialog"/, '<div class="ed-prev" style="{{styleVars}}" role="dialog"');
   const twin = file(side, edition === 'G' ? 'GL' : 'G', 'canvas');
   html = html.replace(/(<a class="thm" href=")[^"]*(")/, `$1${twin}$2`).replace(/(<a class="rl thr" href=")[^"]*(")/, `$1${twin}$2`).replace(/(<a href=")[^"]*(">(?:Dark|Light) theme<\/a>)/, `$1${twin}$2`);
-  if (!s.studio) html = html.replace(/MilesEditorUI\.create\(this, \{ studio: false, light: (true|false)(?:, easy: '[^']*')? \}\)/, `MilesEditorUI.create(this, { studio: false, light: $1, easy: '${easyFile(edition, 'home')}' })`);
+  html = html.replace(/MilesEditorUI\.create\(this, \{ studio: (true|false), light: (true|false)(?:, easy: '[^']*')? \}\)/, `MilesEditorUI.create(this, { studio: $1, light: $2, easy: '${easyFile(edition, 'home', side)}' })`);
   wr(f, html);
 }
 
@@ -387,5 +408,5 @@ for (const side of Object.keys(SIDES)) for (const edition of ['G', 'GL']) {
   patchCanvas(side, edition);
   for (const [id] of PAGES) { if (id === 'canvas') continue; wr(file(side, edition, id), assemble(side, edition, id)); n++; }
 }
-for (const edition of ['G', 'GL']) for (const [key] of EASY) { wr(easyFile(edition, key), assembleEasy(edition, key)); n++; }
+for (const side of Object.keys(SIDES)) for (const edition of ['G', 'GL']) for (const [key] of EASY) { wr(easyFile(edition, key, side), assembleEasy(edition, key, side)); n++; }
 console.log(`built ${n} pages, patched 4 canvas pages`);

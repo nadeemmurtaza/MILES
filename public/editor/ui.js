@@ -90,7 +90,7 @@
 
     self.mount = function () {
       /* phones get the step-by-step editor unless they chose the full one (?full=1 remembers that for the session) */
-      if (opts.easy && !studio) {
+      if (opts.easy) {
         try {
           var phone = window.matchMedia && window.matchMedia('(max-width: 700px)').matches, off = sessionStorage.getItem('miles.easy.off') === '1';
           if (/[?&]full=1/.test(location.search)) { sessionStorage.setItem('miles.easy.off', '1'); off = true; }

@@ -575,7 +575,7 @@
      EASY MODE (phones): the same book, one job per screen.
        Photos  ->  Pages (one screen per book page, with an overview on every screen)  ->  Cover  ->  Send
      ========================================================================================================= */
-  var EZ_N = 'miles.editor.easy.n';
+  var EZ = 'miles.editor.easy.n.';   /* the page last worked on, one per side (customer / studio) */
   /* what a single book page (1-based) holds: its frames (as fractions of that page), text, and whether it is finished */
   function pageInfo(b, n) {
     var si = Math.floor((n - 1) / 2), side = (n - 1) % 2, sp = b.spreads[si];
@@ -590,15 +590,15 @@
     var done = frames.every(function (f) { return sp.slots[f.i].p; }) && (!text || !!sp.caps[side].trim());
     return { n: n, si: si, side: side, sp: sp, L: L, frames: frames, text: text, done: done };
   }
-  function readN(total) {
+  function readN(total, studio) {
     var n = 0;
-    try { var m = /[?&]n=(\d+)/.exec(location.search); n = m ? +m[1] : +(localStorage.getItem(EZ_N) || 0); } catch (e) {}
+    try { var m = /[?&]n=(\d+)/.exec(location.search); n = m ? +m[1] : +(localStorage.getItem(EZ + (studio ? 's' : 'c')) || 0); } catch (e) {}
     return Math.max(1, Math.min(total, n || 1));
   }
   function easyCommon(x, step) {
     var S = x.S, set = x.set, ed = x.ed, H = x.opts.easy || {};
     function go(href) { location.href = href; }
-    function openPage(n) { try { localStorage.setItem(EZ_N, String(n)); } catch (e) {} if (step === 2) { set({ ezn: n, fr: 0, sheet: false }); try { history.replaceState(null, '', '?n=' + n); } catch (e) {} window.scrollTo && window.scrollTo(0, 0); } else go(H.page + '?n=' + n); }
+    function openPage(n) { try { localStorage.setItem(EZ + (x.opts.studio ? 's' : 'c'), String(n)); } catch (e) {} if (step === 2) { set({ ezn: n, fr: 0, sheet: false }); try { history.replaceState(null, '', '?n=' + n); } catch (e) {} window.scrollTo && window.scrollTo(0, 0); } else go(H.page + '?n=' + n); }
     return {
       mount: function () { try { sessionStorage.removeItem('miles.easy.off'); } catch (e) {} },
       vals: function (cur) {
@@ -606,7 +606,7 @@
         var doneN = infos.filter(function (i) { return i.done; }).length, st = E.stats(b), cv = b.coverDesign;
         var frames = infos.reduce(function (s, i) { return s + i.frames.length; }, 0);
         var done = { 1: E.library(b).length >= Math.min(frames, 8), 2: doneN === total, 3: !!cv.title.trim(), 4: b.status !== 'draft' };
-        var STEP = [[1, 'Photos', H.photos], [2, 'Pages', H.page], [3, 'Cover', H.cover], [4, 'Send', H.send]];
+        var studio = !!x.opts.studio, STEP = [[1, 'Photos', H.photos], [2, 'Pages', H.page], [3, 'Cover', H.cover], [4, studio ? 'Hand-off' : 'Send', H.send]];
         var firstTodo = infos.filter(function (i) { return !i.done; })[0];
         var curN = cur || 0;
         var nextHref = !done[1] ? H.photos : firstTodo ? H.page + '?n=' + firstTodo.n : !done[3] ? H.cover : H.send;
@@ -620,10 +620,10 @@
           }),
           ezAdd: function () { ed.commit(E.ops.addSpread(ed.book(), ed.book().spreads.length - 1), 'Two pages added at the end', '', 'Added 2 pages'); },
           ezFull: H.full, ezHome: H.home, ezNextHref: nextHref, ezContinue: function () { go(nextHref); },
-          ezGoHome: function () { go(H.home); }, ezTitle: b.title, ezBookPages: b.pagesTotal,
-          ezNextLabel: !done[1] ? 'Add your photos' : firstTodo ? 'Design page ' + firstTodo.n : !done[3] ? 'Finish the cover' : done[4] ? 'See where it is' : 'Send to proof',
-          ezStartLabel: doneN === 0 ? 'Start designing' : doneN === total ? 'Review and send' : 'Continue with page ' + (firstTodo ? firstTodo.n : 1),
-          ezDoneSteps: STEP.map(function (s) { return { n: s[0], name: s[1], href: s[2], done: !!done[s[0]], cls: 'ez-card ez-step' + (done[s[0]] ? ' done' : ''), line: ({ 1: E.library(b).length + ' photos ready', 2: doneN + ' of ' + total + ' pages done', 3: (cv.title || 'No title yet') + ' · ' + cv.color, 4: b.status === 'draft' ? 'Not sent yet' : b.status === 'proof-requested' ? 'Waiting for the studio' : b.status === 'proof-sent' ? 'Proof sent to you' : 'Design locked' })[s[0]], go: function () { go(s[2]); } }; }),
+          ezGoHome: function () { go(H.home); }, ezTitle: b.title, ezBookPages: b.pagesTotal, ezOrder: b.order, ezOwner: b.owner,
+          ezNextLabel: !done[1] ? 'Add your photos' : firstTodo ? 'Design page ' + firstTodo.n : !done[3] ? 'Finish the cover' : done[4] ? 'See where it is' : studio ? 'Hand off' : 'Send to proof',
+          ezStartLabel: doneN === 0 ? 'Start designing' : doneN === total ? (studio ? 'Review and hand off' : 'Review and send') : 'Continue with page ' + (firstTodo ? firstTodo.n : 1),
+          ezDoneSteps: STEP.map(function (s) { return { n: s[0], name: s[1], href: s[2], done: !!done[s[0]], cls: 'ez-card ez-step' + (done[s[0]] ? ' done' : ''), line: ({ 1: E.library(b).length + ' photos ready', 2: doneN + ' of ' + total + ' pages done', 3: (cv.title || 'No title yet') + ' · ' + cv.color, 4: b.status === 'draft' ? (studio ? 'Proof not sent yet' : 'Not sent yet') : b.status === 'proof-requested' ? 'Waiting for the studio' : b.status === 'proof-sent' ? 'Proof sent to you' : 'Design locked' })[s[0]], go: function () { go(s[2]); } }; }),
           ezNextStepLabel: STEP[Math.min(step, 3)][1]
         };
       }
@@ -658,20 +658,29 @@
     var inner = builders.send(x), c = easyCommon(x, 4), H = x.opts.easy;
     return {
       initial: inner.initial, mount: c.mount,
-      vals: function () { var v = Object.assign(inner.vals(), c.vals(0)); v.ezBack = function () { location.href = H.cover; }; v.ezBackLabel = 'Back'; return v; }
+      vals: function () {
+        var v = Object.assign(inner.vals(), c.vals(0)), b = x.ed.book();
+        v.ezBack = function () { location.href = H.cover; }; v.ezBackLabel = 'Back';
+        if (x.opts.studio) {
+          var pf = E.preflight(b);
+          v.ezReady = !!b.ready; v.ezNoMark = !pf.ready; v.ezMarkOn = pressed(!!b.ready); v.ezMarkLabel = b.ready ? 'Marked ready for print' : 'Mark ready for print';
+          v.ezMark = function () { if (!pf.ready) { x.ed.toast('Fix the red items in the print check first.'); return; } x.ed.commit(E.ops.setMeta(b, { ready: !b.ready }), b.ready ? 'Marked as not ready' : 'Marked ready for print', '', b.ready ? 'Cleared the print-ready mark' : 'Marked the book ready for print'); };
+        }
+        return v;
+      }
     };
   };
   /* Step 2: the main job. One book page per screen. */
   builders.easypage = function (x) {
     var S = x.S, set = x.set, ed = x.ed, H = x.opts.easy, c = easyCommon(x, 2);
     return {
-      initial: function () { return { ezn: readN(E.load().spreads.length * 2), fr: 0, sheet: false, shf: 'unused' }; },
-      mount: function () { c.mount(); var t = S().ezn; try { localStorage.setItem(EZ_N, String(t)); } catch (e) {} },
+      initial: function () { return { ezn: readN(E.load().spreads.length * 2, x.opts.studio), fr: 0, sheet: false, shf: 'unused' }; },
+      mount: function () { c.mount(); var t = S().ezn; try { localStorage.setItem(EZ + (x.opts.studio ? 's' : 'c'), String(t)); } catch (e) {} },
       vals: function () {
         var s = S(), b = ed.book(), total = b.spreads.length * 2, n = Math.max(1, Math.min(total, s.ezn)), info = pageInfo(b, n), sp = info.sp, side = info.side;
         var base = c.vals(n), fr = Math.max(0, Math.min(info.frames.length - 1, s.fr)), cur = info.frames[fr], slot = cur ? sp.slots[cur.i] : null, ph = slot && slot.p ? E.photoById(slot.p) : null;
         var used = E.usedMap(b);
-        function move(to) { if (to < 1) { location.href = H.photos; return; } if (to > total) { location.href = H.cover; return; } try { localStorage.setItem(EZ_N, String(to)); history.replaceState(null, '', '?n=' + to); } catch (e) {} set({ ezn: to, fr: 0, sheet: false }); window.scrollTo && window.scrollTo(0, 0); }
+        function move(to) { if (to < 1) { location.href = H.photos; return; } if (to > total) { location.href = H.cover; return; } try { localStorage.setItem(EZ + (x.opts.studio ? 's' : 'c'), String(to)); history.replaceState(null, '', '?n=' + to); } catch (e) {} set({ ezn: to, fr: 0, sheet: false }); window.scrollTo && window.scrollTo(0, 0); }
         function adj(patch, key) { if (!cur) return; ed.commit(E.ops.adjust(ed.book(), info.si, cur.i, patch), '', 'ez:' + n + ':' + cur.i + ':' + key); }
         var pageName = 'Page ' + n;
         var boxes = info.frames.map(function (f, k) {
@@ -691,9 +700,13 @@
             pick: function () { ed.commit(E.ops.setPageLayout(ed.book(), info.si, side, l.id), 'Page ' + n + ': ' + l.name, '', 'Page ' + n + ' set to ' + l.name); set({ fr: 0 }); } };
         });
         var spans = info.frames.some(function (f) { return f.spans; });
+        var studio = !!x.opts.studio, cms = studio ? b.comments.filter(function (cm) { return cm.sp === info.si && !cm.done; }) : [], dpi = ph && cur ? E.dpi(sp, cur.i) : 0;
         var v = {
           ezN: n, ezTotal: total, ezHead: pageName, ezOf: 'Page ' + n + ' of ' + total, ezSpread: 'Spread ' + (info.si + 1) + ' · pages ' + (info.si * 2 + 1) + '–' + (info.si * 2 + 2) + (side ? ' · right page' : ' · left page'),
           ezBoxes: boxes, ezHasFrames: boxes.length > 0, ezNoFrames: boxes.length === 0, ezIsText: info.text, ezNotText: !info.text, ezBlank: !boxes.length && !info.text,
+          ezShowCms: cms.length > 0, ezCms: cms.map(function (cm) { return { who: cm.who, t: cm.t, when: E.ago(cm.at), fixLabel: 'Mark fixed', fix: function () { ed.commit(E.ops.resolve(ed.book(), cm.id, true), 'Comment marked fixed', '', 'Marked the comment on spread ' + (info.si + 1) + ' fixed'); } }; }),
+          ezCmsLabel: cms.length + (cms.length === 1 ? ' open comment' : ' open comments') + ' from ' + b.owner + ' on this spread',
+          ezShowDpi: studio && !!ph, ezDpi: dpi + ' dpi at this size · ' + (dpi >= 200 ? 'prints crisp' : dpi >= 150 ? 'fine for a small frame' : 'will print soft'), ezDpiCls: 'ew-note ' + (dpi >= 200 ? 'is-ok' : dpi < 150 ? 'is-bad' : ''),
           ezSpans: spans, ezSpansLabel: 'A photo runs across pages ' + (info.si * 2 + 1) + '–' + (info.si * 2 + 2) + '. Pick a layout below to give this page its own design.',
           ezLays: lays, ezCap: sp.caps[side], ezCapLabel: info.text ? 'Write the story for this page' : 'Caption (optional)',
           onEzCap: function (e) { ed.commit(E.ops.setCaption(ed.book(), info.si, side, e.target.value), '', 'ezcap:' + n); },

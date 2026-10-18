@@ -488,3 +488,13 @@
   .ez .ew-step small { display: none; }
   .ez .ew-step { padding-block-start: 16px; font-size: 14px; }
 }
+
+/* ---------- Easy mode, studio side: the studio shell has side menus on wide screens, so the Back / Next bar sticks inside the page
+   instead of spanning the whole window; on phones the studio header is the slim top bar. ---------- */
+@layer g {
+  .ed-studio .ez { padding-block-start: 16px; padding-block-end: 0; max-inline-size: 820px; }
+  .ed-studio .ez-bar { position: sticky; inset-inline: auto; margin-inline: -16px; margin-block-start: 8px; }
+  .ed-studio .ez-acts, .ez-acts { display: grid; gap: 10px; }
+  .ed-studio .ez-cms { display: grid; gap: 8px; }
+  .ed-studio .ed-cm { padding: 14px; font-size: 15px; } .ed-studio .ed-cm footer .ed-btn { min-block-size: 48px; }
+}
