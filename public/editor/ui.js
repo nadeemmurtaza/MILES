@@ -55,9 +55,37 @@
     self.commit = commit; self.toast = toast; self.go = go; self.jump = jump; self.book = book; self.set = set; self.hist = hist; self.who = who; self.studio = studio;
     function adj(patch, key) { var s = S(); if (s.slot == null) return; commit(E.ops.adjust(book(), s.sp, s.slot, patch), '', key ? 'adj:' + s.sp + ':' + s.slot + ':' + key : ''); }
 
+    function pressed(on) { return on ? 'true' : 'false'; }
+    function lt() { return S().lt || 'both'; }
+    function plural(n, w) { return n + ' ' + w + (n === 1 ? '' : 's'); }
+    /* the layouts offered for spread `spi`: spread layouts when the target is both pages, page layouts for the left or right page */
+    function choices(spi) {
+      var b = book(), sp = b.spreads[spi], t = lt(), L = E.lay(sp), side = t === 'left' ? 0 : 1;
+      function placed(x) { return x.spreads[spi].slots.filter(function (z) { return z.p; }).length; }
+      var before = placed(b);
+      if (t === 'both') return E.layouts.map(function (l) {
+        var cells = []; for (var i = 0; i < CELLS[l.id]; i++) cells.push({ k: i, cls: '' });
+        return { id: l.id, name: l.name, best: l.best, mini: l.id, cells: cells, on: sp.lay === l.id, frames: plural(l.slots, 'frame') + (l.text ? ' + text' : ''), lose: before - placed(E.ops.setLayout(b, spi, l.id)) };
+      });
+      var page = L.split ? (side ? L.right : L.left) : null;
+      return E.pageLayouts.map(function (l) {
+        var cells = l.cells.map(function (c, i) { return { k: i, cls: 'gc' + c[0] + '_' + c[1] + ' gr' + c[2] + '_' + c[3] }; });
+        if (l.text) cells.push({ k: 0, cls: 'txt gc1_3 gr1_7' });
+        return { id: l.id, name: l.name, best: l.best, mini: 'pagei', cells: cells, on: !!page && page.id === l.id, frames: plural(l.slots, 'frame') + (l.text ? ' of text' : ''), lose: before - placed(E.ops.setPageLayout(b, spi, side, l.id)) };
+      });
+    }
+    /* apply layout `id` to the chosen spreads, for the current target (both pages, left page, right page) */
+    function applyLayout(id, idxs) {
+      var b = book(), t = lt(), name, nb;
+      if (t === 'both') { nb = E.ops.setLayoutMany(b, idxs, id); name = E.layout(id).name; }
+      else { nb = E.ops.setPageLayoutMany(b, idxs, t === 'left' ? 0 : 1, id); name = E.pageLayout(id).name + ' on the ' + t + ' page'; }
+      var what = idxs.length === 1 ? 'Spread ' + (idxs[0] + 1) : plural(idxs.length, 'spread');
+      commit(nb, what + ' set to ' + name, '', 'Changed ' + what.toLowerCase() + ' to ' + name);
+    }
+    self.layoutChoices = choices; self.applyLayout = applyLayout; self.target = lt;
     self.initial = function () {
       var bk = E.load(), pos = recall(), sp0 = pos ? Math.max(0, Math.min(bk.spreads.length - 1, pos.sp)) : 0;
-      return { book: bk, sp: sp0, slot: pos && pos.slot != null && bk.spreads[sp0] && bk.spreads[sp0].slots[pos.slot] ? pos.slot : null, flt: 'all', over: -1, drag: '', toast: '', preview: false, tick: Date.now(), flip: false, safe: false, tab: 'comments', cmDraft: '', note: '' };
+      return { book: bk, sp: sp0, slot: pos && pos.slot != null && bk.spreads[sp0] && bk.spreads[sp0].slots[pos.slot] ? pos.slot : null, flt: 'all', over: -1, drag: '', toast: '', preview: false, tick: Date.now(), flip: false, safe: false, tab: 'comments', cmDraft: '', note: '', lt: 'both' };
     };
 
     self.mount = function () {
@@ -98,7 +126,7 @@
         var full = sp.lay === 'full';
         return {
           i: i, has: !!ph, empty: !ph, src: ph ? ph.src : '', alt: ph ? ph.name : '',
-          cls: 'ed-slot' + (s.slot === i ? ' sel' : '') + (s.over === i ? ' over' : '') + (full ? ' full' : ''),
+          cls: 'ed-slot' + (s.slot === i ? ' sel' : '') + (s.over === i ? ' over' : '') + (full ? ' full' : '') + ' ' + E.slotCls(sp, i),
           img: ph ? 'object-position:' + sl.x + '% ' + sl.y + '%;transform:scale(' + sl.z + ');filter:brightness(' + (sl.b / 100) + ')' : '',
           low: !!(ph && ph.low), label: 'Frame ' + (i + 1) + (ph ? ': ' + ph.name : ': empty'),
           pick: function () { set({ slot: s.slot === i ? null : i }); },
@@ -117,7 +145,7 @@
         };
       }
       var slots = sp.slots.map(slotView);
-      var lay = E.layout(sp.lay);
+      var lay = E.lay(sp);
       var comments = b.comments.map(function (cm) {
         return {
           id: cm.id, who: cm.who, t: cm.t, where: 'Spread ' + (cm.sp + 1), cls: 'ed-cm' + (cm.done ? ' done' : ''), done: cm.done, label: cm.done ? 'Reopen' : 'Mark fixed',
@@ -148,14 +176,15 @@
         // stage
         spIdx: s.sp + 1, spTotal: b.spreads.length, spCount: 'Spread ' + (s.sp + 1) + ' of ' + b.spreads.length, pagesLabel: 'pages ' + (s.sp * 2 + 1) + '–' + (s.sp * 2 + 2),
         prevSp: function () { go(s.sp - 1); }, nextSp: function () { go(s.sp + 1); }, noPrev: s.sp === 0, noNext: s.sp === b.spreads.length - 1,
-        spreadCls: 'ed-spread' + (s.flip ? ' flip' : ''), lay: sp.lay, slots: slots, isStory: !!lay.text, storyText: sp.caps[0],
+        spreadCls: 'ed-spread' + (s.flip ? ' flip' : ''), lay: sp.lay, slots: slots, isStory: lay.textL, storyText: sp.caps[0], isStoryR: lay.textR, storyTextR: sp.caps[1], showCapR: !lay.textR,
+        onStoryR: function (e) { commit(E.ops.setCaption(b, s.sp, 1, e.target.value), '', 'cap:' + s.sp + ':1'); },
         onStory: function (e) { commit(E.ops.setCaption(b, s.sp, 0, e.target.value), '', 'cap:' + s.sp + ':0'); },
-        capL: sp.caps[0], capR: sp.caps[1], showCapL: !lay.text,
+        capL: sp.caps[0], capR: sp.caps[1], showCapL: !lay.textL,
         onCapL: function (e) { commit(E.ops.setCaption(b, s.sp, 0, e.target.value), '', 'cap:' + s.sp + ':0'); }, onCapR: function (e) { commit(E.ops.setCaption(b, s.sp, 1, e.target.value), '', 'cap:' + s.sp + ':1'); },
         pgL: s.sp * 2 + 1, pgR: s.sp * 2 + 2, safeCls: 'ed-safe' + (s.safe ? ' on' : ''), safeOn: s.safe ? 'true' : 'false', toggleSafe: function () { set({ safe: !s.safe }); },
         // filmstrip
         film: b.spreads.map(function (x, i) {
-          var cells = x.slots.map(function (t) { var p = t.p ? E.photoById(t.p) : null; return { src: p ? p.src : '', has: !!p }; });
+          var cells = E.cellsFor(x, E.photoById);
           var miss = x.slots.filter(function (t) { return !t.p; }).length;
           return { i: i, n: i + 1, lay: x.lay, cells: cells, miss: miss, missLabel: miss ? miss + ' empty' : '', cur: i === s.sp ? 'true' : 'false', go: function () { go(i); }, label: 'Go to spread ' + (i + 1) };
         }),
@@ -178,10 +207,11 @@
         setAll: function () { set({ flt: 'all' }); }, setUn: function () { set({ flt: 'unused' }); }, setSt: function () { set({ flt: 'star' }); }, setLo: function () { set({ flt: 'low' }); },
         trayCount: tilePhotos.length + ' of ' + lib.length + ' photos',
         // inspector
-        layouts: E.layouts.map(function (l) {
-          var cells = []; for (var i = 0; i < CELLS[l.id]; i++) cells.push({ k: i });
-          return { id: l.id, name: l.name, cells: cells, on: sp.lay === l.id ? 'true' : 'false', pick: function () { commit(E.ops.setLayout(b, s.sp, l.id)); set({ slot: null }); } };
-        }),
+        layouts: choices(s.sp).map(function (l) { return { id: l.id, name: l.name, mini: l.mini, cells: l.cells, on: l.on ? 'true' : 'false', pick: function () { applyLayout(l.id, [s.sp]); set({ slot: null }); } }; }),
+        ltBoth: pressed(lt() === 'both'), ltLeft: pressed(lt() === 'left'), ltRight: pressed(lt() === 'right'),
+        setLtBoth: function () { set({ lt: 'both' }); }, setLtLeft: function () { set({ lt: 'left' }); }, setLtRight: function () { set({ lt: 'right' }); },
+        ltHint: lt() === 'both' ? 'These layouts can run across both pages.' : 'Only the ' + lt() + ' page changes. The other page keeps its layout.',
+        layName: lay.name,
         hasSel: !!sel, hasPhoto: !!selPhoto, noSel: !sel, selName: selPhoto ? selPhoto.name : (sel ? 'Empty frame' : ''), selNo: s.slot != null ? s.slot + 1 : 0,
         selLow: !!(selPhoto && selPhoto.low),
         zoom: sel ? sel.z : 1, px: sel ? sel.x : 50, py: sel ? sel.y : 50, br: sel ? sel.b : 100,

@@ -54,6 +54,50 @@
   ];
   var LAY = {}; layouts.forEach(function (l) { LAY[l.id] = l; });
 
+  /* ---------- page layouts: each of the two pages of a spread can have its own ----------
+     cells: [col0, col1, row0, row1] on the page's own grid (2 columns x 6 rows), 1-based like CSS grid lines.
+     A spread is either one of the layouts above (they can run across both pages) or 'split': sp.pg = [leftId, rightId]
+     and sp.slots = the left page's frames followed by the right page's frames. */
+  var pageLayouts = [
+    { id: 'p1', name: 'Full page', best: 'One photo filling the page', cells: [[1, 3, 1, 7]] },
+    { id: 'p2', name: 'Two stacked', best: 'Two photos, one above the other', cells: [[1, 3, 1, 4], [1, 3, 4, 7]] },
+    { id: 'p2s', name: 'Side by side', best: 'Two tall photos next to each other', cells: [[1, 2, 1, 7], [2, 3, 1, 7]] },
+    { id: 'p3', name: 'Big + two', best: 'A big photo over two small ones', cells: [[1, 3, 1, 5], [1, 2, 5, 7], [2, 3, 5, 7]] },
+    { id: 'p3s', name: 'Three stacked', best: 'Three wide strips', cells: [[1, 3, 1, 3], [1, 3, 3, 5], [1, 3, 5, 7]] },
+    { id: 'p4', name: 'Four up', best: 'A tidy grid of four', cells: [[1, 2, 1, 4], [2, 3, 1, 4], [1, 2, 4, 7], [2, 3, 4, 7]] },
+    { id: 'p6', name: 'Six up', best: 'Contact-sheet grid of six', cells: [[1, 2, 1, 3], [2, 3, 1, 3], [1, 2, 3, 5], [2, 3, 3, 5], [1, 2, 5, 7], [2, 3, 5, 7]] },
+    { id: 'text', name: 'Story text', best: 'A whole page of words', cells: [], text: true },
+    { id: 'blank', name: 'Blank', best: 'An empty page to breathe', cells: [] }
+  ];
+  var PL = {}; pageLayouts.forEach(function (p) { p.slots = p.cells.length; PL[p.id] = p; });
+  /* an older single-layout spread, expressed as two pages (slot order after the move) */
+  var TO_SPLIT = {
+    full: { p: ['p1', 'p1'], order: [0, null] }, pair: { p: ['p1', 'p1'], order: [0, 1] }, trio: { p: ['p1', 'p2'], order: [0, 1, 2] },
+    quad: { p: ['p2', 'p2'], order: [0, 2, 1, 3] }, story: { p: ['text', 'p1'], order: [0] }, collage: { p: ['p2', 'p3s'], order: [0, 1, 2, 3, 4] },
+    pano: { p: ['p1', 'p1'], order: [0, 1] }, six: { p: ['p3s', 'p3s'], order: [0, 1, 2, 3, 4, 5] }, heroR: { p: ['p2', 'p1'], order: [0, 1, 2] }
+  };
+  /* the layout of any spread, whatever kind: { id, name, slots, text, textL, textR, best, split } */
+  function lay(sp) {
+    if (sp.lay !== 'split') { var l = LAY[sp.lay]; return { id: l.id, name: l.name, slots: l.slots, text: !!l.text, textL: !!l.text, textR: false, best: l.best, split: false }; }
+    var a = PL[sp.pg[0]], c = PL[sp.pg[1]];
+    return { id: 'split', name: a.id === c.id ? a.name + ' on both pages' : a.name + ' + ' + c.name, slots: a.slots + c.slots, text: !!(a.text || c.text), textL: !!a.text, textR: !!c.text, best: '', split: true, left: a, right: c };
+  }
+  function slotRect(sp, i) {            /* split spreads: grid lines of frame i on the spread's 4-column grid */
+    var a = PL[sp.pg[0]], c = PL[sp.pg[1]], g = i < a.slots ? a.cells[i] : c.cells[i - a.slots], off = i < a.slots ? 0 : 2;
+    return g ? [g[0] + off, g[1] + off, g[2], g[3]] : null;
+  }
+  function slotCls(sp, i) { if (sp.lay !== 'split') return ''; var r = slotRect(sp, i); return r ? 'gc' + r[0] + '_' + r[1] + ' gr' + r[2] + '_' + r[3] : ''; }
+  function slotGeo(sp, i) {             /* [x, y, w, h] as fractions of the spread */
+    if (sp.lay !== 'split') return LAY[sp.lay].geo[i];
+    var r = slotRect(sp, i); return r ? [(r[0] - 1) / 4, (r[2] - 1) / 6, (r[1] - r[0]) / 4, (r[3] - r[2]) / 6] : null;
+  }
+  /* what a thumbnail draws for a spread: one cell per frame (with its grid class) plus a text block for each story page */
+  function cellsFor(sp, photoOf) {
+    var out = sp.slots.map(function (t, i) { var p = t.p ? photoOf(t.p) : null; return { src: p ? p.src : '', has: !!p, cls: slotCls(sp, i) }; });
+    if (sp.lay === 'split') [0, 1].forEach(function (side) { if (PL[sp.pg[side]].text) out.push({ src: '', has: false, cls: 'txt gc' + (1 + side * 2) + '_' + (3 + side * 2) + ' gr1_7' }); });
+    return out;
+  }
+
   function newSlot(p) { return { p: p || null, z: 1, x: 50, y: 50, b: 100 }; }
   function uid() { return 's' + Math.random().toString(36).slice(2, 8); }
   function blankSpread(lay, ids) {
@@ -149,18 +193,30 @@
   /* ---------- operations: pure, return a new book ---------- */
   function edit(book, fn) { var b = clone(book); fn(b); return b; }
   function ensureSlots(sp) {   /* keep slot count in step with the layout */
-    var n = LAY[sp.lay].slots;
+    var n = lay(sp).slots;
     while (sp.slots.length < n) sp.slots.push(newSlot());
     if (sp.slots.length > n) sp.slots.length = n;
   }
   function reset1(s) { s.z = 1; s.x = 50; s.y = 50; s.b = 100; }
+  function toPages(sp, side, id) {
+    if (sp.lay !== 'split') {                       /* first per-page change: rewrite the single layout as two pages */
+      var t = TO_SPLIT[sp.lay], old = sp.slots, slots = t.order.map(function (k) { return k == null ? newSlot() : old[k]; });
+      sp.pg = t.p.slice(); sp.slots = slots; sp.lay = 'split';
+    }
+    var nL = PL[sp.pg[0]].slots, L = sp.slots.slice(0, nL), R = sp.slots.slice(nL), cur = side ? R : L, n = PL[id].slots;
+    while (cur.length < n) cur.push(newSlot());
+    cur.length = n; sp.pg[side] = id; sp.slots = L.concat(R);
+  }
   var ops = {
     place: function (b, si, sl, pid) { return edit(b, function (x) { var s = x.spreads[si].slots[sl]; if (!s) return; /* a photo is used once: lift it from where it was */ x.spreads.forEach(function (sp) { sp.slots.forEach(function (t) { if (t.p === pid && t !== s) { t.p = null; } }); }); s.p = pid; s.z = 1; s.x = 50; s.y = 50; s.b = 100; }); },
     clearSlot: function (b, si, sl) { return edit(b, function (x) { var s = x.spreads[si].slots[sl]; if (s) { s.p = null; s.z = 1; s.x = 50; s.y = 50; s.b = 100; } }); },
     swapSlots: function (b, si, a, c) { return edit(b, function (x) { var s = x.spreads[si].slots, t = s[a]; s[a] = s[c]; s[c] = t; }); },
     adjust: function (b, si, sl, patch) { return edit(b, function (x) { var s = x.spreads[si].slots[sl]; if (!s) return; Object.keys(patch).forEach(function (k) { s[k] = patch[k]; }); }); },
-    setLayout: function (b, si, lay) { return edit(b, function (x) { var sp = x.spreads[si]; sp.lay = lay; ensureSlots(sp); }); },
-    setLayoutMany: function (b, idxs, lay) { return edit(b, function (x) { idxs.forEach(function (i) { var sp = x.spreads[i]; if (sp) { sp.lay = lay; ensureSlots(sp); } }); }); },
+    setLayout: function (b, si, lay) { return edit(b, function (x) { var sp = x.spreads[si]; sp.lay = lay; delete sp.pg; ensureSlots(sp); }); },
+    setLayoutMany: function (b, idxs, lay) { return edit(b, function (x) { idxs.forEach(function (i) { var sp = x.spreads[i]; if (sp) { sp.lay = lay; delete sp.pg; ensureSlots(sp); } }); }); },
+    /* give one page (side 0 = left, 1 = right) its own layout; the other page keeps what it has. Photos that no longer fit go back to the library */
+    setPageLayout: function (b, si, side, id) { return edit(b, function (x) { toPages(x.spreads[si], side, id); }); },
+    setPageLayoutMany: function (b, idxs, side, id) { return edit(b, function (x) { idxs.forEach(function (i) { if (x.spreads[i]) toPages(x.spreads[i], side, id); }); }); },
     setCaption: function (b, si, side, text) { return edit(b, function (x) { x.spreads[si].caps[side] = text; }); },
     addSpread: function (b, after, lay) { return edit(b, function (x) { x.spreads.splice(after + 1, 0, blankSpread(lay || 'pair')); }); },
     duplicateSpread: function (b, si) { return edit(b, function (x) { var c = clone(x.spreads[si]); c.id = uid(); c.slots.forEach(function (s) { s.p = null; }); x.spreads.splice(si + 1, 0, c); }); },
@@ -233,7 +289,7 @@
   /* ---------- print check ---------- */
   var SPREAD_IN = [16, 10];     /* an 8 x 10 portrait book opens to 16 x 10 inches */
   function dpi(sp, i) {
-    var s = sp.slots[i], ph = s && s.p ? photoById(s.p) : null, g = LAY[sp.lay].geo[i];
+    var s = sp.slots[i], ph = s && s.p ? photoById(s.p) : null, g = slotGeo(sp, i);
     if (!ph || !g) return 0;
     var fw = g[2] * SPREAD_IN[0], fh = g[3] * SPREAD_IN[1];
     return Math.round(Math.min(ph.w / fw, ph.h / fh) / (s.z || 1));
@@ -255,11 +311,11 @@
         seen[s.p] = si + 1;
       });
       sp.caps.forEach(function (t, side) {
-        var lim = LAY[sp.lay].text && side === 0 ? 240 : 90;
+        var lim = (side === 0 ? lay(sp).textL : lay(sp).textR) ? 240 : 90;
         if (t.length > lim) add('Text', 'bad', si, null, 'Spread ' + (si + 1) + ': the ' + (side ? 'right' : 'left') + ' text is ' + t.length + ' characters. ' + lim + ' fit inside the safe area.', 'trim:' + side, 'Shorten to fit');
         if (/ {2,}/.test(t)) add('Text', 'warn', si, null, 'Spread ' + (si + 1) + ' has a double space in the ' + (side ? 'right' : 'left') + ' text.', 'jump', 'Open spread');
       });
-      if (LAY[sp.lay].text && !sp.caps[0].trim()) add('Text', 'warn', si, null, 'Spread ' + (si + 1) + ' is a story page with no story yet.', 'jump', 'Open spread');
+      [0, 1].forEach(function (side) { if ((side ? lay(sp).textR : lay(sp).textL) && !sp.caps[side].trim()) add('Text', 'warn', si, null, 'Spread ' + (si + 1) + ': the ' + (side ? 'right' : 'left') + ' page is a story page with no story yet.', 'jump', 'Open spread'); });
     });
     var pages = b.spreads.length * 2;
     if (pages > b.pagesTotal) add('Book', 'bad', null, null, 'You have designed ' + pages + ' pages but ordered ' + b.pagesTotal + '. Delete a spread or add pages to the order.', '', '');
@@ -283,7 +339,7 @@
     newer.forEach(function (s, i) {
       if (oid[s.id] == null) { rows.push({ kind: 'added', n: i + 1, text: 'Spread ' + (i + 1) + ' is new' }); return; }
       var o = older[oid[s.id]], parts = [];
-      if (o.lay !== s.lay) parts.push('layout ' + LAY[o.lay].name + ' → ' + LAY[s.lay].name);
+      if (lay(o).name !== lay(s).name) parts.push('layout ' + lay(o).name + ' → ' + lay(s).name);
       var op = o.slots.map(function (t) { return t.p; }).join(), np = s.slots.map(function (t) { return t.p; }).join();
       if (op !== np) parts.push('photos changed');
       else if (JSON.stringify(o.slots) !== JSON.stringify(s.slots)) parts.push('photo crop or brightness changed');
@@ -299,10 +355,11 @@
   function textItems(b) {
     var out = [];
     b.spreads.forEach(function (sp, si) {
-      var story = !!LAY[sp.lay].text;
+      var L = lay(sp);
       [0, 1].forEach(function (side) {
-        out.push({ key: si + ':' + side, sp: si, side: side, story: story && side === 0, limit: story && side === 0 ? 240 : 90, text: sp.caps[side] || '',
-          label: 'Spread ' + (si + 1) + ' · ' + (story && side === 0 ? 'story' : (side ? 'right page' : 'left page')) });
+        var story = side ? L.textR : L.textL;
+        out.push({ key: si + ':' + side, sp: si, side: side, story: story, limit: story ? 240 : 90, text: sp.caps[side] || '',
+          label: 'Spread ' + (si + 1) + ' · ' + (story ? (side ? 'right page story' : 'story') : (side ? 'right page' : 'left page')) });
       });
     });
     return out;
@@ -342,7 +399,7 @@
   }
 
   window.MilesEditor = {
-    KEY: KEY, load: load, save: save, reset: reset, layouts: layouts, layout: function (id) { return LAY[id]; }, photos: photos, photoById: photoById,
+    KEY: KEY, load: load, save: save, reset: reset, layouts: layouts, layout: function (id) { return LAY[id]; }, lay: lay, pageLayouts: pageLayouts, pageLayout: function (id) { return PL[id]; }, slotCls: slotCls, cellsFor: cellsFor, photos: photos, photoById: photoById,
     ops: ops, stats: stats, usedMap: usedMap, History: History, timeLabel: timeLabel, ago: ago, clone: clone,
     themes: THEMES, fonts: FONTS, coverColours: COVER_COLOURS, foils: FOILS, defaults: { style: DEFAULT_STYLE, cover: DEFAULT_COVER },
     library: visible, inLibrary: inLibrary, isStar: isStar, dpi: dpi, preflight: preflight, diff: diff, textItems: textItems, proof: proof, csv: csv, base: BASE

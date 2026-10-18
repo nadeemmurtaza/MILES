@@ -43,7 +43,7 @@ An eleven-page workspace per side, all editing the same sample book. Customer: `
 | Canvas | `23` | `70` | drag and drop / tap to place photos, zoom, move, brighten, captions, 9 layouts, undo / redo, filmstrip, safe area |
 | Storyboard | `80` | `90` | every spread as a card: drag to reorder, multi-select, bulk layout / duplicate / delete, filters, flat plan by printed signature, print overview |
 | Photos | `81` | `91` | library: search, sort, filters, stars, notes, usage, possible duplicates, remove / restore, simulated upload |
-| Layouts | `82` | `92` | layout gallery for one or many spreads, fill empty frames, build spreads from unused photos |
+| Layouts | `82` | `92` | **per-page layouts**: choose Both pages / Left page / Right page, then a layout for that target (9 spread layouts that can run across both pages, 9 one-page layouts incl. story text and blank); apply to one or many spreads, fill empty frames, build spreads from unused photos |
 | Text | `83` | `93` | every caption in one list, proof-reader (double spaces, repeated words, ...), find and replace, caption font / size / alignment, CSV export |
 | Cover | `84` | `94` | live front / spine / back / open-flat cover: colour, foil, photo, title, back text |
 | Style | `85` | `95` | themes, page and text colour, margin, photo spacing, corners, photo border (the canvas, storyboard and flipbook follow) |
@@ -52,6 +52,7 @@ An eleven-page workspace per side, all editing the same sample book. Customer: `
 | History | `88` | `98` | saved versions (compare, restore with a safety copy), comments with replies, activity log |
 | Send / Hand-off | `89` | `99` | customer: checklist, diff since last proof, note, "Send to proof"; studio: print pack, send proof, lock design |
 
+* **Per page layouts.** A spread is either one of the nine spread layouts (`lay`) or `lay: 'split'` with `pg: [leftId, rightId]` and the left page's frames followed by the right page's. Changing one page keeps the other, and photos that no longer fit go back to the library. The same Both / Left / Right choice is on the canvas, the storyboard and the layouts page; the print check, text list, flipbook and thumbnails understand split spreads.
 * **One document.** `public/editor/core.js` holds the book (`localStorage` key `miles.editor.v1`) and every operation (pure functions returning a new book), plus the print check (`preflight`), version `diff`, text helpers and CSV. Customer and studio tabs see each other's changes live through the `storage` event.
 * **UI layer.** `editor/ui.js` (shared header values, undo / redo with typing coalesced into one step, activity log) and `editor/pages.js` (state and values for each workspace page).
 * **Pages are generated.** `node scripts/build-editor-pages.mjs` writes all 40 workspace pages (dark and light, both sides) from one source and patches the tab bar into the four canvas pages. Header, menus and footer are copied from `G23` / `GL23` and `G70` / `GL70`. Edit the script, not the generated files. It refuses static `style=""` (use a utility class in `css/editor-pages.css`).
