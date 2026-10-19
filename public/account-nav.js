@@ -135,11 +135,26 @@
     if (ed === 'GL') document.body.classList.add('an-light');
     document.body.classList.add('an-tabs-on');
     mroot.addEventListener('click', function (e) {
-      if (e.target.closest('.an-chip')) openSheet(false);
+      var on = e.target.closest('.an-tabs a.on');
+      if (on) { e.preventDefault(); openSheet(false); }   /* tapping the section you are in opens its pages */
+      else if (e.target.closest('.an-chip')) openSheet(false);
       else if (e.target.closest('.an-more')) openSheet(true);
       else if (e.target.closest('.an-x') || e.target === scrim) closeSheet();
     });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sheet.hidden) closeSheet(); });
+    /* the chip would sit over the text you are reading: hidden at the top and while scrolling down, it appears when you scroll up */
+    var chip = mroot.querySelector('.an-chip');
+    if (chip) {
+      chip.classList.add('hide');   /* starts hidden so it never covers the first screen */
+      var lastY = window.pageYOffset, tick = 0;
+      window.addEventListener('scroll', function () {
+        if (tick) return; tick = requestAnimationFrame(function () {
+          tick = 0; var y = window.pageYOffset, d = y - lastY;
+          if (Math.abs(d) > 6) { chip.classList.toggle('hide', d > 0 || y < 120); lastY = y; }
+          if (y < 120) chip.classList.add('hide');
+        });
+      }, { passive: true });
+    }
   };
   if (document.body) goMobile(); else document.addEventListener('DOMContentLoaded', goMobile);
 
