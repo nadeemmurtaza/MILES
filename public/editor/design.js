@@ -16,6 +16,7 @@
   function on(v) { return v ? 'true' : 'false'; }
   function plural(n, w, m) { return n + ' ' + (n === 1 ? w : (m || w + 's')); }
   var B = {};
+  B.static = function () { return { vals: function () { return {}; } }; };   /* pages with no behaviour of their own (notifications, emails, interface kit): the header and footer still need the shell */
 
   /* every page can show a short confirmation message */
   function toaster(x) {

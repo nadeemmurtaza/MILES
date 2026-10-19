@@ -123,3 +123,13 @@ On screens 1100px and wider, every customer account page (account, order, proof,
 On phones and small tablets (under 1100px) the two bars become one floating glass tab bar (52px, same look as the header) (Order, My book, Messages, Billing, More) plus a chip above it that opens a bottom sheet with the pages of the current section. The tab bar is the same on every account page, including Proof, Balance, the live editor pages and step-by-step editing (whose Back/Next bar sits just above it). The chip is left off the editor screens so it never covers their tools.
 
 The storefront pages (home, books, builder, cart, checkout, confirmed, sign-in, story, lookbook, help, gifts, project) get the same bottom bar on phones with shop links: Home, Books, Cart (with the live count), Account and More. It comes from `public/shop-nav.js`; the shop step row stays at the top of those pages.
+
+## Added from the library audit
+
+The shared UX library (`nadeemmurtaza/library`, 119 UX guidelines, 61 component styles) was run against the pages:
+
+- **Audit fixes, every page:** scroll padding under the sticky header and tab bar, a skip link and `main` landmark where one was missing, an always-present polite live region, `autocomplete` hints on fields, 16px form fields on phones (no iOS zoom), 24px+ tap targets on table and row links, named calendar cells, one `h1` per editor page, and a keyboard way to do everything dragging does in the editor (arrows pan, `+` `-` zoom, `0` resets, `Alt` + arrow swaps frames).
+- **Shared UI kit** (`css/ui-kit.css`, `ui-kit.js`, loaded on every page): skeleton placeholders (`.sk`), tooltips (`data-tip`), progress bars (`.pg`), a confirm dialog (`MilesUI.confirm`, or `data-confirm="Question?"` on a button, `data-danger` for red) and toasts (`MilesUI.toast`, or `data-toast="Message"`). Remove-from-cart, remove-address and turn-off-link now ask first. Reference page: **Interface kit** (G/GL139).
+- **Third-level bar:** where a section has a group of related pages, they sit in a horizontal bar right under the header instead of a third sidebar (editor pages and editor extras; the Print check count is kept).
+- **New pages (design-only):** **Notifications** (G/GL137: latest updates plus a channel-by-event preference grid, offers off by default) and **Email previews** (G/GL138).
+- **Email templates:** `public/emails/*.html` (+ `.txt`): order confirmed, proof ready, balance due, shipped. Table-based, inline styles, `{{placeholders}}` (`customer_name`, `order_no`, `proof_url`, ...). `public/emails/preview/` has the same emails filled with sample values. Sending needs the backend; `node scripts/build-library-pages.mjs` rebuilds all of it.

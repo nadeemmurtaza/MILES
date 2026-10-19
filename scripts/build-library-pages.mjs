@@ -1,0 +1,151 @@
+#!/usr/bin/env node
+/* Builds the pages and files added from the library audit (run again any time; it rewrites its own output):
+ *   - email templates: public/emails/*.html (+ .txt) with {{placeholders}}, and public/emails/preview/*.html filled with sample values
+ *   - customer pages (dark + light): 137 Notifications, 138 Email previews, 139 Interface kit
+ * The pages reuse the shell of 120-Privacy (header, footer, theme twin, scripts), so they behave like every other customer page.
+ * They are design-only, like the privacy pages: nothing is saved or sent. Styles: css/library-pages.css. */
+import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+
+const PUB = new URL('../public/', import.meta.url);
+const rd = (f) => readFileSync(new URL(f, PUB), 'utf8');
+const wr = (f, s) => writeFileSync(new URL(f, PUB), s);
+
+/* ------------------------------------------------------------------ emails */
+const SAMPLE = {
+  customer_name: 'Sara', designer: 'Rameen', order_no: 'MR-1042', book_title: 'Maldives · March 2022', book_type: 'Portrait 8 × 10 · 40 pages · linen hardcover',
+  deposit: 'SAR 152', balance: 'SAR 152', total: 'SAR 304', address: 'Al Olaya, Riyadh', round: '2', pages: '40 pages', reply_by: 'Thursday 22 October',
+  courier: 'SMSA Express', tracking_no: 'SMSA-88213094', eta: 'Tuesday 3 November',
+  upload_url: '#', proof_url: '#', pay_url: '#', track_url: '#', account_url: '#', help_email: 'hello@milesretold.com'
+};
+const EMAILS = [
+  { key: 'order-confirmed', tab: 'Order confirmed', subject: 'Your Miles Retold order {{order_no}} is confirmed', pre: 'We have your deposit. Next, add your photos.',
+    head: 'Thank you, {{customer_name}}.', lead: 'We have your deposit, and {{designer}} will design your {{book_title}} book. Add your photos and she can begin.',
+    rows: [['Order', '{{order_no}}'], ['Book', '{{book_type}}'], ['Deposit paid', '{{deposit}}'], ['Balance, after you approve the proof', '{{balance}}'], ['Delivering to', '{{address}}']],
+    cta: ['Add your photos', '{{upload_url}}'], note: 'Nothing is printed until you have seen a proof and approved it.' },
+  { key: 'proof-ready', tab: 'Proof ready', subject: 'Proof round {{round}} of your book is ready', pre: 'Look it over, pin a comment on anything, then approve.',
+    head: 'Your proof is ready, {{customer_name}}.', lead: 'Round {{round}} of {{book_title}} is waiting for you. Tap any page to leave a comment, or approve it when you love it.',
+    rows: [['Order', '{{order_no}}'], ['Proof', 'Round {{round}} · {{pages}}'], ['Designer', '{{designer}}'], ['Please reply by', '{{reply_by}}']],
+    cta: ['Review your proof', '{{proof_url}}'], note: 'No reply by that date is fine. We will wait and send a reminder, we never print without your yes.' },
+  { key: 'balance-due', tab: 'Balance due', subject: 'Pay the balance and we will print your book', pre: 'Your design is locked. One payment and it goes to the printer.',
+    head: 'Your design is locked.', lead: 'Once the remaining half is paid, {{book_title}} goes to the printer in this week’s batch.',
+    rows: [['Order total', '{{total}}'], ['Deposit paid', '{{deposit}}'], ['Balance due', '{{balance}}'], ['Pay with', 'mada, Apple Pay, STC Pay or Tabby']],
+    cta: ['Pay the balance', '{{pay_url}}'], note: 'Prices on this page are shown in your currency. The payment page asks for nothing we do not need.' },
+  { key: 'shipped', tab: 'On its way', subject: 'Your book is on its way', pre: 'Courier, tracking number and the day to expect it.',
+    head: 'It is on its way, {{customer_name}}.', lead: '{{book_title}} left the studio today. Someone needs to be there to receive it.',
+    rows: [['Courier', '{{courier}}'], ['Tracking number', '{{tracking_no}}'], ['Expected', '{{eta}}'], ['Delivering to', '{{address}}']],
+    cta: ['Track your book', '{{track_url}}'], note: 'Something wrong when it arrives? Reply to this email and we will make it right.' }
+];
+const BRAND = { forest: '#12342b', paper: '#f6efe6', card: '#fffcf6', ink: '#12342b', mute: '#5c6b64', line: '#e4d9cb', cta: '#b4521f' };
+const fill = (s, map) => s.replace(/\{\{(\w+)\}\}/g, (m, k) => (k in map ? map[k] : m));
+const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;');
+
+function emailHtml(e) {
+  const font = "Arial, Helvetica, sans-serif", serif = "Georgia, 'Times New Roman', serif";
+  const rows = e.rows.map(([k, v]) => `<tr><td style="padding:10px 0;border-top:1px solid ${BRAND.line};font:14px/1.4 ${font};color:${BRAND.mute};">${esc(k)}</td><td align="right" style="padding:10px 0;border-top:1px solid ${BRAND.line};font:bold 14px/1.4 ${font};color:${BRAND.ink};">${esc(v)}</td></tr>`).join('\n');
+  return `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="color-scheme" content="light"><meta name="supported-color-schemes" content="light">
+<title>${esc(e.subject)}</title></head>
+<body style="margin:0;padding:0;background:${BRAND.paper};">
+<div style="display:none;max-height:0;overflow:hidden;opacity:0;">${esc(e.pre)}</div>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:${BRAND.paper};"><tr><td align="center" style="padding:24px 12px;">
+<table role="presentation" width="600" cellpadding="0" cellspacing="0" style="width:100%;max-width:600px;">
+<tr><td style="padding:0 4px 16px;font:bold 22px/1 ${serif};color:${BRAND.forest};letter-spacing:.5px;">MiLes <span style="font:bold 10px/1 ${font};letter-spacing:4px;color:${BRAND.mute};">RETOLD</span></td></tr>
+<tr><td style="background:${BRAND.card};border-radius:18px;padding:32px 28px;border:1px solid ${BRAND.line};">
+<h1 style="margin:0 0 12px;font:normal 28px/1.2 ${serif};color:${BRAND.ink};">${esc(e.head)}</h1>
+<p style="margin:0 0 22px;font:16px/1.6 ${font};color:${BRAND.ink};">${esc(e.lead)}</p>
+<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="margin:0 0 26px;">
+${rows}
+<tr><td colspan="2" style="border-top:1px solid ${BRAND.line};font-size:0;line-height:0;">&nbsp;</td></tr></table>
+<table role="presentation" cellpadding="0" cellspacing="0"><tr><td style="border-radius:12px;background:${BRAND.cta};"><a href="${e.cta[1]}" style="display:inline-block;padding:15px 26px;font:bold 16px/1 ${font};color:#ffffff;text-decoration:none;border-radius:12px;">${esc(e.cta[0])}</a></td></tr></table>
+<p style="margin:22px 0 0;font:14px/1.6 ${font};color:${BRAND.mute};">${esc(e.note)}</p>
+</td></tr>
+<tr><td style="padding:18px 8px 0;font:12px/1.6 ${font};color:${BRAND.mute};">You are getting this because of order {{order_no}} on Miles Retold. Questions? Reply to this email or write to {{help_email}}.<br>Your photos are private to you and the studio. <a href="{{account_url}}" style="color:${BRAND.mute};">Change what we email you</a></td></tr>
+</table></td></tr></table></body></html>
+`;
+}
+function emailText(e) {
+  return `${e.head}\n\n${e.lead}\n\n${e.rows.map(([k, v]) => `${k}: ${v}`).join('\n')}\n\n${e.cta[0]}: ${e.cta[1]}\n\n${e.note}\n\n--\nMiles Retold · order {{order_no}} · {{help_email}}\nChange what we email you: {{account_url}}\n`;
+}
+mkdirSync(new URL('emails/preview/', PUB), { recursive: true });
+for (const e of EMAILS) {
+  wr(`emails/${e.key}.html`, emailHtml(e));
+  wr(`emails/${e.key}.txt`, `Subject: ${e.subject}\n\n${emailText(e)}`);
+  wr(`emails/preview/${e.key}.html`, fill(emailHtml(e), SAMPLE));
+}
+
+/* ------------------------------------------------------------------ pages */
+const ic = (d, s = 18) => `<svg width="${s}" height="${s}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+const ICON = {
+  doc: '<path d="M6 3h8l4 4v14H6z"/><path d="M14 3v4h4M9 12h6M9 16h6"/>', card: '<rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/>', truck: '<path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7.5" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/>',
+  chat: '<path d="M4 5h16v11H9l-5 4z"/>', shield: '<path d="M12 3l8 3v6c0 4.5-3.4 8-8 9-4.6-1-8-4.5-8-9V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/>', tag: '<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.4"/>', mail: '<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',
+  send: '<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>', trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>'
+};
+
+const NOTES = [
+  { id: 1, ic: 'doc', unread: true, t: 'Proof round 2 is ready', d: 'Rameen finished your second proof. Look it over and approve it, or pin a comment.', when: 'Today, 09:40', go: 'Review proof', href: '11-Proof' },
+  { id: 2, ic: 'card', unread: true, t: 'Balance due after you approve', d: 'SAR 152 remains. Nothing is charged until you approve the proof.', when: 'Today, 09:41', go: 'See balance', href: '12-Balance' },
+  { id: 3, ic: 'chat', unread: true, t: 'Rameen sent you a message', d: '“The jetty photo looks soft at full bleed. Want to use the sunset one instead?”', when: 'Yesterday, 17:12', go: 'Open messages', href: '22-Messages' },
+  { id: 4, ic: 'shield', unread: false, t: '85 photos added safely', d: 'Your photos were saved privately, and the location data was removed from every copy.', when: 'Mon 12 Oct', go: 'See how', href: '121-PrivateUpload' },
+  { id: 5, ic: 'truck', unread: false, t: 'Order confirmed', d: 'Deposit received. Your designer has been assigned.', when: 'Mon 14 Sep', go: 'Order details', href: '10-Order' }
+];
+const PREFS = [
+  ['Proof ready', 'The moment a proof is waiting for you.', [1, 1, 0]], ['Balance and payments', 'Reminders and receipts.', [1, 1, 0]], ['Shipping updates', 'Printed, shipped, delivered.', [1, 0, 1]],
+  ['Messages from your designer', 'When Rameen writes to you.', [1, 0, 0]], ['Offers and news', 'Sample prices, new covers, gift ideas. Off unless you turn it on.', [0, 0, 0]]
+];
+const CH = ['WhatsApp', 'Email', 'SMS'];
+
+const notifications = (E) => `<div class="dp-grid dp-wide">
+<section class="ed-panel nt-list"><div class="dp-top"><div><h2 class="dp-h2">Latest</h2><p class="ed-muted">3 new since you last looked.</p></div>
+<div class="ed-seg nt-filter" role="radiogroup" aria-label="Show"><input type="radio" name="nt-f" id="nt-all" checked><label for="nt-all">All</label><input type="radio" name="nt-f" id="nt-un"><label for="nt-un">New</label></div></div>
+<ul class="nt-items">${NOTES.map((n) => `<li class="nt-item${n.unread ? ' is-new' : ''}"><span class="nt-ic">${ic(ICON[n.ic], 20)}</span><div class="nt-tx"><b>${n.t}${n.unread ? ' <span class="nt-dot" role="img" aria-label="New"></span>' : ''}</b><p>${n.d}</p><small>${n.when}</small></div><a class="ed-btn sm" href="${E}${n.href}.dc.html">${n.go}</a></li>`).join('')}</ul>
+<p class="nt-empty ed-muted" hidden>Nothing new. We will tell you the moment something needs you.</p></section>
+<section class="ed-panel"><h2 class="dp-h2">How you hear from us</h2><p class="ed-muted">Pick a way for each kind of update. Offers start switched off.</p>
+<div class="nt-prefs" role="group" aria-label="Notification channels"><div class="nt-ph" aria-hidden="true"><span></span>${CH.map((c) => `<b>${c}</b>`).join('')}</div>
+${PREFS.map((p, i) => `<div class="nt-pr"><div><b>${p[0]}</b><p class="ed-muted">${p[1]}</p></div>${CH.map((c, j) => `<label class="nt-ck"><input type="checkbox"${p[2][j] ? ' checked' : ''} aria-label="${p[0]} by ${c}"><span aria-hidden="true">${ic('<path d="M5 12.5l4.5 4.5L19 7.5"/>', 16)}</span></label>`).join('')}</div>`).join('')}</div>
+<div class="dp-row nt-quiet"><div><b>Quiet hours</b><p class="ed-muted">No WhatsApp or SMS between these times. Proofs wait for morning.</p></div><label class="nt-sel"><span class="ed-vh">Quiet hours</span><select><option>22:00 to 08:00</option><option>23:00 to 07:00</option><option>Off</option></select></label></div>
+<div class="ew-actions"><button type="button" class="ed-btn pri" data-toast="Preferences saved" data-toast-kind="good">Save my choices</button></div></section></div>`;
+
+const emails = () => `<section class="ed-panel em-wrap"><div class="dp-top"><div><h2 class="dp-h2">What lands in your inbox</h2><p class="ed-muted">One email per step. No attachments, no surprises, one clear button.</p></div>
+<div class="em-test"><button type="button" class="ed-btn" data-toast="A test email would go to sara@example.com (design preview)">${ic(ICON.send)}<span>Send me a test</span></button></div></div>
+<div class="em-tabs">${EMAILS.map((e, i) => `<input type="radio" name="em" id="em-${e.key}"${i === 0 ? ' checked' : ''}><label for="em-${e.key}" class="em-tab">${e.tab}</label>`).join('')}
+${EMAILS.map((e) => `<div class="em-pane" data-em="${e.key}"><p class="em-subj"><span>Subject</span><b>${fill(e.subject, SAMPLE)}</b></p>
+<iframe class="em-frame" title="Preview of the ${e.tab.toLowerCase()} email" src="/emails/preview/${e.key}.html" loading="lazy"></iframe>
+<p class="ed-muted em-files">For the studio: <a href="/emails/${e.key}.html">HTML template</a> · <a href="/emails/${e.key}.txt">plain-text version</a>. Placeholders look like <code>&#123;&#123;order_no&#125;&#125;</code>.</p></div>`).join('')}</div></section>`;
+
+const kit = () => `<div class="dp-grid">
+<div class="dp-col">
+<section class="ed-panel"><h2 class="dp-h2">Tooltips</h2><p class="ed-muted">Hover or tab to an icon button to see its name. Touch screens use the button’s label for screen readers.</p>
+<div class="kit-row"><button type="button" class="ed-btn sq" aria-label="Undo" data-tip="Undo">${ic('<path d="M9 14L4 9l5-5M4 9h10a6 6 0 0 1 0 12h-3"/>', 20)}</button><button type="button" class="ed-btn sq" aria-label="Delete" data-tip="Delete" data-tip-pos="bottom">${ic(ICON.trash, 20)}</button><button type="button" class="ed-btn sq" aria-label="Send" data-tip="Send to your designer">${ic(ICON.send, 20)}</button></div></section>
+<section class="ed-panel"><h2 class="dp-h2">Loading placeholders</h2><p class="ed-muted">Quiet shapes the same size as what is coming, so the page does not jump.</p>
+<div class="kit-sk" aria-busy="true" aria-label="Loading a book card"><span class="sk sk-photo"></span><div><span class="sk sk-title"></span><span class="sk sk-line"></span><span class="sk sk-line kit-short"></span></div></div></section>
+<section class="ed-panel"><h2 class="dp-h2">Progress</h2><p class="ed-muted">Photos added</p>
+<div class="pg" role="progressbar" aria-label="Photos added" aria-valuemin="0" aria-valuemax="100" aria-valuenow="72"><i class="kit-v72"></i></div><p class="ed-muted kit-cap">72 of 100 photos</p></section></div>
+<div class="dp-col">
+<section class="ed-panel"><h2 class="dp-h2">Ask before it cannot be undone</h2><p class="ed-muted">Anything that deletes or turns something off asks first. The safe answer is focused.</p>
+<div class="kit-row"><button type="button" class="ed-btn" data-confirm="Delete this draft?" data-confirm-body="You can not get it back." data-confirm-label="Yes, delete" data-danger>${ic(ICON.trash)}<span>Delete a draft</span></button><button type="button" class="ed-btn" data-confirm="Send the proof to Rameen?" data-confirm-body="She will see your comments straight away.">${ic(ICON.send)}<span>Send a proof</span></button></div></section>
+<section class="ed-panel"><h2 class="dp-h2">Messages</h2><p class="ed-muted">They appear above the tab bar, say it once, and leave on their own after a few seconds. Errors stay a little longer.</p>
+<div class="kit-row"><button type="button" class="ed-btn" data-toast="Saved to your account" data-toast-kind="good">Success</button><button type="button" class="ed-btn" data-toast="That photo is too small to print well" data-toast-kind="bad">Problem</button><button type="button" class="ed-btn" data-toast="Your cart was updated">Plain</button></div></section>
+<section class="ed-panel"><h2 class="dp-h2">Empty states</h2><div class="kit-empty">${ic(ICON.mail, 28)}<b>No messages yet</b><p class="ed-muted">When Rameen writes to you, it shows up here.</p><a class="ed-btn sm" href="#main">Say hello</a></div></section></div></div>`;
+
+const PAGES = [
+  { n: 137, file: 'Notifications', title: 'Notifications', kicker: 'Messages', lead: 'Everything we tell you about your book in one place, and how you want to hear it.', body: notifications },
+  { n: 138, file: 'EmailPreviews', title: 'Emails we send you', kicker: 'Messages', lead: 'What lands in your inbox at each step, in plain words. Each one is a real template the studio can send.', body: emails },
+  { n: 139, file: 'UiKit', title: 'Interface kit', kicker: 'Settings', lead: 'The small pieces every page shares: tooltips, loading placeholders, progress, confirmations and messages. Try each one.', body: kit }
+];
+
+function assemble(edition, pg) {
+  const D = edition === 'G', base = rd(`${edition}120-Privacy.dc.html`);
+  const mIdx = base.indexOf('<main id="main"'), eIdx = base.indexOf('</main>'), sIdx = base.indexOf('<script type="text/x-dc"');
+  let top = base.slice(0, mIdx), tail = base.slice(eIdx, sIdx), script = base.slice(sIdx);
+  top = top.replace(/<title>[\s\S]*?<\/title>/, `<title>${D ? '' : 'Light · '}${pg.title} · Miles Retold</title>`);
+  const twin = `${D ? 'GL' : 'G'}${pg.n}-${pg.file}.dc.html`;
+  top = top.replace(/(<a class="thm" href=")[^"]*(")/, `$1${twin}$2`);
+  top = top.replace(/<div class="subnav-top subnav-23">[\s\S]*?<\/nav><\/div>/, '');
+  if (!top.includes('/css/library-pages.css')) top = top.replace('</head>', '<link rel="stylesheet" href="/css/library-pages.css">\n</head>');
+  script = script.replace(/MilesDesign\.create\('privacy', this, \{[^}]*\}\)/, "MilesDesign.create('static', this, {})");
+  const banner = `<p class="dp-banner" role="note"><b>Design preview</b><span>Nothing on this page is saved or sent yet. It shows how the feature could look and feel.</span></p>`;
+  const main = `<main id="main" class="{{edCls}} dpm">\n<div class="dp">\n${banner}\n<header class="dp-head"><p class="ed-kicker">${pg.kicker}</p><h1 class="dp-h1">${pg.title}</h1><p class="dp-lead">${pg.lead}</p></header>\n${pg.body(edition)}\n</div>\n`;
+  return top + main + tail + script;
+}
+for (const pg of PAGES) for (const ed of ['G', 'GL']) wr(`${ed}${pg.n}-${pg.file}.dc.html`, assemble(ed, pg));
+console.log(`built ${EMAILS.length} email templates (+ text + previews) and ${PAGES.length * 2} pages`);

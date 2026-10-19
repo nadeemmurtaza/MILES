@@ -12,7 +12,7 @@
   };
   var FILE = { 9: 'Account', 10: 'Order', 13: 'Tracking', 11: 'Proof', 7: 'Upload', 23: 'Editor', 22: 'Messages', 17: 'Help', 12: 'Balance', 24: 'Invoices', 77: 'Invoice', 14: 'Settings',
     101: 'EasyPhotos', 102: 'EasyPage', 103: 'EasyCover', 104: 'EasySend', 80: 'EdStoryboard', 81: 'EdPhotos', 82: 'EdLayouts', 83: 'EdText', 84: 'EdCover', 85: 'EdStyle', 86: 'EdFlipbook', 87: 'EdPrintCheck', 88: 'EdHistory', 89: 'EdSend', 100: 'EasyHome',
-    120: 'Privacy', 121: 'PrivateUpload', 122: 'ShareLinks', 123: 'Consent', 124: 'DeleteData', 125: 'AccessLog', 126: 'Security', 127: 'SmartAssist', 128: 'Approvals', 129: 'ArabicText', 130: 'TripMap', 131: 'Shortcuts', 8: 'SignIn', 1: 'Home' };
+    137: 'Notifications', 138: 'EmailPreviews', 139: 'UiKit', 120: 'Privacy', 121: 'PrivateUpload', 122: 'ShareLinks', 123: 'Consent', 124: 'DeleteData', 125: 'AccessLog', 126: 'Security', 127: 'SmartAssist', 128: 'Approvals', 129: 'ArabicText', 130: 'TripMap', 131: 'Shortcuts', 8: 'SignIn', 1: 'Home' };
   var href = function (n) { return ed + n + '-' + FILE[n] + '.dc.html'; };
   var I = {
     home: '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>',
@@ -30,22 +30,30 @@
   var L = function (list) { return list.map(function (n) { return [n, (N[n] || EXTRA[n])[1]]; }); };
   var EXTRA = {
     80: ['', 'Storyboard'], 81: ['', 'Photos'], 82: ['', 'Layouts'], 83: ['', 'Text'], 84: ['', 'Cover'], 85: ['', 'Style'], 86: ['', 'Flipbook'], 87: ['', 'Print check'], 88: ['', 'History'], 89: ['', 'Send'], 100: ['', 'Step by step'],
+    137: ['', 'Notifications'], 138: ['', 'Email previews'], 139: ['', 'Interface kit'],
     120: ['', 'Overview'], 121: ['', 'Protected upload'], 122: ['', 'Sharing'], 123: ['', 'Your choices'], 124: ['', 'Delete data'], 125: ['', 'Who has looked'], 126: ['', 'Sign-in & devices'],
     127: ['', 'Smart help'], 128: ['', 'Approvals'], 129: ['', 'Arabic captions'], 130: ['', 'Trip map'], 131: ['', 'Shortcuts & access']
   };
   /* rail: key, label, icon, first page, sub-menu title, groups of [page, label] */
   var S = [
     ['order', 'Order', 'box', 9, 'My order', [['Overview', L([9, 10, 13, 11])]]],
-    ['book', 'My book', 'book', 7, 'My book', [['Make the book', L([7, 23, 100])], ['Editor pages', L([80, 81, 82, 83, 84, 85, 86, 87, 88, 89])], ['Editor extras', L([127, 128, 129, 130, 131])]]],
-    ['msg', 'Messages', 'chat', 22, 'Messages', [['Talk to us', L([22, 17])]]],
+    ['book', 'My book', 'book', 7, 'My book', [['Make the book', [[7, 'Photos'], [23, 'Live editor'], [127, 'Editor extras']]]]],
+    ['msg', 'Messages', 'chat', 22, 'Messages', [['Talk to us', L([22, 137, 138, 17])]]],
     ['bill', 'Billing', 'card', 12, 'Billing', [['Payments', L([12, 24, 77])]]],
     ['priv', 'Privacy', 'lock', 120, 'Privacy & security', [['Your photos', L([120, 121, 122, 123, 124, 125, 126])]]],
-    ['set', 'Settings', 'gear', 14, 'Settings', [['Account', L([14])]]]
+    ['set', 'Settings', 'gear', 14, 'Settings', [['Account', L([14, 139])]]]
+  ];
+  /* third level: pages that belong together under one entry of the second bar are shown as a horizontal bar under the header */
+  var H3 = [
+    { key: 'ed', label: 'Editor pages', entry: 23, pages: [[100, 'Step by step'], [23, 'Canvas'], [80, 'Storyboard'], [81, 'Photos'], [82, 'Layouts'], [83, 'Text'], [84, 'Cover'], [85, 'Style'], [86, 'Flipbook'], [87, 'Print check'], [88, 'History'], [89, 'Send']] },
+    { key: 'ex', label: 'Editor extras', entry: 127, pages: [[127, 'Smart help'], [128, 'Approvals'], [129, 'Arabic captions'], [130, 'Trip map'], [131, 'Shortcuts & access']] }
   ];
   var EASY = cur >= 100 && cur <= 104;                  /* step-by-step editing: phone-first, so the tab bar only */
   var look = EASY ? 100 : cur;
+  var h3 = null; H3.forEach(function (g) { g.pages.forEach(function (p) { if (p[0] === look) h3 = g; }); });
+  var isOn = function (n) { return n === look || (h3 && n === h3.entry); };   /* the group's entry in the second bar lights up for any page inside it */
   var cs = null;
-  S.forEach(function (s) { s[5].forEach(function (g) { g[1].forEach(function (p) { if (p[0] === look) cs = s; }); }); });
+  S.forEach(function (s) { s[5].forEach(function (g) { g[1].forEach(function (p) { if (isOn(p[0])) cs = s; }); }); });
   if (!cs) return;
   var get = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
   var put = function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} };
@@ -66,7 +74,7 @@
     '<a class="an-rl" href="' + href(8) + '" title="Sign out">' + svg('out') + '<span>Sign out</span></a>' +
     '</aside>' +
     '<nav class="an-sub" aria-label="' + cs[4] + ' pages"><div class="an-sh"><b>' + cs[4] + '</b><button type="button" class="an-x" aria-label="Hide the page list" title="Hide the page list">' + svg('back') + '</button></div>' +
-    cs[5].map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === cur ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join('') +
+    cs[5].map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (isOn(p[0]) ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join('') +
     '</nav>';
 
   var apply = function () {
@@ -92,11 +100,11 @@
   /* ---- phones and small tablets: one bottom tab bar (1st bar) + a "pages" sheet (2nd bar) ---- */
   var NOCHIP = EASY || cur === 23 || (cur >= 80 && cur <= 89);   /* screens with their own bottom tools: tab bar only, no floating chip */
   var pageName = '';
-  cs[5].forEach(function (g) { g[1].forEach(function (p) { if (p[0] === look) pageName = p[1]; }); });
+  cs[5].forEach(function (g) { g[1].forEach(function (p) { if (isOn(p[0])) pageName = h3 ? (h3.pages.filter(function (q) { return q[0] === look; })[0] || p)[1] : p[1]; }); });
   var TABS = S.slice(0, 4), MORE = S.slice(4), inMore = MORE.indexOf(cs) > -1;
   var mroot = document.createElement('div');
   mroot.className = 'an-m';
-  var sheetLinks = function (groups) { return groups.map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === look ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join(''); };
+  var sheetLinks = function (groups) { return groups.map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (isOn(p[0]) ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join(''); };
   var moreHtml = '<div class="an-sg">More</div>' + MORE.map(function (s) { return '<a href="' + href(s[3]) + '"' + (s === cs ? ' class="on" aria-current="page"' : '') + '>' + s[1] + '</a>'; }).join('') +
     '<div class="an-sg">Elsewhere</div><a href="' + twin + '">' + (dark ? 'Light theme' : 'Dark theme') + '</a><a href="' + href(1) + '">Back to the shop</a><a href="' + href(8) + '">Sign out</a>';
   mroot.innerHTML =
@@ -134,4 +142,24 @@
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sheet.hidden) closeSheet(); });
   };
   if (document.body) goMobile(); else document.addEventListener('DOMContentLoaded', goMobile);
+
+  /* ---- third-level bar: a horizontal strip right under the header ---- */
+  if (h3 && !EASY) {
+    var hb = document.createElement('nav');
+    hb.className = 'an-h3'; hb.setAttribute('aria-label', h3.label);
+    hb.innerHTML = '<b>' + h3.label + '</b>' + h3.pages.map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === look ? ' aria-current="page"' : '') + '><span>' + p[1] + '</span><i class="an-h3b" hidden></i></a>'; }).join('');
+    var mirror = function () {   /* the editor pages show a count on Print check; keep it on the strip */
+      h3.pages.forEach(function (p, i) {
+        var src = document.querySelector('.ed-ws a[href="' + href(p[0]) + '"] b'), dst = hb.querySelectorAll('a')[i].querySelector('.an-h3b');
+        var t = src ? src.textContent.trim() : ''; dst.textContent = t; dst.hidden = !t;
+      });
+    };
+    var goH = function () {
+      document.body.appendChild(hb); document.body.classList.add('an-h3-on');
+      var on = hb.querySelector('[aria-current]'); if (on && on.scrollIntoView) { try { on.scrollIntoView({ inline: 'center', block: 'nearest' }); } catch (e) { on.scrollIntoView(); } }
+      mirror(); setTimeout(mirror, 600); setTimeout(mirror, 1800);
+      var ws = document.querySelector('.ed-ws'); if (ws && window.MutationObserver) new MutationObserver(mirror).observe(ws, { childList: true, subtree: true, characterData: true });
+    };
+    if (document.body) goH(); else document.addEventListener('DOMContentLoaded', goH);
+  }
 })();

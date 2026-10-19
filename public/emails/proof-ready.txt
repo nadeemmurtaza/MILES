@@ -1,0 +1,18 @@
+Subject: Proof round {{round}} of your book is ready
+
+Your proof is ready, {{customer_name}}.
+
+Round {{round}} of {{book_title}} is waiting for you. Tap any page to leave a comment, or approve it when you love it.
+
+Order: {{order_no}}
+Proof: Round {{round}} · {{pages}}
+Designer: {{designer}}
+Please reply by: {{reply_by}}
+
+Review your proof: {{proof_url}}
+
+No reply by that date is fine. We will wait and send a reminder, we never print without your yes.
+
+--
+Miles Retold · order {{order_no}} · {{help_email}}
+Change what we email you: {{account_url}}

@@ -90,3 +90,29 @@
   .an-badge { position: absolute; inset-block-start: 1px; inset-inline-start: calc(50% + 6px); min-inline-size: 18px; block-size: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 9px; background: var(--gold); color: var(--forest-ink); font: 800 11px/18px Manrope, sans-serif; font-style: normal; text-align: center; }
   .an-badge[hidden] { display: none; }
 }
+
+/* ---- third level: a horizontal bar under the header (editor pages, editor extras) ---- */
+.an-h3 { position: fixed; z-index: 54; inset-inline: 12px; inset-block-start: 90px; display: flex; align-items: center; gap: 6px; box-sizing: border-box; padding: 4px; border-radius: 16px; overflow-x: auto; scrollbar-width: none; -webkit-overflow-scrolling: touch; color: var(--an-fg, var(--ivory));
+  background: var(--an-bg); -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-sat)); box-shadow: inset 0 0 0 1px rgb(from var(--an-fg, var(--ivory)) r g b / .14), 0 24px 48px -28px rgb(from var(--c-071a15) r g b / .5); transition: inset-block-start .5s cubic-bezier(.16, 1, .3, 1); }
+.an-h3::-webkit-scrollbar { display: none; }
+.an-h3 b { flex: none; padding-inline: 12px 6px; font: 800 11px/1 Manrope, sans-serif; letter-spacing: .14em; text-transform: uppercase; opacity: .6; white-space: nowrap; }
+.an-h3 a { flex: none; display: inline-flex; align-items: center; gap: 8px; min-block-size: 40px; padding-inline: 14px; border-radius: 12px; color: rgb(from var(--an-fg, var(--ivory)) r g b / .74); font: 700 13px/1 Manrope, sans-serif; text-decoration: none; white-space: nowrap; transition: background .25s, color .25s; }
+.an-h3 a:hover { background: rgb(from var(--an-fg, var(--ivory)) r g b / .08); color: var(--an-fg, var(--ivory)); }
+.an-h3 a[aria-current="page"] { background: rgb(from var(--an-fg, var(--ivory)) r g b / .14); color: var(--an-fg, var(--ivory)); box-shadow: inset 0 -2px 0 var(--gold); }
+.an-h3 a:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
+.an-h3b { min-inline-size: 18px; block-size: 18px; padding: 0 5px; box-sizing: border-box; border-radius: 9px; background: var(--gold); color: var(--forest-ink); font: 800 11px/18px Manrope, sans-serif; font-style: normal; text-align: center; }
+.an-h3b[hidden] { display: none; }
+body.an-h3-on:has([data-hide="1"]) .an-h3 { inset-block-start: 16px; }
+/* the page content makes room for the bar, and the editor's own tab bar is replaced by it */
+body.an-h3-on .nav.nv2 ~ main { margin-block-start: 0; }
+@media (min-width: 1100px) { body.an-h3-on .nav.nv2 ~ main { margin-block-start: 80px; } }
+body.an-h3-on .ed-ws { display: none; }
+@media (min-width: 1100px) {
+  body.an-on { --an-top: 108px; }
+  body.an-h3-on .an-h3 { inset-inline-start: calc(var(--an-rail) + var(--an-sub) + 22px); inset-inline-end: 16px; inset-block-start: 108px; transition: inset-inline-start .4s cubic-bezier(.16, 1, .3, 1); }
+  body.an-h3-on:has([data-hide="1"]) .an-h3 { inset-block-start: 16px; }
+  body.an-h3-on .an-rail, body.an-h3-on .an-sub { inset-block-start: 108px; }
+  body.an-h3-on:has([data-hide="1"]) .an-rail, body.an-h3-on:has([data-hide="1"]) .an-sub { inset-block-start: 12px; }
+}
+@media (max-width: 1099px) { body.an-h3-on { --an-fg: var(--ivory); } body.an-h3-on.an-light { --an-fg: var(--forest-ink); } }
+@media print { .an-h3 { display: none !important; } }

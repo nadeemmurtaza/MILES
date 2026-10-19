@@ -90,5 +90,11 @@
   var again = function () { basics(); tips(); setTimeout(tips, 900); setTimeout(tips, 2500); setTimeout(basics, 700); setTimeout(basics, 2000); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', again); else again();
 
+  /* [data-toast="Message"] on any button shows a toast (data-toast-kind="good|bad") */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest ? e.target.closest('[data-toast]') : null;
+    if (a) toast(a.getAttribute('data-toast'), { kind: a.getAttribute('data-toast-kind') || '' });
+  });
+
   window.MilesUI = { confirm: confirmBox, toast: toast, reducedMotion: reduce };
 })();
