@@ -36,6 +36,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/_blob/e8c29624c47de066f3c28cb82d08b58a">
 <link rel="apple-touch-icon" href="/_blob/587541048aa85fdedd1d966f27a5d383">
 <script src="/account-nav.js" defer></script>
+<link rel="stylesheet" href="/css/ui-kit.css">
+<script src="/ui-kit.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -69,7 +71,7 @@
 <span class="ed-pgn l">{{pgL}}</span><span class="ed-pgn r">{{pgR}}</span>
 </div>
 <p class="ed-hint"><kbd>←</kbd> <kbd>→</kbd> change spread · drag a photo into a frame, or tap a photo to place it · <kbd>Ctrl</kbd>+<kbd>Z</kbd> undo</p>
-<p class="ed-hint">Click a photo, then drag it to choose what shows · <kbd>Ctrl</kbd> + scroll (or pinch) to zoom · drag one photo onto another frame to swap them</p>
+<p class="ed-hint">Click a photo, then drag it to choose what shows · <kbd>Ctrl</kbd> + scroll (or pinch) to zoom · drag one photo onto another frame to swap them · no mouse? On a selected photo, <kbd>←</kbd> <kbd>→</kbd> <kbd>↑</kbd> <kbd>↓</kbd> move it, <kbd>+</kbd> <kbd>−</kbd> zoom, <kbd>0</kbd> resets, <kbd>Alt</kbd> + arrow swaps with the next frame</p>
 </div>
 <div class="ed-film" role="list" aria-label="All spreads"><sc-for list="{{film}}" as="f" hint-placeholder-count="6"><button class="ed-th" role="listitem" onClick="{{f.go}}" aria-current="{{f.cur}}" aria-label="{{f.label}}"><span class="ed-mini" data-lay="{{f.lay}}"><sc-for list="{{f.cells}}" as="c" hint-placeholder-count="2"><span class="ed-ms {{c.cls}}"><sc-if value="{{c.has}}" hint-placeholder-val="{{ true }}"><img src="{{c.src}}" alt=""></sc-if></span></sc-for></span><b><span>Spread {{f.n}}</span><i>{{f.missLabel}}</i></b></button></sc-for><button class="ed-add" onClick="{{addSpread}}"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>Add a spread</span></button></div>
 </section><aside class="ed-side" aria-label="Spread tools"><div class="ed-panel"><h2>This spread</h2>

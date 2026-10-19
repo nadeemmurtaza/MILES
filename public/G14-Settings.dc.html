@@ -29,6 +29,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/_blob/e8c29624c47de066f3c28cb82d08b58a">
 <link rel="apple-touch-icon" href="/_blob/587541048aa85fdedd1d966f27a5d383">
 <script src="/account-nav.js" defer></script>
+<link rel="stylesheet" href="/css/ui-kit.css">
+<script src="/ui-kit.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -47,7 +49,7 @@
 <label class="fld"><span>Anniversary (optional)</span><input class="inp" type="date"><small>We’ll send a small surprise.</small></label>
 </div><button class="u5e029f6 btn bs mag" type="submit">{{saveLabel}}</button></form></section></sc-if>
 <sc-if value="{{isAddr}}" hint-placeholder-val="{{ false }}"><section class="pic" aria-labelledby="s2"><h2 id="s2" class="h2">Addresses</h2>
-<div class="u4de99d3"><sc-for list="{{addrs}}" as="a" hint-placeholder-count="2"><div class="adr"><div><b class="u4fcab6e">{{a.n}}</b> <span class="u87c6ca9 pill" style="display: {{a.defD}}">Default</span><p class="u2fb4151 mu">{{a.t}}</p></div><div class="ua67076d"><button class="chip gl" onClick="{{a.mk}}" style="display: {{a.mkD}}">Make default</button><button class="chip gl" onClick="{{a.rm}}">Remove</button></div></div></sc-for></div><div aria-live="polite"><sc-if value="{{hasUndo}}" hint-placeholder-val="{{ false }}"><div class="toast" role="status">Removed {{undoName}}<button onClick="{{doUndo}}">Undo</button></div></sc-if></div>
+<div class="u4de99d3"><sc-for list="{{addrs}}" as="a" hint-placeholder-count="2"><div class="adr"><div><b class="u4fcab6e">{{a.n}}</b> <span class="u87c6ca9 pill" style="display: {{a.defD}}">Default</span><p class="u2fb4151 mu">{{a.t}}</p></div><div class="ua67076d"><button class="chip gl" onClick="{{a.mk}}" style="display: {{a.mkD}}">Make default</button><button class="chip gl" onClick="{{a.rm}}" data-confirm="Remove this address?" data-confirm-label="Yes, remove" data-danger>Remove</button></div></div></sc-for></div><div aria-live="polite"><sc-if value="{{hasUndo}}" hint-placeholder-val="{{ false }}"><div class="toast" role="status">Removed {{undoName}}<button onClick="{{doUndo}}">Undo</button></div></sc-if></div>
 <h3 class="u8087f21 h3">Add an address</h3>
 <div class="u4de99d3 seg gl" role="group" aria-label="Country"><sc-for list="{{ccs}}" as="c" hint-placeholder-count="2"><button class="ubf198ac {{c.cls}}" onClick="{{c.pick}}" aria-pressed="{{c.on}}">{{c.n}}</button></sc-for></div>
 <div class="u4de99d3 g2"><sc-for list="{{fields}}" as="f" hint-placeholder-count="4"><label class="fld"><span>{{f.l}}</span><input class="inp" placeholder="{{f.p}}"></label></sc-for></div>

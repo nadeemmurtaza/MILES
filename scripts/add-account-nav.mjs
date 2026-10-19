@@ -21,3 +21,14 @@ for (const f of readdirSync(dir).filter((x) => /^GL?(1|2|3|4|5|6|8|15|16|17|18|1
   writeFileSync(new URL(f, dir), h); k++;
 }
 console.log(`added to ${n} account pages and ${k} storefront pages`);
+
+/* every page, dark and light: shared UI kit (skeleton, tooltip, progress, confirm, toast) and the audit fixes */
+let w = 0;
+for (const f of readdirSync(dir).filter((x) => /^GL?\d+-.*\.dc\.html$/.test(x))) {
+  let h = readFileSync(new URL(f, dir), 'utf8');
+  if (h.includes('/ui-kit.js')) continue;
+  if (!h.includes('</head>')) throw new Error(`${f}: no </head>`);
+  h = h.replace('</head>', '<link rel="stylesheet" href="/css/ui-kit.css">\n<script src="/ui-kit.js" defer></script>\n</head>');
+  writeFileSync(new URL(f, dir), h); w++;
+}
+console.log(`ui kit added to ${w} pages`);

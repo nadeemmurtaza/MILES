@@ -23,6 +23,8 @@
 <link rel="icon" type="image/svg+xml" href="/_blob/ba8a47ecfe93acbd68bd017714519801">
 <link rel="icon" type="image/png" sizes="32x32" href="/_blob/e8c29624c47de066f3c28cb82d08b58a">
 <link rel="apple-touch-icon" href="/_blob/587541048aa85fdedd1d966f27a5d383">
+<link rel="stylesheet" href="/css/ui-kit.css">
+<script src="/ui-kit.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -52,7 +54,7 @@
 <div class="u8661254 grid2">
 <section>
 <div class="ua0fcf22 mgrid"><sc-for list="{{dows}}" as="d" hint-placeholder-count="7"><span class="u9223fea">{{d}}</span></sc-for></div>
-<div class="mgrid"><sc-for list="{{days}}" as="d" hint-placeholder-count="35"><button class="ix {{d.cls}}" onClick="{{d.pick}}" aria-label="{{d.label}}"><span class="n">{{d.n}}</span><sc-for list="{{d.evs}}" as="e" hint-placeholder-count="1"><span class="ev" style="background: {{e.bg}}; color: {{e.c}}">{{e.t}}</span></sc-for><span class="u60e322b dots"><sc-for list="{{d.evs}}" as="e" hint-placeholder-count="1"><span class="udfd7670" style="background: {{e.c}}"></span></sc-for></span></button></sc-for></div>
+<div class="mgrid"><sc-for list="{{days}}" as="d" hint-placeholder-count="35"><button class="ix {{d.cls}}" onClick="{{d.pick}}" aria-label="{{d.label}}" disabled="{{d.out}}"><span class="n">{{d.n}}</span><sc-for list="{{d.evs}}" as="e" hint-placeholder-count="1"><span class="ev" style="background: {{e.bg}}; color: {{e.c}}">{{e.t}}</span></sc-for><span class="u60e322b dots"><sc-for list="{{d.evs}}" as="e" hint-placeholder-count="1"><span class="udfd7670" style="background: {{e.c}}"></span></sc-for></span></button></sc-for></div>
 </section>
 <aside class="box side drawer" key="{{selKey}}">
 <div class="lab">Selected day</div><div class="uf254cbd big">{{selDate}}</div>
@@ -96,7 +98,7 @@ class Component extends DCLogic {
     const mm = M[st.m], tm = Object.fromEntries(T.map((t) => [t[0], t]));
     const vis = (k) => !st.off[k];
     const days = Array.from({ length: 35 }, (_, i) => { const n = i - mm[2] + 1; const ok = n >= 1 && n <= mm[1]; const evs = ok ? (EV[st.m][n] || []).filter((e) => vis(e[0])) : [];
-      return { n: ok ? n : '', label: ok ? mm[0].split(' ')[0] + ' ' + n + ': ' + (evs.length ? evs.map((e) => tm[e[0]][1] + ' ' + e[1]).join(', ') : 'nothing planned') : '',
+      return { n: ok ? n : '', out: !ok, label: ok ? mm[0].split(' ')[0] + ' ' + n + ': ' + (evs.length ? evs.map((e) => tm[e[0]][1] + ' ' + e[1]).join(', ') : 'nothing planned') : 'Not in this month',
         cls: 'mday' + (ok ? '' : ' out') + (st.sel === n && ok ? ' on' : '') + (st.m === 0 && n === mm[3] ? ' today' : ''), evs: evs.map((e) => ({ t: e[1], c: tm[e[0]][2], bg: tm[e[0]][3] })), pick: () => ok && set({ sel: n }) }; });
     const se = (EV[st.m][st.sel] || []).filter((e) => vis(e[0]));
     return { month: mm[0], prevName: M[0][0].split(' ')[0], nextName: M[1][0].split(' ')[0], prev: () => set({ m: 0, sel: 8 }), next: () => set({ m: 1, sel: 9 }),

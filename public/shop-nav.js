@@ -28,7 +28,7 @@
   root.className = 'an-m';
   root.innerHTML =
     '<nav class="an-tabs" aria-label="Shop sections">' +
-    TABS.map(function (t) { var on = t[3].indexOf(cur) > -1; return '<a href="' + href(t[2]) + '"' + (on ? ' class="on" aria-current="page"' : '') + '>' + svg(t[0]) + (t[1] === 'Cart' ? '<i class="an-badge" hidden></i>' : '') + '<span>' + t[1] + '</span></a>'; }).join('') +
+    TABS.map(function (t) { var on = t[3].indexOf(cur) > -1; return '<a href="' + href(t[2]) + '"' + (on ? ' class="on" aria-current="page"' : '') + '>' + svg(t[0]) + (t[1] === 'Cart' ? '<i class="an-badge" hidden aria-hidden="true"></i>' : '') + '<span>' + t[1] + '</span></a>'; }).join('') +
     '<button type="button" class="an-more' + (inMore ? ' on' : '') + '" aria-haspopup="dialog">' + svg('dots') + '<span>More</span></button></nav>' +
     '<div class="an-scrim" hidden></div><div class="an-sheet" role="dialog" aria-modal="true" aria-label="More" hidden><div class="an-sh"><b>More</b><button type="button" class="an-x" aria-label="Close">' + svg('close', 18) + '</button></div><div class="an-sl">' + moreHtml + '</div></div>';
   var sheet, scrim, last;
@@ -48,7 +48,8 @@
     var badge = root.querySelector('.an-badge'), tries = 0, watching = false;
     var sync = function () {
       var b = document.querySelector('.nav .cart b'), n = b ? b.textContent.trim() : '';
-      if (/^\d+$/.test(n) && n !== '0') { badge.textContent = n; badge.hidden = false; } else badge.hidden = true;
+      if (/^\d+$/.test(n) && n !== '0') { badge.textContent = n; badge.hidden = false; } else { n = '0'; badge.hidden = true; }
+      var cart = badge.parentNode; cart.setAttribute('aria-label', 'Cart, ' + n + (n === '1' ? ' item' : ' items'));   /* one clear name instead of a bare number */
       if (b && !watching) { watching = true; new MutationObserver(sync).observe(b, { childList: true, characterData: true, subtree: true }); }
       if (!/^\d+$/.test(n) && ++tries < 40) setTimeout(sync, 250);
     };

@@ -6,6 +6,7 @@
      selected frame, two fingers                pinch to zoom (and pan with the midpoint)
      selected frame, Ctrl + wheel / trackpad    zoom
      other frame, press and hold (touch) or drag (mouse), drop on another frame    swap the two photos
+     keyboard, selected frame focused   arrows pan (Shift = bigger steps), + / - zoom, 0 resets, Alt + arrows swap with the neighbouring frame
 
    The page gives it four callbacks: MilesGestures.attach({ getSlot(si, fi) -> {z,x,y}, adjust(si, fi, patch),
    swap(si, a, b), afterSwap(si, a, b) }). attach() returns a function that removes every listener.
@@ -118,6 +119,28 @@
     function click(e) { if (Date.now() < blockUntil && frameOf(e.target)) { e.stopPropagation(); e.preventDefault(); } }
     function ctx(e) { if (st && st.mode !== 'wait' && frameOf(e.target)) e.preventDefault(); }
 
+
+    /* the same three moves without dragging: arrows pan, + and - zoom, 0 resets, Alt + arrow swaps with the next or previous frame */
+    function keys(e) {
+      var el = frameOf(e.target);
+      if (!el || el.getAttribute('data-sel') !== '1' || el.getAttribute('data-has') !== '1' || e.ctrlKey || e.metaKey) return;
+      var si = +el.getAttribute('data-si'), fi = +el.getAttribute('data-fi'), k = e.key, cur = h.getSlot(si, fi);
+      if (!cur) return;
+      var step = e.shiftKey ? 12 : 4, p = null;
+      if (e.altKey && /^Arrow(Left|Right|Up|Down)$/.test(k)) {
+        var peers = [].slice.call(document.querySelectorAll('[data-gf][data-si="' + si + '"]')), i = peers.indexOf(el), to = peers[i + (/Left|Up/.test(k) ? -1 : 1)];
+        if (to) { e.preventDefault(); e.stopPropagation(); var b = +to.getAttribute('data-fi'); h.swap(si, fi, b); if (h.afterSwap) h.afterSwap(si, fi, b); }
+        return;
+      }
+      if (k === 'ArrowLeft') p = { x: clamp(cur.x - step, 0, 100) }; else if (k === 'ArrowRight') p = { x: clamp(cur.x + step, 0, 100) };
+      else if (k === 'ArrowUp') p = { y: clamp(cur.y - step, 0, 100) }; else if (k === 'ArrowDown') p = { y: clamp(cur.y + step, 0, 100) };
+      else if (k === '+' || k === '=') p = { z: clamp(Math.round((cur.z + .1) * 100) / 100, 1, MAXZ) };
+      else if (k === '-' || k === '_') p = { z: clamp(Math.round((cur.z - .1) * 100) / 100, 1, MAXZ) };
+      else if (k === '0') p = { z: 1, x: 50, y: 50 };
+      if (!p) return;
+      e.preventDefault(); e.stopPropagation(); lastSi = si; lastFi = fi; h.adjust(si, fi, p);
+    }
+    document.addEventListener('keydown', keys, true);
     document.addEventListener('pointerdown', down, true);
     window.addEventListener('pointermove', move, { passive: false });
     window.addEventListener('pointerup', up); window.addEventListener('pointercancel', up);
@@ -126,7 +149,7 @@
     document.addEventListener('contextmenu', ctx);
     document.addEventListener('touchmove', noScroll, { passive: false });
     return function () {
-      document.removeEventListener('pointerdown', down, true); window.removeEventListener('pointermove', move);
+      document.removeEventListener('keydown', keys, true); document.removeEventListener('pointerdown', down, true); window.removeEventListener('pointermove', move);
       window.removeEventListener('pointerup', up); window.removeEventListener('pointercancel', up);
       document.removeEventListener('wheel', wheel); document.removeEventListener('click', click, true);
       document.removeEventListener('contextmenu', ctx); document.removeEventListener('touchmove', noScroll);

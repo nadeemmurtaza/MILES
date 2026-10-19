@@ -30,6 +30,8 @@
 <link rel="icon" type="image/png" sizes="32x32" href="/_blob/e8c29624c47de066f3c28cb82d08b58a">
 <link rel="apple-touch-icon" href="/_blob/587541048aa85fdedd1d966f27a5d383">
 <script src="/shop-nav.js" defer></script>
+<link rel="stylesheet" href="/css/ui-kit.css">
+<script src="/ui-kit.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -46,7 +48,7 @@
 <div><h2>{{it.name}}</h2><p class="uac136d5 mu">{{it.spec}}</p><p class="u8998c61">{{it.note}}</p>
 <div class="acts"><div class="qty gl"><button onClick="{{it.minus}}" aria-label="One fewer">−</button><b>{{it.q}}</b><button onClick="{{it.plus}}" aria-label="One more">+</button></div>
 <label class="ua4c4b49"><button class="{{it.wCls}}" onClick="{{it.wrap}}" role="switch" aria-checked="{{it.wOn}}" aria-label="Gift wrap and note"></button>Gift wrap &amp; note</label>
-<button class="lnk" onClick="{{it.remove}}">Remove</button></div></div>
+<button class="lnk" onClick="{{it.remove}}" data-confirm="Remove this book from your cart?" data-confirm-body="Your layout choices for it will be forgotten." data-confirm-label="Yes, remove" data-danger>Remove</button></div></div>
 <div class="u98ef30c pr tot">{{it.price}}</div></article></sc-for>
 <a class="u8ced3aa ul" href="GL2-Books.dc.html">+ Add another book <span>↗</span></a>
 </div>
