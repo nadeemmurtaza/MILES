@@ -72,7 +72,7 @@
   function newDoc(pageCount) {
     var n = pageCount || 40, pages = [];
     for (var i = 0; i < n + 2; i++) pages.push({ id: uid('p'), bg: i === 0 ? '#12342b' : '#fffcf6', items: [], doodle: [], layout: '', done: false });
-    return { v: 1, order: 'MR-1042', customer: 'Sara', title: '', sub: '', dedication: '', author: '', ratio: 0.8, inches: 8, event: '', size: '', count: n, setup: 0, pages: pages, gallery: [], spans: {}, deleted: [], notes: [], status: 'draft', rev: { n: 0, by: 'customer', t: 0 } };
+    return { v: 1, order: 'MR-1042', customer: 'Sara', title: '', sub: '', dedication: '', author: '', ratio: 0.8, inches: 8, event: '', size: '', cover: '', step: '', count: n, setup: 0, pages: pages, gallery: [], spans: {}, deleted: [], notes: [], status: 'draft', rev: { n: 0, by: 'customer', t: 0 } };
   }
   function resize(doc, n) {   /* change the number of inner pages; keeps the back cover last */
     var back = doc.pages.pop();

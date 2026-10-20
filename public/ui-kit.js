@@ -91,6 +91,7 @@
      Pages that belong to the classic editor, and links marked data-keep, stay as they are. */
   function reroute() {
     var m = location.pathname.match(/GL?(\d+)-/), n = m ? +m[1] : 0;
+    if (n !== 3) document.querySelectorAll('a[href]').forEach(function (a) { if (/(^|\/)GL?3-Builder\.dc\.html(#.*)?$/.test(a.getAttribute('href') || '')) a.setAttribute('href', '/book/editor.html?as=customer&start=new'); });   /* Start a book opens the live editor */
     if (n === 23 || n === 70 || (n >= 80 && n <= 104) || (n >= 110 && n <= 114)) return;
     document.querySelectorAll('a[href]:not([data-keep])').forEach(function (a) {
       var h = a.getAttribute('href') || '';
@@ -120,6 +121,11 @@
       set('out');
       document.addEventListener('click', function (e) { var t = e.target.closest && e.target.closest('main button, main a[href*="9-Account"], form button'); if (t) set('in'); }, true);
       document.addEventListener('submit', function () { set('in'); }, true);
+      /* a visitor sent here from the book start goes back there once signed in */
+      var back = function () { var nx = null; try { nx = localStorage.getItem('miles.next'); } catch (e) {} if (!nx) return; document.querySelectorAll('main a[href*="9-Account"]').forEach(function (a) { a.setAttribute('href', nx); }); };
+      back(); setTimeout(back, 600); setTimeout(back, 1500);
+      document.addEventListener('click', function () { setTimeout(back, 50); setTimeout(back, 500); }, true);
+      document.addEventListener('click', function (e) { var a = e.target.closest && e.target.closest('main a[href]'); if (a && a.getAttribute('href') === (function () { try { return localStorage.getItem('miles.next'); } catch (e2) { return null; } })()) { try { localStorage.removeItem('miles.next'); } catch (e3) {} } }, true);
     }
     if (get() === 'in') document.querySelectorAll('a[href$="8-SignIn.dc.html"]').forEach(function (a) {
       if (a.closest('.an, .an-m')) return;

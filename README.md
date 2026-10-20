@@ -186,3 +186,7 @@ When photos are added in the live editor (wizard, gallery, "Add photos"), the ed
 ## One start: occasion, size, pages, title, photos, design
 
 The storefront "Start a book" page (`3-Builder`) now sends visitors straight to the live editor, whose start has six steps: Occasion (travel, wedding, honeymoon, love story, multi-city, camera roll), Size (portrait 8 × 10, landscape 11 × 8.5, square 10 × 10; sets the page shape), Pages, Title, Photos, then Design. If a book is already in progress, a confirm box offers to keep it or start a new one. Cover colour, extra copies, gift wrap and priority design from the old builder are not in the start any more; extra copies are ordered from My books, the rest belongs at checkout.
+
+## The start in small steps, saved as you go
+
+"Start a book" links open the live editor directly. The start is eight small steps with their own addresses (`#event`, `#size`, `#pages`, `#title`, `#dedication`, `#cover`, `#gallery`, then design), so the browser's back button works. A 3D book beside every step follows the answers: its shape (size), thickness (pages), cover colour, title and caption, an occasion picture, and it turns a little more upright as the steps are completed. Every choice is saved on the spot on the device (even when not signed in) and the start resumes at the step you left. Photos, and sending the book to the studio, need an account: a guest sees "Sign in to keep your book" at the Photos step and is returned to it after signing in (`miles.next`).

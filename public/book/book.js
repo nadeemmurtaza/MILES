@@ -167,10 +167,37 @@
   }
 
   /* ------------------------------------------------------------ wizard screens */
+  /* ------------------------------------------------------------ the start: small steps, a 3D book that follows the answers */
+  var WSTEPS = [['event', 'Occasion'], ['size', 'Size'], ['pages', 'Pages'], ['title', 'Title'], ['dedication', 'Dedication'], ['cover', 'Cover'], ['gallery', 'Photos'], ['design', 'Design']];
+  var WS = WSTEPS.map(function (x) { return x[0]; });
+  var COVERS = [['forest', 'Forest', '#12342b', '#fff6f0'], ['wine', 'Wine', '#5a1830', '#f7ecdf'], ['blue', 'Dusty blue', '#5e7fa6', '#ffffff'], ['sand', 'Sand', '#e4d5c6', '#5a1830'], ['ink', 'Ink', '#2a1d22', '#e0a030']];
+  function signedIn() { try { return localStorage.getItem('miles.auth') === 'in'; } catch (e) { return false; } }
+  function signInUrl() { var g = 'GL'; try { g = localStorage.getItem('miles.theme') === 'dark' ? 'G' : 'GL'; } catch (e) {} return '/' + g + '8-SignIn.dc.html'; }
+  function toSignIn() { try { localStorage.setItem('miles.next', '/book/editor.html?as=customer'); } catch (e) {} location.href = signInUrl(); }
+  function wgo(step) {   /* go to a step; the step is saved, so closing the tab and coming back resumes here */
+    S.doc.step = step; S.screen = step; persist(false);
+    try { if (location.hash !== '#' + step) history.pushState({ s: step }, '', '#' + step); } catch (e) {}
+    render(); try { window.scrollTo(0, 0); } catch (e) {}
+  }
+  function wizBook() {
+    var d = S.doc, idx = Math.max(0, WS.indexOf(S.screen)), prog = idx / (WSTEPS.length - 1);
+    var cv = COVERS.filter(function (c) { return c[0] === d.cover; })[0] || COVERS[0], ev = EVENTS.filter(function (e) { return e[0] === d.event; })[0];
+    var H = S.compact ? 150 : 215, W = Math.round(H * (d.ratio || 0.8)), depth = Math.round(10 + (d.count || 40) * 0.5 * (H / 215));
+    var photo = ev ? h('span', { class: 'wb-ph' }, (function () { var im = h('img', { src: ev[3], alt: '' }); im.addEventListener('error', function () { im.remove(); }, { once: true }); return im; })()) : null;
+    var front = h('div', { class: 'wb-f' }, photo, h('b', null, d.title || (ev ? ev[4] : 'Your title')), d.sub ? h('small', null, d.sub) : null);
+    var b = h('div', { class: 'wb-b', style: { '--bw': W + 'px', '--bh': H + 'px', '--bd': depth + 'px', '--cv': cv[2], '--ci': cv[3], '--ry': Math.round(-48 + prog * 30) + 'deg' } },
+      front, h('div', { class: 'wb-s' }, depth > 20 ? h('i', null, d.title || '') : null), h('div', { class: 'wb-e' }), h('div', { class: 'wb-t' }), h('div', { class: 'wb-k' }));
+    var size = SIZES.filter(function (z) { return z[0] === d.size; })[0];
+    var cap = [ev ? ev[1] : 'Your book', size ? size[1] + ' ' + size[2] : null, d.count + ' pages'].filter(Boolean).join(' · ');
+    return h('div', { class: 'wb', role: 'img', 'aria-label': 'Your book so far: ' + cap }, b, h('p', { class: 'wb-c' }, cap));
+  }
+  function refreshBook() { var el = document.querySelector('.wbk'); if (el) { el.textContent = ''; el.appendChild(wizBook()); } }
   function wizardShell(step, title, lead, body, foot) {
+    var idx = WS.indexOf(step), pct = Math.round((idx + 1) / WSTEPS.length * 100);
     return h('div', { class: 'app wiz' }, topbar(true), h('main', { class: 'wz', id: 'main' },
-      h('ol', { class: 'steps', 'aria-label': 'Steps' }, ['Occasion', 'Size', 'Pages', 'Title', 'Photos', 'Design'].map(function (t, i) { return h('li', { class: i + 1 === step ? 'now' : (i + 1 < step ? 'done' : ''), 'aria-current': i + 1 === step ? 'step' : null }, h('i', null, i + 1 < step ? ic('check', 14) : String(i + 1)), h('span', null, t)); })),
-      h('h1', null, title), h('p', { class: 'lead' }, lead), body, h('div', { class: 'foot' }, foot)));
+      h('div', { class: 'wp' }, h('b', null, 'Step ' + (idx + 1) + ' of ' + WSTEPS.length), h('div', { class: 'wpbar', role: 'progressbar', 'aria-label': 'Progress', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(pct) }, h('i', { style: { inlineSize: pct + '%' } })), h('span', { class: 'sv' }, ic('lock', 14), h('span', { id: 'savedat' }, (S.saved || 'Saved') + (signedIn() ? ' · in your account' : ' · on this device')))),
+      h('ol', { class: 'steps', 'aria-label': 'Steps' }, WSTEPS.map(function (t, i) { return h('li', { class: i === idx ? 'now' : (i < idx ? 'done' : ''), 'aria-current': i === idx ? 'step' : null }, h('i', null, i < idx ? ic('check', 14) : String(i + 1)), h('span', null, t[1])); })),
+      h('div', { class: 'wgrid' }, h('aside', { class: 'wbk' }, wizBook()), h('section', { class: 'wbody' }, h('h1', null, title), h('p', { class: 'lead' }, lead), body, h('div', { class: 'foot' }, foot)))));
   }
   /* steps 1 and 2: what the book is for, and its shape (this replaces the old Start a book page) */
   var EVENTS = [['travel', 'Travel journey', 'One trip, one place', '/_blob/1bebe18032c3ba7f722debbe5fa70f36', 'Maldives'], ['wedding', 'Wedding', 'The day itself', '/_blob/d79cb5916bf021b810ad3e0168beec13', 'Our wedding'], ['honeymoon', 'Honeymoon', 'Often a surprise', '/_blob/6dc6964be6ca87733a870c819d870936', 'Honeymoon'], ['love', 'Love story', 'Anniversaries', '/_blob/40f21930485ef5903566224ed85a9273', 'Our story'], ['multi', 'Multi-city', 'Several stops', '/_blob/44c3ed2b417e619b81afb56289c69c25', 'Europe'], ['roll', 'Camera roll', 'A year or season', '/_blob/6b43c91be8c10d0cbed5dc2520dde00d', 'Our year']];
@@ -181,8 +208,8 @@
       var im = h('img', { src: e[3], alt: '', loading: 'lazy' }); im.addEventListener('error', function () { im.remove(); }, { once: true });
       return h('button', { type: 'button', class: 'opt evc' + (d.event === e[0] ? ' on' : ''), role: 'radio', 'aria-checked': String(d.event === e[0]), onclick: function () { d.event = e[0]; persist(false); render(); } }, im, h('b', null, e[1]), h('small', null, e[2]));
     }));
-    return wizardShell(1, 'What is the book for?', 'Pick the one that fits best. Everything can change later with the studio.', body,
-      [h('span', { class: 'hint' }, d.event ? 'Good. Next is the size.' : 'Choose one to continue.'), btn('Next', function () { if (!d.event) { toast('Pick what the book is for', { kind: 'bad' }); return; } S.screen = 'size'; render(); }, { cls: 'pri big', icon: 'next', dis: !d.event })]);
+    return wizardShell('event', 'What is the book for?', 'Pick the one that fits best. Everything can change later with the studio.', body,
+      [h('span', { class: 'hint' }, d.event ? 'Good. Next is the size.' : 'Choose one to continue.'), btn('Next', function () { if (!d.event) { toast('Pick what the book is for', { kind: 'bad' }); return; } wgo('size'); }, { cls: 'pri big', icon: 'next', dis: !d.event })]);
   }
   function screenSize() {
     var d = S.doc;
@@ -191,29 +218,49 @@
       return h('button', { type: 'button', class: 'opt szc' + (d.size === z[0] ? ' on' : ''), role: 'radio', 'aria-checked': String(d.size === z[0]), onclick: function () { d.size = z[0]; d.ratio = z[3]; d.inches = z[4]; persist(false); render(); } },
         h('span', { class: 'szp', 'aria-hidden': 'true' }, h('i', { style: { inlineSize: w + 'px', blockSize: hh + 'px' } })), h('b', null, z[1]), h('small', null, z[2]));
     }));
-    return wizardShell(2, 'What size?', 'The shape of every page. Portrait suits portraits and trips, landscape suits wide views, square suits a bit of both.', body,
-      [btn('Back', function () { S.screen = 'event'; render(); }, { icon: 'back' }), h('span', { class: 'hint' }, d.size ? 'Next you choose the number of pages.' : 'Choose one to continue.'), btn('Next', function () { if (!d.size) { toast('Pick a size', { kind: 'bad' }); return; } S.screen = 'pages'; render(); }, { cls: 'pri big', icon: 'next', dis: !d.size })]);
+    return wizardShell('size', 'What size?', 'The shape of every page. Portrait suits portraits and trips, landscape suits wide views, square suits a bit of both.', body,
+      [btn('Back', function () { wgo('event'); }, { icon: 'back' }), h('span', { class: 'hint' }, d.size ? 'Next you choose the number of pages.' : 'Choose one to continue.'), btn('Next', function () { if (!d.size) { toast('Pick a size', { kind: 'bad' }); return; } wgo('pages'); }, { cls: 'pri big', icon: 'next', dis: !d.size })]);
   }
   function screenPages() {
     var d = S.doc, counts = [20, 30, 40, 50, 60, 80], sel = d.count;
     var body = h('div', { class: 'opts', role: 'radiogroup', 'aria-label': 'Number of pages' }, counts.map(function (n) {
       return h('button', { type: 'button', class: 'opt' + (n === sel ? ' on' : ''), role: 'radio', 'aria-checked': String(n === sel), onclick: function () { if (S.doc.count !== n) B.resize(S.doc, n); persist(false); render(); } }, h('b', null, String(n)), h('small', null, n / 2 + ' spreads'), n === 40 ? h('em', null, 'Most chosen') : null);
     }));
-    return wizardShell(3, 'How many pages?', 'Pages are inside the book, not counting the covers. You can change this later.', body,
-      [btn('Back', function () { S.screen = 'size'; render(); }, { icon: 'back' }), h('span', { class: 'hint' }, sel + ' pages = ' + sel / 2 + ' spreads, plus the covers.'), btn('Next', function () { S.doc.setup = Math.max(S.doc.setup, 1); persist(false); S.screen = 'title'; render(); }, { cls: 'pri big', icon: 'next' })]);
+    return wizardShell('pages', 'How many pages?', 'Pages are inside the book, not counting the covers. You can change this later.', body,
+      [btn('Back', function () { wgo('size'); }, { icon: 'back' }), h('span', { class: 'hint' }, sel + ' pages = ' + sel / 2 + ' spreads, plus the covers.'), btn('Next', function () { S.doc.setup = Math.max(S.doc.setup, 1); wgo('title'); }, { cls: 'pri big', icon: 'next' })]);
+  }
+  function wfield(key, label, ph, area) {
+    var d = S.doc, inp = h(area ? 'textarea' : 'input', { id: 'f-' + key, value: d[key], placeholder: ph, maxlength: area ? 160 : 60, rows: area ? 3 : null, autocomplete: 'off', oninput: function () { d[key] = inp.value; persist(false); refreshBook(); var t = document.querySelector('.ttl b'); if (t && key === 'title') t.textContent = d.title || 'My book'; } });
+    inp.value = d[key] || ''; return h('label', { class: 'fld' }, h('span', null, label), inp);
   }
   function screenTitle() {
+    var d = S.doc, ev = EVENTS.filter(function (e) { return e[0] === d.event; })[0] || [0, 0, 0, 0, 'Maldives'];
+    return wizardShell('title', 'Name your book', 'The title and the line under it go on the cover. You can change them any time.', h('div', { class: 'form' }, wfield('title', 'Book title', ev[4], false), wfield('sub', 'Caption under the title', 'March 2022 · two sisters, one island', false)),
+      [btn('Back', function () { wgo('pages'); }, { icon: 'back' }), btn('Next', function () { d.setup = Math.max(d.setup, 2); wgo('dedication'); }, { cls: 'pri big', icon: 'next' })]);
+  }
+  function screenDedication() {
     var d = S.doc;
-    var f = function (key, label, ph, area) { var inp = h(area ? 'textarea' : 'input', { id: 'f-' + key, value: d[key], placeholder: ph, maxlength: area ? 160 : 60, rows: area ? 2 : null, autocomplete: 'off', oninput: function () { d[key] = inp.value; var pv = document.getElementById('pv'); if (pv) pv.replaceWith(preview()); } }); inp.value = d[key] || ''; return h('label', { class: 'fld' }, h('span', null, label), inp); };
-    var preview = function () { return h('div', { id: 'pv', class: 'cvp', 'aria-label': 'Cover preview' }, h('b', null, d.title || 'Your title'), h('small', null, d.sub || 'Your caption')); };
-    var body = h('div', { class: 'two' }, h('div', { class: 'form' }, f('title', 'Book title', (EVENTS.filter(function (e) { return e[0] === d.event; })[0] || [0, 0, 0, 0, 'Maldives'])[4], false), f('sub', 'Caption under the title', 'March 2022 · two sisters, one island', false), f('dedication', 'Dedication (optional)', 'For Mama, who said yes to the trip', true), f('author', 'Your name on the back (optional)', 'Sara and Noor', false)), preview());
-    return wizardShell(4, 'Name your book', 'These words go on the cover and the title page. You can change them any time.', body,
-      [btn('Back', function () { S.screen = 'pages'; render(); }, { icon: 'back' }), btn('Next', function () { d.setup = Math.max(d.setup, 2); persist(false); S.screen = 'gallery'; render(); }, { cls: 'pri big', icon: 'next' })]);
+    return wizardShell('dedication', 'Who is it for?', 'A dedication for the first page and your name for the back. Both are optional, you can skip them.', h('div', { class: 'form' }, wfield('dedication', 'Dedication (optional)', 'For Mama, who said yes to the trip', true), wfield('author', 'Your name on the back (optional)', 'Sara and Noor', false)),
+      [btn('Back', function () { wgo('title'); }, { icon: 'back' }), btn('Next', function () { wgo('cover'); }, { cls: 'pri big', icon: 'next' })]);
+  }
+  function screenCover() {
+    var d = S.doc, cur = d.cover || 'forest';
+    var body = h('div', { class: 'opts cvs', role: 'radiogroup', 'aria-label': 'Cover colour' }, COVERS.map(function (c) {
+      return h('button', { type: 'button', class: 'opt cvc' + (cur === c[0] ? ' on' : ''), role: 'radio', 'aria-checked': String(cur === c[0]), onclick: function () { d.cover = c[0]; d.pages[0].bg = c[2]; persist(false); render(); } }, h('span', { class: 'sw', style: { background: c[2], color: c[3] }, 'aria-hidden': 'true' }, h('i', null, 'Aa')), h('b', null, c[1]));
+    }));
+    return wizardShell('cover', 'Pick the cover colour', 'The colour of the front cover. You can change it later, and design the cover itself when you get there.', body,
+      [btn('Back', function () { wgo('dedication'); }, { icon: 'back' }), btn('Next', function () { d.pages[0].bg = (COVERS.filter(function (c) { return c[0] === cur; })[0] || COVERS[0])[2]; d.cover = cur; wgo('gallery'); }, { cls: 'pri big', icon: 'next' })]);
   }
   function screenGallery() {
+    if (ROLE === 'customer' && !signedIn()) {   /* to keep the book, and to add photos safely, an account is needed */
+      var gate = h('div', { class: 'gate' }, ic('lock', 28), h('b', null, 'Sign in to keep your book'),
+        h('p', null, 'Everything you chose so far is saved on this device. To add your photos and keep the book safe, sign in or create a free account. You will come straight back to this step.'),
+        btn('Sign in or create an account', toSignIn, { cls: 'pri big', icon: 'next' }));
+      return wizardShell('gallery', 'Your photos', 'Photos are kept private to you and the studio, so this step needs an account.', gate, [btn('Back', function () { wgo('cover'); }, { icon: 'back' })]);
+    }
     var body = galleryBody(false);
-    return wizardShell(5, 'Your photos', 'Add the photos you want to choose from. Everything stays private to you and the studio.', body,
-      [btn('Back', function () { S.screen = 'title'; render(); }, { icon: 'back' }), h('span', { class: 'hint' }, S.doc.gallery.length + ' photos'), btn('Start designing', function () { S.doc.setup = 3; persist(false); S.screen = 'design'; S.si = 0; S.ap = 0; render(); }, { cls: 'pri big', icon: 'next' })]);
+    return wizardShell('gallery', 'Your photos', 'Add the photos you want to choose from. Everything stays private to you and the studio.', body,
+      [btn('Back', function () { wgo('cover'); }, { icon: 'back' }), h('span', { class: 'hint' }, S.doc.gallery.length + ' photos'), btn('Start designing', function () { S.doc.setup = 3; S.si = 0; S.ap = 0; wgo('design'); }, { cls: 'pri big', icon: 'next' })]);
   }
 
   /* ------------------------------------------------------------ gallery (wizard, sheet and picker share this) */
@@ -490,13 +537,14 @@
           var lost = n < d.count && d.pages.slice(n + 1, d.pages.length - 1).some(function (p) { return p.items.length; });
           if (lost) window.MilesUI.confirm({ title: 'Remove the last pages?', body: 'Pages after page ' + n + ' have designs on them. They would be removed.', confirmLabel: 'Remove them', danger: true }).then(function (ok) { if (ok) go(); }); else go();
         }, { cls: 'pri', icon: 'check' }),
-        h('hr'), btn('Start the steps again', function () { closeSheet(); S.screen = 'event'; render(); }, { icon: 'back' }));
+        h('hr'), btn('Start the steps again', function () { closeSheet(); wgo('event'); }, { icon: 'back' }));
     }
     var sh = h('div', { id: 'sheet', class: 'sheet-w' }, h('div', { class: 'scrim', onclick: closeSheet }), h('section', { class: 'sheet', role: 'dialog', 'aria-modal': 'true', 'aria-label': title }, h('div', { class: 'dl-h' }, h('b', null, title), h('button', { type: 'button', class: 'sq', 'aria-label': 'Close', onclick: closeSheet }, ic('close'))), h('div', { class: 'dl-b' }, body)));
     document.body.appendChild(sh);
     var f = sh.querySelector('.dl-h .sq'); if (f) f.focus();
   }
   function sendToStudio() {
+    if (ROLE === 'customer' && !signedIn()) { toast('Sign in to send your book to the studio', { kind: 'bad' }); setTimeout(toSignIn, 900); return; }
     var r = B.review(S.doc), empty = r.empty.length;
     window.MilesUI.confirm({ title: 'Send your book to the studio?', body: (empty ? empty + ' pages are still empty. ' : '') + 'The studio will check it and write back. You can keep editing, and they see every change.', confirmLabel: 'Send' }).then(function (ok) {
       if (!ok) return; S.doc.status = 'sent'; S.doc.notes.push({ id: B.uid('n'), by: 'customer', page: 0, text: 'Sent for a proof.', t: Date.now() }); persist(false); render(); toast('Sent to the studio', { kind: 'good' });
@@ -776,7 +824,7 @@
   function render() {
     if (S.turning) return;
     var screen = S.screen;
-    var node = screen === 'library' ? screenLibrary() : screen === 'event' ? screenEvent() : screen === 'size' ? screenSize() : screen === 'pages' ? screenPages() : screen === 'title' ? screenTitle() : screen === 'gallery' ? screenGallery() : screenDesign();
+    var node = screen === 'library' ? screenLibrary() : screen === 'event' ? screenEvent() : screen === 'size' ? screenSize() : screen === 'pages' ? screenPages() : screen === 'title' ? screenTitle() : screen === 'dedication' ? screenDedication() : screen === 'cover' ? screenCover() : screen === 'gallery' ? screenGallery() : screenDesign();
     app.replaceChildren(node);
     document.title = (S.doc.title || 'My book') + ' · Live editor · Miles Retold';
     if (S.sheet) { /* keep an open sheet in step with the book */ var old = document.getElementById('sheet'); if (old && S.sheet !== 'gallery') renderSheet(); }
@@ -793,18 +841,18 @@
 
   var pref = 'light'; try { pref = localStorage.getItem('miles.theme') || 'light'; } catch (e) {}
   setTheme(pref === 'dark' ? 'dark' : 'light');
-  try { if (ROLE === 'customer' && localStorage.getItem('miles.auth') === 'out') { location.replace('/GL8-SignIn.dc.html'); return; } } catch (e) {}
   var existing = B.read();
   S.doc = existing && existing.v === 1 ? existing : B.newDoc(40);
   if (!existing) { B.write(S.doc); }
-  S.snap = JSON.stringify(S.doc); S.screen = S.doc.setup >= 3 ? 'design' : (!S.doc.event && S.doc.setup < 1 ? 'event' : (!S.doc.size && S.doc.setup < 1 ? 'size' : ['pages', 'title', 'gallery'][Math.max(0, S.doc.setup)] || 'pages'));
+  S.snap = JSON.stringify(S.doc); S.screen = WS.indexOf(S.doc.step) > -1 ? S.doc.step : (S.doc.setup >= 3 ? 'design' : ['event', 'title', 'gallery'][Math.max(0, Math.min(2, S.doc.setup))]);
   if (q.get('view') === 'gallery') S.screen = 'library';
   if (q.get('view') === 'photos') { S.screen = 'library'; S.only = true; }
-  var startNew = function () { S.doc = B.newDoc(40); S.screen = 'event'; B.write(S.doc); S.snap = JSON.stringify(S.doc); clampView(); render(); };
+  var startNew = function () { S.doc = B.newDoc(40); S.doc.step = 'event'; S.screen = 'event'; B.write(S.doc); S.snap = JSON.stringify(S.doc); clampView(); render(); };
   var inProgress = existing && existing.v === 1 && (existing.setup >= 1 || existing.event || existing.gallery.length || existing.pages.some(function (p) { return p.items.length; }));
-  if (q.get('start') === 'new' && !inProgress) { S.doc = B.newDoc(40); S.screen = 'event'; B.write(S.doc); S.snap = JSON.stringify(S.doc); }
+  if (q.get('start') === 'new' && !inProgress) { S.doc = B.newDoc(40); S.doc.step = 'event'; S.screen = 'event'; B.write(S.doc); S.snap = JSON.stringify(S.doc); }
   clampView(); render();
   B.loadUrls(S.doc).then(function () { render(); });
   if (q.get('start') === 'new' && inProgress && window.MilesUI) window.MilesUI.confirm({ title: 'You already have a book in progress', body: 'Start a new book, or keep working on this one? A new book replaces the one you have now (your photos stay in the gallery only if you keep the old book).', confirmLabel: 'Start a new book', cancelLabel: 'Keep my book' }).then(function (ok) { if (ok) startNew(); });
+  window.addEventListener('popstate', function () { var st = (location.hash || '').slice(1); if (S.doc && st !== 'design' && WS.indexOf(st) > -1 && S.screen !== 'design') { S.screen = st; S.doc.step = st; render(); } });
   window.__book = { S: S, B: B, render: render, openFlow: openFlow, turn: turn };
 })();
