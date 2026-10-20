@@ -204,3 +204,5 @@ Every page of the 3D book, including the leaves that turn while it opens (both s
 ## Which pages can share one photo
 
 The cover is page 1 and is skipped. After it, a photo or panorama can run across pages 2-3, 6-7, 10-11, 14-15 and so on, and never across 4-5, 8-9, 12-13 (in the editor's own page numbers: 1+2, 5+6, 9+10 allowed; 3+4, 7+8, 11+12 not). Pages 3 and 4, 5 and 6 and so on across two different spreads never combine. The rule is `canSpan` in `public/book/store.js`: the "Across both pages" layouts are only offered on allowed spreads (the others say why), and a saved photo that crosses a spread that is not allowed is removed when the book opens, with a message.
+
+The home page order is: hero book, "Why a book" (three captions that change as you scroll, with a photo of finished books beside them), then the "Print & paper" boxes (print detail magnifier, paper thickness, lay-flat). On phones and tablets (900px and below) the three captions are stacked blocks that rise into view as you scroll, so none is hidden.
