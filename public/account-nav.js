@@ -13,7 +13,7 @@
   var FILE = { 9: 'Account', 10: 'Order', 13: 'Tracking', 11: 'Proof', 7: 'Upload', 23: 'Editor', 22: 'Messages', 17: 'Help', 12: 'Balance', 24: 'Invoices', 77: 'Invoice', 14: 'Settings',
     101: 'EasyPhotos', 102: 'EasyPage', 103: 'EasyCover', 104: 'EasySend', 80: 'EdStoryboard', 81: 'EdPhotos', 82: 'EdLayouts', 83: 'EdText', 84: 'EdCover', 85: 'EdStyle', 86: 'EdFlipbook', 87: 'EdPrintCheck', 88: 'EdHistory', 89: 'EdSend', 100: 'EasyHome',
     137: 'Notifications', 138: 'EmailPreviews', 139: 'UiKit', 140: 'SiteMap', 120: 'Privacy', 121: 'PrivateUpload', 122: 'ShareLinks', 123: 'Consent', 124: 'DeleteData', 125: 'AccessLog', 126: 'Security', 127: 'SmartAssist', 128: 'Approvals', 129: 'ArabicText', 130: 'TripMap', 131: 'Shortcuts', 8: 'SignIn', 1: 'Home' };
-  var href = function (n) { return n === 141 || n === 142 ? '/book/editor.html?as=customer&view=gallery' : ed + n + '-' + FILE[n] + '.dc.html'; };   /* 141 and 142: the photo gallery in the live editor */
+  var href = function (n) { return n === 141 ? '/book/editor.html?as=customer&view=photos' : n === 142 ? '/book/editor.html?as=customer&view=gallery' : ed + n + '-' + FILE[n] + '.dc.html'; };   /* 141 and 142: the photo gallery in the live editor */
   var I = {
     home: '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>',
     box: '<path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/>',

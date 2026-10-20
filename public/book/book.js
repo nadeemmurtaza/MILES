@@ -276,7 +276,8 @@
       [btn('Download a copy', function () { saveCopy(g); }, { icon: 'down' }), ROLE === 'studio' ? null : btn('Delete this photo', function () { closeDlg(); removePhoto(g); }, { icon: 'trash', cls: 'danger' }), btn('Close', function () { closeDlg(); }, { cls: 'pri' })]);
   }
   function screenLibrary() {
-    var d = S.doc, L = S.lib, customer = ROLE === 'customer';
+    var d = S.doc, L = S.lib, customer = ROLE === 'customer', only = S.only;
+    if (only) L.tab = 'stored';
     var inBook = d.gallery.filter(function (g) { return usage(g.id) > 0; }).length, unused = d.gallery.length - inBook;
     var stat = function (n, label) { return h('div', { class: 'stat' }, h('b', null, String(n)), h('span', null, label)); };
     var tabs = h('div', { class: 'tabs', role: 'tablist' }, [['stored', 'What we hold ' + d.gallery.length], ['deleted', 'Deleted ' + d.deleted.length]].map(function (t) { return h('button', { type: 'button', role: 'tab', 'aria-selected': String(L.tab === t[0]), class: L.tab === t[0] ? 'on' : '', onclick: function () { L.tab = t[0]; render(); } }, t[1]); }));
@@ -297,12 +298,13 @@
       body = h('div', null, bar, d.gallery.length ? grid : h('p', { class: 'empty' }, 'No photos are stored. Add photos from the editor when you are ready.'));
     }
     return h('div', { class: 'app' }, topbar(true), h('main', { class: 'lb', id: 'main' },
-      h('h1', null, ROLE === 'studio' ? 'Customer photo gallery' : 'Your photo gallery'),
-      h('p', { class: 'lead' }, 'Every photo we hold for this book, what has been deleted, and how to remove photos. Your photos are private to you' + (customer ? ' and the studio.' : ' and the studio; this view is for the order only.')),
-      h('div', { class: 'stats' }, stat(d.gallery.length, 'photos we hold'), stat(inBook, 'used in the book'), stat(unused, 'not used yet'), stat(d.deleted.length, 'deleted')),
-      h('p', { class: 'priv' }, ic('lock', 18), h('span', null, 'Deleting a photo removes the file from our storage. It is not kept in a bin. The pages that used it keep their text and layout, and the photo spot becomes empty.')),
-      tabs, body,
-      h('div', { class: 'foot' }, h('a', { class: 'bt', href: '/book/editor.html?as=' + ROLE }, ic('back'), h('span', null, 'Back to the editor')))));
+      h('h1', null, only ? 'Gallery' : (ROLE === 'studio' ? 'Customer photo gallery' : 'Your photo gallery')),
+      only ? h('p', { class: 'lead' }, d.gallery.length + (d.gallery.length === 1 ? ' photo' : ' photos') + '. Tap Select photos to delete some, or Delete all photos to clear the gallery. Deleting removes the file from our storage for good.') : null,
+      only ? null : h('p', { class: 'lead' }, 'Every photo we hold for this book, what has been deleted, and how to remove photos. Your photos are private to you' + (customer ? ' and the studio.' : ' and the studio; this view is for the order only.')),
+      only ? null : h('div', { class: 'stats' }, stat(d.gallery.length, 'photos we hold'), stat(inBook, 'used in the book'), stat(unused, 'not used yet'), stat(d.deleted.length, 'deleted')),
+      only ? null : h('p', { class: 'priv' }, ic('lock', 18), h('span', null, 'Deleting a photo removes the file from our storage. It is not kept in a bin. The pages that used it keep their text and layout, and the photo spot becomes empty.')),
+      only ? null : tabs, body,
+      h('div', { class: 'foot' }, only ? h('a', { class: 'bt', href: '/GL9-Account.dc.html' }, ic('back'), h('span', null, 'Back to my account')) : h('a', { class: 'bt', href: '/book/editor.html?as=' + ROLE }, ic('back'), h('span', null, 'Back to the editor')))));
   }
 
   /* ------------------------------------------------------------ popups */
@@ -718,6 +720,7 @@
   if (!existing) { B.write(S.doc); }
   S.snap = JSON.stringify(S.doc); S.screen = S.doc.setup >= 3 ? 'design' : ['pages', 'title', 'gallery'][Math.max(0, S.doc.setup)] || 'pages';
   if (q.get('view') === 'gallery') S.screen = 'library';
+  if (q.get('view') === 'photos') { S.screen = 'library'; S.only = true; }
   if (q.get('start') === 'new') { S.doc = B.newDoc(40); S.screen = 'pages'; B.write(S.doc); S.snap = JSON.stringify(S.doc); }
   clampView(); render();
   B.loadUrls(S.doc).then(function () { render(); });
