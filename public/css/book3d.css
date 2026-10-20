@@ -32,7 +32,8 @@
 
 .b3-in .b3-p1 { inset-block: var(--in); inset-inline: 0 var(--in); border-radius: 2px 3px 3px 2px; box-shadow: 0 0 4px rgb(0 0 0 / .16); transform: translateZ(calc(var(--bd) / 2 - var(--bt) - 4.5px)); background: #fffdf8 linear-gradient(90deg, rgb(0 0 0 / .1), transparent 8%); display: grid; align-content: center; justify-items: center; gap: calc(var(--bw) * .03); padding: 9% 10% 9% 12%; text-align: center; color: #3a2f27; backface-visibility: hidden; }
 .b3-pimg-w { inline-size: 100%; aspect-ratio: 4 / 3; background: color-mix(in srgb, #3a2f27 10%, #fffdf8); border: calc(var(--bw) * .018) solid #fff; box-shadow: 0 3px 8px -3px rgb(0 0 0 / .35); overflow: hidden; } .b3-pimg-w img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; } .b3-pimg-w:empty { display: none; }
-.b3-lf > :last-child { display: grid; align-content: center; padding: 10% 9% 10% 12%; } .b3-lfp { aspect-ratio: 3 / 4; } .b3-lfp:empty { display: none; }
+.b3-lf > * { display: grid; align-content: center; justify-items: center; padding: 9% 9% 9% 12%; } .b3-lf > :last-child { padding: 9% 12% 9% 9%; }
+.b3-port { aspect-ratio: 3 / 4; inline-size: 78%; } .b3-land { aspect-ratio: 4 / 3; } .b3-lf .b3-pimg-w { box-shadow: 0 3px 8px -3px rgb(0 0 0 / .35); }
 .b3-p1 b { font: 500 calc(var(--bw) * .075)/1.15 Fraunces, Georgia, serif; overflow-wrap: anywhere; } .b3-p1 small { font: 600 calc(var(--bw) * .032) Manrope, sans-serif; letter-spacing: .12em; text-transform: uppercase; opacity: .6; overflow-wrap: anywhere; } .b3-p1 i { display: block; inline-size: 26%; block-size: 1px; background: currentColor; opacity: .35; }
 /* turning leaves, between the cover and the paper */
 .b3-lf { inset-block: var(--in); inset-inline: 0 var(--in); transform-origin: left center; transform-style: preserve-3d;
