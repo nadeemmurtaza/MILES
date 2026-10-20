@@ -305,3 +305,5 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 .srow > :first-child { justify-self: start; } .srow > :last-child { justify-self: end; inline-size: min(100%, 220px); } .srow .steps { justify-content: center; }
 .srow h1 { font-size: 28px; margin: 0; } .srow .ed-muted { margin: 0; }
 @media (max-width: 1100px) { .srow { grid-template-columns: 1fr 1fr; } .srow .steps { grid-column: 1 / -1; grid-row: 1; } }
+/* desktop: the book fills the room between the step row and the bottom buttons */
+@media (min-width: 761px) { .bk { inline-size: min(100%, 1060px, calc((100dvh - 300px) * var(--ratio) * 2)); } .bk.single { inline-size: min(100%, calc((100dvh - 320px) * var(--ratio))); } }
