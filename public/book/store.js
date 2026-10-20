@@ -79,7 +79,7 @@
     while (doc.pages.length - 1 < n) doc.pages.push({ id: uid('p'), bg: '#fffcf6', items: [], doodle: [], layout: '', done: false });
     while (doc.pages.length - 1 > n) doc.pages.pop();
     doc.pages.push(back); doc.count = n;
-    Object.keys(doc.spans || {}).forEach(function (k) { if (+k > n / 2) delete doc.spans[k]; });
+    Object.keys(doc.spans || {}).forEach(function (k) { if (+k > n / 2 || (+k + 0) % 2 !== 1) delete doc.spans[k]; });
     return doc;
   }
   var spreadCount = function (doc) { return doc.count / 2 + 2; };
@@ -89,6 +89,11 @@
     if (s >= last) return { l: doc.pages.length - 1, r: null };
     return { l: 2 * s - 1, r: 2 * s };
   }
+  /* the rule for one picture across both pages of a spread: the cover is page 1 and is skipped, then pages 2-3 can share a picture,
+     4-5 cannot, 6-7 can, 8-9 cannot, 10-11 can, and so on (in the editor's numbering: spreads 1, 3, 5, ... only) */
+  var canSpan = function (doc, s) { return s >= 1 && s < spreadCount(doc) - 1 && s % 2 === 1; };
+  var spanSpreads = function (doc) { var out = []; for (var s = 1; s < spreadCount(doc) - 1; s++) if (canSpan(doc, s)) out.push(s); return out; };
+  var cleanSpans = function (doc) { var n = 0; Object.keys(doc.spans || {}).forEach(function (k) { if (!canSpan(doc, +k)) { n += doc.spans[k].length; delete doc.spans[k]; } }); return n; };
   var spreadOf = function (doc, i) { var last = spreadCount(doc) - 1; return i <= 0 ? 0 : (i >= doc.pages.length - 1 ? last : Math.ceil(i / 2)); };
   var pageLabel = function (doc, i) { return i === 0 ? 'Cover' : (i === doc.pages.length - 1 ? 'Back cover' : 'Page ' + i); };
 
@@ -238,7 +243,7 @@
   window.MilesBook = {
     KEY: KEY, COLORS: COLORS, LAYOUTS: LAYOUTS, uid: uid, clone: clone, ink: ink, lum: lum,
     newDoc: newDoc, resize: resize, buildItems: buildItems, slotsOf: slotsOf, spanItem: spanItem, kindOf: kindOf,
-    spreadCount: spreadCount, spreadPages: spreadPages, spreadOf: spreadOf, pageLabel: pageLabel,
+    spreadCount: spreadCount, canSpan: canSpan, spanSpreads: spanSpreads, cleanSpans: cleanSpans, spreadPages: spreadPages, spreadOf: spreadOf, pageLabel: pageLabel,
     read: read, write: write, setWho: function (w) { who = w; }, onRemote: function (f) { listeners.push(f); },
     importFile: importFile, readMeta: readMeta, metaPrefs: metaPrefs, setMetaPrefs: setMetaPrefs, blobOf: blobOf, samples: samples, url: url, loadUrls: loadUrls, delBlob: delBlob, review: review
   };

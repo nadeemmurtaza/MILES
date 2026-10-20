@@ -240,3 +240,5 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 .bk.closed.r .side.r .bpg { box-shadow: calc(var(--stack) * .34) calc(var(--stack) * .34) 0 #fffdf8, calc(var(--stack) * .34 + 1px) calc(var(--stack) * .34 + 1px) 0 #d9cdb9, calc(var(--stack) * .67) calc(var(--stack) * .67) 0 #fffdf8, calc(var(--stack) * .67 + 1px) calc(var(--stack) * .67 + 1px) 0 #d9cdb9, var(--stack) var(--stack) 0 #fffdf8, calc(var(--stack) + 1px) calc(var(--stack) + 1px) 0 #bfae92; }
 .bk.closed.l .side.l .bpg { box-shadow: calc(var(--stack) * -.34) calc(var(--stack) * .34) 0 #fffdf8, calc(var(--stack) * -.34 - 1px) calc(var(--stack) * .34 + 1px) 0 #d9cdb9, calc(var(--stack) * -.67) calc(var(--stack) * .67) 0 #fffdf8, calc(var(--stack) * -.67 - 1px) calc(var(--stack) * .67 + 1px) 0 #d9cdb9, calc(var(--stack) * -1) var(--stack) 0 #fffdf8, calc(var(--stack) * -1 - 1px) calc(var(--stack) + 1px) 0 #bfae92; }
 .bk.closed { margin-block-end: var(--stack); }
+
+.spanno { display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: var(--soft); } .spanno .ico { margin-block-start: 2px; color: var(--mu); }

@@ -200,3 +200,7 @@ The 3D book is built from stacked layers (so corners and sides stay clean at any
 The home page has one book (the shared 3D book in the hero, with photos on its open pages). In the scroll-pinned "Why a book" section the second book was replaced by a print-detail magnifier (`css/print-quality.css`, `print-quality.js`); the three captions stay. The specs on it (300 dpi, 170 gsm satin, lay-flat) are samples until the studio confirms them. The 3D book is 20% thinner at every page count (`--bd` in `css/book3d.css`).
 
 Every page of the 3D book, including the leaves that turn while it opens (both sides of each), carries a photo. `data-photos="url|url|..."` (or `photos: [...]` in `MilesBook3D.el`) is the pool the pages draw from; the home book uses the storefront pictures, the editor start uses the customer's own photos and falls back to the occasion pictures.
+
+## Which pages can share one photo
+
+The cover is page 1 and is skipped. After it, a photo or panorama can run across pages 2-3, 6-7, 10-11, 14-15 and so on, and never across 4-5, 8-9, 12-13 (in the editor's own page numbers: 1+2, 5+6, 9+10 allowed; 3+4, 7+8, 11+12 not). Pages 3 and 4, 5 and 6 and so on across two different spreads never combine. The rule is `canSpan` in `public/book/store.js`: the "Across both pages" layouts are only offered on allowed spreads (the others say why), and a saved photo that crosses a spread that is not allowed is removed when the book opens, with a message.
