@@ -254,3 +254,13 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 @media (max-width: 760px) { .steps li:not(.now) .stp { padding-inline-end: 6px; } }
 /* every step shares one shell: same bar, same width, same spacing */
 .wz { max-inline-size: 1180px; padding: 18px 12px calc(30px + env(safe-area-inset-bottom)); gap: 14px; }
+/* the top bar: title takes the space, tools stay together; on phones the status chip steps aside and the tools get their own row */
+.top .ttl { flex: 1 1 auto; } .top .sp { display: none; } .top .chip { order: 0; flex: none; }
+@media (max-width: 760px) { .top > .chip { display: none; } .top > a.bt { order: 1; } .top .ttl { order: 2; flex: 1 1 0; min-inline-size: 0; } .top .ttl b { max-inline-size: 100%; } .top .send { order: 3; } .top .tt { order: 4; flex: 1 1 100%; } }
+/* Back and Next sit in the same place on every step: one bar pinned to the bottom of the screen */
+.wz .foot, .ds .nav { position: sticky; inset-block-end: 8px; z-index: 30; display: flex; align-items: center; justify-content: space-between; flex-wrap: nowrap; gap: 10px; padding: 10px 12px; margin-block-start: 8px; border-radius: 16px; background: var(--glass); -webkit-backdrop-filter: blur(16px) saturate(1.4); backdrop-filter: blur(16px) saturate(1.4); box-shadow: inset 0 0 0 1px var(--line), var(--shadow); }
+.wz .foot .hint { flex: 1; text-align: center; font-size: 13px; color: var(--mu); } .ds .nav { margin-inline: 0; }
+.wz .foot .bt, .ds .nav .bt { white-space: nowrap; }
+@media (max-width: 560px) { .wz .foot .hint { display: none; } .wz .foot .bt, .ds .nav .bt { padding-inline: 14px; } .wz .foot .bt:last-child, .ds .nav .bt:last-child { margin-inline-start: auto; } }
+.ds > *, .wz > * { min-inline-size: 0; } .wzh { max-inline-size: 100%; }
+.wz, .ds { padding-block-end: 90px; }   /* room under the pinned Back / Next bar */
