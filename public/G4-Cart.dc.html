@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="/css/zebra.css">
 <link rel="stylesheet" href="/css/subnav.css">
 <link rel="stylesheet" href="/css/mobile.css">
+<link rel="stylesheet" href="/css/account-nav.css">
 <link rel="stylesheet" href="/css/stars.css">
 <script src="/stars.js" defer></script>
 <link rel="stylesheet" href="/css/print.css">
@@ -27,6 +28,9 @@
 <link rel="icon" type="image/svg+xml" href="/_blob/ba8a47ecfe93acbd68bd017714519801">
 <link rel="icon" type="image/png" sizes="32x32" href="/_blob/e8c29624c47de066f3c28cb82d08b58a">
 <link rel="apple-touch-icon" href="/_blob/587541048aa85fdedd1d966f27a5d383">
+<script src="/shop-nav.js" defer></script>
+<link rel="stylesheet" href="/css/ui-kit.css">
+<script src="/ui-kit.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -43,7 +47,7 @@
 <div><h2>{{it.name}}</h2><p class="uac136d5 mu">{{it.spec}}</p><p class="u0e19c7d">{{it.note}}</p>
 <div class="acts"><div class="qty gl"><button onClick="{{it.minus}}" aria-label="One fewer">−</button><b>{{it.q}}</b><button onClick="{{it.plus}}" aria-label="One more">+</button></div>
 <label class="ua4c4b49"><button class="{{it.wCls}}" onClick="{{it.wrap}}" role="switch" aria-checked="{{it.wOn}}" aria-label="Gift wrap and note"></button>Gift wrap &amp; note</label>
-<button class="lnk" onClick="{{it.remove}}">Remove</button></div></div>
+<button class="lnk" onClick="{{it.remove}}" data-confirm="Remove this book from your cart?" data-confirm-body="Your layout choices for it will be forgotten." data-confirm-label="Yes, remove" data-danger>Remove</button></div></div>
 <div class="u98ef30c pr tot">{{it.price}}</div></article></sc-for>
 <a class="u8ced3aa ul" href="G2-Books.dc.html">+ Add another book <span>↗</span></a>
 </div>
@@ -78,6 +82,7 @@ class Component extends DCLogic {
     const mm = (q) => window.matchMedia && window.matchMedia(q).matches;
     this.rm = mm('(prefers-reduced-motion: reduce)'); this.fine = mm('(pointer: fine)');
     try { const c = window.localStorage.getItem('mr-cur'); if (c && c !== this.state.cur) this.setState({ cur: c }); const s = window.localStorage.getItem('mr-still'); if (s === '1' && !this.state.still) this.setState({ still: true }); } catch (e) {}
+    try { const ro = JSON.parse(window.localStorage.getItem('miles.reorder') || 'null'); if (ro && ro.no) this.setState({ items: [{ k: 'r', q: Math.max(1, +ro.copies || 1), w: false }] }); } catch (e) {}
     this.mx = -100; this.my = -100; this.cx = -100; this.cy = -100; this.pt = 0;
     this.onScroll = () => { if (!this.tk) this.tk = requestAnimationFrame(() => { this.tk = 0; this.update(); }); };
     this.onMove = (e) => {
@@ -131,7 +136,8 @@ class Component extends DCLogic {
     const amt = (n) => Math.round(n * PR.rate[C]), fm = (x) => C + ' ' + x.toLocaleString('en-US'), money = (n) => fm(amt(n));
     const split = (n) => { const t = amt(n), d = Math.ceil(t / 2); return { total: fm(t), today: fm(d), later: fm(t - d) }; };
     const ORD = { book: PR.size[0], ship: PR.ship[C][0] }, ordS = split(ORD.book + ORD.ship);
-    const UNIT = { a: PR.size[0], b: Math.round(PR.size[2] * PR.copy), c: PR.gift[1] };
+    let RO = null; try { RO = JSON.parse(window.localStorage.getItem('miles.reorder') || 'null'); } catch (e) {}   /* a reprint chosen on a previous book */
+    const UNIT = { a: PR.size[0], b: Math.round(PR.size[2] * PR.copy), c: PR.gift[1], r: RO && RO.unit ? +RO.unit : 0 };
     const cartCalc = (its, codeOk) => { const books = its.reduce((a, x) => a + UNIT[x.k] * x.q, 0), wrap = its.filter((x) => x.w).length * PR.wrap, disc = codeOk ? Math.round(books * .1) : 0; return { books, wrap, disc, sub: books + wrap - disc }; };
     const DEFCART = [{ k: 'a', q: 1, w: true }, { k: 'b', q: 2, w: false }, { k: 'c', q: 1, w: false }];
     const base = {
@@ -145,7 +151,7 @@ class Component extends DCLogic {
       toggleStill: () => { const s = !st.still; set({ still: s }); try { window.localStorage.setItem('mr-still', s ? '1' : '0'); } catch (e) {} }
     };
     
-    const D = { a: ['Maldives · March 2022', 'Travel book · Portrait 8 × 10 · 40 pages · linen hardcover', 'var(--sky)', '/_blob/6dc6964be6ca87733a870c819d870936', 'Design starts after deposit'], b: ['Extra copy · Paris & Turkey', 'Reprint of order MR-1031 · Square 8 × 8', 'var(--wine)', '/_blob/6b43c91be8c10d0cbed5dc2520dde00d', 'Reprint price per copy'], c: ['Gift card for Mariam', 'Digital gift card · sent on WhatsApp 14 Oct', 'linear-gradient(135deg,var(--wine),var(--c-9e1046) 60%,var(--copper))', '', 'Sent on the date you chose'] };
+    const D = { a: ['Maldives · March 2022', 'Travel book · Portrait 8 × 10 · 40 pages · linen hardcover', 'var(--sky)', '/_blob/6dc6964be6ca87733a870c819d870936', 'Design starts after deposit'], b: ['Extra copy · Paris & Turkey', 'Reprint of order MR-1031 · Square 8 × 8', 'var(--wine)', '/_blob/6b43c91be8c10d0cbed5dc2520dde00d', 'Reprint price per copy'], r: RO ? ['Reprint · ' + RO.title, 'Order ' + RO.no + ' · ' + RO.spec + ' · same design, printed again', 'var(--sky)', RO.img || '', 'Ready to print, no design wait'] : ['Reprint', '', 'var(--sky)', '', ''], c: ['Gift card for Mariam', 'Digital gift card · sent on WhatsApp 14 Oct', 'linear-gradient(135deg,var(--wine),var(--c-9e1046) 60%,var(--copper))', '', 'Sent on the date you chose'] };
     const its = st.items, upd = (k, f) => set({ items: its.map((x) => x.k === k ? f(x) : x) });
     const ok = st.applied && st.applied.toUpperCase() === 'MILES10';
     const nWrap = its.filter((x) => x.w).length, cc = cartCalc(its, ok);

@@ -1,0 +1,79 @@
+/* Miles Retold · the one 3D book (it lives in a shadow root, so page scripts and frameworks never touch it). Used by the storefront hero and the live editor start (see /book3d.js).
+   It is built from stacked layers, so corners and sides are always clean: a hard board cover that hinges open, white page leaves
+   that turn, a block of paper whose thickness follows the page count, and a back board.
+   Inputs (custom properties on .b3): --bw width, --ratio width/height, --pg inner pages, --cv cover colour, --ci cover ink,
+   --sp spine colour, --o how far the book is open (0 closed .. 1 open; the script sets it from scrolling). --bx/--by add mouse tilt. */
+:host { visibility: visible; --bw: 215px; --ratio: .8; --pg: 40; --o: 0; --cv: #12342b; --ci: #fff6f0; --lay: 20;
+  --bh: calc(var(--bw) / var(--ratio));
+  --bd: calc(var(--bw) * (.044 + var(--pg) * .0024));      /* thicker with every page */
+  --bt: max(3px, calc(var(--bw) * .02));                  /* hard board thickness */
+  --in: max(3px, calc(var(--bw) * .022));   /* the cover board frames the paper, also when the book is open */                 /* the paper sits back from the board edges */
+  --pr: max(4px, calc(var(--bd) - 2 * var(--bt) - 4.8px));
+  --ls: calc(var(--pr) / var(--lay));
+  --rr: max(3px, calc(var(--bw) * .026));                 /* outer corner radius */
+  --dark: color-mix(in srgb, var(--cv) 94%, #000);   /* board thickness: the cover colour, a touch deeper, so no dark outline shows */
+  perspective: 1600px; display: grid; place-items: center; position: relative; padding-block-end: 8px; }
+.b3-sh { position: absolute; inset-inline: 12%; inset-block-end: 0; block-size: 18px; border-radius: 50%; background: radial-gradient(closest-side, rgb(0 0 0 / .28), transparent); transform: translateX(calc(var(--o) * var(--bw) * .25)) scaleX(calc(1 + var(--o) * .55)); opacity: calc(1 - var(--o) * .25); }
+.b3-in { position: relative; inline-size: var(--bw); block-size: var(--bh); transform-style: preserve-3d; will-change: transform;
+  transform: translateX(calc(var(--o) * var(--bw) * .5)) rotateX(calc(var(--rx, 8deg) + var(--by, 0deg))) rotateY(calc(var(--ry, -28deg) * (1 - var(--o) * .8) + var(--bx, 0deg))) rotateZ(calc(var(--rz, 0deg) * (1 - var(--o))));
+  transition: transform .8s cubic-bezier(.2, .1, .2, 1), inline-size .45s, block-size .45s; }
+:host(.b3-live) .b3-in { transition: inline-size .45s, block-size .45s; }   /* scroll-driven: follow the finger, no easing lag */
+.b3-in * { box-sizing: border-box; }
+.b3-in > *, .b3-door > *, .b3-lf > * { position: absolute; }
+.b3-pg, .b3-lf > *, .b3-p1, .b3-f, .b3-ep { outline: 1px solid transparent; }   /* invisible: makes the browser smooth the rotated edges */
+/* back board */
+.b3-k, .b3-bl { inset: 0; border-radius: 3px var(--rr) var(--rr) 3px; background: var(--dark); }
+.b3-k { transform: translateZ(calc(var(--bd) / -2 - 1px)) rotateY(180deg); background: var(--cv); backface-visibility: hidden; }
+.b3-bl { transform: translateZ(calc(var(--bd) / -2 + var(--j) * var(--bt) / 3)); }
+.b3-bl:last-of-type, .b3-bl[style*="--j: 2"] { background: linear-gradient(90deg, color-mix(in srgb, var(--cv) 86%, #000), var(--cv) 14%, var(--cv)); }   /* the inside of the back board, in the cover colour */
+/* the paper: layers between the boards, set back from the board edges */
+.b3-pg { inset-block: var(--in); inset-inline: 0 var(--in); border-radius: 1px 3px 3px 1px; transform: translateZ(calc(var(--bd) / -2 + var(--bt) + var(--i) * var(--ls))); background: #fffdf8; }
+.b3-pg:nth-child(even) { background: #ece2d1; }
+
+.b3-in .b3-p1 { inset-block: var(--in); inset-inline: 0 var(--in); border-radius: 2px 3px 3px 2px; box-shadow: 0 0 4px rgb(0 0 0 / .16); transform: translateZ(calc(var(--bd) / 2 - var(--bt) - 4.5px)); background: linear-gradient(90deg, rgb(0 0 0 / .1), transparent 8%), #fffdf8; overflow: hidden; backface-visibility: hidden; }   /* the right page is one full photo */
+.b3-p1 .b3-pimg-w { inline-size: 100%; block-size: 100%; aspect-ratio: auto; border: 0; box-shadow: none; } .b3-p1 .b3-pimg-w::after { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgb(0 0 0 / .22), transparent 9%); } .b3-p1 .b3-pimg-w { position: relative; }
+.b3-ltxt { display: grid; justify-items: center; gap: calc(var(--bw) * .03); text-align: center; color: #3a2f27; } .b3-ltxt b { font: 500 calc(var(--bw) * .1)/1.1 Fraunces, Georgia, serif; overflow-wrap: anywhere; } .b3-ltxt small { font: 700 calc(var(--bw) * .034) Manrope, sans-serif; letter-spacing: .14em; text-transform: uppercase; opacity: .6; overflow-wrap: anywhere; } .b3-ltxt i { display: block; inline-size: 30%; block-size: 1px; background: currentColor; opacity: .35; }
+.b3-pimg-w { inline-size: 100%; aspect-ratio: 4 / 3; background: color-mix(in srgb, #3a2f27 10%, #fffdf8); border: calc(var(--bw) * .018) solid #fff; box-shadow: 0 3px 8px -3px rgb(0 0 0 / .35); overflow: hidden; } .b3-pimg-w img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; } .b3-pimg-w:empty { display: none; }
+.b3-lf > * { display: grid; align-content: center; justify-items: center; padding: 9% 9% 9% 12%; } .b3-lf > :last-child { padding: 9% 12% 9% 9%; }
+.b3-port { aspect-ratio: 3 / 4; inline-size: 78%; } .b3-land { aspect-ratio: 4 / 3; } .b3-lf .b3-pimg-w { box-shadow: 0 3px 8px -3px rgb(0 0 0 / .35); }
+.b3-p1 b { font: 500 calc(var(--bw) * .075)/1.15 Fraunces, Georgia, serif; overflow-wrap: anywhere; } .b3-p1 small { font: 600 calc(var(--bw) * .032) Manrope, sans-serif; letter-spacing: .12em; text-transform: uppercase; opacity: .6; overflow-wrap: anywhere; } .b3-p1 i { display: block; inline-size: 26%; block-size: 1px; background: currentColor; opacity: .35; }
+/* turning leaves, between the cover and the paper */
+.b3-lf { inset-block: var(--in); inset-inline: 0 var(--in); transform-origin: left center; transform-style: preserve-3d;
+  --f: clamp(0, (var(--o) - .28 - var(--n) * .05) * 3.2, 1);   /* how far this leaf has turned */
+  transform: translateZ(calc(var(--bd) / 2 - var(--bt) - .5px - var(--n) * .8px + var(--f) * (var(--bt) + 1px + var(--n) * 1.6px))) rotateY(calc(var(--f) * -164deg)); }   /* a turned leaf lies on top of the inside of the cover, the last one on top */
+.b3-lf > * { inset: 0; border-radius: 1px 3px 3px 1px; background: #fffdf8; backface-visibility: hidden; }
+.b3-lf > :first-child { background: #fffdf8 linear-gradient(90deg, rgb(0 0 0 / .08), transparent 10%); }
+.b3-lf > :last-child { transform: rotateY(180deg); background: #f8f1e4 linear-gradient(270deg, rgb(0 0 0 / .08), transparent 10%); border-radius: 3px 1px 1px 3px; }
+/* the hard cover: a slab (face, thickness, endpaper) that hinges open at the spine side */
+.b3-door { inset: 0; transform-origin: left center; transform-style: preserve-3d; transform: translateZ(calc(var(--bd) / 2 - var(--bt) / 2)) rotateY(calc(clamp(0, var(--o) * 1.6, 1) * -164deg)); }   /* the cover leads, the leaves follow */
+.b3-f, .b3-ep, .b3-dl { inset: 0; border-radius: 3px var(--rr) var(--rr) 3px; }
+.b3-dl { background: var(--dark); transform: translateZ(calc((var(--j) - 1.5) * var(--bt) / 3)); opacity: clamp(0, calc(1 - var(--o) * 3), 1); }
+.b3-f { transform: translateZ(calc(var(--bt) / 2)); background: var(--cv); color: var(--ci); display: grid; align-content: center; justify-items: center; gap: calc(var(--bw) * .03); padding: 12% 11%; text-align: center; overflow: hidden; backface-visibility: hidden; transition: background .6s;
+  box-shadow: inset 0 -3px 6px rgb(0 0 0 / .14), inset 5px 0 8px -4px rgb(0 0 0 / .22); }
+.b3-f::before { content: ""; position: absolute; inset-block: 0; inset-inline-start: 4%; inline-size: 14px; background: linear-gradient(90deg, rgb(0 0 0 / .16), transparent); }   /* the soft hinge shading, no hard line */
+.b3-f::after { content: ""; position: absolute; inset: 0; pointer-events: none; background: linear-gradient(115deg, transparent 38%, rgb(255 255 255 / .18) 49%, transparent 60%); background-size: 260% 100%; background-position: 100% 0; animation: b3sheen 7s ease-in-out infinite; }
+@keyframes b3sheen { 0%, 55% { background-position: 100% 0; } 100% { background-position: -60% 0; } }
+.b3-ep { transform: translateZ(calc(var(--bt) / -2)) rotateY(180deg); backface-visibility: hidden; background: linear-gradient(270deg, color-mix(in srgb, var(--cv) 86%, #000), var(--cv) 14%, var(--cv)); border-radius: 3px var(--rr) var(--rr) 3px; }
+.b3-ep::before { content: ""; position: absolute; inset: var(--in) 0 var(--in) var(--in); background: #f8f1e4; border-radius: 3px 2px 2px 3px; box-shadow: inset -5px 0 8px -4px rgb(0 0 0 / .1), 0 0 4px rgb(0 0 0 / .18); }   /* the pasted-down paper inside the cover; the cover colour frames it */
+.b3-ph { inline-size: 100%; aspect-ratio: 1 / 1.04; border: calc(var(--bw) * .03) solid #fffcf6; background: rgb(255 255 255 / .18); box-shadow: 0 6px 12px -6px rgb(0 0 0 / .35); overflow: hidden; } .b3-ph img { display: block; inline-size: 100%; block-size: 100%; object-fit: cover; }
+.b3-ph:empty { display: none; }
+.b3-t { font: 500 calc(var(--bw) * .092)/1.1 Fraunces, Georgia, serif; overflow-wrap: anywhere; } .b3-s { font: 700 calc(var(--bw) * .04) Manrope, sans-serif; letter-spacing: .14em; text-transform: uppercase; opacity: .85; overflow-wrap: anywhere; } .b3-s:empty, .b3-t:empty { display: none; }
+/* the spine */
+.b3-sp { inset-block: 0; inset-inline-start: 0; inline-size: var(--bd); transform-origin: left center; transform: translateZ(calc(var(--bd) / -2)) rotateY(-90deg); display: grid; place-items: center; overflow: hidden; border-radius: 3px 0 0 3px;
+  background: linear-gradient(90deg, rgb(0 0 0 / .3), rgb(255 255 255 / .08) 35%, rgb(0 0 0 / .22)), var(--sp, var(--cv)); }
+.b3-sp i { writing-mode: vertical-rl; color: var(--ci); font: 600 calc(var(--bw) * .05) Manrope, sans-serif; font-style: normal; letter-spacing: .08em; white-space: nowrap; max-block-size: 88%; overflow: hidden; }
+:host(.b3-hero) { --bw: 300px; --ratio: .794; } :host(.b3-hero) .b3-in { --rx: 6deg; --ry: -24deg; --rz: -2deg; }
+@media (max-width: 760px) { :host(.b3-hero) { --bw: 178px; } }
+@media (max-width: 420px) { :host(.b3-hero) { --bw: 152px; } }
+@media (prefers-reduced-motion: reduce) { .b3-in { transition: none; } .b3-f::after { animation: none; } }
+/* every book shape: photos fill the space the page leaves instead of keeping a fixed ratio */
+.b3-f { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.b3-f > * { flex: none; max-inline-size: 100%; }
+.b3-f > .b3-ph { flex: 1 1 0; min-block-size: 0; aspect-ratio: auto; inline-size: 100%; max-block-size: 76%; box-sizing: border-box; }
+.b3-lf > * { grid-template-rows: minmax(0, 1fr); }
+.b3-lf .b3-pimg-w { inline-size: 100%; block-size: 100%; aspect-ratio: auto; max-inline-size: 100%; box-sizing: border-box; }
+
+/* the back cover: the maker's name sits low on the board, seen when the book is turned over */
+.b3-k { display: grid; align-content: end; justify-items: center; padding: 0 12% 16%; color: var(--ci); text-align: center; overflow: hidden; }
+.b3-bk { display: grid; justify-items: center; gap: calc(var(--bw) * .025); max-inline-size: 100%; } .b3-bk i { display: block; inline-size: 24px; block-size: 1px; background: currentColor; opacity: .4; }
+.b3-bk small { font: 700 calc(var(--bw) * .032) Manrope, sans-serif; letter-spacing: .16em; text-transform: uppercase; opacity: .7; } .b3-bk b { font: 500 calc(var(--bw) * .075)/1.15 Fraunces, Georgia, serif; overflow-wrap: anywhere; } .b3-bk:has(b:empty) i, .b3-bk:has(b:empty) small { display: none; }

@@ -17,6 +17,7 @@
 <link rel="stylesheet" href="/smooth.css">
 <link rel="stylesheet" href="/css/zebra.css">
 <link rel="stylesheet" href="/css/mobile.css">
+<link rel="stylesheet" href="/css/account-nav.css">
 <link rel="stylesheet" href="/css/stars.css">
 <script src="/stars.js" defer></script>
 <link rel="stylesheet" href="/css/print.css">
@@ -26,6 +27,9 @@
 <link rel="icon" type="image/svg+xml" href="/_blob/ba8a47ecfe93acbd68bd017714519801">
 <link rel="icon" type="image/png" sizes="32x32" href="/_blob/e8c29624c47de066f3c28cb82d08b58a">
 <link rel="apple-touch-icon" href="/_blob/587541048aa85fdedd1d966f27a5d383">
+<script src="/shop-nav.js" defer></script>
+<link rel="stylesheet" href="/css/ui-kit.css">
+<script src="/ui-kit.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -151,7 +155,7 @@ class Component extends DCLogic {
       send: (e) => { if (e && e.preventDefault) e.preventDefault(); if (digits.length < 9) set({ tried: true }); else set({ s: 1 }); },
       last4: digits.slice(-4) || '4567', back: () => set({ s: 0 }), verify: () => set({ s: 2 }),
       useEmail: () => set({ em: !st.em }), emailLabel: st.em ? 'We’ll email you a sign-in link instead ✓' : 'Continue with email',
-      boxes: code.map((d, i) => ({ v: d, cls: 'gl f', d: (i * 0.06) + 's' }))
+      boxes: code.map((d, i) => ({ v: d, cls: 'gl on', d: (i * 0.06) + 's' }))
     };
     return Object.assign(base, v);
   }

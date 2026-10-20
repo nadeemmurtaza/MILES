@@ -1,0 +1,19 @@
+Subject: Your Miles Retold order {{order_no}} is confirmed
+
+Thank you, {{customer_name}}.
+
+We have your deposit, and {{designer}} will design your {{book_title}} book. Add your photos and she can begin.
+
+Order: {{order_no}}
+Book: {{book_type}}
+Deposit paid: {{deposit}}
+Balance, after you approve the proof: {{balance}}
+Delivering to: {{address}}
+
+Add your photos: {{upload_url}}
+
+Nothing is printed until you have seen a proof and approved it.
+
+--
+Miles Retold · order {{order_no}} · {{help_email}}
+Change what we email you: {{account_url}}

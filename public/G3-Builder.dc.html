@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en">
 <head>
+<meta http-equiv="refresh" content="0;url=/book/editor.html?as=customer&start=new">
+<script>location.replace("/book/editor.html?as=customer&start=new");</script>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script src="/theme-pref.js"></script>
@@ -18,6 +21,7 @@
 <link rel="stylesheet" href="/css/zebra.css">
 <link rel="stylesheet" href="/css/subnav.css">
 <link rel="stylesheet" href="/css/mobile.css">
+<link rel="stylesheet" href="/css/account-nav.css">
 <link rel="stylesheet" href="/css/stars.css">
 <script src="/stars.js" defer></script>
 <link rel="stylesheet" href="/css/print.css">
@@ -27,6 +31,11 @@
 <link rel="icon" type="image/svg+xml" href="/_blob/ba8a47ecfe93acbd68bd017714519801">
 <link rel="icon" type="image/png" sizes="32x32" href="/_blob/e8c29624c47de066f3c28cb82d08b58a">
 <link rel="apple-touch-icon" href="/_blob/587541048aa85fdedd1d966f27a5d383">
+<script src="/shop-nav.js" defer></script>
+<link rel="stylesheet" href="/css/ui-kit.css">
+<script src="/ui-kit.js" defer></script>
+<link rel="stylesheet" href="/css/book3d.css">
+<script src="/book3d.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -57,7 +66,7 @@
 </div></section>
 </div>
 <aside class="side" aria-label="Your book and price">
-<div class="prev" data-tilt="1"><div class="uedc0d8f bk" style="--ar: {{ar}}"><div class="bkf"><div class="bki"><div class="bkb" style="background: {{cover}}"></div><div class="bks" style="background: {{spine}}"></div><div class="bkp"></div><div class="bkc" style="background: {{cover}}; color: {{coverInk}}"><div class="ph"><img src="{{coverImg}}" alt=""></div><div class="t" aria-hidden="true">{{coverTitle}}</div><div class="s" aria-hidden="true">{{coverSub}}</div></div></div></div><div class="shadow"></div></div></div>
+<div class="prev" data-tilt="1"><div class="uedc0d8f"><div class="b3" data-b3 data-scroll-open style="--cv: {{cover}}; --sp: {{spine}}; --ci: {{coverInk}}; --pg: {{pages}}; --ratio: {{ar}}" data-title="{{coverTitle}}" data-sub="{{coverSub}}" data-img="{{coverImg}}" role="img" aria-label="Your book"></div><div class="shadow"></div></div></div>
 <div class="sum gl">
 <div class="u09bf0e5"><b class="u276eb22">{{typeName}}</b><span class="demo">{{priceNote}}</span></div>
 <p class="u861054f mu">{{sizeName}} · {{coverName}} linen · {{pages}} pages</p>

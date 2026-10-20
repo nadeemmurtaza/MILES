@@ -1,0 +1,18 @@
+Subject: Pay the balance and we will print your book
+
+Your design is locked.
+
+Once the remaining half is paid, {{book_title}} goes to the printer in this week’s batch.
+
+Order total: {{total}}
+Deposit paid: {{deposit}}
+Balance due: {{balance}}
+Pay with: mada, Apple Pay, STC Pay or Tabby
+
+Pay the balance: {{pay_url}}
+
+Prices on this page are shown in your currency. The payment page asks for nothing we do not need.
+
+--
+Miles Retold · order {{order_no}} · {{help_email}}
+Change what we email you: {{account_url}}

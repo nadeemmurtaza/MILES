@@ -1,0 +1,18 @@
+Subject: Your book is on its way
+
+It is on its way, {{customer_name}}.
+
+{{book_title}} left the studio today. Someone needs to be there to receive it.
+
+Courier: {{courier}}
+Tracking number: {{tracking_no}}
+Expected: {{eta}}
+Delivering to: {{address}}
+
+Track your book: {{track_url}}
+
+Something wrong when it arrives? Reply to this email and we will make it right.
+
+--
+Miles Retold · order {{order_no}} · {{help_email}}
+Change what we email you: {{account_url}}
