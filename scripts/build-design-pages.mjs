@@ -84,6 +84,7 @@ BODY.consent = () => `${panel('', `<div class="dp-top"><div><h2 class="dp-h2">{{
 
 BODY.del = () => `<div class="dp-grid">
 <div class="dp-col">
+${panel('See and delete your photos', `<p class="ed-muted">The full list of the photos we hold for your book, the ones you have deleted, and the way to delete one, some or all of them. Each delete asks first and says what it changes.</p><div class="ew-actions"><a class="ed-btn pri" href="/book/editor.html?as=customer&amp;view=gallery">Open my photo gallery</a></div>`)}
 ${panel('How long we keep your originals', `<p class="ed-muted">After your book is delivered, we delete your original photos. You choose when.</p>${seg('Keep originals for', 'dlOpts')}<ol class="dp-timeline">${FOR('dlSteps', 's', '<li class="{{s.cls}}"><b>{{s.t}}</b><p>{{s.d}}</p></li>', 4)}</ol>`)}
 ${panel('Take a copy first', `<p class="ed-muted">All your photos and the finished book, in one download.</p>${IF('dlZipIdle', btn('Prepare my download', 'dlExport', { icon: 'download' }), false)}${IF('dlZip', '<div class="ew-bar-up" aria-hidden="true"><i style="{{dlZipBar}}"></i></div><p class="ed-muted">Preparing…</p>', false)}${IF('dlZipReady', btn('Download is ready', 'dlExport', { icon: 'tick', cls: 'pri' }), false)}`)}
 </div>

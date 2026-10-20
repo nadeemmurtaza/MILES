@@ -156,3 +156,11 @@ This is a prototype of the editor: nothing is sent to a server, and the sample p
 - **Across both pages.** In the colour and layout popup, inner pages have a second group, *Across both pages*: **Full bleed**, **Panorama** and **Framed**. One photo runs over the fold with no break; it is drawn once over the spread (and each page shows its half when the book turns, in the overview and on a phone). It can be moved, resized, turned, cropped and shaped like any photo. The **Left page / Right page** switch in the toolbar says which page the other tools act on.
 - **Shape and frame, crop.** Select a photo, then **Shape & frame**: rectangle, rounded, circle, oval, arch, heart, star, hexagon, diamond, triangle or soft blob, and a frame (white border, thin line, polaroid, shadow). **Crop** lets you drag the photo inside its frame and zoom 100 to 400%.
 - **Pencil.** **Draw** puts the page in drawing mode: seven colours, three pencil sizes, undo stroke, clear. Doodles belong to the page and scale with it. Esc leaves drawing or crop mode.
+
+### Photo gallery and privacy
+
+`/book/editor.html?as=customer&view=gallery` is linked from the customer menus (My book > Photo gallery, Privacy > My photos and deletions, the phone sheet), from the Delete data page, and from the photos sheet in the editor. The studio's More menu has the same view (`?as=studio&view=gallery`, read-only). It shows what we hold (with where each photo is used), what has been deleted (name, date, how, which pages it was on), and lets the customer delete **one photo**, **selected photos** or **all photos**. Each delete says what it changes (the file is removed from storage, the spots on the pages become empty, it cannot be undone) and offers a download first; delete-all also asks the customer to type DELETE.
+
+### Text in shapes
+
+Select a text box and tap **Shape**, or tap **Shape text** to start one: circle, oval, heart, star, hexagon, diamond, triangle, soft blob, speech bubble, burst, ribbon, pill, arch, rounded or plain box, with a fill colour and a thin or thick outline. The shape can be dragged, resized, turned and typed into like any other box. Photos got four more shapes too (pill, speech bubble, burst, ribbon).

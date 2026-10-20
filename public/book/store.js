@@ -72,7 +72,7 @@
   function newDoc(pageCount) {
     var n = pageCount || 40, pages = [];
     for (var i = 0; i < n + 2; i++) pages.push({ id: uid('p'), bg: i === 0 ? '#12342b' : '#fffcf6', items: [], doodle: [], layout: '', done: false });
-    return { v: 1, order: 'MR-1042', customer: 'Sara', title: '', sub: '', dedication: '', author: '', ratio: 0.8, inches: 8, count: n, setup: 0, pages: pages, gallery: [], spans: {}, notes: [], status: 'draft', rev: { n: 0, by: 'customer', t: 0 } };
+    return { v: 1, order: 'MR-1042', customer: 'Sara', title: '', sub: '', dedication: '', author: '', ratio: 0.8, inches: 8, count: n, setup: 0, pages: pages, gallery: [], spans: {}, deleted: [], notes: [], status: 'draft', rev: { n: 0, by: 'customer', t: 0 } };
   }
   function resize(doc, n) {   /* change the number of inner pages; keeps the back cover last */
     var back = doc.pages.pop();
@@ -97,7 +97,7 @@
   function read() {
     try {
       var s = localStorage.getItem(KEY), d = s ? JSON.parse(s) : null;
-      if (d) { d.spans = d.spans || {}; d.pages.forEach(function (p) { p.doodle = p.doodle || []; }); }
+      if (d) { d.spans = d.spans || {}; d.deleted = d.deleted || []; d.pages.forEach(function (p) { p.doodle = p.doodle || []; }); }
       return d;
     } catch (e) { return null; }
   }
@@ -105,7 +105,7 @@
     doc.rev = { n: (doc.rev && doc.rev.n || 0) + 1, by: who, t: Date.now() };
     try { localStorage.setItem(KEY, JSON.stringify(doc)); return true; } catch (e) { return false; }
   }
-  window.addEventListener('storage', function (e) { if (e.key === KEY && e.newValue) { try { var d = JSON.parse(e.newValue); d.spans = d.spans || {}; d.pages.forEach(function (p) { p.doodle = p.doodle || []; }); listeners.forEach(function (f) { f(d); }); } catch (x) {} } });
+  window.addEventListener('storage', function (e) { if (e.key === KEY && e.newValue) { try { var d = JSON.parse(e.newValue); d.spans = d.spans || {}; d.deleted = d.deleted || []; d.pages.forEach(function (p) { p.doodle = p.doodle || []; }); listeners.forEach(function (f) { f(d); }); } catch (x) {} } });
 
   /* ------------------------------------------------------------ photos in IndexedDB */
   var dbp = null, urls = {};
@@ -132,6 +132,10 @@
     return Promise.all(doc.gallery.filter(function (g) { return !g.src && !urls[g.id]; }).map(function (g) {
       return getBlob(g.id).then(function (rec) { if (rec && rec.blob) urls[g.id] = URL.createObjectURL(rec.blob); }).catch(function () {});
     }));
+  }
+  function blobOf(g) {   /* the photo as a file, to download a copy */
+    if (g.src) return fetch(g.src).then(function (r) { return r.blob(); });
+    return getBlob(g.id).then(function (rec) { return rec && rec.blob; });
   }
   function importFile(file) {   /* shrink to a print-friendly size, keep the original name */
     return new Promise(function (resolve, reject) {
@@ -181,6 +185,6 @@
     newDoc: newDoc, resize: resize, buildItems: buildItems, slotsOf: slotsOf, spanItem: spanItem, kindOf: kindOf,
     spreadCount: spreadCount, spreadPages: spreadPages, spreadOf: spreadOf, pageLabel: pageLabel,
     read: read, write: write, setWho: function (w) { who = w; }, onRemote: function (f) { listeners.push(f); },
-    importFile: importFile, samples: samples, url: url, loadUrls: loadUrls, delBlob: delBlob, review: review
+    importFile: importFile, blobOf: blobOf, samples: samples, url: url, loadUrls: loadUrls, delBlob: delBlob, review: review
   };
 })();

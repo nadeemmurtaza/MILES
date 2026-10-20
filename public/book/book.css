@@ -166,3 +166,26 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 
 .shp .fr, .shp .cl { display: block; }
 .tools .hint { max-inline-size: 38ch; overflow: hidden; text-overflow: ellipsis; }
+
+/* more shapes (photos and text) */
+.sh-pill .cl { border-radius: 999px; } .sh-bubble .cl { clip-path: url(#cp-bubble); } .sh-burst .cl { clip-path: url(#cp-burst); } .sh-ribbon .cl { clip-path: url(#cp-ribbon); }
+/* a text box with a shape: fill and outline behind the words, words centred inside */
+.it-text.shaped { display: grid; place-items: center; }
+.tbg { position: absolute; inset: 0; pointer-events: none; } .tbg .cl { position: absolute; inset: 0; }
+.tbg.ln-1 { filter: drop-shadow(.35cqw 0 0 currentColor) drop-shadow(-.35cqw 0 0 currentColor) drop-shadow(0 .35cqw 0 currentColor) drop-shadow(0 -.35cqw 0 currentColor); }
+.tbg.ln-2 { filter: drop-shadow(.8cqw 0 0 currentColor) drop-shadow(-.8cqw 0 0 currentColor) drop-shadow(0 .8cqw 0 currentColor) drop-shadow(0 -.8cqw 0 currentColor); }
+.it-text.shaped .tx { position: relative; z-index: 1; inline-size: 100%; text-align: inherit; }
+.it-text.sh-rect .tx, .it-text.sh-rounded .tx { padding: .5em .7em; } .it-text.sh-pill .tx { padding: .35em 1em; } .it-text.sh-ribbon .tx { padding: .4em 12%; }
+.it-text.sh-circle .tx { padding: 13%; } .it-text.sh-oval .tx { padding: 12% 16%; } .it-text.sh-arch .tx { padding: 28% 10% 8%; } .it-text.sh-heart .tx { padding: 20% 16% 14%; } .it-text.sh-star .tx { padding: 30% 24% 18%; }
+.it-text.sh-hexagon .tx { padding: 14%; } .it-text.sh-diamond .tx { padding: 24%; } .it-text.sh-triangle .tx { padding: 40% 22% 8%; } .it-text.sh-blob .tx { padding: 15%; } .it-text.sh-bubble .tx { padding: 8% 9% 24%; } .it-text.sh-burst .tx { padding: 22%; }
+.shp .fr.none { display: grid; place-items: center; inline-size: 52px; block-size: 52px; font: 600 22px Fraunces, serif; color: var(--mu); }
+
+/* photo gallery and privacy */
+.lb { max-inline-size: 1060px; margin: 0 auto; padding: 26px 14px 50px; display: grid; gap: 16px; } .lb h1 { font-size: clamp(30px, 4.6vw, 44px); line-height: 1.1; }
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; } .stat { display: grid; gap: 2px; padding: 14px 16px; border-radius: 16px; background: var(--card); box-shadow: inset 0 0 0 1px var(--line); } .stat b { font: 500 34px/1 Fraunces, serif; } .stat span { color: var(--mu); font-size: 13px; font-weight: 700; }
+.priv { display: flex; gap: 10px; align-items: flex-start; margin: 0; padding: 12px 16px; border-radius: 14px; background: rgb(from var(--ok) r g b / .12); box-shadow: inset 0 0 0 1px rgb(from var(--ok) r g b / .4); font-size: 14px; font-weight: 600; } .priv .ico { color: var(--ok); margin-block-start: 2px; }
+.libbar { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-block-end: 12px; } .libbar .sp { flex: 1; } .libbar .bt.danger { color: var(--bad); }
+.gal.lg { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 14px 10px; } .gal .nm { display: block; margin-block-start: 4px; font-size: 12px; font-weight: 700; color: var(--mu); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dlog { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; } .dlog li { display: grid; grid-template-columns: 40px 1fr; gap: 12px; align-items: center; padding: 12px 14px; border-radius: 14px; background: var(--soft); } .dlog .gone { inline-size: 40px; block-size: 40px; display: grid; place-items: center; border-radius: 12px; background: rgb(from var(--bad) r g b / .14); color: var(--bad); } .dlog b { overflow-wrap: anywhere; } .dlog small { display: block; color: var(--mu); }
+.warn { color: var(--bad); font-weight: 700; } .wl { margin: 0; padding-inline-start: 20px; display: grid; gap: 6px; font-size: 14px; } img.big { inline-size: 100%; max-block-size: 52dvh; object-fit: contain; border-radius: 12px; background: var(--soft); }
+.bt.danger-b { background: var(--bad); color: #fff; } .libl { margin: 12px 0 0; font-size: 14px; font-weight: 700; } .libl a { color: var(--acc); }

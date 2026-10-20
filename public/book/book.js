@@ -10,7 +10,7 @@
   var ROLE = q.get('as') === 'studio' ? 'studio' : 'customer';
   B.setWho(ROLE);
 
-  var S = { doc: null, screen: 'design', si: 0, ap: 0, sel: null, editing: null, turning: false, sheet: null, undo: [], redo: [], snap: '', saved: '', compact: false, flow: null, picks: [], tab: 'all', crop: null, draw: { on: false, color: '#12342b', w: 1.2 } };
+  var S = { doc: null, screen: 'design', si: 0, ap: 0, sel: null, editing: null, turning: false, sheet: null, undo: [], redo: [], snap: '', saved: '', compact: false, flow: null, picks: [], tab: 'all', crop: null, draw: { on: false, color: '#12342b', w: 1.2 }, lib: { tab: 'stored', selecting: false, picked: [] } };
   var app = document.getElementById('app');
   var clamp = function (v, a, b) { return Math.max(a, Math.min(b, v)); };
   var reduce = function () { return matchMedia('(prefers-reduced-motion: reduce)').matches; };
@@ -34,6 +34,7 @@
     photo: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.8"/><path d="M4 18l5-5 4 4 3-3 4 4"/>', text: '<path d="M5 6V4h14v2M12 4v16M9 20h6"/>', palette: '<path d="M12 3a9 9 0 1 0 0 18c1.500 0 2-1 1.500-2s0-2 1.500-2h2a3 3 0 0 0 3-3A9 9 0 0 0 12 3z"/><circle cx="7.500" cy="11" r="1"/><circle cx="10" cy="7" r="1"/><circle cx="15" cy="7" r="1"/>',
     trash: '<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13"/>', copy: '<rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h2"/>', tick: '<path d="M5 12.500l4.500 4.500L19 7.500"/>', plus: '<path d="M12 5v14M5 12h14"/>',
     send: '<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>', star: '<path d="M12 3l2.700 5.600 6.100.8-4.500 4.200 1.100 6.100L12 16.800 6.600 19.700l1.100-6.100L3.200 9.400l6.100-.8z"/>', note: '<path d="M4 5h16v11H9l-5 4z"/>', gear: '<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.600 5.600l2.100 2.100M16.300 16.300l2.100 2.100M5.600 18.400l2.100-2.100M16.300 7.700l2.100-2.100"/>',
+    lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
     pencil: '<path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M14 7l3 3"/>', shape: '<circle cx="8" cy="8" r="4.5"/><rect x="12" y="12" width="8" height="8" rx="1.5"/>', crop: '<path d="M7 3v14h14M3 7h14v14"/>', minus: '<path d="M5 12h14"/>',
     up: '<path d="M6 15l6-6 6 6"/>', down: '<path d="M6 9l6 6 6-6"/>', alignL: '<path d="M4 6h16M4 10h10M4 14h16M4 18h10"/>', alignC: '<path d="M4 6h16M7 10h10M4 14h16M7 18h10"/>', alignR: '<path d="M4 6h16M10 10h10M4 14h16M10 18h10"/>', sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.500v2M12 19.500v2M4.600 4.600L6 6M18 18l1.400 1.400M2.500 12h2M19.500 12h2M4.600 19.400L6 18M18 6l1.400-1.400"/>', moon: '<path d="M20 14.500A8 8 0 0 1 9.500 4a8 8 0 1 0 10.500 10.500z"/>', edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/>', check: '<path d="M5 12.500l4.500 4.500L19 7.500"/>', close: '<path d="M6 6l12 12M18 6L6 18"/>'
   };
@@ -72,11 +73,13 @@
   function gal(id) { return S.doc.gallery.filter(function (g) { return g.id === id; })[0]; }
   function itemStyle(it) {
     var s = 'left:' + it.x + '%;top:' + it.y + '%;width:' + it.w + '%;transform:rotate(' + (it.r || 0) + 'deg);';
-    if (it.t === 'img') s += 'height:' + it.h + '%;';
+    if (it.t === 'img' || it.h > 0) s += 'height:' + it.h + '%;';
     return s;
   }
   /* a photo: shape (clip) and frame around it, zoom and focus inside it */
-  var SHAPES = [['rect', 'Rectangle'], ['rounded', 'Rounded'], ['circle', 'Circle'], ['oval', 'Oval'], ['arch', 'Arch'], ['heart', 'Heart'], ['star', 'Star'], ['hexagon', 'Hexagon'], ['diamond', 'Diamond'], ['triangle', 'Triangle'], ['blob', 'Soft blob']];
+  var SHAPES = [['rect', 'Rectangle'], ['rounded', 'Rounded'], ['circle', 'Circle'], ['oval', 'Oval'], ['arch', 'Arch'], ['heart', 'Heart'], ['star', 'Star'], ['hexagon', 'Hexagon'], ['diamond', 'Diamond'], ['triangle', 'Triangle'], ['blob', 'Soft blob'], ['pill', 'Pill'], ['bubble', 'Speech bubble'], ['burst', 'Burst'], ['ribbon', 'Ribbon']];
+  var AR = { circle: 1, oval: 1.45, arch: .85, heart: 1.05, star: 1, hexagon: 1.12, diamond: 1, triangle: 1.1, blob: 1.1, bubble: 1.35, burst: 1 };   /* shapes that keep a shape of their own when a text box is set to them */
+  var FILLS = ['#fffcf6', '#f1e7d8', '#f4c9b8', '#e0a030', '#d9e4d4', '#bcd4de', '#12342b', '#7a2e2e', '#2b2b2b', '#ffffff'];
   var FRAMES = [['none', 'No frame'], ['border', 'White border'], ['line', 'Thin line'], ['polaroid', 'Polaroid'], ['shadow', 'Shadow']];
   function imgNode(it, src) {
     var im = h('img', { src: src, alt: '', draggable: 'false', style: { objectFit: it.fit === 'contain' ? 'contain' : 'cover', objectPosition: (it.fx == null ? 50 : it.fx) + '% ' + (it.fy == null ? 50 : it.fy) + '%', transformOrigin: (it.fx == null ? 50 : it.fx) + '% ' + (it.fy == null ? 50 : it.fy) + '%', transform: 'scale(' + (it.zoom || 1) + ')' } });
@@ -91,14 +94,16 @@
       if (src) el.appendChild(imgNode(it, src)); else el.appendChild(h('span', { class: 'ph' }, ic('plus', 22), live ? h('b', null, 'Add photo') : null));
     } else {
       var editing = live && S.editing === it.id;
-      el = h('div', { class: 'it it-text' + (editing ? ' editing' : ''), 'data-id': it.id, 'data-p': pi, tabindex: live ? '0' : '-1', role: live ? 'group' : null, 'aria-label': live ? 'Text box, press Enter to edit' : null,
+      var shp = it.shape && it.shape !== 'none' ? it.shape : '';
+      el = h('div', { class: 'it it-text' + (editing ? ' editing' : '') + (shp ? ' shaped sh-' + shp : ''), 'data-id': it.id, 'data-p': pi, tabindex: live ? '0' : '-1', role: live ? 'group' : null, 'aria-label': live ? 'Text box, press Enter to edit' : null,
         style: itemStyle(it) + 'font-size:' + it.size + 'cqw;color:' + it.color + ';text-align:' + (it.align || 'center') + ';font-family:' + (FONT[it.font] || FONT.Fraunces) + ';font-weight:' + (it.bold ? 700 : (it.weight || 400)) + ';font-style:' + (it.italic ? 'italic' : 'normal') + (it.shadow ? ';text-shadow:0 .1em .4em rgba(0,0,0,.45)' : '') });
       var tx = h('div', { class: 'tx' }, it.text);
       if (editing) { tx.setAttribute('contenteditable', 'plaintext-only'); if (tx.contentEditable !== 'plaintext-only') tx.setAttribute('contenteditable', 'true'); tx.setAttribute('aria-label', 'Edit text'); }
+      if (shp) el.appendChild(h('div', { class: 'tbg ln-' + (it.line || 0) }, h('div', { class: 'cl', style: { background: it.fill || '#fffcf6' } })));
       el.appendChild(tx);
     }
     if (isSel && !(it.t === 'text' && S.editing === it.id) && !(S.crop === it.id)) {
-      ['nw', 'ne', 'sw', 'se'].concat(it.t === 'text' ? ['w', 'e'] : []).forEach(function (k) { el.appendChild(h('i', { class: 'hd ' + k, 'data-h': k })); });
+      ['nw', 'ne', 'sw', 'se'].concat(it.t === 'text' && !(it.h > 0) ? ['w', 'e'] : []).forEach(function (k) { el.appendChild(h('i', { class: 'hd ' + k, 'data-h': k })); });
       el.appendChild(h('i', { class: 'hd rot', 'data-h': 'rot', title: 'Turn' }));
     }
     if (isSel) el.classList.add('is-sel');
@@ -216,15 +221,29 @@
     }));
     return h('div', { class: 'gl' }, drop, d.gallery.length ? [tabs, list.length ? grid : h('p', { class: 'empty' }, tab === 'fav' ? 'No favourites yet. Tap the star on a photo.' : 'Every photo is already in your book.')] : h('p', { class: 'empty' }, 'No photos yet. Add some above, or use the sample photos to try the editor.'));
   }
+  function pagesUsing(ids) {
+    var n = 0;
+    S.doc.pages.forEach(function (p) { if (p.items.some(function (i) { return ids.indexOf(i.gid) > -1; })) n++; });
+    Object.keys(S.doc.spans || {}).forEach(function (k) { if (S.doc.spans[k].some(function (i) { return ids.indexOf(i.gid) > -1; })) n++; });
+    return n;
+  }
+  function deletePhotos(ids, how) {
+    var now = Date.now();
+    ids.forEach(function (id) {
+      var g = gal(id); if (!g) return;
+      var n = usage(id);
+      S.doc.deleted.push({ id: B.uid('d'), name: g.name, w: g.w, h: g.h, sample: !!g.sample, t: now, how: how, pages: n });
+      if (!g.sample) B.delBlob(g.id).catch(function () {});
+    });
+    S.doc.pages.forEach(function (p) { p.items.forEach(function (i) { if (ids.indexOf(i.gid) > -1) i.gid = null; }); });
+    Object.keys(S.doc.spans || {}).forEach(function (k) { S.doc.spans[k].forEach(function (i) { if (ids.indexOf(i.gid) > -1) i.gid = null; }); });
+    S.doc.gallery = S.doc.gallery.filter(function (g) { return ids.indexOf(g.id) < 0; });
+    S.lib.picked = S.lib.picked.filter(function (id) { return ids.indexOf(id) < 0; });
+    persist(); render();
+  }
   function removePhoto(g) {
     var n = usage(g.id);
-    window.MilesUI.confirm({ title: 'Remove this photo?', body: n ? 'It is used on ' + n + (n === 1 ? ' page' : ' pages') + '. Those spots will become empty, ready for another photo.' : 'It is not used on any page.', confirmLabel: 'Yes, remove', danger: true }).then(function (ok) {
-      if (!ok) return;
-      S.doc.pages.forEach(function (p) { p.items.forEach(function (i) { if (i.gid === g.id) i.gid = null; }); });
-      Object.keys(S.doc.spans || {}).forEach(function (k) { S.doc.spans[k].forEach(function (i) { if (i.gid === g.id) i.gid = null; }); });
-      S.doc.gallery = S.doc.gallery.filter(function (x) { return x.id !== g.id; }); if (!g.sample) B.delBlob(g.id).catch(function () {});
-      persist(); render();
-    });
+    window.MilesUI.confirm({ title: 'Delete this photo?', body: (n ? 'It is used on ' + n + (n === 1 ? ' page' : ' pages') + '. Those spots become empty, ready for another photo. ' : '') + 'The file is removed from our storage and cannot be brought back.', confirmLabel: 'Yes, delete it', danger: true }).then(function (ok) { if (ok) { deletePhotos([g.id], 'one'); toast('Photo deleted'); } });
   }
   function togglePick(id) {
     var i = S.picks.indexOf(id), max = S.pickMax || 1;
@@ -232,6 +251,59 @@
     var m = document.querySelector('dialog.dlg'); var keep = m && m.querySelector('.gl'); if (keep) { var fresh = galleryBody(true); keep.replaceWith(fresh); var c = document.getElementById('pickcount'); if (c) c.textContent = pickLabel(); var sv = document.getElementById('picksave'); if (sv) sv.disabled = S.pickNeed && !S.picks.length; }
   }
   var pickLabel = function () { var max = S.pickMax || 1; return S.picks.length + (max > 1 ? ' of ' + max : '') + ' selected'; };
+
+  /* ------------------------------------------------------------ photo gallery and privacy: what we hold, what was deleted, delete some or all */
+  function when(t) { return new Date(t).toLocaleString([], { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }
+  function saveCopy(g) {
+    B.blobOf(g).then(function (b) { if (!b) return toast('That file is not available to download', { kind: 'bad' }); var u = URL.createObjectURL(b), a = document.createElement('a'); a.href = u; a.download = (g.name || 'photo') + '.jpg'; document.body.appendChild(a); a.click(); a.remove(); setTimeout(function () { URL.revokeObjectURL(u); }, 4000); }).catch(function () { toast('Could not download that photo', { kind: 'bad' }); });
+  }
+  function typedConfirm(o) {
+    var inp = h('input', { type: 'text', autocomplete: 'off', 'aria-label': 'Type ' + o.word + ' to confirm', placeholder: o.word, maxlength: 12 });
+    var go = btn(o.label, function () { closeDlg(); o.ok(); }, { cls: 'pri danger-b', icon: 'trash' }); go.disabled = true;
+    inp.addEventListener('input', function () { go.disabled = inp.value.trim().toUpperCase() !== o.word; });
+    dialog(o.title, h('div', { class: 'dl-s' }, h('p', { class: 'warn' }, o.body), o.list ? h('ul', { class: 'wl' }, o.list.map(function (x) { return h('li', null, x); })) : null, h('label', { class: 'fld' }, h('span', null, 'Type ' + o.word + ' to confirm'), inp)), [btn('Keep my photos', function () { closeDlg(); }), go]);
+    inp.focus();
+  }
+  function askDelete(ids, all) {
+    var n = ids.length, used = pagesUsing(ids);
+    var impact = [n + (n === 1 ? ' photo is' : ' photos are') + ' removed from our storage. We do not keep a copy.', used ? used + (used === 1 ? ' page uses' : ' pages use') + ' ' + (n === 1 ? 'it' : 'them') + ': ' + (used === 1 ? 'that spot becomes' : 'those spots become') + ' empty. Your text and layouts stay.' : 'None of them is used on a page, so your book does not change.', 'This cannot be undone. Download a copy first if you want to keep ' + (n === 1 ? 'it' : 'them') + '.'];
+    if (all) typedConfirm({ title: 'Delete all ' + n + ' photos?', body: 'This removes every photo we hold for your book.', list: impact, word: 'DELETE', label: 'Delete all photos', ok: function () { deletePhotos(ids, 'all'); toast('All photos deleted'); } });
+    else window.MilesUI.confirm({ title: 'Delete ' + n + (n === 1 ? ' photo?' : ' photos?'), body: impact.join(' '), confirmLabel: 'Yes, delete ' + (n === 1 ? 'it' : 'them'), danger: true }).then(function (ok) { if (ok) { S.lib.selecting = false; deletePhotos(ids, 'selected'); toast(n + (n === 1 ? ' photo deleted' : ' photos deleted')); } });
+  }
+  function photoDialog(g) {
+    var n = usage(g.id), src = B.url(g), im = h('img', { src: src, alt: g.name, class: 'big' }); im.addEventListener('error', function () { im.src = PLACE(g.id); }, { once: true });
+    dialog(g.name, h('div', { class: 'dl-s' }, im, h('p', { class: 'ed-muted' }, (g.w ? g.w + ' \u00d7 ' + g.h + ' px \u00b7 ' : '') + (n ? 'used on ' + n + (n === 1 ? ' page' : ' pages') : 'not used on any page') + (g.sample ? ' \u00b7 sample photo' : ''))),
+      [btn('Download a copy', function () { saveCopy(g); }, { icon: 'down' }), ROLE === 'studio' ? null : btn('Delete this photo', function () { closeDlg(); removePhoto(g); }, { icon: 'trash', cls: 'danger' }), btn('Close', function () { closeDlg(); }, { cls: 'pri' })]);
+  }
+  function screenLibrary() {
+    var d = S.doc, L = S.lib, customer = ROLE === 'customer';
+    var inBook = d.gallery.filter(function (g) { return usage(g.id) > 0; }).length, unused = d.gallery.length - inBook;
+    var stat = function (n, label) { return h('div', { class: 'stat' }, h('b', null, String(n)), h('span', null, label)); };
+    var tabs = h('div', { class: 'tabs', role: 'tablist' }, [['stored', 'What we hold ' + d.gallery.length], ['deleted', 'Deleted ' + d.deleted.length]].map(function (t) { return h('button', { type: 'button', role: 'tab', 'aria-selected': String(L.tab === t[0]), class: L.tab === t[0] ? 'on' : '', onclick: function () { L.tab = t[0]; render(); } }, t[1]); }));
+    var body;
+    if (L.tab === 'deleted') {
+      body = d.deleted.length ? h('ul', { class: 'dlog' }, d.deleted.slice().reverse().map(function (x) { return h('li', null, h('span', { class: 'gone', 'aria-hidden': 'true' }, ic('trash', 20)), h('div', null, h('b', null, x.name), h('small', null, 'Deleted ' + when(x.t) + ' \u00b7 ' + (x.how === 'all' ? 'with Delete all' : (x.how === 'selected' ? 'selected by you' : 'deleted one by one')) + (x.pages ? ' \u00b7 it was on ' + x.pages + (x.pages === 1 ? ' page' : ' pages') : ' \u00b7 it was not on a page') + (x.sample ? ' \u00b7 sample photo' : '')))); })) : h('p', { class: 'empty' }, 'Nothing has been deleted. When you delete a photo, it is listed here with the date.');
+      if (d.deleted.length) body = h('div', null, h('p', { class: 'ed-muted' }, 'The photo files are gone from our storage. This list only keeps the name and the date, so you can see what was removed.'), body);
+    } else {
+      var ids = d.gallery.map(function (g) { return g.id; });
+      var bar = h('div', { class: 'libbar' },
+        !customer ? h('p', { class: 'ed-muted' }, 'Studio view: you can see and download the photos for this order. Only the customer can delete them.') : [
+          L.selecting ? [btn('Select all', function () { L.picked = ids.slice(); render(); }, { icon: 'tick' }), btn('Delete selected (' + L.picked.length + ')', function () { if (L.picked.length) askDelete(L.picked.slice(), L.picked.length === ids.length && ids.length > 1); }, { icon: 'trash', cls: 'danger', dis: !L.picked.length }), btn('Cancel', function () { L.selecting = false; L.picked = []; render(); }, {})]
+            : [btn('Select photos', function () { L.selecting = true; L.picked = []; render(); }, { icon: 'tick', dis: !ids.length }), btn('Add photos', function () { openSheet('gallery'); }, { icon: 'plus' }), h('span', { class: 'sp' }), btn('Delete all photos', function () { askDelete(ids, true); }, { icon: 'trash', cls: 'danger', dis: !ids.length })]]);
+      var grid = h('ul', { class: 'gal lg' }, d.gallery.map(function (g) {
+        var n = usage(g.id), on = L.picked.indexOf(g.id) > -1, src = B.url(g), im = h('img', { src: src, alt: '', loading: 'lazy', draggable: 'false' }); im.addEventListener('error', function () { im.src = PLACE(g.id); }, { once: true });
+        return h('li', null, h('button', { type: 'button', class: 'tl' + (on ? ' on' : ''), 'aria-pressed': L.selecting ? String(on) : null, 'aria-label': g.name + (n ? ', used on ' + n + ' pages' : ', not used') + (L.selecting && on ? ', selected' : ''), onclick: function () { if (L.selecting) { var i = L.picked.indexOf(g.id); if (i > -1) L.picked.splice(i, 1); else L.picked.push(g.id); render(); } else photoDialog(g); } }, im, on ? h('i', { class: 'pk' }, '\u2713') : null, h('small', { class: 'used' }, n ? n + (n === 1 ? ' page' : ' pages') : 'not used')), h('span', { class: 'nm' }, g.name));
+      }));
+      body = h('div', null, bar, d.gallery.length ? grid : h('p', { class: 'empty' }, 'No photos are stored. Add photos from the editor when you are ready.'));
+    }
+    return h('div', { class: 'app' }, topbar(true), h('main', { class: 'lb', id: 'main' },
+      h('h1', null, ROLE === 'studio' ? 'Customer photo gallery' : 'Your photo gallery'),
+      h('p', { class: 'lead' }, 'Every photo we hold for this book, what has been deleted, and how to remove photos. Your photos are private to you' + (customer ? ' and the studio.' : ' and the studio; this view is for the order only.')),
+      h('div', { class: 'stats' }, stat(d.gallery.length, 'photos we hold'), stat(inBook, 'used in the book'), stat(unused, 'not used yet'), stat(d.deleted.length, 'deleted')),
+      h('p', { class: 'priv' }, ic('lock', 18), h('span', null, 'Deleting a photo removes the file from our storage. It is not kept in a bin. The pages that used it keep their text and layout, and the photo spot becomes empty.')),
+      tabs, body,
+      h('div', { class: 'foot' }, h('a', { class: 'bt', href: '/book/editor.html?as=' + ROLE }, ic('back'), h('span', null, 'Back to the editor')))));
+  }
 
   /* ------------------------------------------------------------ popups */
   function dialog(title, body, foot, o) {
@@ -315,7 +387,7 @@
         return h('li', null, h('button', { type: 'button', class: 'ovb' + (s === S.si ? ' on' : ''), 'aria-label': 'Open ' + (s === 0 ? 'the cover' : s === tot - 1 ? 'the back cover' : 'pages ' + label) + (done ? ', done' : ''), onclick: function () { closeSheet(); goto(s); } }, h('span', { class: 'pair' }, sp.l != null ? pageEl(sp.l, false) : h('span', { class: 'bpg blank' }), sp.r != null ? pageEl(sp.r, false) : h('span', { class: 'bpg blank' })), h('small', null, label, done ? h('i', { class: 'dn' }, ic('check', 12)) : null)));
       })));
     } else if (S.sheet === 'gallery') {
-      title = 'Your photos'; S.picks = []; body = galleryBody(false); S.afterAdd = function () { var el = document.querySelector('#sheet .gl'); if (el) el.replaceWith(galleryBody(false)); };
+      title = 'Your photos'; S.picks = []; body = h('div', null, galleryBody(false), h('p', { class: 'libl' }, h('a', { href: '/book/editor.html?as=' + ROLE + '&view=gallery' }, 'See everything we hold, what was deleted, and delete photos'))); S.afterAdd = function () { var el = document.querySelector('#sheet .gl'); if (el) el.replaceWith(galleryBody(false)); };
     } else if (S.sheet === 'notes') {
       title = 'Notes'; var ta = h('textarea', { rows: 3, maxlength: 400, placeholder: ROLE === 'studio' ? 'Write to ' + d.customer + ' about ' + B.pageLabel(d, S.ap).toLowerCase() : 'Write to the studio about ' + B.pageLabel(d, S.ap).toLowerCase(), 'aria-label': 'New note' });
       body = h('div', { class: 'nt' }, d.notes.length ? h('ul', { class: 'nl' }, d.notes.map(function (n) { return h('li', { class: n.by }, h('b', null, (n.by === 'studio' ? 'Studio' : d.customer), h('small', null, ' · ' + B.pageLabel(d, n.page) + ' · ' + new Date(n.t).toLocaleString([], { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }))), h('p', null, n.text)); })) : h('p', { class: 'empty' }, 'No notes yet.'),
@@ -432,6 +504,7 @@
       t.appendChild(btn('Add photo', function () { pickOne(function (id) { addItem({ t: 'img', x: 20, y: 20, w: 50, h: 45, gid: id, fit: 'cover', r: 0, shape: 'rect', frame: 'none', zoom: 1, fx: 50, fy: 50 }); }); }, { icon: 'photo' }));
       t.appendChild(btn('Draw', function () { S.draw.on = true; S.sel = null; S.editing = null; render(); }, { icon: 'pencil' }));
       if (S.compact && (d.spans[S.si] || []).length) t.appendChild(btn('Spread photo', function () { S.sel = d.spans[S.si][0].id; render(); }, { icon: 'photo' }));
+      t.appendChild(btn('Shape text', function () { var p = d.pages[S.ap]; addItem({ t: 'text', x: 25, y: 30, w: 50, h: 40, text: 'Your words', size: 5, align: 'center', font: 'Fraunces', weight: 500, color: B.ink('#e0a030'), r: 0, shape: 'circle', fill: '#e0a030', line: 0 }, false); openShape(); }, { icon: 'shape' }));
       t.appendChild(btn('Add text', function () { var p = d.pages[S.ap]; addItem({ t: 'text', x: 15, y: 40, w: 70, h: 0, text: 'Type here', size: 5, align: 'center', font: 'Fraunces', weight: 400, color: B.ink(p.bg), r: 0 }, true); }, { icon: 'text' }));
       if (!sw1) t.appendChild(h('span', { class: 'hint' }, 'Tap a photo or text to move, resize or turn it. ' + B.pageLabel(d, S.ap) + ' is selected.'));
       return t;
@@ -449,6 +522,7 @@
     }
     if (it.t === 'text') {
       t.appendChild(btn('Edit', function () { S.editing = it.id; render(); focusEdit(); }, { icon: 'edit', cls: S.editing === it.id ? 'on' : '' }));
+      t.appendChild(btn('Shape', openShape, { icon: 'shape' }));
       var fs = h('select', { 'aria-label': 'Font', onchange: upd(function (i) { i.font = fs.value; }) }, FONTS.map(function (f) { return h('option', { value: f, selected: f === (it.font || 'Fraunces') }, f); }));
       t.appendChild(fs);
       t.appendChild(btn('', upd(function (i) { i.size = clamp(+(i.size * .9).toFixed(2), 1.5, 40); }), { aria: 'Smaller text', cls: 'sq', icon: 'down' }));
@@ -544,7 +618,7 @@
         var cos = Math.cos(-rad), sin = Math.sin(-rad), lx = dx * cos - dy * sin, ly = dx * sin + dy * cos;
         var sxg = /e/.test(handle) ? 1 : (/w/.test(handle) ? -1 : 0), syg = /s/.test(handle) ? 1 : (/n/.test(handle) ? -1 : 0);
         var wpx = o.w / 100 * rect.width, hpx = elh;
-        if (it.t === 'text') {
+        if (it.t === 'text' && !(it.h > 0)) {
           var nw = Math.max(rect.width * .06, wpx + sxg * lx), f = nw / wpx; if (syg && sxg) { it.size = clamp(+(o.size * f).toFixed(2), 1.5, 40); }
           var cxl = sxg * (nw - wpx) / 2, cyl = 0, ccx = cx0 + cxl * Math.cos(rad) - cyl * Math.sin(rad), ccy = cy0 + cxl * Math.sin(rad) + cyl * Math.cos(rad);
           it.w = nw / rect.width * 100; it.x = (ccx - nw / 2 - rect.left) / rect.width * 100; it.y = (ccy - (hpx * (syg && sxg ? f : 1)) / 2 - rect.top) / rect.height * 100;
@@ -589,18 +663,38 @@
   }
   /* shape and frame for a photo */
   function openShape() {
-    var c = selItem(); if (!c) return; var it = c.it;
-    var pick = function (k, v) { var q = selItem(); if (!q) return; q.it[k] = v; persist(); openShape(); render(); };
-    var sh = h('div', { class: 'shapes', role: 'radiogroup', 'aria-label': 'Shape' }, SHAPES.map(function (x) { var on = (it.shape || 'rect') === x[0]; return h('button', { type: 'button', role: 'radio', 'aria-checked': String(on), class: 'shp' + (on ? ' on' : ''), onclick: function () { pick('shape', x[0]); } }, h('span', { class: 'fr sh-' + x[0] }, h('span', { class: 'cl' })), h('small', null, x[1])); }));
-    var fr = h('div', { class: 'frames', role: 'radiogroup', 'aria-label': 'Frame' }, FRAMES.map(function (x) { var on = (it.frame || 'none') === x[0]; return h('button', { type: 'button', role: 'radio', 'aria-checked': String(on), class: 'frm' + (on ? ' on' : ''), onclick: function () { pick('frame', x[0]); } }, x[1]); }));
-    dialog('Shape and frame', h('div', { class: 'dl-s' }, h('h3', null, 'Shape'), sh, h('h3', null, 'Frame'), fr, h('p', { class: 'ed-muted' }, 'The photo is cropped to the shape. Use Crop to choose which part shows.')), [btn('Done', function () { closeDlg(); }, { cls: 'pri', icon: 'check' })], { wide: true });
+    var c = selItem(); if (!c) return; var it = c.it, isText = it.t === 'text';
+    var set = function (f) { var q = selItem(); if (!q) return; f(q.it); persist(); openShape(); render(); };
+    var cur = isText ? (it.shape || 'none') : (it.shape || 'rect');
+    var list = isText ? [['none', 'No shape']].concat(SHAPES.filter(function (x) { return x[0] !== 'rect'; }).concat([['rect', 'Box']])) : SHAPES;
+    var pickShape = function (v) {
+      set(function (i) {
+        i.shape = v;
+        if (i.t !== 'text') return;
+        if (v === 'none') { i.h = 0; return; }
+        if (!i.fill) { i.fill = '#e0a030'; i.color = B.ink(i.fill); }
+        i.h = AR[v] ? +(i.w * S.doc.ratio / AR[v]).toFixed(2) : 0;   /* shapes with a shape of their own get a height; boxes and ribbons grow with the words */
+      });
+    };
+    var sh = h('div', { class: 'shapes', role: 'radiogroup', 'aria-label': 'Shape' }, list.map(function (x) { var on = cur === x[0]; return h('button', { type: 'button', role: 'radio', 'aria-checked': String(on), class: 'shp' + (on ? ' on' : ''), onclick: function () { pickShape(x[0]); } }, x[0] === 'none' ? h('span', { class: 'fr none' }, 'Aa') : h('span', { class: 'fr sh-' + x[0] }, h('span', { class: 'cl' })), h('small', null, x[1])); }));
+    var body = [h('h3', null, 'Shape'), sh];
+    if (isText) {
+      var fills = h('div', { class: 'sw', role: 'radiogroup', 'aria-label': 'Fill colour' }, FILLS.map(function (f) { return h('button', { type: 'button', role: 'radio', 'aria-checked': String((it.fill || '').toLowerCase() === f), 'aria-label': 'Fill ' + f, class: (it.fill || '').toLowerCase() === f ? 'on' : '', style: { background: f }, onclick: function () { set(function (i) { i.fill = f; i.color = B.ink(f); if (!i.shape || i.shape === 'none') { i.shape = 'rect'; i.h = 0; } }); } }); }),
+        h('label', { class: 'custom', title: 'Pick any colour' }, h('span', { class: 'ed-vh' }, 'Custom fill'), h('input', { type: 'color', value: /^#[0-9a-f]{6}$/i.test(it.fill || '') ? it.fill : '#e0a030', onchange: function (e) { set(function (i) { i.fill = e.target.value; i.color = B.ink(i.fill); if (!i.shape || i.shape === 'none') { i.shape = 'rect'; i.h = 0; } }); } }), '+'));
+      var lines = h('div', { class: 'frames', role: 'radiogroup', 'aria-label': 'Outline' }, [[0, 'No outline'], [1, 'Thin'], [2, 'Thick']].map(function (x) { var on = (it.line || 0) === x[0]; return h('button', { type: 'button', role: 'radio', 'aria-checked': String(on), class: 'frm' + (on ? ' on' : ''), onclick: function () { set(function (i) { i.line = x[0]; }); } }, x[1]); }));
+      body = body.concat([h('h3', null, 'Fill'), fills, h('h3', null, 'Outline'), lines, h('p', { class: 'ed-muted' }, 'Drag the box anywhere, resize it from the corners, turn it with the round handle. The words stay editable: double-tap to type.')]);
+    } else {
+      var fr = h('div', { class: 'frames', role: 'radiogroup', 'aria-label': 'Frame' }, FRAMES.map(function (x) { var on = (it.frame || 'none') === x[0]; return h('button', { type: 'button', role: 'radio', 'aria-checked': String(on), class: 'frm' + (on ? ' on' : ''), onclick: function () { set(function (i) { i.frame = x[0]; }); } }, x[1]); }));
+      body = body.concat([h('h3', null, 'Frame'), fr, h('p', { class: 'ed-muted' }, 'The photo is cropped to the shape. Use Crop to choose which part shows.')]);
+    }
+    dialog(isText ? 'Text shape' : 'Shape and frame', h('div', { class: 'dl-s' }, body), [btn('Done', function () { closeDlg(); }, { cls: 'pri', icon: 'check' })], { wide: true });
   }
 
   /* ------------------------------------------------------------ main render and boot */
   function render() {
     if (S.turning) return;
     var screen = S.screen;
-    var node = screen === 'pages' ? screenPages() : screen === 'title' ? screenTitle() : screen === 'gallery' ? screenGallery() : screenDesign();
+    var node = screen === 'library' ? screenLibrary() : screen === 'pages' ? screenPages() : screen === 'title' ? screenTitle() : screen === 'gallery' ? screenGallery() : screenDesign();
     app.replaceChildren(node);
     document.title = (S.doc.title || 'My book') + ' · Live editor · Miles Retold';
     if (S.sheet) { /* keep an open sheet in step with the book */ var old = document.getElementById('sheet'); if (old && S.sheet !== 'gallery') renderSheet(); }
@@ -621,6 +715,7 @@
   S.doc = existing && existing.v === 1 ? existing : B.newDoc(40);
   if (!existing) { B.write(S.doc); }
   S.snap = JSON.stringify(S.doc); S.screen = S.doc.setup >= 3 ? 'design' : ['pages', 'title', 'gallery'][Math.max(0, S.doc.setup)] || 'pages';
+  if (q.get('view') === 'gallery') S.screen = 'library';
   if (q.get('start') === 'new') { S.doc = B.newDoc(40); S.screen = 'pages'; B.write(S.doc); S.snap = JSON.stringify(S.doc); }
   clampView(); render();
   B.loadUrls(S.doc).then(function () { render(); });

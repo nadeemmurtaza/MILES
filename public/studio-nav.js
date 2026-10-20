@@ -23,7 +23,7 @@
   var onAny = TABS.some(function (t) { return inSec(t[3]); });
   var twin = (dark ? 'GL' : 'G') + page.replace(/^GL?/, '');
   var item = function (u, t, on) { return '<a href="' + u + '"' + (on ? ' class="on" aria-current="page"' : '') + '>' + t + '</a>'; };
-  var moreHtml = '<div class="an-sg">Studio</div>' + item(EDITOR, 'Live editor', false).replace('<a ', '<a data-keep ') + item(href(57), 'Insights', cur === 57) + item(href(54), 'Reports', cur === 54) + item(href(46), 'Settings', cur === 46) +
+  var moreHtml = '<div class="an-sg">Studio</div>' + item(EDITOR, 'Live editor', false).replace('<a ', '<a data-keep ') + item('/book/editor.html?as=studio&view=gallery', 'Customer photo gallery', false).replace('<a ', '<a data-keep ') + item(href(57), 'Insights', cur === 57) + item(href(54), 'Reports', cur === 54) + item(href(46), 'Settings', cur === 46) +
     '<div class="an-sg">Team</div>' + item(href(71), 'Team &amp; permissions', cur === 71) + item(href(76), 'Invoices', cur === 76) + item(href(132), 'Privacy &amp; data', cur === 132) +
     '<div class="an-sg">Elsewhere</div>' + item(ed + '70-Editor.dc.html', 'Classic editor', false).replace('<a ', '<a data-keep ') + item(twin, dark ? 'Light theme' : 'Dark theme', false) + item(href(48), 'Sign out', false);
   var root = document.createElement('div');
