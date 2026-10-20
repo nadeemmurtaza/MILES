@@ -286,3 +286,9 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 @media (max-width: 760px) { .ds .nav { flex-wrap: wrap; } .ds .nav .tools { order: -1; flex: 1 1 100%; } .ds .nav .bt:not(.tools .bt):last-child { margin-inline-start: 0; } .ds .nav > .bt:nth-of-type(1) { margin-inline-end: auto; } }
 .ds .nav .tools > .hint { display: none; }
 @media (max-width: 760px) { .ds .nav { gap: 8px; } .ds .nav > .bt { flex: 1 1 0; min-inline-size: 0; padding-inline: 8px; margin: 0; } }
+/* the page tools look like tools (white, outlined, accent icons), so they read differently from the Back / Mark done buttons around them */
+.ds .nav .tools .bt { background: var(--card); box-shadow: inset 0 0 0 1.5px rgb(from var(--acc) r g b / .45); border-radius: 999px; }
+.ds .nav .tools .bt .ico, .ds .nav .tools .bt svg { color: var(--acc); }
+.ds .nav .tools .bt:hover { background: rgb(from var(--acc) r g b / .1); }
+.ds .nav .tools .bt[aria-pressed="true"], .ds .nav .tools .bt.on { background: var(--acc); color: var(--on); box-shadow: none; } .ds .nav .tools .bt.on .ico, .ds .nav .tools .bt[aria-pressed="true"] .ico { color: inherit; }
+.ds .nav .tools { padding-inline: 10px; border-inline: 1px solid var(--line); }
