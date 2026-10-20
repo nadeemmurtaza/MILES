@@ -715,6 +715,7 @@
 
   var pref = 'light'; try { pref = localStorage.getItem('miles.theme') || 'light'; } catch (e) {}
   setTheme(pref === 'dark' ? 'dark' : 'light');
+  try { if (ROLE === 'customer' && localStorage.getItem('miles.auth') === 'out') { location.replace('/GL8-SignIn.dc.html'); return; } } catch (e) {}
   var existing = B.read();
   S.doc = existing && existing.v === 1 ? existing : B.newDoc(40);
   if (!existing) { B.write(S.doc); }

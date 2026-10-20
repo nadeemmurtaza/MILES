@@ -56,6 +56,8 @@
   var cs = null;
   S.forEach(function (s) { s[5].forEach(function (g) { g[1].forEach(function (p) { if (isOn(p[0])) cs = s; }); }); });
   if (!cs) return;
+  /* every page here is private: signed out (the prototype's flag, see ui-kit.js) means the sign-in page, on desktop and phone alike */
+  try { if (localStorage.getItem('miles.auth') === 'out') { location.replace(ed + '8-SignIn.dc.html'); return; } } catch (e) {}
   var get = function () { try { return localStorage.getItem(KEY); } catch (e) { return null; } };
   var put = function (v) { try { localStorage.setItem(KEY, v); } catch (e) {} };
   var wide = cur === 23 || (cur >= 80 && cur <= 89);   /* editor screens need the room: second bar starts closed there */
@@ -67,7 +69,7 @@
   root.className = 'an';
   root.innerHTML =
     '<aside class="an-rail" aria-label="Account sections">' +
-    S.map(function (s) { return '<a class="an-rl' + (s === cs ? ' on' : '') + '" href="' + href(s[3]) + '"' + (s === cs ? ' aria-current="true"' : '') + ' title="' + s[1] + '">' + svg(s[2]) + '<span>' + s[1] + '</span></a>'; }).join('') +
+    S.map(function (s) { return '<a class="an-rl' + (s === cs ? ' on' : '') + '" href="' + href(s[3]) + '"' + (s === cs ? ' aria-current="true"' : '') + ' title="' + s[1] + '">' + svg(s[2]) + '<span>' + s[1] + '</span></a>' + (s[0] === 'book' ? '<a class="an-rl" href="' + href(141) + '" title="Gallery">' + svg('photo') + '<span>Gallery</span></a>' : ''); }).join('') +
     '<span class="an-gap"></span>' +
     '<button type="button" class="an-rl an-tog" aria-expanded="true" title="Show or hide the page list">' + svg('next') + '<span>Pages</span></button>' +
     '<a class="an-rl" href="' + twin + '" title="' + (dark ? 'Light theme' : 'Dark theme') + '">' + svg(dark ? 'sun' : 'moon') + '<span>' + (dark ? 'Light theme' : 'Dark theme') + '</span></a>' +
