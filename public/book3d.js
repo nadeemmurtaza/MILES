@@ -15,7 +15,7 @@
     var hide = document.createElement('style'); hide.textContent = ':host{visibility:hidden}'; sr.appendChild(hide);
     var link = document.createElement('link'); link.rel = 'stylesheet'; link.href = '/css/book3d.css'; sr.appendChild(link);
     sr.appendChild(mk('b3-sh')); sr.appendChild(inner);
-    inner.appendChild(mk('b3-k'));
+    var bk = mk('b3-k'), bt = mk('b3-bk'); bt.appendChild(mk('', 'small')); bt.appendChild(mk('', 'i')); bt.appendChild(mk('', 'b')); bk.appendChild(bt); inner.appendChild(bk);
     for (var j = 0; j < 3; j++) { var bl = mk('b3-bl'); bl.style.setProperty('--j', j); inner.appendChild(bl); }
     for (var i = 0; i < lay; i++) { var p = mk('b3-pg' + (i === lay - 1 ? ' b3-last' : '')); p.style.setProperty('--i', i); inner.appendChild(p); }
     var p1 = mk('b3-p1'); p1.appendChild(mk('b3-pimg-w')); inner.appendChild(p1);
@@ -33,7 +33,7 @@
     var sr0 = root.shadowRoot; if (!sr0.querySelector('.b3-in') || root.__lay !== lay) { build(root, lay); root.style.setProperty('--lay', lay); }
     var d = root.dataset, inner = root.shadowRoot.querySelector('.b3-in');
     var set = function (sel, v) { var e = inner.querySelector(sel); if (e && e.textContent !== v) e.textContent = v; };
-    set('.b3-t', d.title || ''); set('.b3-s', d.sub || ''); set('.b3-sp i', d.title || ''); set('.b3-ltxt b', d.title || ''); set('.b3-ltxt small', d.sub || '');
+    set('.b3-bk small', d.back ? 'Made by' : ''); set('.b3-bk b', d.back || ''); set('.b3-t', d.title || ''); set('.b3-s', d.sub || ''); set('.b3-sp i', d.title || ''); set('.b3-ltxt b', d.title || ''); set('.b3-ltxt small', d.sub || '');
     var photo = function (host, url) { if (!host) return; var im = host.querySelector('img'); if (!url) { if (im) im.remove(); return; } if (!im || im.getAttribute('src') !== url) { if (im) im.remove(); im = document.createElement('img'); im.alt = ''; im.addEventListener('error', function () { im.remove(); }, { once: true }); im.src = url; host.appendChild(im); } };
     var pool = (d.photos ? d.photos.split('|') : []).filter(Boolean); if (!pool.length) pool = [d.p1, d.p0, d.img].filter(Boolean);
     var pick = function (i) { return pool.length ? pool[i % pool.length] : ''; };
@@ -60,8 +60,8 @@
   function mount(root) {
     if (root.__b3) return; root.__b3 = true; if (!root.shadowRoot) root.attachShadow({ mode: 'open' }); fill(root);
     if (root.hasAttribute('data-scroll-open')) { root.classList.add('b3-live'); live.push(root); onScroll(); }
-    var sig = function () { var d = root.dataset; return [root.style.getPropertyValue('--pg'), d.title, d.sub, d.img, d.p0, d.p1, d.photos, d.open, root.shadowRoot && root.shadowRoot.querySelector('.b3-in') ? 1 : 0].join('|'); }, last = sig();
-    if (window.MutationObserver) new MutationObserver(function () { var n = sig(); if (n !== last) { last = n; fill(root); last = sig(); } }).observe(root, { attributes: true, attributeFilter: ['data-title', 'data-sub', 'data-img', 'data-p0', 'data-p1', 'data-photos', 'data-open', 'style'], childList: false });
+    var sig = function () { var d = root.dataset; return [root.style.getPropertyValue('--pg'), d.title, d.sub, d.img, d.p0, d.p1, d.photos, d.open, d.back, root.shadowRoot && root.shadowRoot.querySelector('.b3-in') ? 1 : 0].join('|'); }, last = sig();
+    if (window.MutationObserver) new MutationObserver(function () { var n = sig(); if (n !== last) { last = n; fill(root); last = sig(); } }).observe(root, { attributes: true, attributeFilter: ['data-title', 'data-sub', 'data-img', 'data-p0', 'data-p1', 'data-photos', 'data-open', 'data-back', 'style'], childList: false });
   }
   function el(o) {
     o = o || {}; var r = mk('b3' + (o.hero ? ' b3-hero' : '')), st = r.style;
@@ -71,7 +71,7 @@
     ['--ry', '--rx', '--rz'].forEach(function (k, i) { var v = [o.ry, o.rx, o.rz][i]; if (v != null) st.setProperty(k, v + 'deg'); });
     r.dataset.title = o.title || ''; r.dataset.sub = o.sub || ''; r.dataset.img = o.img || ''; if (o.p0) r.dataset.p0 = o.p0; if (o.p1) r.dataset.p1 = o.p1; if (o.photos && o.photos.length) r.dataset.photos = o.photos.join('|');
     if (o.scroll) r.setAttribute('data-scroll-open', o.scroll === true ? '' : o.scroll);
-    if (o.open != null) r.dataset.open = o.open;
+    if (o.open != null) r.dataset.open = o.open; if (o.back != null) r.dataset.back = o.back;
     mount(r); return r;
   }
   function scan() { [].forEach.call(document.querySelectorAll('.b3[data-b3]'), mount); }

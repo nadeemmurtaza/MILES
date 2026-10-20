@@ -23,7 +23,7 @@
 .b3-pg, .b3-lf > *, .b3-p1, .b3-f, .b3-ep { outline: 1px solid transparent; }   /* invisible: makes the browser smooth the rotated edges */
 /* back board */
 .b3-k, .b3-bl { inset: 0; border-radius: 3px var(--rr) var(--rr) 3px; background: var(--dark); }
-.b3-k { transform: translateZ(calc(var(--bd) / -2)) rotateY(180deg); background: var(--cv); backface-visibility: hidden; }
+.b3-k { transform: translateZ(calc(var(--bd) / -2 - 1px)) rotateY(180deg); background: var(--cv); backface-visibility: hidden; }
 .b3-bl { transform: translateZ(calc(var(--bd) / -2 + var(--j) * var(--bt) / 3)); }
 .b3-bl:last-of-type, .b3-bl[style*="--j: 2"] { background: linear-gradient(90deg, color-mix(in srgb, var(--cv) 86%, #000), var(--cv) 14%, var(--cv)); }   /* the inside of the back board, in the cover colour */
 /* the paper: layers between the boards, set back from the board edges */
@@ -72,3 +72,8 @@
 .b3-f > .b3-ph { flex: 1 1 0; min-block-size: 0; aspect-ratio: auto; inline-size: 100%; max-block-size: 76%; box-sizing: border-box; }
 .b3-lf > * { grid-template-rows: minmax(0, 1fr); }
 .b3-lf .b3-pimg-w { inline-size: 100%; block-size: 100%; aspect-ratio: auto; max-inline-size: 100%; box-sizing: border-box; }
+
+/* the back cover: the maker's name sits low on the board, seen when the book is turned over */
+.b3-k { display: grid; align-content: end; justify-items: center; padding: 0 12% 16%; color: var(--ci); text-align: center; overflow: hidden; }
+.b3-bk { display: grid; justify-items: center; gap: calc(var(--bw) * .025); max-inline-size: 100%; } .b3-bk i { display: block; inline-size: 24px; block-size: 1px; background: currentColor; opacity: .4; }
+.b3-bk small { font: 700 calc(var(--bw) * .032) Manrope, sans-serif; letter-spacing: .16em; text-transform: uppercase; opacity: .7; } .b3-bk b { font: 500 calc(var(--bw) * .075)/1.15 Fraunces, Georgia, serif; overflow-wrap: anywhere; } .b3-bk:has(b:empty) i, .b3-bk:has(b:empty) small { display: none; }

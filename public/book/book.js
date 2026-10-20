@@ -180,12 +180,12 @@
     render(); try { window.scrollTo(0, 0); } catch (e) {}
   }
   function wizBook() {
-    var d = S.doc, idx = Math.max(0, WS.indexOf(S.screen)), prog = idx / (WSTEPS.length - 1);
+    var d = S.doc, idx = Math.max(0, WS.indexOf(S.screen)), prog = idx / (WSTEPS.length - 1), back = S.screen === 'dedication';   /* the name step shows the back cover */
     var cv = COVERS.filter(function (c) { return c[0] === d.cover; })[0] || COVERS[0], ev = EVENTS.filter(function (e) { return e[0] === d.event; })[0];
     var cp = (d.pages[0].items.filter(function (i) { return i.t === 'img' && i.gid; })[0] || {}).gid, cg = cp && d.gallery.filter(function (g) { return g.id === cp; })[0];
     var size = SIZES.filter(function (z) { return z[0] === d.size; })[0];
     var cap = [ev ? ev[1] : 'Your book', size ? size[1] + ' ' + size[2] : null, d.count + ' pages'].filter(Boolean).join(' · ');
-    var book = window.MilesBook3D.el({ ratio: d.ratio || 0.8, pages: d.count || 40, width: S.compact ? 118 : 168, cover: cv[2], ink: cv[3], title: d.title || (ev ? ev[4] : 'Your title'), sub: d.sub || '', img: cg ? B.url(cg) : (ev ? ev[3] : ''), ry: Math.round(-48 + prog * 30), rx: 8, scroll: 'page', photos: d.gallery.filter(function (g) { return !g.sample || g.src; }).slice(0, 9).map(function (g) { return B.url(g); }).concat(EVENTS.map(function (e) { return e[3]; })), 'aria-label': 'Your book so far: ' + cap });
+    var book = window.MilesBook3D.el({ ratio: d.ratio || 0.8, pages: d.count || 40, width: S.compact ? 118 : 168, cover: cv[2], ink: cv[3], title: d.title || (ev ? ev[4] : 'Your title'), sub: d.sub || '', img: cg ? B.url(cg) : (ev ? ev[3] : ''), ry: back ? 152 : Math.round(-48 + prog * 30), rx: 8, back: d.author || '', scroll: back ? false : 'page', photos: d.gallery.filter(function (g) { return !g.sample || g.src; }).slice(0, 9).map(function (g) { return B.url(g); }).concat(EVENTS.map(function (e) { return e[3]; })), 'aria-label': (back ? 'The back cover of your book: ' : 'Your book so far: ') + cap });
     return h('div', { class: 'wb' }, book, h('p', { class: 'wb-c' }, cap));
   }
   function refreshBook() { var el = document.querySelector('.wbk'); if (el) { el.textContent = ''; el.appendChild(wizBook()); } }
