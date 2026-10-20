@@ -150,3 +150,9 @@ Everything on a page is free-form: photos and text boxes can be dragged anywhere
 Studio side: the same editor plus a **Review** panel (empty pages, empty photo spots, photos that would print soft, pages not marked done), **Ask for changes** and **Mark ready for print**. The customer has **Send to the studio**. Status, notes and the review are shared.
 
 This is a prototype of the editor: nothing is sent to a server, and the sample photos only exist on the deployed site (offline they show as coloured blocks). The studio phone tab bar (`studio-nav.js`) is added the same way as the customer one.
+
+### Editor: one photo across both pages, shapes and frames, pencil
+
+- **Across both pages.** In the colour and layout popup, inner pages have a second group, *Across both pages*: **Full bleed**, **Panorama** and **Framed**. One photo runs over the fold with no break; it is drawn once over the spread (and each page shows its half when the book turns, in the overview and on a phone). It can be moved, resized, turned, cropped and shaped like any photo. The **Left page / Right page** switch in the toolbar says which page the other tools act on.
+- **Shape and frame, crop.** Select a photo, then **Shape & frame**: rectangle, rounded, circle, oval, arch, heart, star, hexagon, diamond, triangle or soft blob, and a frame (white border, thin line, polaroid, shadow). **Crop** lets you drag the photo inside its frame and zoom 100 to 400%.
+- **Pencil.** **Draw** puts the page in drawing mode: seven colours, three pencil sizes, undo stroke, clear. Doodles belong to the page and scale with it. Esc leaves drawing or crop mode.

@@ -41,6 +41,11 @@
       { id: 'p-story', name: 'Photo and story', items: [P(8, 8, 84, 40), T(8, 54, 84, 'Our story', 6, { align: 'left' }), T(8, 66, 84, 'Tell the story of this day in your own words.', 3.4, { align: 'left', font: 'Manrope' })] },
       { id: 'p-text', name: 'Words only', items: [T(10, 12, 80, 'A title', 8, { align: 'left' }), T(10, 28, 80, 'Write here. Drag this box anywhere, make it wider or narrower, turn it, or change the font.', 3.6, { align: 'left', font: 'Manrope' })] }
     ],
+    spread: [   /* one photo across both pages, no break in the middle */
+      { id: 's-full', name: 'Full bleed, both pages', span: { x: 0, y: 0, w: 100, h: 100 } },
+      { id: 's-wide', name: 'Panorama', span: { x: 0, y: 26, w: 100, h: 48 } },
+      { id: 's-frame', name: 'Framed, both pages', span: { x: 7, y: 8, w: 86, h: 84 } }
+    ],
     back: [
       { id: 'b-blank', name: 'Blank', items: [] },
       { id: 'b-note', name: 'A note', items: [T(15, 42, 70, 'Made with love for the people in these pages.', 4.2, { font: 'Fraunces' }), T(15, 88, 70, 'Miles Retold', 3, { font: 'Manrope', weight: 700 })] },
@@ -48,12 +53,13 @@
     ]
   };
   var kindOf = function (doc, i) { return i === 0 ? 'cover' : (i === doc.pages.length - 1 ? 'back' : 'page'); };
-  function slotsOf(lay) { return lay.items.filter(function (x) { return x.t === 'img'; }).length; }
+  function slotsOf(lay) { return lay.span ? 1 : lay.items.filter(function (x) { return x.t === 'img'; }).length; }
+  function spanItem(lay, gid) { var a = lay.span; return { id: uid('t'), t: 'img', x: a.x, y: a.y, w: a.w, h: a.h, gid: gid || null, fit: 'cover', r: 0, shape: 'rect', frame: 'none', zoom: 1, fx: 50, fy: 50 }; }
   function buildItems(doc, lay, bg, photoIds) {
     var col = ink(bg), n = 0;
     return lay.items.map(function (s) {
       var it = clone(s); it.id = uid('t');
-      if (it.t === 'img') { it.gid = (photoIds && photoIds[n]) || null; n++; it.fit = 'cover'; it.r = 0; }
+      if (it.t === 'img') { it.gid = (photoIds && photoIds[n]) || null; n++; it.fit = 'cover'; it.r = 0; it.shape = 'rect'; it.frame = 'none'; it.zoom = 1; it.fx = 50; it.fy = 50; }
       else {
         it.text = String(it.text).replace('{title}', doc.title || 'Your title').replace('{sub}', doc.sub || '');
         if (!it.color) it.color = col; it.r = 0;
@@ -65,14 +71,16 @@
   /* ------------------------------------------------------------ the document */
   function newDoc(pageCount) {
     var n = pageCount || 40, pages = [];
-    for (var i = 0; i < n + 2; i++) pages.push({ id: uid('p'), bg: i === 0 ? '#12342b' : '#fffcf6', items: [], layout: '', done: false });
-    return { v: 1, order: 'MR-1042', customer: 'Sara', title: '', sub: '', dedication: '', author: '', ratio: 0.8, inches: 8, count: n, setup: 0, pages: pages, gallery: [], notes: [], status: 'draft', rev: { n: 0, by: 'customer', t: 0 } };
+    for (var i = 0; i < n + 2; i++) pages.push({ id: uid('p'), bg: i === 0 ? '#12342b' : '#fffcf6', items: [], doodle: [], layout: '', done: false });
+    return { v: 1, order: 'MR-1042', customer: 'Sara', title: '', sub: '', dedication: '', author: '', ratio: 0.8, inches: 8, count: n, setup: 0, pages: pages, gallery: [], spans: {}, notes: [], status: 'draft', rev: { n: 0, by: 'customer', t: 0 } };
   }
   function resize(doc, n) {   /* change the number of inner pages; keeps the back cover last */
     var back = doc.pages.pop();
-    while (doc.pages.length - 1 < n) doc.pages.push({ id: uid('p'), bg: '#fffcf6', items: [], layout: '', done: false });
+    while (doc.pages.length - 1 < n) doc.pages.push({ id: uid('p'), bg: '#fffcf6', items: [], doodle: [], layout: '', done: false });
     while (doc.pages.length - 1 > n) doc.pages.pop();
-    doc.pages.push(back); doc.count = n; return doc;
+    doc.pages.push(back); doc.count = n;
+    Object.keys(doc.spans || {}).forEach(function (k) { if (+k > n / 2) delete doc.spans[k]; });
+    return doc;
   }
   var spreadCount = function (doc) { return doc.count / 2 + 2; };
   function spreadPages(doc, s) {   /* cover and back cover are shown alone: the book is closed */
@@ -86,12 +94,18 @@
 
   /* ------------------------------------------------------------ persistence (+ other tab) */
   var who = 'customer', listeners = [];
-  function read() { try { var s = localStorage.getItem(KEY); return s ? JSON.parse(s) : null; } catch (e) { return null; } }
+  function read() {
+    try {
+      var s = localStorage.getItem(KEY), d = s ? JSON.parse(s) : null;
+      if (d) { d.spans = d.spans || {}; d.pages.forEach(function (p) { p.doodle = p.doodle || []; }); }
+      return d;
+    } catch (e) { return null; }
+  }
   function write(doc) {
     doc.rev = { n: (doc.rev && doc.rev.n || 0) + 1, by: who, t: Date.now() };
     try { localStorage.setItem(KEY, JSON.stringify(doc)); return true; } catch (e) { return false; }
   }
-  window.addEventListener('storage', function (e) { if (e.key === KEY && e.newValue) { try { var d = JSON.parse(e.newValue); listeners.forEach(function (f) { f(d); }); } catch (x) {} } });
+  window.addEventListener('storage', function (e) { if (e.key === KEY && e.newValue) { try { var d = JSON.parse(e.newValue); d.spans = d.spans || {}; d.pages.forEach(function (p) { p.doodle = p.doodle || []; }); listeners.forEach(function (f) { f(d); }); } catch (x) {} } });
 
   /* ------------------------------------------------------------ photos in IndexedDB */
   var dbp = null, urls = {};
@@ -142,7 +156,7 @@
   function review(doc) {
     var out = { empty: [], soft: [], missing: [], notDone: 0 };
     doc.pages.forEach(function (p, i) {
-      if (!p.items.length) out.empty.push(i);
+      if (!p.items.length && !(p.doodle && p.doodle.length) && !(i > 0 && i < doc.pages.length - 1 && (doc.spans[Math.ceil(i / 2)] || []).length)) out.empty.push(i);
       if (!p.done) out.notDone++;
       p.items.forEach(function (it) {
         if (it.t !== 'img') return;
@@ -151,12 +165,20 @@
         if (g && g.w) { var dpi = g.w / ((it.w / 100) * doc.inches); if (dpi < 150) out.soft.push({ page: i, dpi: Math.round(dpi), name: g.name }); }
       });
     });
+    Object.keys(doc.spans || {}).forEach(function (k) {
+      (doc.spans[k] || []).forEach(function (it) {
+        var pg = k * 2 - 1;
+        if (!it.gid) { out.missing.push(pg); return; }
+        var g = doc.gallery.filter(function (x) { return x.id === it.gid; })[0];
+        if (g && g.w) { var dpi = g.w / ((it.w / 100) * doc.inches * 2); if (dpi < 150) out.soft.push({ page: pg, dpi: Math.round(dpi), name: g.name }); }
+      });
+    });
     return out;
   }
 
   window.MilesBook = {
     KEY: KEY, COLORS: COLORS, LAYOUTS: LAYOUTS, uid: uid, clone: clone, ink: ink, lum: lum,
-    newDoc: newDoc, resize: resize, buildItems: buildItems, slotsOf: slotsOf, kindOf: kindOf,
+    newDoc: newDoc, resize: resize, buildItems: buildItems, slotsOf: slotsOf, spanItem: spanItem, kindOf: kindOf,
     spreadCount: spreadCount, spreadPages: spreadPages, spreadOf: spreadOf, pageLabel: pageLabel,
     read: read, write: write, setWho: function (w) { who = w; }, onRemote: function (f) { listeners.push(f); },
     importFile: importFile, samples: samples, url: url, loadUrls: loadUrls, delBlob: delBlob, review: review
