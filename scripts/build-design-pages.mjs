@@ -67,7 +67,6 @@ ${panel('Who can open this book', `<ul class="dp-people">${FOR('pvPeople', 'p', 
 
 BODY.upload = () => `<div class="dp-grid">
 <div class="dp-col">
-${panel('', `<div class="dp-row"><div><b>Remove where my photos were taken</b><p class="ed-muted">Recommended. A photo can carry the exact place it was taken. We take that out before storing it, and keep the date so your book stays in order.</p></div>${toggle('upStrip', 'upToggle', 'Remove location from my photos')}</div>${IF('upStripOff', note('is-bad', 'Location stays in your photos. Anyone who opens the file could see where you were.'), false)}`)}
 ${panel('Your photos', `<div class="dp-drop"><span>${ic('plus', 24)}</span><div><b>Drop photos here</b><p class="ed-muted">or choose them from your phone or computer. In this preview the button below adds three examples.</p></div>${btn('{{upAddLabel}}', 'upAdd', { icon: 'plus', cls: 'pri', dis: 'upBusy' })}</div><p class="ed-muted" aria-live="polite">{{upCount}}</p>
 <ul class="dp-files">${FOR('upFiles', 'f', `<li class="dp-file"><img src="{{f.src}}" alt=""><div class="dp-fb"><b>{{f.name}}</b><span class="dp-state">{{f.stage}}</span>${IF('f.work', `<div class="dp-steps">${FOR('f.steps', 's', '<i class="{{s.cls}}">{{s.n}}</i>', 3)}</div><div class="ew-bar-up" aria-hidden="true"><i style="{{f.bar}}"></i></div>`, false)}${IF('f.ready', `<span class="dp-ok">${ic('lock', 14)} {{f.note}}</span>`, false)}</div></li>`, 3)}</ul>`)}
 </div>
@@ -175,6 +174,7 @@ function assemble(edition, key) {
   // head: no editor scripts, the design-page logic and styles instead
   top = top.replace(/<script src="\/editor\/(core|ui|pages|gestures)\.js"><\/script>\n?/g, '').replace('<link rel="stylesheet" href="/css/editor-pages.css">', '<link rel="stylesheet" href="/css/editor-pages.css">\n<link rel="stylesheet" href="/css/design-pages.css">\n<script src="/editor/design.js"></script>');
   top = top.replace(/<title>[\s\S]*?<\/title>/, `<title>${studio ? `${D ? '' : 'Light · '}Studio · ${title}` : `${D ? '' : 'Light · '}${title} · Miles Retold`}</title>`);
+  if (key === 'upload') top = top.replace('</head>', '<script src="/photo-privacy.js" defer></script>\n</head>');
   const twin = file(D ? 'GL' : 'G', key);
   top = top.replace(/(<a class="thm" href=")[^"]*(")/, `$1${twin}$2`).replace(/(<a class="rl thr" href=")[^"]*(")/, `$1${twin}$2`).replace(/(<a href=")[^"]*(">(?:Dark|Light) theme<\/a>)/, `$1${twin}$2`);
   if (studio) {

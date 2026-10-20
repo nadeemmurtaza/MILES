@@ -191,3 +191,20 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 .bt.danger-b { background: var(--bad); color: #fff; } .libl { margin: 12px 0 0; font-size: 14px; font-weight: 700; } .libl a { color: var(--acc); }
 /* phones: slimmer turn buttons so two pages side by side get the room */
 @media (max-width: 760px) { .stage { grid-template-columns: 34px minmax(0, 1fr) 34px; gap: 4px; } .turn { inline-size: 34px; block-size: 34px; } .bk { min-inline-size: 0; } }
+/* adding photos: what each photo carries and what stays */
+.mp-th { display: flex; gap: 6px; align-items: center; } .mp-th img { inline-size: 54px; block-size: 54px; object-fit: cover; border-radius: 10px; box-shadow: 0 0 0 1px var(--line); } .mp-th span { font-weight: 800; color: var(--mu); padding-inline: 6px; }
+.mp-q { display: flex; flex-wrap: wrap; gap: 8px; }
+.mp-rows { display: grid; gap: 8px; }
+.mp-r { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 12px; border-radius: 14px; box-shadow: inset 0 0 0 1.5px var(--line); transition: background .2s, box-shadow .2s; }
+.mp-r.gone { background: rgb(179 38 30 / .08); box-shadow: inset 0 0 0 1.5px var(--bad); } .mp-r.kept { background: rgb(31 122 77 / .09); box-shadow: inset 0 0 0 1.5px var(--ok); }
+.mp-i { inline-size: 40px; block-size: 40px; display: grid; place-items: center; border-radius: 12px; background: var(--soft); } .mp-r.gone .mp-i { color: var(--bad); } .mp-r.kept .mp-i { color: var(--ok); }
+.mp-t b { display: block; } .mp-r.gone .mp-t b { text-decoration: line-through; text-decoration-thickness: 2px; } .mp-t small { color: var(--mu); font-size: 13px; overflow-wrap: anywhere; }
+.mp-sg { display: inline-flex; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 0 1.5px var(--line); } .mp-sg button { min-block-size: 44px; min-inline-size: 66px; padding: 0 12px; border: 0; background: transparent; color: var(--ink); font: 700 14px Manrope, sans-serif; cursor: pointer; }
+.mp-r.kept .mp-sg button.on { background: var(--ok); color: #fff; } .mp-r.gone .mp-sg button.on { background: var(--bad); color: #fff; }
+.mp-ba { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; } .mp-l { list-style: none; margin: 8px 0 0; padding: 0; display: grid; gap: 6px; }
+.mp-l li { text-align: start; display: flex; align-items: center; gap: 8px; padding: 8px 10px; border-radius: 10px; background: var(--soft); font-size: 13px; overflow-wrap: anywhere; } .mp-l li span { flex: 1; min-inline-size: 0; }
+.mp-l li b { font-size: 11px; letter-spacing: .06em; text-transform: uppercase; }
+.mp-l li.gone { background: rgb(179 38 30 / .1); color: var(--bad); } .mp-l li.gone span { text-decoration: line-through; } .mp-l li.kept { background: rgb(31 122 77 / .1); color: var(--ok); } .mp-l li.kept span { color: var(--ink); }
+.mp-sum { font-weight: 700; } .mp-rm { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 14px; color: var(--mu); } .mp-rm input { inline-size: 22px; block-size: 22px; } .mp-rm a { color: var(--acc); }
+.mp-line { display: flex; gap: 8px; align-items: flex-start; font-size: 14px; color: var(--mu); } .mp-line .ico { margin-block-start: 2px; }
+@media (max-width: 560px) { .mp-ba { grid-template-columns: 1fr; } .mp-r { grid-template-columns: auto minmax(0, 1fr); } .mp-sg { grid-column: 1 / -1; } .mp-sg button { flex: 1; } }

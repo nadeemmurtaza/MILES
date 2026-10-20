@@ -36,6 +36,7 @@
     send: '<path d="M21 3L10 14M21 3l-7 18-4-7-7-4z"/>', star: '<path d="M12 3l2.700 5.600 6.100.8-4.500 4.200 1.100 6.100L12 16.800 6.600 19.700l1.100-6.100L3.200 9.400l6.100-.8z"/>', note: '<path d="M4 5h16v11H9l-5 4z"/>', gear: '<circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.600 5.600l2.100 2.100M16.300 16.300l2.100 2.100M5.600 18.400l2.100-2.100M16.300 7.700l2.100-2.100"/>',
     lock: '<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
     pencil: '<path d="M4 20l1-4L16 5l3 3L8 19z"/><path d="M14 7l3 3"/>', shape: '<circle cx="8" cy="8" r="4.5"/><rect x="12" y="12" width="8" height="8" rx="1.5"/>', crop: '<path d="M7 3v14h14M3 7h14v14"/>', minus: '<path d="M5 12h14"/>',
+    pin: '<path d="M12 21s6-5.400 6-10.500a6 6 0 0 0-12 0C6 15.600 12 21 12 21z"/><circle cx="12" cy="10.500" r="2.200"/>', clock: '<circle cx="12" cy="12" r="8.500"/><path d="M12 7.500V12l3 2"/>', camera: '<path d="M4 8h3l1.500-2.500h7L17 8h3v11H4z"/><circle cx="12" cy="13" r="3.500"/>', info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.500v.1"/>', cross: '<path d="M6 6l12 12M18 6L6 18"/>',
     up: '<path d="M6 15l6-6 6 6"/>', down: '<path d="M6 9l6 6 6-6"/>', alignL: '<path d="M4 6h16M4 10h10M4 14h16M4 18h10"/>', alignC: '<path d="M4 6h16M7 10h10M4 14h16M7 18h10"/>', alignR: '<path d="M4 6h16M10 10h10M4 14h16M10 18h10"/>', sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.500v2M12 19.500v2M4.600 4.600L6 6M18 18l1.400 1.400M2.500 12h2M19.500 12h2M4.600 19.400L6 18M18 6l1.400-1.400"/>', moon: '<path d="M20 14.500A8 8 0 0 1 9.500 4a8 8 0 1 0 10.500 10.500z"/>', edit: '<path d="M4 20h4L19 9l-4-4L4 16z"/>', check: '<path d="M5 12.500l4.500 4.500L19 7.500"/>', close: '<path d="M6 6l12 12M18 6L6 18"/>'
   };
   var ic = function (n, s) { return h('span', { class: 'ico', 'aria-hidden': 'true', html: '<svg width="' + (s || 20) + '" height="' + (s || 20) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">' + (ICON[n] || '').replace(/(\d)\.(\d)00\b/g, '$1.$2') + '</svg>' }); };
@@ -195,12 +196,62 @@
 
   /* ------------------------------------------------------------ gallery (wizard, sheet and picker share this) */
   function usage(id) { var n = 0; S.doc.pages.forEach(function (p) { if (p.items.some(function (i) { return i.gid === id; })) n++; }); Object.keys(S.doc.spans || {}).forEach(function (k) { if (S.doc.spans[k].some(function (i) { return i.gid === id; })) n++; }); return n; }
+  /* what each photo can carry, and the choice shown before anything is added */
+  var META_ROWS = [['date', 'Date and time taken', 'clock', function (m) { return m.date; }], ['location', 'Where it was taken', 'pin', function (m) { return m.place; }], ['camera', 'Phone or camera', 'camera', function (m) { return m.camera; }], ['other', 'Other details', 'info', function (m) { return m.other && m.other.length ? m.other.join(', ') : ''; }]];
+  function runImport(files, metas, keep) {
+    var done = 0, kill = toast('Adding ' + files.length + (files.length === 1 ? ' photo' : ' photos') + '…', { ms: 20000 });
+    return files.reduce(function (p, f, i) { return p.then(function () { return B.importFile(f, keep, metas[i]).then(function (g) { S.doc.gallery.push(g); done++; }, function () {}); }); }, Promise.resolve()).then(function () {
+      kill(); persist(); toast(done + (done === 1 ? ' photo added' : ' photos added'), { kind: 'good' }); S.afterAdd && S.afterAdd(); render();
+    });
+  }
+  function askMeta(files, metas, resolve) {
+    var rm = B.metaPrefs(), remember = h('input', { type: 'checkbox', id: 'mp-rem' }), N = files.length, thumbs = [];
+    var rows = META_ROWS.map(function (r) { var have = metas.filter(function (m) { return r[3](m); }); return have.length ? { k: r[0], label: r[1], icon: r[2], n: have.length, ex: r[3](have[0]) } : null; }).filter(Boolean);
+    var sample = metas.slice().sort(function (a, b) { return META_ROWS.filter(function (r) { return r[3](b); }).length - META_ROWS.filter(function (r) { return r[3](a); }).length; })[0];
+    var before = h('ul', { class: 'mp-l' }), after = h('ul', { class: 'mp-l' }), list = h('div', { class: 'mp-rows' }), sum = h('p', { class: 'mp-sum', 'aria-live': 'polite' });
+    var strip = h('div', { class: 'mp-th', 'aria-hidden': 'true' }, files.slice(0, 5).map(function (f) { var u = URL.createObjectURL(f); thumbs.push(u); return h('img', { src: u, alt: '' }); }), N > 5 ? h('span', null, '+' + (N - 5)) : null);
+    var paint = function () {
+      before.innerHTML = ''; after.innerHTML = ''; list.innerHTML = '';
+      META_ROWS.forEach(function (r) {
+        var v = sample && r[3](sample); if (!v) return;
+        before.appendChild(h('li', null, ic(r[2], 16), h('span', null, v)));
+        after.appendChild(h('li', { class: rm[r[0]] ? 'gone' : 'kept' }, ic(r[2], 16), h('span', null, v), h('b', null, rm[r[0]] ? 'Removed' : 'Kept')));
+      });
+      after.appendChild(h('li', { class: 'kept always' }, ic('photo', 16), h('span', null, 'The picture, colours and size'), h('b', null, 'Kept')));
+      rows.forEach(function (r) {
+        var on = rm[r.k];
+        list.appendChild(h('div', { class: 'mp-r ' + (on ? 'gone' : 'kept') },
+          h('div', { class: 'mp-i' }, ic(r.icon, 20)),
+          h('div', { class: 'mp-t' }, h('b', null, r.label), h('small', null, 'Found in ' + r.n + ' of ' + N + (N === 1 ? ' photo' : ' photos') + ' \u00b7 e.g. ' + r.ex)),
+          h('div', { class: 'mp-sg', role: 'group', 'aria-label': r.label }, [['Keep', false], ['Remove', true]].map(function (o) { return h('button', { type: 'button', class: o[1] === on ? 'on' : '', 'aria-pressed': String(o[1] === on), onclick: function () { rm[r.k] = o[1]; paint(); } }, o[0]); }))));
+      });
+      var gone = rows.filter(function (r) { return rm[r.k]; }).length;
+      sum.textContent = gone === rows.length ? 'Everything will be removed. Only the picture is kept.' : (gone === 0 ? 'Everything will be kept with your photos.' : gone + ' of ' + rows.length + ' kinds of detail will be removed.');
+    };
+    var finish = function (go) {
+      thumbs.forEach(function (u) { URL.revokeObjectURL(u); }); closeDlg();
+      if (!go) return resolve();
+      var keep = { date: !rm.date, location: !rm.location, camera: !rm.camera, other: !rm.other };
+      if (remember.checked) B.setMetaPrefs(rm);
+      resolve(runImport(files, metas, keep));
+    };
+    var setAll = function (v) { rows.forEach(function (r) { rm[r.k] = v; }); META_ROWS.forEach(function (r) { rm[r[0]] = v; }); paint(); };
+    paint();
+    var body = h('div', { class: 'dl-s mp' }, strip,
+      h('p', { class: 'ed-muted' }, 'Photos from a phone carry hidden details. Choose what we keep. The picture itself is never changed.'),
+      h('div', { class: 'mp-q' }, btn('Remove all details', function () { setAll(true); }, { icon: 'trash' }), btn('Keep all details', function () { setAll(false); }, { icon: 'tick' })),
+      list,
+      h('div', { class: 'mp-ba' }, h('div', null, h('h3', null, 'As it comes from your phone'), before), h('div', null, h('h3', null, 'As we keep it'), after)), sum,
+      h('label', { class: 'mp-rm', for: 'mp-rem' }, remember, h('span', null, 'Use these choices every time. You can change them in '), h('a', { href: (document.documentElement.getAttribute('data-theme') === 'dark' ? '/G' : '/GL') + '121-PrivateUpload.dc.html', target: '_blank', rel: 'noopener' }, 'privacy settings')));
+    dialog('Before we add your ' + (N === 1 ? 'photo' : 'photos'), body, [btn('Cancel', function () { finish(false); }), btn('Add ' + N + (N === 1 ? ' photo' : ' photos'), function () { finish(true); }, { cls: 'pri', icon: 'plus' })], { wide: true, onclose: function () { thumbs.forEach(function (u) { URL.revokeObjectURL(u); }); resolve(); } });
+  }
   function addFiles(files) {
     files = [].slice.call(files).filter(function (f) { return /^image\//.test(f.type) || /\.(jpe?g|png|webp|gif|heic)$/i.test(f.name); });
     if (!files.length) { toast('Pick photos (JPG, PNG or WebP)', { kind: 'bad' }); return Promise.resolve(); }
-    var done = 0, kill = toast('Adding ' + files.length + (files.length === 1 ? ' photo' : ' photos') + '…', { ms: 20000 });
-    return files.reduce(function (p, f) { return p.then(function () { return B.importFile(f).then(function (g) { S.doc.gallery.push(g); done++; }, function () {}); }); }, Promise.resolve()).then(function () {
-      kill(); persist(); toast(done + (done === 1 ? ' photo added' : ' photos added'), { kind: 'good' }); S.afterAdd && S.afterAdd(); render();
+    return Promise.all(files.map(function (f) { return B.readMeta(f); })).then(function (metas) {
+      var any = metas.some(function (m) { return m.date || m.place || m.camera || (m.other && m.other.length); });
+      if (!any) return runImport(files, metas, {});   /* nothing hidden in these files */
+      return new Promise(function (resolve) { askMeta(files, metas, resolve); });
     });
   }
   function galleryBody(picker) {
@@ -270,9 +321,14 @@
     if (all) typedConfirm({ title: 'Delete all ' + n + ' photos?', body: 'This removes every photo we hold for your book.', list: impact, word: 'DELETE', label: 'Delete all photos', ok: function () { deletePhotos(ids, 'all'); toast('All photos deleted'); } });
     else window.MilesUI.confirm({ title: 'Delete ' + n + (n === 1 ? ' photo?' : ' photos?'), body: impact.join(' '), confirmLabel: 'Yes, delete ' + (n === 1 ? 'it' : 'them'), danger: true }).then(function (ok) { if (ok) { S.lib.selecting = false; deletePhotos(ids, 'selected'); toast(n + (n === 1 ? ' photo deleted' : ' photos deleted')); } });
   }
+  function metaLine(g) {   /* what we kept and what we removed when this photo was added */
+    if (g.sample || (!g.meta && !g.stripped)) return null;
+    var nm = { date: 'date and time', place: 'location', camera: 'phone or camera', other: 'other details', location: 'location' }, kept = Object.keys(g.meta || {}), gone = g.stripped || [];
+    return h('p', { class: 'mp-line' }, ic(gone.length || !kept.length ? 'lock' : 'info', 16), h('span', null, !kept.length && !gone.length ? 'No hidden details were found in this photo.' : (gone.length ? 'Removed: ' + gone.map(function (k) { return nm[k]; }).join(', ') + '. ' : '') + (kept.length ? 'Kept: ' + kept.map(function (k) { return nm[k] + ' (' + g.meta[k] + ')'; }).join('; ') + '.' : (gone.length ? 'Nothing else is stored with it.' : ''))));
+  }
   function photoDialog(g) {
     var n = usage(g.id), src = B.url(g), im = h('img', { src: src, alt: g.name, class: 'big' }); im.addEventListener('error', function () { im.src = PLACE(g.id); }, { once: true });
-    dialog(g.name, h('div', { class: 'dl-s' }, im, h('p', { class: 'ed-muted' }, (g.w ? g.w + ' \u00d7 ' + g.h + ' px \u00b7 ' : '') + (n ? 'used on ' + n + (n === 1 ? ' page' : ' pages') : 'not used on any page') + (g.sample ? ' \u00b7 sample photo' : ''))),
+    dialog(g.name, h('div', { class: 'dl-s' }, im, h('p', { class: 'ed-muted' }, (g.w ? g.w + ' \u00d7 ' + g.h + ' px \u00b7 ' : '') + (n ? 'used on ' + n + (n === 1 ? ' page' : ' pages') : 'not used on any page') + (g.sample ? ' \u00b7 sample photo' : '')), metaLine(g)),
       [btn('Download a copy', function () { saveCopy(g); }, { icon: 'down' }), ROLE === 'studio' ? null : btn('Delete this photo', function () { closeDlg(); removePhoto(g); }, { icon: 'trash', cls: 'danger' }), btn('Close', function () { closeDlg(); }, { cls: 'pri' })]);
   }
   function screenLibrary() {

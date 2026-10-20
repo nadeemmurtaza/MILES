@@ -35,6 +35,7 @@
 <script src="/account-nav.js" defer></script>
 <link rel="stylesheet" href="/css/ui-kit.css">
 <script src="/ui-kit.js" defer></script>
+<script src="/photo-privacy.js" defer></script>
 </head>
 <body>
 <x-dc>
@@ -47,7 +48,6 @@
 <header class="dp-head"><p class="ed-kicker">Privacy & security</p><h1 class="dp-h1">Adding photos safely</h1><p class="dp-lead">See what happens to a photo the moment you add it.</p></header>
 <div class="dp-grid">
 <div class="dp-col">
-<section class="ed-panel "><div class="dp-row"><div><b>Remove where my photos were taken</b><p class="ed-muted">Recommended. A photo can carry the exact place it was taken. We take that out before storing it, and keep the date so your book stays in order.</p></div><button class="ew-sw2" onClick="{{upToggle}}" aria-pressed="{{upStrip}}" aria-label="Remove location from my photos"></button></div><sc-if value="{{upStripOff}}" hint-placeholder-val="{{ false }}"><p class="ew-note is-bad">Location stays in your photos. Anyone who opens the file could see where you were.</p></sc-if></section>
 <section class="ed-panel "><h2>Your photos</h2><div class="dp-drop"><span><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></span><div><b>Drop photos here</b><p class="ed-muted">or choose them from your phone or computer. In this preview the button below adds three examples.</p></div><button class="ed-btn pri" onClick="{{upAdd}}" disabled="{{upBusy}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg><span>{{upAddLabel}}</span></button></div><p class="ed-muted" aria-live="polite">{{upCount}}</p>
 <ul class="dp-files"><sc-for list="{{upFiles}}" as="f" hint-placeholder-count="3"><li class="dp-file"><img src="{{f.src}}" alt=""><div class="dp-fb"><b>{{f.name}}</b><span class="dp-state">{{f.stage}}</span><sc-if value="{{f.work}}" hint-placeholder-val="{{ false }}"><div class="dp-steps"><sc-for list="{{f.steps}}" as="s" hint-placeholder-count="3"><i class="{{s.cls}}">{{s.n}}</i></sc-for></div><div class="ew-bar-up" aria-hidden="true"><i style="{{f.bar}}"></i></div></sc-if><sc-if value="{{f.ready}}" hint-placeholder-val="{{ false }}"><span class="dp-ok"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg> {{f.note}}</span></sc-if></div></li></sc-for></ul></section>
 </div>

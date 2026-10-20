@@ -137,7 +137,60 @@
     if (g.src) return fetch(g.src).then(function (r) { return r.blob(); });
     return getBlob(g.id).then(function (rec) { return rec && rec.blob; });
   }
-  function importFile(file) {   /* shrink to a print-friendly size, keep the original name */
+  /* ---- what a photo carries: read the EXIF block (JPEG) so the customer can see it and choose what stays ---- */
+  var META_KEY = 'miles.photoMeta', META_DEF = { date: true, location: true, camera: true, other: true };   /* true = remove automatically */
+  function metaPrefs() { try { var v = JSON.parse(localStorage.getItem(META_KEY) || 'null'); if (v) return { date: v.date !== false, location: v.location !== false, camera: v.camera !== false, other: v.other !== false }; } catch (e) {} return Object.assign({}, META_DEF); }
+  function setMetaPrefs(p) { try { localStorage.setItem(META_KEY, JSON.stringify(p)); } catch (e) {} }
+  function readMeta(file) {
+    return new Promise(function (resolve) {
+      var empty = { date: '', place: '', camera: '', other: [] };
+      if (!file || !file.slice) return resolve(empty);
+      var fr = new FileReader();
+      fr.onerror = function () { resolve(empty); };
+      fr.onload = function () {
+        try {
+          var v = new DataView(fr.result), n = v.byteLength, o = 2, out = { date: '', place: '', camera: '', other: [] };
+          if (v.getUint16(0) !== 0xFFD8) return resolve(out);
+          var tiff = -1;
+          while (o + 4 < n) {
+            var mk = v.getUint16(o), len = v.getUint16(o + 2);
+            if (mk === 0xFFE1 && v.getUint32(o + 4) === 0x45786966) { tiff = o + 10; break; }
+            if ((mk & 0xFF00) !== 0xFF00 || mk === 0xFFDA) break;
+            o += 2 + len;
+          }
+          if (tiff < 0) return resolve(out);
+          var le = v.getUint16(tiff) === 0x4949, u16 = function (p) { return v.getUint16(tiff + p, le); }, u32 = function (p) { return v.getUint32(tiff + p, le); };
+          var str = function (p, cnt) { var t = ''; for (var i = 0; i < cnt; i++) { var c = v.getUint8(tiff + p + i); if (!c) break; t += String.fromCharCode(c); } return t.trim(); };
+          var tagStr = function (e) { var cnt = v.getUint32(tiff + e + 4, le); return str(cnt > 4 ? u32(e + 8) : e + 8, cnt); };
+          var rat = function (p) { return u32(p + 4) ? u32(p) / u32(p + 4) : 0; };
+          var ifd = function (off, f) { if (!off || tiff + off + 2 > n) return; var c = u16(off); for (var i = 0; i < c; i++) { var e = off + 2 + i * 12; if (tiff + e + 12 > n) break; f(u16(e), e); } };
+          var make = '', model = '', exifP = 0, gpsP = 0, ref = { 1: 'N', 3: 'E' }, ll = {};
+          ifd(u32(4), function (tag, e) {
+            if (tag === 0x010F) make = tagStr(e); else if (tag === 0x0110) model = tagStr(e);
+            else if (tag === 0x0131) out.other.push('Software: ' + tagStr(e));
+            else if (tag === 0x8769) exifP = u32(e + 8); else if (tag === 0x8825) gpsP = u32(e + 8);
+          });
+          ifd(exifP, function (tag, e) {
+            if (tag === 0x9003 || (tag === 0x9004 && !out.date)) out.date = tagStr(e);
+            else if (tag === 0xA434) out.other.push('Lens: ' + tagStr(e));
+            else if (tag === 0xA431) out.other.push('Serial number');
+          });
+          ifd(gpsP, function (tag, e) {
+            if (tag === 1 || tag === 3) ref[tag] = String.fromCharCode(v.getUint8(tiff + e + 8));
+            else if (tag === 2 || tag === 4) { var p = u32(e + 8); ll[tag] = rat(p) + rat(p + 8) / 60 + rat(p + 16) / 3600; }
+          });
+          if (ll[2] != null && ll[4] != null) out.place = ll[2].toFixed(4) + '\u00b0 ' + ref[1] + ', ' + ll[4].toFixed(4) + '\u00b0 ' + ref[3];
+          out.camera = (model && make && model.indexOf(make) !== 0 ? make + ' ' : '') + model || make;
+          if (out.date) { var m = out.date.match(/(\d{4}):(\d\d):(\d\d) (\d\d):(\d\d)/); if (m) out.date = new Date(+m[1], m[2] - 1, +m[3], +m[4], +m[5]).toLocaleString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit' }); }
+          resolve(out);
+        } catch (e) { resolve(empty); }
+      };
+      fr.readAsArrayBuffer(file.slice(0, 262144));
+    });
+  }
+  /* importFile re-draws the picture, so the saved file never carries EXIF. What the customer chose to keep is stored beside it as plain text. */
+  function importFile(file, keep, meta) {   /* shrink to a print-friendly size, keep the original name */
+    keep = keep || {}; meta = meta || { date: '', place: '', camera: '', other: [] };
     return new Promise(function (resolve, reject) {
       var u = URL.createObjectURL(file), im = new Image();
       im.onload = function () {
@@ -147,7 +200,9 @@
           URL.revokeObjectURL(u);
           if (!blob) return reject(new Error('could not read'));
           var id = uid('g'); urls[id] = URL.createObjectURL(blob);
-          putBlob({ id: id, blob: blob }).then(function () { resolve({ id: id, name: file.name.replace(/\.[^.]+$/, ''), w: im.naturalWidth, h: im.naturalHeight, fav: false, t: Date.now() }); }, reject);
+          var kept = {}, gone = [];
+          [['date', 'date', meta.date], ['location', 'place', meta.place], ['camera', 'camera', meta.camera], ['other', 'other', meta.other && meta.other.length ? meta.other.join(', ') : '']].forEach(function (c2) { if (!c2[2]) return; if (keep[c2[0]]) kept[c2[1]] = c2[2]; else gone.push(c2[0]); });
+          putBlob({ id: id, blob: blob }).then(function () { resolve({ id: id, name: file.name.replace(/\.[^.]+$/, ''), w: im.naturalWidth, h: im.naturalHeight, fav: false, t: Date.now(), meta: kept, stripped: gone }); }, reject);
         }, 'image/jpeg', .86);
       };
       im.onerror = function () { URL.revokeObjectURL(u); reject(new Error('not an image')); };
@@ -185,6 +240,6 @@
     newDoc: newDoc, resize: resize, buildItems: buildItems, slotsOf: slotsOf, spanItem: spanItem, kindOf: kindOf,
     spreadCount: spreadCount, spreadPages: spreadPages, spreadOf: spreadOf, pageLabel: pageLabel,
     read: read, write: write, setWho: function (w) { who = w; }, onRemote: function (f) { listeners.push(f); },
-    importFile: importFile, blobOf: blobOf, samples: samples, url: url, loadUrls: loadUrls, delBlob: delBlob, review: review
+    importFile: importFile, readMeta: readMeta, metaPrefs: metaPrefs, setMetaPrefs: setMetaPrefs, blobOf: blobOf, samples: samples, url: url, loadUrls: loadUrls, delBlob: delBlob, review: review
   };
 })();
