@@ -168,7 +168,7 @@
 
   /* ------------------------------------------------------------ wizard screens */
   /* ------------------------------------------------------------ the start: small steps, a 3D book that follows the answers */
-  var WSTEPS = [['event', 'Occasion'], ['size', 'Size'], ['pages', 'Pages'], ['title', 'Title'], ['dedication', 'Dedication'], ['cover', 'Cover'], ['gallery', 'Photos'], ['design', 'Design']];
+  var WSTEPS = [['event', 'Occasion'], ['size', 'Size'], ['pages', 'Pages'], ['title', 'Title'], ['dedication', 'Dedication'], ['gallery', 'Photos'], ['cover', 'Cover'], ['design', 'Pages']];
   var WS = WSTEPS.map(function (x) { return x[0]; });
   var COVERS = [['forest', 'Forest', '#12342b', '#fff6f0'], ['wine', 'Wine', '#5a1830', '#f7ecdf'], ['blue', 'Dusty blue', '#5e7fa6', '#ffffff'], ['sand', 'Sand', '#e4d5c6', '#5a1830'], ['ink', 'Ink', '#2a1d22', '#e0a030']];
   function signedIn() { try { return localStorage.getItem('miles.auth') === 'in'; } catch (e) { return false; } }
@@ -183,7 +183,8 @@
     var d = S.doc, idx = Math.max(0, WS.indexOf(S.screen)), prog = idx / (WSTEPS.length - 1);
     var cv = COVERS.filter(function (c) { return c[0] === d.cover; })[0] || COVERS[0], ev = EVENTS.filter(function (e) { return e[0] === d.event; })[0];
     var H = S.compact ? 150 : 215, W = Math.round(H * (d.ratio || 0.8)), depth = Math.round(10 + (d.count || 40) * 0.5 * (H / 215));
-    var photo = ev ? h('span', { class: 'wb-ph' }, (function () { var im = h('img', { src: ev[3], alt: '' }); im.addEventListener('error', function () { im.remove(); }, { once: true }); return im; })()) : null;
+    var cp = (d.pages[0].items.filter(function (i) { return i.t === 'img' && i.gid; })[0] || {}).gid, cg = cp && d.gallery.filter(function (g) { return g.id === cp; })[0];
+    var photo = (ev || cg) ? h('span', { class: 'wb-ph' }, (function () { var im = h('img', { src: cg ? B.url(cg) : ev[3], alt: '' }); im.addEventListener('error', function () { im.remove(); }, { once: true }); return im; })()) : null;
     var front = h('div', { class: 'wb-f' }, photo, h('b', null, d.title || (ev ? ev[4] : 'Your title')), d.sub ? h('small', null, d.sub) : null);
     var b = h('div', { class: 'wb-b', style: { '--bw': W + 'px', '--bh': H + 'px', '--bd': depth + 'px', '--cv': cv[2], '--ci': cv[3], '--ry': Math.round(-48 + prog * 30) + 'deg' } },
       front, h('div', { class: 'wb-s' }, depth > 20 ? h('i', null, d.title || '') : null), h('div', { class: 'wb-e' }), h('div', { class: 'wb-t' }), h('div', { class: 'wb-k' }));
@@ -241,26 +242,46 @@
   function screenDedication() {
     var d = S.doc;
     return wizardShell('dedication', 'Who is it for?', 'A dedication for the first page and your name for the back. Both are optional, you can skip them.', h('div', { class: 'form' }, wfield('dedication', 'Dedication (optional)', 'For Mama, who said yes to the trip', true), wfield('author', 'Your name on the back (optional)', 'Sara and Noor', false)),
-      [btn('Back', function () { wgo('title'); }, { icon: 'back' }), btn('Next', function () { wgo('cover'); }, { cls: 'pri big', icon: 'next' })]);
+      [btn('Back', function () { wgo('title'); }, { icon: 'back' }), btn('Next', function () { wgo('gallery'); }, { cls: 'pri big', icon: 'next' })]);
   }
   function screenCover() {
     var d = S.doc, cur = d.cover || 'forest';
-    var body = h('div', { class: 'opts cvs', role: 'radiogroup', 'aria-label': 'Cover colour' }, COVERS.map(function (c) {
+    var swatches = h('div', { class: 'opts cvs', role: 'radiogroup', 'aria-label': 'Cover colour' }, COVERS.map(function (c) {
       return h('button', { type: 'button', class: 'opt cvc' + (cur === c[0] ? ' on' : ''), role: 'radio', 'aria-checked': String(cur === c[0]), onclick: function () { d.cover = c[0]; d.pages[0].bg = c[2]; persist(false); render(); } }, h('span', { class: 'sw', style: { background: c[2], color: c[3] }, 'aria-hidden': 'true' }, h('i', null, 'Aa')), h('b', null, c[1]));
     }));
-    return wizardShell('cover', 'Pick the cover colour', 'The colour of the front cover. You can change it later, and design the cover itself when you get there.', body,
-      [btn('Back', function () { wgo('dedication'); }, { icon: 'back' }), btn('Next', function () { d.pages[0].bg = (COVERS.filter(function (c) { return c[0] === cur; })[0] || COVERS[0])[2]; d.cover = cur; wgo('gallery'); }, { cls: 'pri big', icon: 'next' })]);
+    var has = d.pages[0].items.some(function (i) { return i.t === 'img'; });
+    var body = h('div', { class: 'cvstep' }, h('h2', null, '1. Colour'), swatches,
+      h('h2', null, '2. Layout and photo'), h('p', { class: 'ed-muted' }, has ? 'Your cover has a photo. You can change the layout or the photo.' : 'Choose a layout and a photo for the front cover from the photos you added.'),
+      h('div', null, btn(has ? 'Change the cover layout and photo' : 'Design the cover', function () { d.pages[0].bg = (COVERS.filter(function (c) { return c[0] === cur; })[0] || COVERS[0])[2]; d.cover = cur; openFlow(0); }, { icon: 'palette', cls: has ? '' : 'pri' })));
+    return wizardShell('cover', 'Design the cover', 'The front of your book: its colour, then its layout and photo. You can change it later.', body,
+      [btn('Back', function () { wgo('gallery'); }, { icon: 'back' }), btn('Next: design the pages', function () { d.pages[0].bg = (COVERS.filter(function (c) { return c[0] === cur; })[0] || COVERS[0])[2]; d.cover = cur; d.setup = 3; S.si = Math.min(1, B.spreadCount(d) - 1); var sp = B.spreadPages(d, S.si); S.ap = sp.l != null ? sp.l : sp.r; wgo('design'); }, { cls: 'pri big', icon: 'next' })]);
+  }
+  /* the privacy choice for photo details, right where photos are added (same stored choice as the privacy settings page) */
+  function metaPanel() {
+    var prefs = B.metaPrefs(), rows = [['date', 'Date and time', 'clock'], ['location', 'Location', 'pin'], ['camera', 'Phone or camera', 'camera'], ['other', 'Other details', 'info']];
+    var all = function () { return rows.every(function (r) { return prefs[r[0]]; }); };
+    var box = h('section', { class: 'mpp', 'aria-label': 'Hidden details in your photos' });
+    var paint = function () {
+      box.textContent = '';
+      box.appendChild(h('div', { class: 'mpp-h' }, ic('lock', 22), h('div', null, h('b', null, 'Hidden details in your photos'), h('p', { class: 'ed-muted' }, 'Phone photos can carry the date, the place and the phone. Choose what we remove. You will see what each batch carries before it is added.'))));
+      var sw = function (key, label, icon, on, set) { return h('button', { type: 'button', class: 'mpp-r' + (on ? ' gone' : ' kept'), role: 'switch', 'aria-checked': String(on), onclick: function () { set(); paint(); } }, ic(icon, 18), h('span', null, label), h('b', null, on ? 'Remove' : 'Keep')); };
+      var line = h('div', { class: 'mpp-g' }, sw('all', 'Remove all details', 'trash', all(), function () { var to = !all(); rows.forEach(function (r) { prefs[r[0]] = to; }); B.setMetaPrefs(prefs); }));
+      rows.forEach(function (r) { line.appendChild(sw(r[0], r[1], r[2], prefs[r[0]], function () { prefs[r[0]] = !prefs[r[0]]; B.setMetaPrefs(prefs); })); });
+      box.appendChild(line);
+      box.appendChild(h('p', { class: 'mpp-n' }, ic('lock', 14), h('span', null, all() ? 'Everything is removed from new photos. Only the picture is kept.' : 'Some details are kept. You can change this any time in your privacy settings.')));
+    };
+    paint(); return box;
   }
   function screenGallery() {
     if (ROLE === 'customer' && !signedIn()) {   /* to keep the book, and to add photos safely, an account is needed */
       var gate = h('div', { class: 'gate' }, ic('lock', 28), h('b', null, 'Sign in to keep your book'),
         h('p', null, 'Everything you chose so far is saved on this device. To add your photos and keep the book safe, sign in or create a free account. You will come straight back to this step.'),
         btn('Sign in or create an account', toSignIn, { cls: 'pri big', icon: 'next' }));
-      return wizardShell('gallery', 'Your photos', 'Photos are kept private to you and the studio, so this step needs an account.', gate, [btn('Back', function () { wgo('cover'); }, { icon: 'back' })]);
+      return wizardShell('gallery', 'Your photos', 'Photos are kept private to you and the studio, so this step needs an account.', gate, [btn('Back', function () { wgo('dedication'); }, { icon: 'back' })]);
     }
-    var body = galleryBody(false);
-    return wizardShell('gallery', 'Your photos', 'Add the photos you want to choose from. Everything stays private to you and the studio.', body,
-      [btn('Back', function () { wgo('cover'); }, { icon: 'back' }), h('span', { class: 'hint' }, S.doc.gallery.length + ' photos'), btn('Start designing', function () { S.doc.setup = 3; S.si = 0; S.ap = 0; wgo('design'); }, { cls: 'pri big', icon: 'next' })]);
+    var body = h('div', { class: 'gstep' }, metaPanel(), galleryBody(false));
+    return wizardShell('gallery', 'Add your photos', 'Add the photos you want to choose from. Everything stays private to you and the studio.', body,
+      [btn('Back', function () { wgo('dedication'); }, { icon: 'back' }), h('span', { class: 'hint' }, S.doc.gallery.length + (S.doc.gallery.length === 1 ? ' photo' : ' photos')), btn('Next: design the cover', function () { wgo('cover'); }, { cls: 'pri big', icon: 'next' })]);
   }
 
   /* ------------------------------------------------------------ gallery (wizard, sheet and picker share this) */

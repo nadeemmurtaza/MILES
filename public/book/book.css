@@ -234,3 +234,13 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 .opts.cvs { grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); } .opt.cvc { padding: 14px; gap: 10px; } .opt.cvc b { font: 700 15px Manrope, sans-serif; } .opt.cvc .sw { inline-size: 100%; aspect-ratio: .8; max-block-size: 120px; border-radius: 4px 10px 10px 4px; display: grid; place-items: center; box-shadow: inset 5px 0 7px -3px rgb(0 0 0 / .3), 0 4px 10px rgb(0 0 0 / .15); } .opt.cvc .sw i { font: 500 28px Fraunces, serif; font-style: normal; }
 @media (max-width: 760px) { .wgrid { grid-template-columns: 1fr; gap: 14px; } .wbk { position: static; } .wb { padding-block: 8px 0; } .steps li:not(.now) span { display: none; } .steps li { padding-inline-end: 6px; } }
 @media (prefers-reduced-motion: reduce) { .wb-b, .wpbar i { transition: none; } }
+.cvstep { display: grid; gap: 14px; } .cvstep h2 { font: 800 12px Manrope, sans-serif; letter-spacing: .1em; text-transform: uppercase; color: var(--mu); margin-block-start: 6px; }
+.gstep { display: grid; gap: 16px; }
+.mpp { display: grid; gap: 12px; padding: 16px; border-radius: 18px; background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line); }
+.mpp-h { display: flex; gap: 12px; align-items: flex-start; } .mpp-h .ico { color: var(--ok); margin-block-start: 2px; } .mpp-h b { font: 500 20px Fraunces, serif; } .mpp-h p { margin: 2px 0 0; }
+.mpp-g { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 8px; }
+.mpp-r { display: flex; align-items: center; gap: 10px; min-block-size: 48px; padding: 8px 12px; border: 0; border-radius: 12px; text-align: start; font: 700 14px Manrope, sans-serif; color: var(--ink); cursor: pointer; } .mpp-r span { flex: 1; }
+.mpp-r.gone { background: rgb(179 38 30 / .1); box-shadow: inset 0 0 0 1.5px var(--bad); } .mpp-r.gone b { color: var(--bad); } .mpp-r.gone span { text-decoration: line-through; }
+.mpp-r.kept { background: rgb(31 122 77 / .1); box-shadow: inset 0 0 0 1.5px var(--ok); } .mpp-r.kept b { color: var(--ok); }
+.mpp-r b { font-size: 11px; letter-spacing: .07em; text-transform: uppercase; }
+.mpp-n { display: flex; gap: 8px; align-items: center; margin: 0; font-size: 13px; color: var(--mu); }
