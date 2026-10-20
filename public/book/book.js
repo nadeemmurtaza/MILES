@@ -182,15 +182,11 @@
   function wizBook() {
     var d = S.doc, idx = Math.max(0, WS.indexOf(S.screen)), prog = idx / (WSTEPS.length - 1);
     var cv = COVERS.filter(function (c) { return c[0] === d.cover; })[0] || COVERS[0], ev = EVENTS.filter(function (e) { return e[0] === d.event; })[0];
-    var H = S.compact ? 150 : 215, W = Math.round(H * (d.ratio || 0.8)), depth = Math.round(10 + (d.count || 40) * 0.5 * (H / 215));
     var cp = (d.pages[0].items.filter(function (i) { return i.t === 'img' && i.gid; })[0] || {}).gid, cg = cp && d.gallery.filter(function (g) { return g.id === cp; })[0];
-    var photo = (ev || cg) ? h('span', { class: 'wb-ph' }, (function () { var im = h('img', { src: cg ? B.url(cg) : ev[3], alt: '' }); im.addEventListener('error', function () { im.remove(); }, { once: true }); return im; })()) : null;
-    var front = h('div', { class: 'wb-f' }, photo, h('b', null, d.title || (ev ? ev[4] : 'Your title')), d.sub ? h('small', null, d.sub) : null);
-    var b = h('div', { class: 'wb-b', style: { '--bw': W + 'px', '--bh': H + 'px', '--bd': depth + 'px', '--cv': cv[2], '--ci': cv[3], '--ry': Math.round(-48 + prog * 30) + 'deg' } },
-      front, h('div', { class: 'wb-s' }, depth > 20 ? h('i', null, d.title || '') : null), h('div', { class: 'wb-e' }), h('div', { class: 'wb-t' }), h('div', { class: 'wb-k' }));
     var size = SIZES.filter(function (z) { return z[0] === d.size; })[0];
     var cap = [ev ? ev[1] : 'Your book', size ? size[1] + ' ' + size[2] : null, d.count + ' pages'].filter(Boolean).join(' · ');
-    return h('div', { class: 'wb', role: 'img', 'aria-label': 'Your book so far: ' + cap }, b, h('p', { class: 'wb-c' }, cap));
+    var book = window.MilesBook3D.el({ ratio: d.ratio || 0.8, pages: d.count || 40, width: S.compact ? 118 : 168, cover: cv[2], ink: cv[3], title: d.title || (ev ? ev[4] : 'Your title'), sub: d.sub || '', img: cg ? B.url(cg) : (ev ? ev[3] : ''), ry: Math.round(-48 + prog * 30), rx: 8, 'aria-label': 'Your book so far: ' + cap });
+    return h('div', { class: 'wb' }, book, h('p', { class: 'wb-c' }, cap));
   }
   function refreshBook() { var el = document.querySelector('.wbk'); if (el) { el.textContent = ''; el.appendChild(wizBook()); } }
   function wizardShell(step, title, lead, body, foot) {
@@ -623,7 +619,7 @@
   function screenDesign() {
     var d = S.doc, tot = B.spreadCount(d), sp = B.spreadPages(d, S.si), o1 = one(), done = d.pages.filter(function (p) { return p.done; }).length;
     var heading = o1 ? B.pageLabel(d, S.ap) : (S.si === 0 ? 'The cover' : (S.si === tot - 1 ? 'The back cover' : 'Pages ' + sp.l + ' and ' + sp.r));
-    var bk = h('div', { class: 'bk' + (S.draw.on ? ' draw-on' : '') + (o1 ? ' single' : '') + (S.si === 0 ? ' closed r' : (S.si === tot - 1 ? ' closed l' : '')), style: { '--ratio': d.ratio } },
+    var bk = h('div', { class: 'bk' + (S.draw.on ? ' draw-on' : '') + (o1 ? ' single' : '') + (S.si === 0 ? ' closed r' : (S.si === tot - 1 ? ' closed l' : '')), style: { '--ratio': d.ratio, '--stack': Math.round(3 + (d.count || 40) / 8) + 'px' } },
       h('div', { class: 'bk-in', style: o1 ? null : { transform: 'translateX(' + shift(sp) + '%)' } },
         o1 ? h('div', { class: 'side one' }, pageEl(S.ap, true))
           : [h('div', { class: 'side l' + (sp.l == null ? ' none' : '') }, sp.l != null ? pageEl(sp.l, true, true) : null), h('div', { class: 'side r' + (sp.r == null ? ' none' : '') }, sp.r != null ? pageEl(sp.r, true, true) : null), spanLayer(sp), h('div', { class: 'spine', 'aria-hidden': 'true' })]));
