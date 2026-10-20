@@ -12,7 +12,7 @@
   };
   var FILE = { 9: 'Account', 10: 'Order', 13: 'Tracking', 11: 'Proof', 7: 'Upload', 23: 'Editor', 22: 'Messages', 17: 'Help', 12: 'Balance', 24: 'Invoices', 77: 'Invoice', 14: 'Settings',
     101: 'EasyPhotos', 102: 'EasyPage', 103: 'EasyCover', 104: 'EasySend', 80: 'EdStoryboard', 81: 'EdPhotos', 82: 'EdLayouts', 83: 'EdText', 84: 'EdCover', 85: 'EdStyle', 86: 'EdFlipbook', 87: 'EdPrintCheck', 88: 'EdHistory', 89: 'EdSend', 100: 'EasyHome',
-    137: 'Notifications', 138: 'EmailPreviews', 139: 'UiKit', 140: 'SiteMap', 143: 'OrderHistory', 144: 'Receipts', 120: 'Privacy', 121: 'PrivateUpload', 122: 'ShareLinks', 123: 'Consent', 124: 'DeleteData', 125: 'AccessLog', 126: 'Security', 127: 'SmartAssist', 128: 'Approvals', 129: 'ArabicText', 130: 'TripMap', 131: 'Shortcuts', 8: 'SignIn', 1: 'Home' };
+    137: 'Notifications', 138: 'EmailPreviews', 139: 'UiKit', 140: 'SiteMap', 143: 'OrderHistory', 145: 'BookDetail', 120: 'Privacy', 121: 'PrivateUpload', 122: 'ShareLinks', 123: 'Consent', 124: 'DeleteData', 125: 'AccessLog', 126: 'Security', 127: 'SmartAssist', 128: 'Approvals', 129: 'ArabicText', 130: 'TripMap', 131: 'Shortcuts', 8: 'SignIn', 1: 'Home' };
   var href = function (n) { return n > 1400 ? ed + '14-Settings.dc.html#s' + (n - 1400) : n === 141 ? '/book/editor.html?as=customer&view=photos' : n === 142 ? '/book/editor.html?as=customer&view=gallery' : ed + n + '-' + FILE[n] + '.dc.html'; };   /* 141 and 142: the photo gallery in the live editor */
   var I = {
     home: '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>',
@@ -32,19 +32,19 @@
   var L = function (list) { return list.map(function (n) { return [n, (N[n] || EXTRA[n])[1]]; }); };
   var EXTRA = {
     80: ['', 'Storyboard'], 81: ['', 'Photos'], 82: ['', 'Layouts'], 83: ['', 'Text'], 84: ['', 'Cover'], 85: ['', 'Style'], 86: ['', 'Flipbook'], 87: ['', 'Print check'], 88: ['', 'History'], 89: ['', 'Send'], 100: ['', 'Step by step'],
-    143: ['', 'Order history'], 144: ['', 'Receipts'], 1401: ['', 'Phone and WhatsApp'], 1402: ['', 'Addresses'], 1403: ['', 'Language and currency'], 1404: ['', 'Notification choices'],
+    143: ['', 'My books'], 145: ['', 'Book details'], 1402: ['', 'Addresses'],
     140: ['', 'All pages'], 141: ['', 'Photo gallery'], 142: ['', 'My photos and deletions'], 137: ['', 'Notifications'], 138: ['', 'Email previews'], 139: ['', 'Interface kit'],
     120: ['', 'Overview'], 121: ['', 'Protected upload'], 122: ['', 'Sharing'], 123: ['', 'Your choices'], 124: ['', 'Delete data'], 125: ['', 'Who has looked'], 126: ['', 'Sign-in & devices'],
     127: ['', 'Smart help'], 128: ['', 'Approvals'], 129: ['', 'Arabic captions'], 130: ['', 'Trip map'], 131: ['', 'Shortcuts & access']
   };
   /* rail: key, label, icon, first page, sub-menu title, groups of [page, label] */
   var S = [
-    ['order', 'Orders', 'box', 9, 'Orders', [['Your orders', L([9, 143, 10, 13, 11])]]],
-    ['book', 'My book', 'book', 7, 'My book', [['Make the book', [[7, 'Photos'], [141, 'Photo gallery'], [23, 'Live editor'], [80, 'Classic editor'], [127, 'Editor extras']]]]],
-    ['msg', 'Messages', 'chat', 22, 'Messages', [['Talk to us', L([22, 137, 138, 17])]]],
-    ['bill', 'Billing', 'card', 12, 'Billing', [['Payments', L([12, 144, 24, 77])]]],
+    ['order', 'My books', 'box', 9, 'My books', [['Your books and orders', L([9, 143, 10, 13, 11])]]],
+    ['book', 'Design', 'book', 7, 'Design your book', [['Make the book', [[7, 'Photos'], [141, 'Photo gallery'], [23, 'Live editor'], [80, 'Classic editor'], [127, 'Editor extras']]]]],
+    ['msg', 'Messages', 'chat', 22, 'Messages', [['Talk to us', L([22, 137, 138, 17])], ['App', L([140, 139])]]],
+    ['bill', 'Invoices', 'card', 24, 'Invoices', [['Invoices and payments', L([24, 77, 12])]]],
     ['priv', 'Privacy', 'lock', 120, 'Privacy & security', [['Your photos', L([120, 142, 121, 122, 123, 124, 125, 126])]]],
-    ['set', 'Profile', 'user', 14, 'Profile and settings', [['About you', L([14, 1401, 1402, 1403, 1404])], ['App', L([139, 140])]]]
+    ['set', 'Profile', 'user', 14, 'My profile', [['My profile', [[14, 'My profile'], [1402, 'Addresses']]]]]
   ];
   /* third level: pages that belong together under one entry of the second bar are shown as a horizontal bar under the header */
   var H3 = [
@@ -52,7 +52,7 @@
     { key: 'ex', label: 'Editor extras', entry: 127, pages: [[127, 'Smart help'], [128, 'Approvals'], [129, 'Arabic captions'], [130, 'Trip map'], [131, 'Shortcuts & access']] }
   ];
   var EASY = cur >= 100 && cur <= 104;                  /* step-by-step editing: phone-first, so the tab bar only */
-  var look = EASY ? 100 : cur;
+  var look = EASY ? 100 : (cur === 145 ? 143 : cur);   /* a single book belongs to My books */
   var h3 = null; H3.forEach(function (g) { g.pages.forEach(function (p) { if (p[0] === look) h3 = g; }); });
   var isOn = function (n) { return n !== 23 && (n === look || (h3 && n === h3.entry)); };   /* 23 is the new live editor (its link is swapped at load), never highlighted here */   /* the group's entry in the second bar lights up for any page inside it */
   var cs = null;
@@ -109,13 +109,13 @@
   /* the lower bar is private: only what belongs to the signed-in customer (account, orders, books, gallery, settings) */
   var signedOut = false; try { signedOut = localStorage.getItem('miles.auth') === 'out'; } catch (e) {}
   var byKey = {}; S.forEach(function (s) { byKey[s[0]] = s; });
-  var TABS = [['Account', 'home', 9, function () { return cur === 9; }], ['Orders', 'box', 143, function () { return cs === byKey.order && cur !== 9; }], ['Books', 'book', 7, function () { return cs === byKey.book; }], ['Gallery', 'photo', 141, function () { return false; }], ['Profile', 'user', 14, function () { return cur === 14; }]];
-  var MORE = [byKey.msg, byKey.bill, byKey.priv], inMore = (MORE.indexOf(cs) > -1 || (cs === byKey.set && cur !== 14));
+  var TABS = [['Account', 'home', 9, function () { return cur === 9; }], ['My books', 'box', 143, function () { return cs === byKey.order && cur !== 9; }], ['Gallery', 'photo', 141, function () { return false; }], ['Profile', 'user', 14, function () { return cur === 14; }]];
+  var MORE = [byKey.msg, byKey.bill, byKey.priv, byKey.book], inMore = (MORE.indexOf(cs) > -1 || (cs === byKey.set && cur !== 14));
   var mroot = document.createElement('div');
   mroot.className = 'an-m';
   var sheetLinks = function (groups) { return groups.map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === 80 || p[0] === 127 ? ' data-keep' : '') + (isOn(p[0]) ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join(''); };
   var mg = function (t, list) { return '<div class="an-sg">' + t + '</div>' + list.map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === cur ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); };
-  var moreHtml = mg('Settings', L([14, 1401, 1402, 1403, 1404])) + mg('Orders and money', L([143, 144, 24, 12, 13])) + mg('Messages and privacy', L([22, 137]).concat([[120, 'Privacy and security']], L([142]))) +
+  var moreHtml = mg('Billing', L([24])) + mg('Messages and privacy', L([22]).concat([[120, 'Privacy and security']])) + mg('Design', [[7, 'Photos'], [23, 'Live editor']]) +
     '<div class="an-sg">Elsewhere</div><a href="' + href(140) + '">All pages</a><a href="' + twin + '">' + (dark ? 'Light theme' : 'Dark theme') + '</a><a href="' + href(1) + '">Back to the shop</a><a href="' + href(8) + '">Sign out</a>';
   mroot.innerHTML =
     (NOCHIP ? '' : '<button type="button" class="an-chip" aria-haspopup="dialog">' + '<span>' + cs[4] + '</span><b>' + pageName + '</b>' + svg('up', 16) + '</button>') +
