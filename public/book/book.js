@@ -198,7 +198,8 @@
   function wizardShell(step, title, lead, body, foot) {
     return h('div', { class: 'app wiz' }, topbar(false), h('main', { class: 'wz', id: 'main' },
       stepHeader(step),
-      h('div', { class: 'wgrid' }, h('aside', { class: 'wbk' }, wizBook()), h('section', { class: 'wbody' }, h('h1', null, title), h('p', { class: 'lead' }, lead), body, h('div', { class: 'foot' }, foot)))));
+      h('div', { class: 'wgrid' }, h('aside', { class: 'wbk' }, wizBook()), h('section', { class: 'wbody' }, h('h1', null, title), h('p', { class: 'lead' }, lead), body)),
+      h('div', { class: 'foot' }, foot)));   /* the bar spans the whole page, so Back sits in the left corner and Next in the right */
   }
   /* steps 1 and 2: what the book is for, and its shape (this replaces the old Start a book page) */
   var EVENTS = [['travel', 'Travel journey', 'One trip, one place', '/_blob/1bebe18032c3ba7f722debbe5fa70f36', 'Maldives'], ['wedding', 'Wedding', 'The day itself', '/_blob/d79cb5916bf021b810ad3e0168beec13', 'Our wedding'], ['honeymoon', 'Honeymoon', 'Often a surprise', '/_blob/6dc6964be6ca87733a870c819d870936', 'Honeymoon'], ['love', 'Love story', 'Anniversaries', '/_blob/40f21930485ef5903566224ed85a9273', 'Our story'], ['multi', 'Multi-city', 'Several stops', '/_blob/44c3ed2b417e619b81afb56289c69c25', 'Europe'], ['roll', 'Camera roll', 'A year or season', '/_blob/6b43c91be8c10d0cbed5dc2520dde00d', 'Our year']];
