@@ -141,6 +141,7 @@ const MAP = [
   ['Studio: calendar and customers', 'Planning, the inbox and the people.', [49, 50, 51, 52, 41, 45, 55, 56]],
   ['Studio: money and insights', 'Payments, invoices and how the studio is doing.', [42, 76, 78, 79, 54, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69]],
   ['Studio: team and settings', 'Who can do what, and the studio settings.', [46, 48, 53, 71, 72, 73, 74, 75]],
+  ['Studio: catalog and pricing', 'Sizes, page counts, layouts and the price formula the live editor reads.', [150, 151, 152, 153]],
   ['Studio: privacy and data', 'Who can open customer photos, retention and compliance (design previews).', [132, 133, 134, 135, 136]],
   ['Classic editor, studio', 'The studio workspace pages of the first editor.', [70, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 110, 111, 112, 113, 114]],
   ['Design references', 'Rules, states and the phone preview.', [0, 20, 21]]

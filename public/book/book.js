@@ -182,8 +182,8 @@
     var d = S.doc, idx = Math.max(0, WS.indexOf(S.screen)), prog = idx / (WSTEPS.length - 1), back = S.screen === 'dedication';   /* the name step shows the back cover */
     var cv = COVERS.filter(function (c) { return c[0] === d.cover; })[0] || (d.pages[0].bg ? ['custom', 'Custom', d.pages[0].bg, B.ink(d.pages[0].bg)] : COVERS[0]), ev = EVENTS.filter(function (e) { return e[0] === d.event; })[0];
     var cp = (d.pages[0].items.filter(function (i) { return i.t === 'img' && i.gid; })[0] || {}).gid, cg = cp && d.gallery.filter(function (g) { return g.id === cp; })[0];
-    var size = SIZES.filter(function (z) { return z[0] === d.size; })[0];
-    var cap = [ev ? ev[1] : 'Your book', size ? size[1] + ' ' + size[2] : null, d.count + ' pages'].filter(Boolean).join(' · ');
+    var size = catSizes(true).filter(function (z) { return z[0] === d.size; })[0], C0 = window.MilesCatalog, q = C0 && d.size && d.count ? C0.price(C0.get(), d.size, d.count) : null;
+    var cap = [ev ? ev[1] : 'Your book', size ? size[1] + ' ' + size[2] : null, d.count + ' pages', q ? q.currency + ' ' + C0.fmt(q.total) : null].filter(Boolean).join(' · ');
     var book = window.MilesBook3D.el({ ratio: d.ratio || 0.8, pages: d.count || 40, width: (S.compact || window.innerWidth < 1000) ? 118 : 168, cover: cv[2], ink: cv[3], title: d.title || (ev ? ev[4] : 'Your title'), sub: d.sub || '', img: cg ? B.url(cg) : (ev ? ev[3] : ''), ry: back ? 152 : Math.round(-48 + prog * 30), rx: 8, back: d.author || '', scroll: back ? false : 'page', photos: d.gallery.filter(function (g) { return !g.sample || g.src; }).slice(0, 9).map(function (g) { return B.url(g); }).concat(EVENTS.map(function (e) { return e[3]; })), 'aria-label': (back ? 'The back cover of your book: ' : 'Your book so far: ') + cap });
     return h('div', { class: 'wb' }, book, h('p', { class: 'wb-c' }, cap));
   }
@@ -203,7 +203,8 @@
   }
   /* steps 1 and 2: what the book is for, and its shape (this replaces the old Start a book page) */
   var EVENTS = [['travel', 'Travel journey', 'One trip, one place', '/_blob/1bebe18032c3ba7f722debbe5fa70f36', 'Maldives'], ['wedding', 'Wedding', 'The day itself', '/_blob/d79cb5916bf021b810ad3e0168beec13', 'Our wedding'], ['honeymoon', 'Honeymoon', 'Often a surprise', '/_blob/6dc6964be6ca87733a870c819d870936', 'Honeymoon'], ['love', 'Love story', 'Anniversaries', '/_blob/40f21930485ef5903566224ed85a9273', 'Our story'], ['multi', 'Multi-city', 'Several stops', '/_blob/44c3ed2b417e619b81afb56289c69c25', 'Europe'], ['roll', 'Camera roll', 'A year or season', '/_blob/6b43c91be8c10d0cbed5dc2520dde00d', 'Our year']];
-  var SIZES = [['portrait', 'Portrait', '8 \u00d7 10 in', 0.8, 8], ['landscape', 'Landscape', '11 \u00d7 8.5 in', 1.294, 11], ['square', 'Square', '10 \u00d7 10 in', 1, 10]];
+  /* sizes, page counts and prices come from the studio's catalog (catalog.js, edited on the Catalog & pricing pages) */
+  var catSizes = function (all) { var C = window.MilesCatalog; if (!C) return []; return (all ? C.get().sizes : C.sizes()).map(function (z) { return [z.id, z.name, C.label(z), z.w / z.h, z.w]; }); };
   function screenEvent() {
     var d = S.doc;
     var body = h('div', { class: 'opts ev', role: 'radiogroup', 'aria-label': 'What the book is for' }, EVENTS.map(function (e) {
@@ -215,7 +216,7 @@
   }
   function screenSize() {
     var d = S.doc;
-    var body = h('div', { class: 'opts sz', role: 'radiogroup', 'aria-label': 'Size of the book' }, SIZES.map(function (z) {
+    var body = h('div', { class: 'opts sz', role: 'radiogroup', 'aria-label': 'Size of the book' }, catSizes().map(function (z) {
       var w = z[3] >= 1 ? 66 : Math.round(66 * z[3]), hh = z[3] >= 1 ? Math.round(66 / z[3]) : 66;
       return h('button', { type: 'button', class: 'opt szc' + (d.size === z[0] ? ' on' : ''), role: 'radio', 'aria-checked': String(d.size === z[0]), onclick: function () { d.size = z[0]; d.ratio = z[3]; d.inches = z[4]; persist(false); render(); } },
         h('span', { class: 'szp', 'aria-hidden': 'true' }, h('i', { style: { inlineSize: w + 'px', blockSize: hh + 'px' } })), h('b', null, z[1]), h('small', null, z[2]));
@@ -224,9 +225,10 @@
       [btn('Back', function () { wgo('event'); }, { icon: 'back' }), h('span', { class: 'hint' }, d.size ? 'Next you choose the number of pages.' : 'Choose one to continue.'), btn('Next', function () { if (!d.size) { toast('Pick a size', { kind: 'bad' }); return; } wgo('pages'); }, { cls: 'pri big', icon: 'next', dis: !d.size })]);
   }
   function screenPages() {
-    var d = S.doc, counts = [20, 30, 40, 50, 60, 80], sel = d.count;
-    var body = h('div', { class: 'opts', role: 'radiogroup', 'aria-label': 'Number of pages' }, counts.map(function (n) {
-      return h('button', { type: 'button', class: 'opt' + (n === sel ? ' on' : ''), role: 'radio', 'aria-checked': String(n === sel), onclick: function () { if (S.doc.count !== n) B.resize(S.doc, n); persist(false); render(); } }, h('b', null, String(n)), h('small', null, n / 2 + ' spreads'), n === 40 ? h('em', null, 'Most chosen') : null);
+    var d = S.doc, C0 = window.MilesCatalog, counts = C0.pageOptions(), sel = d.count;
+    var body = h('div', { class: 'opts', role: 'radiogroup', 'aria-label': 'Number of pages' }, counts.map(function (o) {
+      var n = o.n, pr = d.size ? C0.price(C0.get(), d.size, n) : null;
+      return h('button', { type: 'button', class: 'opt' + (n === sel ? ' on' : ''), role: 'radio', 'aria-checked': String(n === sel), onclick: function () { if (S.doc.count !== n) B.resize(S.doc, n); persist(false); render(); } }, h('b', null, String(n)), h('small', null, n / 2 + ' spreads' + (pr ? ' · ' + pr.currency + ' ' + C0.fmt(pr.total) : '')), o.pop ? h('em', null, 'Most chosen') : null);
     }));
     return wizardShell('pages', 'How many pages?', 'Pages are inside the book, not counting the covers. You can change this later.', body,
       [btn('Back', function () { wgo('size'); }, { icon: 'back' }), h('span', { class: 'hint' }, sel + ' pages = ' + sel / 2 + ' spreads, plus the covers.'), btn('Next', function () { S.doc.setup = Math.max(S.doc.setup, 1); wgo('title'); }, { cls: 'pri big', icon: 'next' })]);

@@ -52,6 +52,13 @@
       { id: 'b-photo', name: 'Small photo', items: [P(30, 28, 40, 40), T(15, 76, 70, '{title}', 4.6)] }
     ]
   };
+  /* the studio's catalog (catalog.js): layouts it switched off are left out, layouts it added are appended */
+  var BUILTIN = JSON.parse(JSON.stringify(LAYOUTS));
+  (function () {
+    var cat = window.MilesCatalog && window.MilesCatalog.get(); if (!cat) return;
+    Object.keys(LAYOUTS).forEach(function (k) { LAYOUTS[k] = LAYOUTS[k].filter(function (l) { return cat.layouts.off.indexOf(l.id) < 0; }); if (!LAYOUTS[k].length) LAYOUTS[k] = BUILTIN[k].slice(0, 1); });
+    cat.layouts.custom.forEach(function (l) { if (LAYOUTS[l.kind] && cat.layouts.off.indexOf(l.id) < 0) LAYOUTS[l.kind].push(l); });
+  })();
   var kindOf = function (doc, i) { return i === 0 ? 'cover' : (i === doc.pages.length - 1 ? 'back' : 'page'); };
   function slotsOf(lay) { return lay.span ? 1 : lay.items.filter(function (x) { return x.t === 'img'; }).length; }
   function spanItem(lay, gid) { var a = lay.span; return { id: uid('t'), t: 'img', x: a.x, y: a.y, w: a.w, h: a.h, gid: gid || null, fit: 'cover', r: 0, shape: 'rect', frame: 'none', zoom: 1, fx: 50, fy: 50 }; }
@@ -241,7 +248,7 @@
   }
 
   window.MilesBook = {
-    KEY: KEY, COLORS: COLORS, LAYOUTS: LAYOUTS, uid: uid, clone: clone, ink: ink, lum: lum,
+    KEY: KEY, COLORS: COLORS, LAYOUTS: LAYOUTS, BUILTIN: BUILTIN, uid: uid, clone: clone, ink: ink, lum: lum,
     newDoc: newDoc, resize: resize, buildItems: buildItems, slotsOf: slotsOf, spanItem: spanItem, kindOf: kindOf,
     spreadCount: spreadCount, canSpan: canSpan, spanSpreads: spanSpreads, cleanSpans: cleanSpans, spreadPages: spreadPages, spreadOf: spreadOf, pageLabel: pageLabel,
     read: read, write: write, setWho: function (w) { who = w; }, onRemote: function (f) { listeners.push(f); },

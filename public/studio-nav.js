@@ -5,7 +5,7 @@
   var m = location.pathname.match(/\/(GL?)(\d+)-[^\/]*\.dc\.html$/);
   if (!m) return;
   var ed = m[1], cur = +m[2], dark = ed === 'G';
-  var FILE = { 30: 'Studio', 41: 'Customers', 42: 'Payments', 46: 'StudioSettings', 48: 'StudioSignIn', 49: 'Calendar', 54: 'Reports', 55: 'Inbox', 57: 'Insights', 70: 'Editor', 71: 'Users', 76: 'Invoices', 132: 'PhotoAccess' };
+  var FILE = { 30: 'Studio', 41: 'Customers', 42: 'Payments', 46: 'StudioSettings', 48: 'StudioSignIn', 49: 'Calendar', 54: 'Reports', 55: 'Inbox', 57: 'Insights', 70: 'Editor', 71: 'Users', 76: 'Invoices', 132: 'PhotoAccess', 150: 'CatalogSizes', 151: 'CatalogPages', 152: 'CatalogLayouts', 153: 'CatalogPricing' };
   var cur0 = cur, page = location.pathname.split('/').pop();
   var href = function (n) { return ed + n + '-' + FILE[n] + '.dc.html'; };
   var EDITOR = '/book/editor.html?as=studio';
@@ -24,6 +24,7 @@
   var twin = (dark ? 'GL' : 'G') + page.replace(/^GL?/, '');
   var item = function (u, t, on) { return '<a href="' + u + '"' + (on ? ' class="on" aria-current="page"' : '') + '>' + t + '</a>'; };
   var moreHtml = '<div class="an-sg">Studio</div>' + item(EDITOR, 'Live editor', false).replace('<a ', '<a data-keep ') + item('/book/editor.html?as=studio&view=gallery', 'Customer photo gallery', false).replace('<a ', '<a data-keep ') + item(href(57), 'Insights', cur === 57) + item(href(54), 'Reports', cur === 54) + item(href(46), 'Settings', cur === 46) +
+    '<div class="an-sg">Catalog &amp; pricing</div>' + item(href(150), 'Book sizes', cur === 150) + item(href(151), 'Page counts', cur === 151) + item(href(152), 'Layouts', cur === 152) + item(href(153), 'Pricing formula', cur === 153) +
     '<div class="an-sg">Team</div>' + item(href(71), 'Team &amp; permissions', cur === 71) + item(href(76), 'Invoices', cur === 76) + item(href(132), 'Privacy &amp; data', cur === 132) +
     '<div class="an-sg">Elsewhere</div>' + item(ed + '140-SiteMap.dc.html', 'All pages', false) + item(ed + '70-Editor.dc.html', 'Classic editor', false).replace('<a ', '<a data-keep ') + item(twin, dark ? 'Light theme' : 'Dark theme', false) + item(href(48), 'Sign out', false);
   var root = document.createElement('div');
