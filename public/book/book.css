@@ -246,3 +246,9 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 
 .spanno { display: flex; gap: 8px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: var(--soft); } .spanno .ico { margin-block-start: 2px; color: var(--mu); }
 .mpp-r > .ico, .mpp-r > svg { flex: none; }
+/* one step header for the whole journey, also above the page designer */
+.wzh { display: grid; gap: 14px; }
+.steps li { padding: 0; } .stp { display: flex; align-items: center; gap: 8px; padding: 6px 12px 6px 6px; border: 0; border-radius: 999px; background: none; font: inherit; color: inherit; cursor: pointer; }
+.stp:disabled { cursor: default; } .steps li:not(.now):has(.stp:disabled) { opacity: .55; }
+.steps li:not(.now) .stp:not(:disabled):hover { background: rgb(0 0 0 / .06); }
+@media (max-width: 760px) { .steps li:not(.now) .stp { padding-inline-end: 6px; } }

@@ -168,14 +168,14 @@
 
   /* ------------------------------------------------------------ wizard screens */
   /* ------------------------------------------------------------ the start: small steps, a 3D book that follows the answers */
-  var WSTEPS = [['event', 'Occasion'], ['size', 'Size'], ['pages', 'Pages'], ['title', 'Title'], ['dedication', 'Dedication'], ['gallery', 'Photos'], ['cover', 'Cover'], ['design', 'Pages']];
+  var WSTEPS = [['event', 'Occasion'], ['size', 'Size'], ['pages', 'Pages'], ['title', 'Title'], ['dedication', 'Dedication'], ['gallery', 'Photos'], ['design', 'Design']];
   var WS = WSTEPS.map(function (x) { return x[0]; });
   var COVERS = [['forest', 'Forest', '#12342b', '#fff6f0'], ['wine', 'Wine', '#5a1830', '#f7ecdf'], ['blue', 'Dusty blue', '#5e7fa6', '#ffffff'], ['sand', 'Sand', '#e4d5c6', '#5a1830'], ['ink', 'Ink', '#2a1d22', '#e0a030']];
   function signedIn() { try { return localStorage.getItem('miles.auth') === 'in'; } catch (e) { return false; } }
   function signInUrl() { var g = 'GL'; try { g = localStorage.getItem('miles.theme') === 'dark' ? 'G' : 'GL'; } catch (e) {} return '/' + g + '8-SignIn.dc.html'; }
   function toSignIn() { try { localStorage.setItem('miles.next', '/book/editor.html?as=customer'); } catch (e) {} location.href = signInUrl(); }
   function wgo(step) {   /* go to a step; the step is saved, so closing the tab and coming back resumes here */
-    S.doc.step = step; S.screen = step; S.onPick = null; if (step !== 'cover') S.cvInit = false; persist(false);
+    S.doc.step = step; S.screen = step; persist(false);
     try { if (location.hash !== '#' + step) history.pushState({ s: step }, '', '#' + step); } catch (e) {}
     render(); try { window.scrollTo(0, 0); } catch (e) {}
   }
@@ -185,15 +185,20 @@
     var cp = (d.pages[0].items.filter(function (i) { return i.t === 'img' && i.gid; })[0] || {}).gid, cg = cp && d.gallery.filter(function (g) { return g.id === cp; })[0];
     var size = SIZES.filter(function (z) { return z[0] === d.size; })[0];
     var cap = [ev ? ev[1] : 'Your book', size ? size[1] + ' ' + size[2] : null, d.count + ' pages'].filter(Boolean).join(' · ');
-    var book = window.MilesBook3D.el({ ratio: d.ratio || 0.8, pages: d.count || 40, width: (S.compact || window.innerWidth < 1000) ? 118 : 168, cover: cv[2], ink: cv[3], title: d.title || (ev ? ev[4] : 'Your title'), sub: d.sub || '', img: cg ? B.url(cg) : (ev ? ev[3] : ''), ry: back ? 152 : Math.round(-48 + prog * 30), rx: 8, back: d.author || '', scroll: (back || S.screen === 'cover') ? false : 'page', photos: d.gallery.filter(function (g) { return !g.sample || g.src; }).slice(0, 9).map(function (g) { return B.url(g); }).concat(EVENTS.map(function (e) { return e[3]; })), 'aria-label': (back ? 'The back cover of your book: ' : 'Your book so far: ') + cap });
+    var book = window.MilesBook3D.el({ ratio: d.ratio || 0.8, pages: d.count || 40, width: (S.compact || window.innerWidth < 1000) ? 118 : 168, cover: cv[2], ink: cv[3], title: d.title || (ev ? ev[4] : 'Your title'), sub: d.sub || '', img: cg ? B.url(cg) : (ev ? ev[3] : ''), ry: back ? 152 : Math.round(-48 + prog * 30), rx: 8, back: d.author || '', scroll: back ? false : 'page', photos: d.gallery.filter(function (g) { return !g.sample || g.src; }).slice(0, 9).map(function (g) { return B.url(g); }).concat(EVENTS.map(function (e) { return e[3]; })), 'aria-label': (back ? 'The back cover of your book: ' : 'Your book so far: ') + cap });
     return h('div', { class: 'wb' }, book, h('p', { class: 'wb-c' }, cap));
   }
   function refreshBook() { var el = document.querySelector('.wbk'); if (el) { el.textContent = ''; el.appendChild(wizBook()); } }
-  function wizardShell(step, title, lead, body, foot) {
-    var idx = WS.indexOf(step), pct = Math.round((idx + 1) / WSTEPS.length * 100);
-    return h('div', { class: 'app wiz' }, topbar(true), h('main', { class: 'wz', id: 'main' },
+  /* one progress header for the whole journey, from the first question to the last page; a step already reached can be reopened from it */
+  function stepHeader(step) {
+    var idx = WS.indexOf(step), pct = Math.round((idx + 1) / WSTEPS.length * 100), at = WS.indexOf(S.doc.step), reach = Math.max(idx, at > -1 ? at : 0);
+    return h('div', { class: 'wzh' },
       h('div', { class: 'wp' }, h('b', null, 'Step ' + (idx + 1) + ' of ' + WSTEPS.length), h('div', { class: 'wpbar', role: 'progressbar', 'aria-label': 'Progress', 'aria-valuemin': '0', 'aria-valuemax': '100', 'aria-valuenow': String(pct) }, h('i', { style: { inlineSize: pct + '%' } })), h('span', { class: 'sv' }, ic('lock', 14), h('span', { id: 'savedat' }, (S.saved || 'Saved') + (signedIn() ? ' · in your account' : ' · on this device')))),
-      h('ol', { class: 'steps', 'aria-label': 'Steps' }, WSTEPS.map(function (t, i) { return h('li', { class: i === idx ? 'now' : (i < idx ? 'done' : ''), 'aria-current': i === idx ? 'step' : null }, h('i', null, i < idx ? ic('check', 14) : String(i + 1)), h('span', null, t[1])); })),
+      h('ol', { class: 'steps', 'aria-label': 'Steps' }, WSTEPS.map(function (t, i) { return h('li', { class: i === idx ? 'now' : (i < idx ? 'done' : ''), 'aria-current': i === idx ? 'step' : null }, h('button', { type: 'button', class: 'stp', disabled: i === idx || i > reach, 'aria-label': 'Step ' + (i + 1) + ': ' + t[1], onclick: function () { wgo(t[0]); } }, h('i', null, i < idx ? ic('check', 14) : String(i + 1)), h('span', null, t[1]))); })));
+  }
+  function wizardShell(step, title, lead, body, foot) {
+    return h('div', { class: 'app wiz' }, topbar(true), h('main', { class: 'wz', id: 'main' },
+      stepHeader(step),
       h('div', { class: 'wgrid' }, h('aside', { class: 'wbk' }, wizBook()), h('section', { class: 'wbody' }, h('h1', null, title), h('p', { class: 'lead' }, lead), body, h('div', { class: 'foot' }, foot)))));
   }
   /* steps 1 and 2: what the book is for, and its shape (this replaces the old Start a book page) */
@@ -240,29 +245,6 @@
     return wizardShell('dedication', 'Who is it for?', 'A dedication for the first page and your name for the back. Both are optional, you can skip them.', h('div', { class: 'form' }, wfield('dedication', 'Dedication (optional)', 'For Mama, who said yes to the trip', true), wfield('author', 'Your name on the back (optional)', 'Sara and Noor', false)),
       [btn('Back', function () { wgo('title'); }, { icon: 'back' }), btn('Next', function () { wgo('gallery'); }, { cls: 'pri big', icon: 'next' })]);
   }
-  /* the cover step: colour, layout and photo all on the page (no popup); every choice is applied to the cover at once and the 3D book follows */
-  function screenCover() {
-    var d = S.doc, p = d.pages[0], kind = 'cover', lays = B.LAYOUTS.cover, bgNow = p.bg || '#12342b';
-    var curLay = p.layout || lays[1 % lays.length].id, lay = lays.filter(function (l) { return l.id === curLay; })[0] || lays[0];
-    var had = (p.items.filter(function (i) { return i.t === 'img' && i.gid; })[0] || {}).gid;
-    if (S.cvInit !== true) { S.picks = had ? [had] : []; S.cvInit = true; }
-    S.pickMax = B.slotsOf(lay); S.pickNeed = false; S.tab = 'all';
-    var apply = function (bg, l) {
-      var ids = S.picks.slice(0, B.slotsOf(l)); p.bg = bg; p.layout = l.id; p.items = B.buildItems(d, l, bg, ids);
-      var named = COVERS.filter(function (c) { return c[2].toLowerCase() === bg.toLowerCase(); })[0]; d.cover = named ? named[0] : '';
-      persist(false); render();
-    };
-    S.onPick = function () { apply(bgNow, lay); };
-    var sw = h('div', { class: 'sw', role: 'radiogroup', 'aria-label': 'Cover colour' }, B.COLORS.map(function (c) { var on = c.toLowerCase() === bgNow.toLowerCase(); return h('button', { type: 'button', role: 'radio', 'aria-checked': String(on), 'aria-label': 'Colour ' + c, class: on ? 'on' : '', style: { background: c }, onclick: function () { apply(c, lay); } }); }),
-      h('label', { class: 'custom', title: 'Pick any colour' }, h('span', { class: 'ed-vh' }, 'Custom colour'), h('input', { type: 'color', value: /^#[0-9a-f]{6}$/i.test(bgNow) ? bgNow : '#ffffff', onchange: function (e) { apply(e.target.value, lay); } }), '+'));
-    var lg = h('div', { class: 'lays', role: 'radiogroup', 'aria-label': 'Cover layout' }, lays.map(function (l) { var mini = layMini(l); mini.style.background = bgNow; return h('button', { type: 'button', class: 'lay' + (l.id === lay.id ? ' on' : ''), role: 'radio', 'aria-checked': String(l.id === lay.id), onclick: function () { apply(bgNow, l); } }, mini, h('small', null, l.name)); }));
-    S.afterAdd = function () { var m = document.querySelector('.cvstep .gl'); if (m) m.replaceWith(galleryBody(true)); };
-    var slots = B.slotsOf(lay);
-    var body = h('div', { class: 'cvstep' }, h('h2', null, '1. Colour'), sw, h('h2', null, '2. Layout'), lg,
-      slots ? [h('h2', null, '3. Cover photo'), h('p', { class: 'ed-muted' }, S.picks.length ? 'Tap the photo again to take it off, or tap another to swap it.' : 'Tap a photo for the front cover.'), galleryBody(true)] : h('p', { class: 'ed-muted' }, 'This layout has no photo, just the title.'));
-    return wizardShell('cover', 'Design the cover', 'The front of your book: colour, layout and photo. Nothing is fixed, you can change it later.', body,
-      [btn('Back', function () { wgo('gallery'); }, { icon: 'back' }), btn('Next: design the pages', function () { d.setup = 3; S.cvInit = false; S.onPick = null; S.si = Math.min(1, B.spreadCount(d) - 1); var sp = B.spreadPages(d, S.si); S.ap = sp.l != null ? sp.l : sp.r; wgo('design'); }, { cls: 'pri big', icon: 'next' })]);
-  }
   /* the privacy choice for photo details, right where photos are added (same stored choice as the privacy settings page) */
   function metaPanel() {
     var prefs = B.metaPrefs(), rows = [['date', 'Date and time', 'clock'], ['location', 'Location', 'pin'], ['camera', 'Phone or camera', 'camera'], ['other', 'Other details', 'info']];
@@ -294,7 +276,9 @@
     }
     var body = h('div', { class: 'gstep' }, metaPanel(), galleryBody(false));
     return wizardShell('gallery', 'Add your photos', 'Add the photos you want to choose from. Everything stays private to you and the studio.', body,
-      [btn('Back', function () { wgo('dedication'); }, { icon: 'back' }), h('span', { class: 'hint' }, S.doc.gallery.length + (S.doc.gallery.length === 1 ? ' photo' : ' photos')), btn('Next: design the cover', function () { wgo('cover'); }, { cls: 'pri big', icon: 'next' })]);
+      [btn('Back', function () { wgo('dedication'); }, { icon: 'back' }), h('span', { class: 'hint' }, S.doc.gallery.length + (S.doc.gallery.length === 1 ? ' photo' : ' photos')), btn('Next: design your book', function () { var d0 = S.doc; d0.setup = 3; S.si = 0;
+        var c0 = d0.pages[0]; if (!c0.items.length) { var lay0 = B.LAYOUTS.cover[1 % B.LAYOUTS.cover.length], g0 = d0.gallery[0]; c0.layout = lay0.id; c0.items = B.buildItems(d0, lay0, c0.bg, g0 ? [g0.id] : []); persist(false); }   /* the cover starts with the title and the first photo; it is designed with the rest of the book */
+ var sp0 = B.spreadPages(d0, 0); S.ap = sp0.l != null ? sp0.l : sp0.r; wgo('design'); }, { cls: 'pri big', icon: 'next' })]);
   }
 
   /* ------------------------------------------------------------ gallery (wizard, sheet and picker share this) */
@@ -402,7 +386,6 @@
   function togglePick(id) {
     var i = S.picks.indexOf(id), max = S.pickMax || 1;
     if (i > -1) S.picks.splice(i, 1); else if (max === 1) S.picks = [id]; else if (S.picks.length < max) S.picks.push(id); else { toast('This layout has ' + max + (max === 1 ? ' photo' : ' photos') + '. Tap one to swap it out.'); return; }
-    if (S.onPick && S.screen === 'cover' && !document.querySelector('dialog.dlg[open]')) return S.onPick();   /* the cover step picks on the page */
     var m = document.querySelector('dialog.dlg'); var keep = m && m.querySelector('.gl'); if (keep) { var fresh = galleryBody(true); keep.replaceWith(fresh); var c = document.getElementById('pickcount'); if (c) c.textContent = pickLabel(); var sv = document.getElementById('picksave'); if (sv) sv.disabled = S.pickNeed && !S.picks.length; }
   }
   var pickLabel = function () { var max = S.pickMax || 1; return S.picks.length + (max > 1 ? ' of ' + max : '') + ' selected'; };
@@ -646,7 +629,7 @@
     var allDone = pgOnScreen.every(function (i) { return d.pages[i].done; });
     var nextLabel = S.si >= tot - 1 && !o1 ? null : (o1 ? 'Next page' : 'Next pages');
     return h('div', { class: 'app' }, topbar(false), banner(),
-      h('main', { class: 'ds', id: 'main' },
+      h('main', { class: 'ds', id: 'main' }, stepHeader('design'),
         h('div', { class: 'dh' }, h('div', null, h('h1', null, heading), h('p', { class: 'ed-muted' }, o1 ? 'Page ' + (S.ap + 1) + ' of ' + d.pages.length : 'Spread ' + (S.si + 1) + ' of ' + tot)), h('div', { class: 'pr' }, h('span', null, done + ' of ' + d.pages.length + ' pages done'), h('div', { class: 'pgbar', role: 'progressbar', 'aria-label': 'Pages done', 'aria-valuemin': '0', 'aria-valuemax': String(d.pages.length), 'aria-valuenow': String(done) }, h('i', { style: { inlineSize: Math.round(done / d.pages.length * 100) + '%' } })))),
         h('div', { class: 'stage' }, h('button', { type: 'button', class: 'turn prev', 'aria-label': o1 ? 'Previous page' : 'Turn back', onclick: function () { turn(-1); }, disabled: o1 ? S.ap === 0 : S.si === 0 }, ic('back', 26)), bk, h('button', { type: 'button', class: 'turn next', 'aria-label': o1 ? 'Next page' : 'Turn the page', onclick: function () { turn(1); }, disabled: o1 ? S.ap >= d.pages.length - 1 : S.si >= tot - 1 }, ic('next', 26))),
         toolbar(),
@@ -859,7 +842,7 @@
   function render() {
     if (S.turning) return;
     var screen = S.screen;
-    var node = screen === 'library' ? screenLibrary() : screen === 'event' ? screenEvent() : screen === 'size' ? screenSize() : screen === 'pages' ? screenPages() : screen === 'title' ? screenTitle() : screen === 'dedication' ? screenDedication() : screen === 'cover' ? screenCover() : screen === 'gallery' ? screenGallery() : screenDesign();
+    var node = screen === 'library' ? screenLibrary() : screen === 'event' ? screenEvent() : screen === 'size' ? screenSize() : screen === 'pages' ? screenPages() : screen === 'title' ? screenTitle() : screen === 'dedication' ? screenDedication() : screen === 'gallery' ? screenGallery() : screenDesign();
     app.replaceChildren(node);
     document.title = (S.doc.title || 'My book') + ' · Live editor · Miles Retold';
     if (S.sheet) { /* keep an open sheet in step with the book */ var old = document.getElementById('sheet'); if (old && S.sheet !== 'gallery') renderSheet(); }
@@ -879,7 +862,7 @@
   var existing = B.read();
   S.doc = existing && existing.v === 1 ? existing : B.newDoc(40);
   if (!existing) { B.write(S.doc); }
-  S.snap = JSON.stringify(S.doc); S.screen = WS.indexOf(S.doc.step) > -1 ? S.doc.step : (S.doc.setup >= 3 ? 'design' : ['event', 'title', 'gallery'][Math.max(0, Math.min(2, S.doc.setup))]);
+  S.snap = JSON.stringify(S.doc); S.screen = S.doc.step === 'cover' ? 'design' : WS.indexOf(S.doc.step) > -1 ? S.doc.step : (S.doc.setup >= 3 ? 'design' : ['event', 'title', 'gallery'][Math.max(0, Math.min(2, S.doc.setup))]);
   if (q.get('view') === 'gallery') S.screen = 'library';
   if (q.get('view') === 'photos') { S.screen = 'library'; S.only = true; }
   var startNew = function () { S.doc = B.newDoc(40); S.doc.step = 'event'; S.screen = 'event'; B.write(S.doc); S.snap = JSON.stringify(S.doc); clampView(); render(); };
