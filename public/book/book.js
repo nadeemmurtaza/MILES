@@ -839,6 +839,12 @@
     dialog(isText ? 'Text shape' : 'Shape and frame', h('div', { class: 'dl-s' }, body), [btn('Done', function () { closeDlg(); }, { cls: 'pri', icon: 'check' })], { wide: true });
   }
 
+  /* Design step: one row under the progress bar, the page heading on the left, the steps in the middle, the pages-done count on the right */
+  function mergeDesignHead() {
+    var dh = document.querySelector('.ds > .dh'), ol = document.querySelector('.ds .wzh .steps'); if (!dh || !ol || dh.children.length < 2) return;
+    var left = dh.children[0], right = dh.children[1], row = h('div', { class: 'srow' });
+    ol.parentNode.insertBefore(row, ol); row.append(left, ol, right); dh.remove();
+  }
   /* the top bar and the Back / Next bar are fixed to the screen; the page leaves room for the top bar whatever height it wraps to */
   var topRO = null;
   function pinBars() {
@@ -853,7 +859,7 @@
     var screen = S.screen;
     var node = screen === 'library' ? screenLibrary() : screen === 'event' ? screenEvent() : screen === 'size' ? screenSize() : screen === 'pages' ? screenPages() : screen === 'title' ? screenTitle() : screen === 'dedication' ? screenDedication() : screen === 'gallery' ? screenGallery() : screenDesign();
     app.replaceChildren(node);
-    pinBars();
+    pinBars(); mergeDesignHead();
     document.title = (S.doc.title || 'My book') + ' · Live editor · Miles Retold';
     if (S.sheet) { /* keep an open sheet in step with the book */ var old = document.getElementById('sheet'); if (old && S.sheet !== 'gallery') renderSheet(); }
   }

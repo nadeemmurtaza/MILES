@@ -299,3 +299,9 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 .wz .foot .bt:not(.pri), .ds .nav > .bt:not(.pri) { background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line), var(--shadow); }
 .wz .foot .bt.pri, .ds .nav > .bt.pri { box-shadow: var(--shadow); }
 .ds .nav .tools { border-inline: 0; padding-inline: 0; background: none; pointer-events: none; } .ds .nav .tools .bt { pointer-events: auto; box-shadow: inset 0 0 0 1.5px rgb(from var(--acc) r g b / .45), var(--shadow); }
+/* steps centred; on the Design step the page heading sits left of them and the pages-done count right */
+.steps { justify-content: center; }
+.srow { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 14px; }
+.srow > :first-child { justify-self: start; } .srow > :last-child { justify-self: end; inline-size: min(100%, 220px); } .srow .steps { justify-content: center; }
+.srow h1 { font-size: 28px; margin: 0; } .srow .ed-muted { margin: 0; }
+@media (max-width: 1100px) { .srow { grid-template-columns: 1fr 1fr; } .srow .steps { grid-column: 1 / -1; grid-row: 1; } }
