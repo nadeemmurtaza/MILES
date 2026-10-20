@@ -20,6 +20,7 @@
 :host(.b3-live) .b3-in { transition: inline-size .45s, block-size .45s; }   /* scroll-driven: follow the finger, no easing lag */
 .b3-in * { box-sizing: border-box; }
 .b3-in > *, .b3-door > *, .b3-lf > * { position: absolute; }
+.b3-pg, .b3-lf > *, .b3-p1, .b3-f, .b3-ep { outline: 1px solid transparent; }   /* invisible: makes the browser smooth the rotated edges */
 /* back board */
 .b3-k, .b3-bl { inset: 0; border-radius: 3px var(--rr) var(--rr) 3px; background: var(--dark); }
 .b3-k { transform: translateZ(calc(var(--bd) / -2)) rotateY(180deg); background: var(--cv); backface-visibility: hidden; }
@@ -32,12 +33,12 @@
 .b3-p1 b { font: 500 calc(var(--bw) * .075)/1.15 Fraunces, Georgia, serif; overflow-wrap: anywhere; } .b3-p1 small { font: 600 calc(var(--bw) * .032) Manrope, sans-serif; letter-spacing: .12em; text-transform: uppercase; opacity: .6; overflow-wrap: anywhere; } .b3-p1 i { display: block; inline-size: 26%; block-size: 1px; background: currentColor; opacity: .35; }
 /* turning leaves, between the cover and the paper */
 .b3-lf { inset-block: var(--in); inset-inline: 0 var(--in); transform-origin: left center; transform-style: preserve-3d;
-  transform: translateZ(calc(var(--bd) / 2 - var(--bt) - .5px - var(--n) * .8px)) rotateY(calc(clamp(0, (var(--o) - .3 - var(--n) * .08) * 2.6, 1) * -164deg)); }
+  transform: translateZ(calc(var(--bd) / 2 - var(--bt) - .5px - var(--n) * .8px)) rotateY(calc(clamp(0, (var(--o) - .28 - var(--n) * .05) * 3.2, 1) * -164deg)); }
 .b3-lf > * { inset: 0; border-radius: 1px 3px 3px 1px; background: #fffdf8; backface-visibility: hidden; }
 .b3-lf > :first-child { background: #fffdf8 linear-gradient(90deg, rgb(0 0 0 / .08), transparent 10%); }
 .b3-lf > :last-child { transform: rotateY(180deg); background: #f8f1e4 linear-gradient(270deg, rgb(0 0 0 / .08), transparent 10%); border-radius: 3px 1px 1px 3px; }
 /* the hard cover: a slab (face, thickness, endpaper) that hinges open at the spine side */
-.b3-door { inset: 0; transform-origin: left center; transform-style: preserve-3d; transform: translateZ(calc(var(--bd) / 2 - var(--bt) / 2)) rotateY(calc(var(--o) * -165deg)); }
+.b3-door { inset: 0; transform-origin: left center; transform-style: preserve-3d; transform: translateZ(calc(var(--bd) / 2 - var(--bt) / 2)) rotateY(calc(var(--o) * -164deg)); }
 .b3-f, .b3-ep, .b3-dl { inset: 0; border-radius: 3px var(--rr) var(--rr) 3px; }
 .b3-dl { background: var(--dark); transform: translateZ(calc((var(--j) - 1.5) * var(--bt) / 3)); opacity: clamp(0, calc(1 - var(--o) * 3), 1); }
 .b3-f { transform: translateZ(calc(var(--bt) / 2)); background: var(--cv); color: var(--ci); display: grid; align-content: center; justify-items: center; gap: calc(var(--bw) * .03); padding: 12% 11%; text-align: center; overflow: hidden; backface-visibility: hidden; transition: background .6s;
