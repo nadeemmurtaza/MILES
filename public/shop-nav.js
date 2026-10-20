@@ -5,7 +5,7 @@
   var m = location.pathname.match(/\/(GL?)(\d+)-[^\/]*\.dc\.html$/);
   if (!m) return;
   var ed = m[1], cur = +m[2], dark = ed === 'G';
-  var FILE = { 1: 'Home', 2: 'Books', 3: 'Builder', 4: 'Cart', 5: 'Checkout', 6: 'Confirmed', 8: 'SignIn', 9: 'Account', 15: 'Story', 16: 'Lookbook', 17: 'Help', 18: 'Gifts', 19: 'Project195' };
+  var FILE = { 1: 'Home', 2: 'Books', 3: 'Builder', 4: 'Cart', 5: 'Checkout', 6: 'Confirmed', 8: 'SignIn', 9: 'Account', 15: 'Story', 16: 'Lookbook', 17: 'Help', 18: 'Gifts', 19: 'Project195', 140: 'SiteMap' };
   var href = function (n) { return ed + n + '-' + FILE[n] + '.dc.html'; };
   var I = {
     home: '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>',
@@ -17,13 +17,13 @@
   };
   var svg = function (k, s) { return '<svg width="' + (s || 22) + '" height="' + (s || 22) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[k] + '</svg>'; };
   var TABS = [['home', 'Home', 1, [1]], ['book', 'Books', 2, [2, 3]], ['bag', 'Cart', 4, [4, 5, 6]], ['user', 'Account', 9, [8, 9]]];
-  var MORE = [16, 15, 18, 17, 19], LABEL = { 16: 'Lookbook', 15: 'Our story', 18: 'Gifts', 17: 'Help', 19: 'Project 195', 3: 'Start a book', 8: 'Sign in' };
+  var MORE = [16, 15, 18, 17, 19], LABEL = { 16: 'Lookbook', 15: 'Our story', 18: 'Gifts', 17: 'Help', 19: 'Project 195', 3: 'Start a book', 8: 'Sign in', 140: 'All pages' };
   var inMore = MORE.indexOf(cur) > -1;
   var twin = (dark ? 'GL' : 'G') + cur + '-' + FILE[cur] + '.dc.html';
   var link = function (n, on) { return '<a href="' + href(n) + '"' + (on ? ' class="on" aria-current="page"' : '') + '>' + LABEL[n] + '</a>'; };
   var moreHtml = '<div class="an-sg">Explore</div>' + MORE.map(function (n) { return link(n, n === cur); }).join('') +
     '<div class="an-sg">Your book</div>' + link(3, false) + link(8, false) +
-    '<div class="an-sg">Elsewhere</div><a href="' + twin + '">' + (dark ? 'Light theme' : 'Dark theme') + '</a>';
+    '<div class="an-sg">Elsewhere</div>' + link(140, false) + '<a href="' + twin + '">' + (dark ? 'Light theme' : 'Dark theme') + '</a>';
   var root = document.createElement('div');
   root.className = 'an-m';
   root.innerHTML =

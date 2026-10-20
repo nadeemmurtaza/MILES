@@ -4,7 +4,7 @@
  *   - customer pages (dark + light): 137 Notifications, 138 Email previews, 139 Interface kit
  * The pages reuse the shell of 120-Privacy (header, footer, theme twin, scripts), so they behave like every other customer page.
  * They are design-only, like the privacy pages: nothing is saved or sent. Styles: css/library-pages.css. */
-import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync } from 'node:fs';
 
 const PUB = new URL('../public/', import.meta.url);
 const rd = (f) => readFileSync(new URL(f, PUB), 'utf8');
@@ -127,9 +127,43 @@ const kit = () => `<div class="dp-grid">
 <div class="kit-row"><button type="button" class="ed-btn" data-toast="Saved to your account" data-toast-kind="good">Success</button><button type="button" class="ed-btn" data-toast="That photo is too small to print well" data-toast-kind="bad">Problem</button><button type="button" class="ed-btn" data-toast="Your cart was updated">Plain</button></div></section>
 <section class="ed-panel"><h2 class="dp-h2">Empty states</h2><div class="kit-empty">${ic(ICON.mail, 28)}<b>No messages yet</b><p class="ed-muted">When Rameen writes to you, it shows up here.</p><a class="ed-btn sm" href="#main">Say hello</a></div></section></div></div>`;
 
+/* ---- site map: every page, grouped; titles are read from the pages themselves ---- */
+const titleOf = (n) => { const f = readdirSync(PUB).find((x) => new RegExp(`^G${n}-.*\\.dc\\.html$`).test(x)); if (!f) return null; const m = rd(f).match(/<title>([\s\S]*?)<\/title>/); return m ? m[1].replace(/\s*·\s*Miles Retold\s*$/, '').replace(/^Studio\s*·\s*/, '').replace(/^Light\s*·\s*/, '').trim() : f; };
+const fileOf = (ed, n) => { const f = readdirSync(PUB).find((x) => new RegExp(`^G${n}-.*\\.dc\\.html$`).test(x)); return f ? ed + f.slice(1) : null; };
+const MAP = [
+  ['Shop', 'The storefront: what a visitor sees before and while ordering.', [1, 2, 3, 4, 5, 6, 8, 15, 16, 17, 18, 19]],
+  ['My account', 'What a customer sees once they have an order.', [9, 10, 7, 11, 12, 13, 22, 24, 77, 14]],
+  ['Live editor and photos', 'One editor and one photo gallery for the customer and the studio.', [['/book/editor.html?as=customer', 'Live editor (customer)'], ['/book/editor.html?as=customer&view=gallery', 'Photo gallery: what we hold, what was deleted, delete photos'], ['/book/editor.html?as=studio', 'Live editor (studio view)'], ['/book/editor.html?as=studio&view=gallery', 'Customer photo gallery (studio view, read-only)']]],
+  ['Messages and settings', 'Updates, emails and the shared interface pieces.', [137, 138, 139]],
+  ['Privacy and extras', 'Privacy, security and the editor extras (design previews).', [120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131]],
+  ['Classic editor, customer', 'The first editor and its workspace pages, kept for reference.', [23, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 100, 101, 102, 103, 104]],
+  ['Studio: orders', 'The pipeline and each stage.', [30, 31, 32, 33, 34, 35, 36, 37, 38, 40, 43, 44, 47]],
+  ['Studio: calendar and customers', 'Planning, the inbox and the people.', [49, 50, 51, 52, 41, 45, 55, 56]],
+  ['Studio: money and insights', 'Payments, invoices and how the studio is doing.', [42, 76, 78, 79, 54, 57, 58, 59, 60, 61, 62, 63, 64, 65, 66, 67, 68, 69]],
+  ['Studio: team and settings', 'Who can do what, and the studio settings.', [46, 48, 53, 71, 72, 73, 74, 75]],
+  ['Studio: privacy and data', 'Who can open customer photos, retention and compliance (design previews).', [132, 133, 134, 135, 136]],
+  ['Classic editor, studio', 'The studio workspace pages of the first editor.', [70, 90, 91, 92, 93, 94, 95, 96, 97, 98, 99, 110, 111, 112, 113, 114]],
+  ['Design references', 'Rules, states and the phone preview.', [0, 20, 21]]
+];
+const sitemap = (E) => {
+  const seen = new Set(); let count = 0;
+  const groups = MAP.map(([name, lead, items]) => {
+    const lis = items.map((it) => {
+      if (Array.isArray(it)) { count++; return `<li><a href="${it[0]}">${it[1]}</a></li>`; }
+      const f = fileOf(E, it); if (!f) return ''; seen.add(it); count++;
+      return `<li><a href="${f}"${it === 23 || it === 70 ? " data-keep" : ""}>${titleOf(it)}</a></li>`;
+    }).join('');
+    return `<section class="ed-panel sm-g"><h2 class="dp-h2">${name}</h2><p class="ed-muted">${lead}</p><ul class="sm">${lis}</ul></section>`;
+  });
+  /* anything not listed above still gets a link, so no page is ever left out */
+  const rest = readdirSync(PUB).filter((x) => /^G\d+-.*\.dc\.html$/.test(x)).map((x) => +x.match(/^G(\d+)-/)[1]).filter((n) => !seen.has(n) && n !== 140).sort((a, b) => a - b);
+  if (rest.length) groups.push(`<section class="ed-panel sm-g"><h2 class="dp-h2">More</h2><p class="ed-muted">Pages added since this list was written.</p><ul class="sm">${rest.map((n) => `<li><a href="${fileOf(E, n)}">${titleOf(n)}</a></li>`).join('')}</ul></section>`);
+  return `<label class="fld sm-f"><span>Find a page</span><input id="sm-q" type="search" placeholder="Type to filter, for example proof, gallery or invoices" autocomplete="off"></label><p class="ed-muted" id="sm-n" aria-live="polite">${count} pages</p><div class="sm-grid">${groups.join('')}</div>`;
+};
 const PAGES = [
   { n: 137, file: 'Notifications', title: 'Notifications', kicker: 'Messages', lead: 'Everything we tell you about your book in one place, and how you want to hear it.', body: notifications },
   { n: 138, file: 'EmailPreviews', title: 'Emails we send you', kicker: 'Messages', lead: 'What lands in your inbox at each step, in plain words. Each one is a real template the studio can send.', body: emails },
+  { n: 140, file: 'SiteMap', title: 'All pages', kicker: 'Settings', lead: 'Every page in one place, grouped by who uses it. Light and dark follow the theme you chose.', body: sitemap },
   { n: 139, file: 'UiKit', title: 'Interface kit', kicker: 'Settings', lead: 'The small pieces every page shares: tooltips, loading placeholders, progress, confirmations and messages. Try each one.', body: kit }
 ];
 
@@ -142,6 +176,7 @@ function assemble(edition, pg) {
   top = top.replace(/(<a class="thm" href=")[^"]*(")/, `$1${twin}$2`);
   top = top.replace(/<div class="subnav-top subnav-23">[\s\S]*?<\/nav><\/div>/, '');
   if (!top.includes('/css/library-pages.css')) top = top.replace('</head>', '<link rel="stylesheet" href="/css/library-pages.css">\n</head>');
+  if (pg.n === 140 && !top.includes('/sitemap.js')) top = top.replace('</head>', '<script src="/sitemap.js" defer></script>\n</head>');
   script = script.replace(/MilesDesign\.create\('privacy', this, \{[^}]*\}\)/, "MilesDesign.create('static', this, {})");
   const banner = `<p class="dp-banner" role="note"><b>Design preview</b><span>Nothing on this page is saved or sent yet. It shows how the feature could look and feel.</span></p>`;
   const main = `<main id="main" class="{{edCls}} dpm">\n<div class="dp">\n${banner}\n<header class="dp-head"><p class="ed-kicker">${pg.kicker}</p><h1 class="dp-h1">${pg.title}</h1><p class="dp-lead">${pg.lead}</p></header>\n${pg.body(edition)}\n</div>\n`;

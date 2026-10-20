@@ -164,3 +164,7 @@ This is a prototype of the editor: nothing is sent to a server, and the sample p
 ### Text in shapes
 
 Select a text box and tap **Shape**, or tap **Shape text** to start one: circle, oval, heart, star, hexagon, diamond, triangle, soft blob, speech bubble, burst, ribbon, pill, arch, rounded or plain box, with a fill colour and a thin or thick outline. The shape can be dragged, resized, turned and typed into like any other box. Photos got four more shapes too (pill, speech bubble, burst, ribbon).
+
+## All pages (site map)
+
+`GL140-SiteMap.dc.html` lists every page in groups (shop, account, live editor and photos, messages, privacy, classic editor, studio, design references) with a filter box. It is linked from the Settings sidebar, the storefront and studio "More" sheets, the studio second bar and the footer of every page (`ui-kit.js`). Rebuild it with `node scripts/build-library-pages.mjs`; pages not listed in its groups still appear under "More".

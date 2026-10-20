@@ -98,7 +98,21 @@
       else if (/(^|\/)GL?70-Editor\.dc\.html(#.*)?$/.test(h)) a.setAttribute('href', '/book/editor.html?as=studio');
     });
   }
-  var again = function () { basics(); tips(); reroute(); setTimeout(reroute, 500); setTimeout(reroute, 1500); setTimeout(reroute, 3000); setTimeout(tips, 900); setTimeout(tips, 2500); setTimeout(basics, 700); setTimeout(basics, 2000); };
+/* the footer of every page gets an "All pages" link, next to "Design audit" */
+  function footerLink() {
+    var a = document.querySelector('.ft a[href$="0-Audit.dc.html"], footer a[href$="0-Audit.dc.html"]');
+    if (!a || document.querySelector('.ft a[data-allpages], footer a[data-allpages]')) return;
+    var m = (a.getAttribute('href') || '').match(/(GL?)0-Audit\.dc\.html$/); if (!m) return;
+    var n = a.cloneNode(true); n.setAttribute('href', m[1] + '140-SiteMap.dc.html'); n.setAttribute('data-allpages', ''); n.removeAttribute('aria-current');
+    var t = n.querySelector('span') || n; if (t.firstChild && t.firstChild.nodeType === 3) t.firstChild.textContent = 'All pages'; else t.textContent = 'All pages';
+    a.parentNode.insertBefore(n, a.nextSibling);
+  }
+  function studioLink() {   /* the studio has no footer: its second sidebar gets the link */
+    var s = document.querySelector('nav.sub2'); if (!s || s.querySelector('a[data-allpages]')) return;
+    var m = location.pathname.match(/\/(GL?)\d+-/); if (!m) return;
+    var a = document.createElement('a'); a.href = m[1] + '140-SiteMap.dc.html'; a.textContent = 'All pages'; a.setAttribute('data-allpages', ''); s.appendChild(a);
+  }
+  var again = function () { basics(); tips(); reroute(); footerLink(); studioLink(); setTimeout(function () { footerLink(); studioLink(); }, 700); setTimeout(footerLink, 2200); setTimeout(reroute, 500); setTimeout(reroute, 1500); setTimeout(reroute, 3000); setTimeout(tips, 900); setTimeout(tips, 2500); setTimeout(basics, 700); setTimeout(basics, 2000); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', again); else again();
 
   /* [data-toast="Message"] on any button shows a toast (data-toast-kind="good|bad") */

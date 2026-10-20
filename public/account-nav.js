@@ -12,7 +12,7 @@
   };
   var FILE = { 9: 'Account', 10: 'Order', 13: 'Tracking', 11: 'Proof', 7: 'Upload', 23: 'Editor', 22: 'Messages', 17: 'Help', 12: 'Balance', 24: 'Invoices', 77: 'Invoice', 14: 'Settings',
     101: 'EasyPhotos', 102: 'EasyPage', 103: 'EasyCover', 104: 'EasySend', 80: 'EdStoryboard', 81: 'EdPhotos', 82: 'EdLayouts', 83: 'EdText', 84: 'EdCover', 85: 'EdStyle', 86: 'EdFlipbook', 87: 'EdPrintCheck', 88: 'EdHistory', 89: 'EdSend', 100: 'EasyHome',
-    137: 'Notifications', 138: 'EmailPreviews', 139: 'UiKit', 120: 'Privacy', 121: 'PrivateUpload', 122: 'ShareLinks', 123: 'Consent', 124: 'DeleteData', 125: 'AccessLog', 126: 'Security', 127: 'SmartAssist', 128: 'Approvals', 129: 'ArabicText', 130: 'TripMap', 131: 'Shortcuts', 8: 'SignIn', 1: 'Home' };
+    137: 'Notifications', 138: 'EmailPreviews', 139: 'UiKit', 140: 'SiteMap', 120: 'Privacy', 121: 'PrivateUpload', 122: 'ShareLinks', 123: 'Consent', 124: 'DeleteData', 125: 'AccessLog', 126: 'Security', 127: 'SmartAssist', 128: 'Approvals', 129: 'ArabicText', 130: 'TripMap', 131: 'Shortcuts', 8: 'SignIn', 1: 'Home' };
   var href = function (n) { return n === 141 || n === 142 ? '/book/editor.html?as=customer&view=gallery' : ed + n + '-' + FILE[n] + '.dc.html'; };   /* 141 and 142: the photo gallery in the live editor */
   var I = {
     home: '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>',
@@ -30,7 +30,7 @@
   var L = function (list) { return list.map(function (n) { return [n, (N[n] || EXTRA[n])[1]]; }); };
   var EXTRA = {
     80: ['', 'Storyboard'], 81: ['', 'Photos'], 82: ['', 'Layouts'], 83: ['', 'Text'], 84: ['', 'Cover'], 85: ['', 'Style'], 86: ['', 'Flipbook'], 87: ['', 'Print check'], 88: ['', 'History'], 89: ['', 'Send'], 100: ['', 'Step by step'],
-    141: ['', 'Photo gallery'], 142: ['', 'My photos and deletions'], 137: ['', 'Notifications'], 138: ['', 'Email previews'], 139: ['', 'Interface kit'],
+    140: ['', 'All pages'], 141: ['', 'Photo gallery'], 142: ['', 'My photos and deletions'], 137: ['', 'Notifications'], 138: ['', 'Email previews'], 139: ['', 'Interface kit'],
     120: ['', 'Overview'], 121: ['', 'Protected upload'], 122: ['', 'Sharing'], 123: ['', 'Your choices'], 124: ['', 'Delete data'], 125: ['', 'Who has looked'], 126: ['', 'Sign-in & devices'],
     127: ['', 'Smart help'], 128: ['', 'Approvals'], 129: ['', 'Arabic captions'], 130: ['', 'Trip map'], 131: ['', 'Shortcuts & access']
   };
@@ -41,7 +41,7 @@
     ['msg', 'Messages', 'chat', 22, 'Messages', [['Talk to us', L([22, 137, 138, 17])]]],
     ['bill', 'Billing', 'card', 12, 'Billing', [['Payments', L([12, 24, 77])]]],
     ['priv', 'Privacy', 'lock', 120, 'Privacy & security', [['Your photos', L([120, 142, 121, 122, 123, 124, 125, 126])]]],
-    ['set', 'Settings', 'gear', 14, 'Settings', [['Account', L([14, 139])]]]
+    ['set', 'Settings', 'gear', 14, 'Settings', [['Account', L([14, 139, 140])]]]
   ];
   /* third level: pages that belong together under one entry of the second bar are shown as a horizontal bar under the header */
   var H3 = [
