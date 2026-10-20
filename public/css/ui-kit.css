@@ -54,3 +54,12 @@ html { scroll-padding-block-start: 104px; scroll-padding-block-end: 88px; }     
 td a:not([class*="btn"]), .us-who a, a.u67c49e1, a.u630bfd7, a.u73bb352 { display: inline-flex; align-items: center; min-block-size: 24px; min-inline-size: 24px; padding-block: 2px; }
 .tgl { position: relative; } .tgl::after { content: ""; position: absolute; inset: -7px -2px; }
 @media (max-width: 1099px) { .an-tabs { font-size: 11px; } .an-tabs a, .an-tabs button { font-size: 11px; } }
+
+/* ---- one button scale for every page: primary buttons share one size, secondary buttons share another.
+   Colour, shape and icon-only buttons (.sq) stay with each page; only height, side padding and type size are fixed here. ---- */
+:root { --btn-p-h: 48px; --btn-p-px: 24px; --btn-p-fs: 15px; --btn-s-h: 44px; --btn-s-px: 18px; --btn-s-fs: 14px; }
+.btn.bp, .ed-btn.pri, .bt.pri, .us-btn.pri { min-block-size: var(--btn-p-h) !important; min-height: var(--btn-p-h) !important; padding-inline: var(--btn-p-px) !important; font-size: var(--btn-p-fs) !important; font-weight: 700; }
+.btn.bs, .btn.bg, .ed-btn:not(.pri):not(.sq), .bt:not(.pri):not(.sq):not(.ghost):not(.on):not(.stp):not(.turn), .us-btn:not(.pri) { min-block-size: var(--btn-s-h) !important; min-height: var(--btn-s-h) !important; padding-inline: var(--btn-s-px) !important; font-size: var(--btn-s-fs) !important; }
+.btn.bp, .btn.bs, .btn.bg, .ed-btn:not(.sq), .bt:not(.sq):not(.ghost):not(.stp):not(.turn), .us-btn { display: inline-flex; align-items: center; justify-content: center; box-sizing: border-box; }
+.ed-btn.sq, .bt.sq { min-inline-size: var(--btn-s-h); min-block-size: var(--btn-s-h); padding-inline: 0 !important; }
+.btn.bp { height: var(--btn-p-h) !important; } .btn.bs, .btn.bg { height: var(--btn-s-h) !important; }

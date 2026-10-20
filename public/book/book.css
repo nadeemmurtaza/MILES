@@ -309,3 +309,8 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 @media (min-width: 761px) { .bk { inline-size: min(100%, 1060px, calc((100dvh - 300px) * var(--ratio) * 2)); } .bk.single { inline-size: min(100%, calc((100dvh - 320px) * var(--ratio))); } }
 /* Next is always in the right corner, even on step 1 where there is no Back */
 .wz .foot > :last-child, .ds .nav > :last-child { margin-inline-start: auto; }
+/* hidden-details panel: compact, one line per detail */
+.wbk .mpp { padding: 10px 12px; gap: 8px; } .wbk .mpp-h { gap: 8px; } .wbk .mpp-h b { font-size: 16px; } .wbk .mpp-h p { font-size: 12px; line-height: 1.35; }
+.wbk .mpp-r { flex-wrap: nowrap; gap: 8px; padding: 6px 10px; } .wbk .mpp-r span { flex: 1 1 0; } .wbk .mpp-r em { font-size: 14px; }
+.wbk .mpp-sg { inline-size: auto; flex: none; padding: 2px; } .wbk .mpp-o { flex: none; min-block-size: 32px; min-inline-size: 62px; padding: 0 10px; font-size: 12px; }
+.wbk .mpp-n { font-size: 11px; line-height: 1.3; }

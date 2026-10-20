@@ -254,13 +254,13 @@
     var box = h('section', { class: 'mpp', 'aria-label': 'Hidden details in your photos' });
     var paint = function () {
       box.textContent = '';
-      box.appendChild(h('div', { class: 'mpp-h' }, ic('lock', 22), h('div', null, h('b', null, 'Hidden details in your photos'), h('p', { class: 'ed-muted' }, 'Phone photos can carry the date, the place and the phone. Choose what we remove. You will see what each batch carries before it is added.'))));
+      box.appendChild(h('div', { class: 'mpp-h' }, ic('lock', 22), h('div', null, h('b', null, 'Hidden details in your photos'), h('p', { class: 'ed-muted' }, 'Choose what we remove from new photos. You see what each batch carries before it is added.'))));
       /* one full-width row per detail: what it is, and a two-way choice with the current one filled in */
       var info = { all: 'Date, place, phone and every other hidden detail.', date: 'The day and time each photo was taken.', location: 'Where each photo was taken (GPS).', camera: 'The make and model of your phone or camera.', other: 'Software, lens and other technical notes.' };
       var sw = function (key, label, icon, on, set) {
         var pick = function (to) { return function () { if (to !== on) { set(); paint(); } }; };
         var opt = function (to, text) { return h('button', { type: 'button', role: 'radio', 'aria-checked': String(on === to), class: 'mpp-o' + (on === to ? ' on' : '') + (to ? ' rm' : ' kp'), onclick: pick(to) }, text); };
-        return h('div', { class: 'mpp-r ' + (on ? 'gone' : 'kept') + (key === 'all' ? ' all' : ''), role: 'radiogroup', 'aria-label': label }, ic(icon, 20), h('span', null, h('em', null, label), h('small', null, info[key])), h('div', { class: 'mpp-sg' }, opt(true, 'Remove'), opt(false, 'Keep')));
+        return h('div', { class: 'mpp-r ' + (on ? 'gone' : 'kept') + (key === 'all' ? ' all' : ''), role: 'radiogroup', 'aria-label': label }, ic(icon, 20), h('span', { title: info[key] }, h('em', null, label)), h('div', { class: 'mpp-sg' }, opt(true, 'Remove'), opt(false, 'Keep')));
       };
       var line = h('div', { class: 'mpp-g' }, sw('all', 'All details', 'trash', all(), function () { var to = !all(); rows.forEach(function (r) { prefs[r[0]] = to; }); B.setMetaPrefs(prefs); }));
       rows.forEach(function (r) { line.appendChild(sw(r[0], r[1], r[2], prefs[r[0]], function () { prefs[r[0]] = !prefs[r[0]]; B.setMetaPrefs(prefs); })); });
