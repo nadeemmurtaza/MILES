@@ -528,3 +528,5 @@
   /* messages sit above the fixed Back / Next bar, not on top of it */
   .ezm .ed-toast { inset-block-end: calc(92px + env(safe-area-inset-bottom)); max-inline-size: calc(100vw - 32px); text-align: center; }
 }
+/* toggles keep their own size and knob: no tooltip, no touch-target stretch */
+.ew-sw2 { min-inline-size: 0; min-block-size: 0; box-sizing: border-box; }

@@ -82,7 +82,7 @@
   }
   /* icon-only buttons get a tooltip from their accessible name (hover and keyboard focus; touch keeps the name for screen readers) */
   function tips() {
-    document.querySelectorAll('button[aria-label]:not([data-tip]):not([title]),a[aria-label]:not([data-tip]):not([title])').forEach(function (b) {
+    document.querySelectorAll('button[aria-label]:not(.ew-sw2):not([data-tip]):not([title]),a[aria-label]:not([data-tip]):not([title])').forEach(function (b) {
       if ((b.textContent || '').trim().length || b.closest('.an-tabs,.an-rail,.an-sheet,.mui-toast,.nav')) return;
       b.setAttribute('data-tip', b.getAttribute('aria-label'));
     });
