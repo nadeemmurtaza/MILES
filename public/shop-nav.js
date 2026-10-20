@@ -21,8 +21,20 @@
   };
   var svg = function (k) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[k] + '</svg>'; };
 
+  /* the big button at the bottom of the open menu is Sign in (My account when signed in); the header already has Start a book */
+  function bigButton(mnu) {
+    var b = mnu.querySelector(':scope > a.btn'), row = mnu.querySelector('nav a[href$="8-SignIn.dc.html"], nav a[href$="9-Account.dc.html"]');
+    if (!b) return;
+    var inn = false; try { inn = localStorage.getItem('miles.auth') === 'in'; } catch (e) {}
+    var ed = /\/G\d/.test(location.pathname) ? 'G' : 'GL', label = inn ? 'My account' : 'Sign in', href = ed + (inn ? '9-Account' : '8-SignIn') + '.dc.html';
+    if (b.getAttribute('href') !== href) b.setAttribute('href', href);
+    var t = Array.prototype.filter.call(b.childNodes, function (c) { return c.nodeType === 3 && c.textContent.trim(); })[0];
+    if (t && t.textContent.trim() !== label) t.textContent = label + ' ';
+    if (row) row.style.display = 'none';
+  }
   function fill() {
     var mnu = document.querySelector('.nv2 .mnu');
+    if (mnu) bigButton(mnu);
     if (!mnu || mnu.querySelector('.mqk')) return;
     var nav = mnu.querySelector('nav'), thm = document.querySelector('.nv2 .nva a.thm'), cart = document.querySelector('.nv2 .nva a.cart'), lang = document.querySelector('.nv2 .nva [data-lang-toggle]');
     if (!nav) return;
