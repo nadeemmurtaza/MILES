@@ -1,24 +1,62 @@
 /* Miles Retold · the one 3D book (css/book3d.css). Two ways in:
-     MilesBook3D.el({ ratio, pages, cover, ink, spine, title, sub, img, width, hero }) returns a book element;
+     MilesBook3D.el({ ratio, pages, cover, ink, spine, title, sub, img, width, hero, scroll }) returns a book element;
      any <div class="b3" data-b3 data-title=".." data-sub=".." data-img=".."> on a page is filled in the same way and kept in sync
-     when those attributes change (the storefront pages bind them to their state). Colours and size go on the element as --cv, --ci, --sp, --bw, --ratio, --pg. */
+     when those attributes change (the storefront pages bind them to their state). Colours and size go on the element as --cv, --ci, --sp, --bw, --ratio, --pg.
+   Opening: data-open="0..1" sets how far the book is open; data-scroll-open opens it as it scrolls into view, and
+   data-scroll-open="page" opens it with how far the page is scrolled (for a book that stays in place). */
 (function () {
   'use strict';
-  var PARTS = ['b3-k', 'b3-et b3-e b3-edge', 'b3-eb b3-e b3-edge', 'b3-er b3-e b3-edge', 'b3-pr', 'b3-pt', 'b3-pb', 'b3-sp', 'b3-ft b3-e b3-edge', 'b3-fb b3-e b3-edge', 'b3-fr b3-e b3-edge'];
-  function mk(cls, tag) { var e = document.createElement(tag || 'div'); e.className = cls; return e; }
-  function fill(root) {
-    var inner = root.querySelector(':scope > .b3-in');
-    if (!inner) { inner = mk('b3-in'); inner.setAttribute('aria-hidden', 'true'); PARTS.forEach(function (c) { inner.appendChild(mk(c)); }); var f = mk('b3-f'); f.appendChild(mk('b3-ph')); f.appendChild(mk('b3-t')); f.appendChild(mk('b3-s')); inner.appendChild(f); inner.querySelector('.b3-sp').appendChild(mk('', 'i')); root.textContent = ''; root.appendChild(inner); }
-    var d = root.dataset, ph = inner.querySelector('.b3-ph'), t = inner.querySelector('.b3-t'), s = inner.querySelector('.b3-s'), sp = inner.querySelector('.b3-sp i');
-    if (t.textContent !== (d.title || '')) t.textContent = d.title || '';
-    if (s.textContent !== (d.sub || '')) s.textContent = d.sub || '';
-    if (sp.textContent !== (d.title || '')) sp.textContent = d.title || '';
-    var src = d.img || '', im = ph.querySelector('img');
-    if (!src) { if (im) im.remove(); } else if (!im || im.getAttribute('src') !== src) { if (im) im.remove(); im = document.createElement('img'); im.alt = ''; im.addEventListener('error', function () { im.remove(); }, { once: true }); im.src = src; ph.appendChild(im); }
+  var RM = window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function mk(cls, tag) { var e = document.createElement(tag || 'div'); e.className = cls || ''; return e; }
+  function layers(pg) { return Math.max(8, Math.min(36, Math.round((pg || 40) * 0.45))); }
+  function build(root, lay) {
+    var sr = root.shadowRoot, inner = mk('b3-in'); inner.setAttribute('aria-hidden', 'true');
+    while (sr.firstChild) sr.removeChild(sr.firstChild);
+    var hide = document.createElement('style'); hide.textContent = ':host{visibility:hidden}'; sr.appendChild(hide);
+    var link = document.createElement('link'); link.rel = 'stylesheet'; link.href = '/css/book3d.css'; sr.appendChild(link);
+    sr.appendChild(mk('b3-sh')); sr.appendChild(inner);
+    inner.appendChild(mk('b3-k'));
+    for (var j = 0; j < 3; j++) { var bl = mk('b3-bl'); bl.style.setProperty('--j', j); inner.appendChild(bl); }
+    for (var i = 0; i < lay; i++) { var p = mk('b3-pg' + (i === lay - 1 ? ' b3-last' : '')); p.style.setProperty('--i', i); inner.appendChild(p); }
+    var p1 = mk('b3-p1'); p1.appendChild(mk('', 'b')); p1.appendChild(mk('', 'i')); p1.appendChild(mk('', 'small')); inner.appendChild(p1);
+    for (var n = 0; n < 4; n++) { var lf = mk('b3-lf'); lf.style.setProperty('--n', n); lf.appendChild(mk('')); lf.appendChild(mk('')); inner.appendChild(lf); }
+    var door = mk('b3-door');
+    for (var k = 0; k < 4; k++) { var dl = mk('b3-dl'); dl.style.setProperty('--j', k); door.appendChild(dl); }
+    door.appendChild(mk('b3-ep'));
+    var f = mk('b3-f'); f.appendChild(mk('b3-ph')); f.appendChild(mk('b3-t')); f.appendChild(mk('b3-s')); door.appendChild(f);
+    inner.appendChild(door);
+    var sp = mk('b3-sp'); sp.appendChild(mk('', 'i')); inner.appendChild(sp);
+    root.__lay = lay;
   }
+  function fill(root) {
+    var pg = parseFloat(getComputedStyle(root).getPropertyValue('--pg')) || 40, lay = layers(pg);
+    var sr0 = root.shadowRoot; if (!sr0.querySelector('.b3-in') || root.__lay !== lay) { build(root, lay); root.style.setProperty('--lay', lay); }
+    var d = root.dataset, inner = root.shadowRoot.querySelector('.b3-in');
+    var set = function (sel, v) { var e = inner.querySelector(sel); if (e && e.textContent !== v) e.textContent = v; };
+    set('.b3-t', d.title || ''); set('.b3-s', d.sub || ''); set('.b3-sp i', d.title || ''); set('.b3-p1 b', d.title || ''); set('.b3-p1 small', d.sub || '');
+    var ph = inner.querySelector('.b3-ph'), src = d.img || '', im = ph.querySelector('img');
+    if (!src) { if (im) im.remove(); } else if (!im || im.getAttribute('src') !== src) { if (im) im.remove(); im = document.createElement('img'); im.alt = ''; im.addEventListener('error', function () { im.remove(); }, { once: true }); im.src = src; ph.appendChild(im); }
+    if (d.open != null && d.open !== '') root.style.setProperty('--o', String(Math.max(0, Math.min(1, +d.open || 0))));
+  }
+  var live = [], ticking = false;
+  function clamp(x) { return Math.max(0, Math.min(1, x)); }
+  function update() {
+    ticking = false; var vh = window.innerHeight || 800;
+    live.forEach(function (root) {
+      if (!root.isConnected) return;
+      var o;
+      if (root.dataset.scrollOpen === 'page') { var h = document.documentElement.scrollHeight - vh; o = h > 60 ? clamp(window.pageYOffset / Math.min(h, 520)) : 0; }
+      else { var r = root.getBoundingClientRect(); o = clamp((vh * 0.92 - r.top) / (vh * 0.62)); }   /* closed as it enters, open once it is well in view */
+      if (RM) o = 0;
+      var cur = +root.style.getPropertyValue('--o') || 0; if (Math.abs(cur - o) > 0.002) root.style.setProperty('--o', o.toFixed(3));
+    });
+  }
+  function onScroll() { if (!ticking) { ticking = true; requestAnimationFrame(update); } }
   function mount(root) {
-    if (root.__b3) return; root.__b3 = true; fill(root);
-    if (window.MutationObserver) new MutationObserver(function () { fill(root); }).observe(root, { attributes: true, childList: true });
+    if (root.__b3) return; root.__b3 = true; if (!root.shadowRoot) root.attachShadow({ mode: 'open' }); fill(root);
+    if (root.hasAttribute('data-scroll-open')) { root.classList.add('b3-live'); live.push(root); onScroll(); }
+    var sig = function () { var d = root.dataset; return [root.style.getPropertyValue('--pg'), d.title, d.sub, d.img, d.open, root.shadowRoot && root.shadowRoot.querySelector('.b3-in') ? 1 : 0].join('|'); }, last = sig();
+    if (window.MutationObserver) new MutationObserver(function () { var n = sig(); if (n !== last) { last = n; fill(root); last = sig(); } }).observe(root, { attributes: true, attributeFilter: ['data-title', 'data-sub', 'data-img', 'data-open', 'style'], childList: false });
   }
   function el(o) {
     o = o || {}; var r = mk('b3' + (o.hero ? ' b3-hero' : '')), st = r.style;
@@ -26,10 +64,14 @@
     if (o.ratio) st.setProperty('--ratio', o.ratio); if (o.pages) st.setProperty('--pg', o.pages); if (o.width) st.setProperty('--bw', o.width + 'px');
     if (o.cover) st.setProperty('--cv', o.cover); if (o.ink) st.setProperty('--ci', o.ink); if (o.spine) st.setProperty('--sp', o.spine);
     ['--ry', '--rx', '--rz'].forEach(function (k, i) { var v = [o.ry, o.rx, o.rz][i]; if (v != null) st.setProperty(k, v + 'deg'); });
-    r.dataset.title = o.title || ''; r.dataset.sub = o.sub || ''; r.dataset.img = o.img || ''; mount(r); return r;
+    r.dataset.title = o.title || ''; r.dataset.sub = o.sub || ''; r.dataset.img = o.img || '';
+    if (o.scroll) r.setAttribute('data-scroll-open', o.scroll === true ? '' : o.scroll);
+    if (o.open != null) r.dataset.open = o.open;
+    mount(r); return r;
   }
   function scan() { [].forEach.call(document.querySelectorAll('.b3[data-b3]'), mount); }
   window.MilesBook3D = { el: el, mount: mount, scan: scan };
+  window.addEventListener('scroll', onScroll, { passive: true }); window.addEventListener('resize', onScroll);
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', scan); else scan();
   if (window.MutationObserver) new MutationObserver(scan).observe(document.documentElement, { childList: true, subtree: true });
 })();

@@ -194,3 +194,5 @@ The storefront "Start a book" page (`3-Builder`) now sends visitors straight to 
 ## One 3D book
 
 The 3D book is one component: `public/css/book3d.css` and `public/book3d.js`. The storefront hero and the live editor start both use it (`<div class="b3" data-b3 ...>` or `MilesBook3D.el({...})`). It has a hard board cover (front and back boards with real thickness, a hinge groove and linen texture), a spine, and the white page block between the boards, set back from the board edges with page lines on the fore edge, top and bottom. The thickness follows the page count (`--pg`): 20 pages is a slim book, 80 pages a thick one. In the editor's design view, a closed cover or back cover shows a stack of pages under it, thicker with more pages.
+
+The 3D book is built from stacked layers (so corners and sides stay clean at any size), lives in a shadow root, and opens: the hard cover hinges open and white leaves turn, driven by scrolling (`data-scroll-open`: opens as the book scrolls into view; `data-scroll-open="page"` follows how far the page is scrolled, used in the start). `data-open="0..1"` sets it by hand.
