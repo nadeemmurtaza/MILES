@@ -175,17 +175,17 @@
   function signInUrl() { var g = 'GL'; try { g = localStorage.getItem('miles.theme') === 'dark' ? 'G' : 'GL'; } catch (e) {} return '/' + g + '8-SignIn.dc.html'; }
   function toSignIn() { try { localStorage.setItem('miles.next', '/book/editor.html?as=customer'); } catch (e) {} location.href = signInUrl(); }
   function wgo(step) {   /* go to a step; the step is saved, so closing the tab and coming back resumes here */
-    S.doc.step = step; S.screen = step; persist(false);
+    S.doc.step = step; S.screen = step; S.onPick = null; if (step !== 'cover') S.cvInit = false; persist(false);
     try { if (location.hash !== '#' + step) history.pushState({ s: step }, '', '#' + step); } catch (e) {}
     render(); try { window.scrollTo(0, 0); } catch (e) {}
   }
   function wizBook() {
     var d = S.doc, idx = Math.max(0, WS.indexOf(S.screen)), prog = idx / (WSTEPS.length - 1), back = S.screen === 'dedication';   /* the name step shows the back cover */
-    var cv = COVERS.filter(function (c) { return c[0] === d.cover; })[0] || COVERS[0], ev = EVENTS.filter(function (e) { return e[0] === d.event; })[0];
+    var cv = COVERS.filter(function (c) { return c[0] === d.cover; })[0] || (d.pages[0].bg ? ['custom', 'Custom', d.pages[0].bg, B.ink(d.pages[0].bg)] : COVERS[0]), ev = EVENTS.filter(function (e) { return e[0] === d.event; })[0];
     var cp = (d.pages[0].items.filter(function (i) { return i.t === 'img' && i.gid; })[0] || {}).gid, cg = cp && d.gallery.filter(function (g) { return g.id === cp; })[0];
     var size = SIZES.filter(function (z) { return z[0] === d.size; })[0];
     var cap = [ev ? ev[1] : 'Your book', size ? size[1] + ' ' + size[2] : null, d.count + ' pages'].filter(Boolean).join(' · ');
-    var book = window.MilesBook3D.el({ ratio: d.ratio || 0.8, pages: d.count || 40, width: (S.compact || window.innerWidth < 1000) ? 118 : 168, cover: cv[2], ink: cv[3], title: d.title || (ev ? ev[4] : 'Your title'), sub: d.sub || '', img: cg ? B.url(cg) : (ev ? ev[3] : ''), ry: back ? 152 : Math.round(-48 + prog * 30), rx: 8, back: d.author || '', scroll: back ? false : 'page', photos: d.gallery.filter(function (g) { return !g.sample || g.src; }).slice(0, 9).map(function (g) { return B.url(g); }).concat(EVENTS.map(function (e) { return e[3]; })), 'aria-label': (back ? 'The back cover of your book: ' : 'Your book so far: ') + cap });
+    var book = window.MilesBook3D.el({ ratio: d.ratio || 0.8, pages: d.count || 40, width: (S.compact || window.innerWidth < 1000) ? 118 : 168, cover: cv[2], ink: cv[3], title: d.title || (ev ? ev[4] : 'Your title'), sub: d.sub || '', img: cg ? B.url(cg) : (ev ? ev[3] : ''), ry: back ? 152 : Math.round(-48 + prog * 30), rx: 8, back: d.author || '', scroll: (back || S.screen === 'cover') ? false : 'page', photos: d.gallery.filter(function (g) { return !g.sample || g.src; }).slice(0, 9).map(function (g) { return B.url(g); }).concat(EVENTS.map(function (e) { return e[3]; })), 'aria-label': (back ? 'The back cover of your book: ' : 'Your book so far: ') + cap });
     return h('div', { class: 'wb' }, book, h('p', { class: 'wb-c' }, cap));
   }
   function refreshBook() { var el = document.querySelector('.wbk'); if (el) { el.textContent = ''; el.appendChild(wizBook()); } }
@@ -240,17 +240,28 @@
     return wizardShell('dedication', 'Who is it for?', 'A dedication for the first page and your name for the back. Both are optional, you can skip them.', h('div', { class: 'form' }, wfield('dedication', 'Dedication (optional)', 'For Mama, who said yes to the trip', true), wfield('author', 'Your name on the back (optional)', 'Sara and Noor', false)),
       [btn('Back', function () { wgo('title'); }, { icon: 'back' }), btn('Next', function () { wgo('gallery'); }, { cls: 'pri big', icon: 'next' })]);
   }
+  /* the cover step: colour, layout and photo all on the page (no popup); every choice is applied to the cover at once and the 3D book follows */
   function screenCover() {
-    var d = S.doc, cur = d.cover || 'forest';
-    var swatches = h('div', { class: 'opts cvs', role: 'radiogroup', 'aria-label': 'Cover colour' }, COVERS.map(function (c) {
-      return h('button', { type: 'button', class: 'opt cvc' + (cur === c[0] ? ' on' : ''), role: 'radio', 'aria-checked': String(cur === c[0]), onclick: function () { d.cover = c[0]; d.pages[0].bg = c[2]; persist(false); render(); } }, h('span', { class: 'sw', style: { background: c[2], color: c[3] }, 'aria-hidden': 'true' }, h('i', null, 'Aa')), h('b', null, c[1]));
-    }));
-    var has = d.pages[0].items.some(function (i) { return i.t === 'img'; });
-    var body = h('div', { class: 'cvstep' }, h('h2', null, '1. Colour'), swatches,
-      h('h2', null, '2. Layout and photo'), h('p', { class: 'ed-muted' }, has ? 'Your cover has a photo. You can change the layout or the photo.' : 'Choose a layout and a photo for the front cover from the photos you added.'),
-      h('div', null, btn(has ? 'Change the cover layout and photo' : 'Design the cover', function () { d.pages[0].bg = (COVERS.filter(function (c) { return c[0] === cur; })[0] || COVERS[0])[2]; d.cover = cur; openFlow(0); }, { icon: 'palette', cls: has ? '' : 'pri' })));
-    return wizardShell('cover', 'Design the cover', 'The front of your book: its colour, then its layout and photo. You can change it later.', body,
-      [btn('Back', function () { wgo('gallery'); }, { icon: 'back' }), btn('Next: design the pages', function () { d.pages[0].bg = (COVERS.filter(function (c) { return c[0] === cur; })[0] || COVERS[0])[2]; d.cover = cur; d.setup = 3; S.si = Math.min(1, B.spreadCount(d) - 1); var sp = B.spreadPages(d, S.si); S.ap = sp.l != null ? sp.l : sp.r; wgo('design'); }, { cls: 'pri big', icon: 'next' })]);
+    var d = S.doc, p = d.pages[0], kind = 'cover', lays = B.LAYOUTS.cover, bgNow = p.bg || '#12342b';
+    var curLay = p.layout || lays[1 % lays.length].id, lay = lays.filter(function (l) { return l.id === curLay; })[0] || lays[0];
+    var had = (p.items.filter(function (i) { return i.t === 'img' && i.gid; })[0] || {}).gid;
+    if (S.cvInit !== true) { S.picks = had ? [had] : []; S.cvInit = true; }
+    S.pickMax = B.slotsOf(lay); S.pickNeed = false; S.tab = 'all';
+    var apply = function (bg, l) {
+      var ids = S.picks.slice(0, B.slotsOf(l)); p.bg = bg; p.layout = l.id; p.items = B.buildItems(d, l, bg, ids);
+      var named = COVERS.filter(function (c) { return c[2].toLowerCase() === bg.toLowerCase(); })[0]; d.cover = named ? named[0] : '';
+      persist(false); render();
+    };
+    S.onPick = function () { apply(bgNow, lay); };
+    var sw = h('div', { class: 'sw', role: 'radiogroup', 'aria-label': 'Cover colour' }, B.COLORS.map(function (c) { var on = c.toLowerCase() === bgNow.toLowerCase(); return h('button', { type: 'button', role: 'radio', 'aria-checked': String(on), 'aria-label': 'Colour ' + c, class: on ? 'on' : '', style: { background: c }, onclick: function () { apply(c, lay); } }); }),
+      h('label', { class: 'custom', title: 'Pick any colour' }, h('span', { class: 'ed-vh' }, 'Custom colour'), h('input', { type: 'color', value: /^#[0-9a-f]{6}$/i.test(bgNow) ? bgNow : '#ffffff', onchange: function (e) { apply(e.target.value, lay); } }), '+'));
+    var lg = h('div', { class: 'lays', role: 'radiogroup', 'aria-label': 'Cover layout' }, lays.map(function (l) { var mini = layMini(l); mini.style.background = bgNow; return h('button', { type: 'button', class: 'lay' + (l.id === lay.id ? ' on' : ''), role: 'radio', 'aria-checked': String(l.id === lay.id), onclick: function () { apply(bgNow, l); } }, mini, h('small', null, l.name)); }));
+    S.afterAdd = function () { var m = document.querySelector('.cvstep .gl'); if (m) m.replaceWith(galleryBody(true)); };
+    var slots = B.slotsOf(lay);
+    var body = h('div', { class: 'cvstep' }, h('h2', null, '1. Colour'), sw, h('h2', null, '2. Layout'), lg,
+      slots ? [h('h2', null, '3. Cover photo'), h('p', { class: 'ed-muted' }, S.picks.length ? 'Tap the photo again to take it off, or tap another to swap it.' : 'Tap a photo for the front cover.'), galleryBody(true)] : h('p', { class: 'ed-muted' }, 'This layout has no photo, just the title.'));
+    return wizardShell('cover', 'Design the cover', 'The front of your book: colour, layout and photo. Nothing is fixed, you can change it later.', body,
+      [btn('Back', function () { wgo('gallery'); }, { icon: 'back' }), btn('Next: design the pages', function () { d.setup = 3; S.cvInit = false; S.onPick = null; S.si = Math.min(1, B.spreadCount(d) - 1); var sp = B.spreadPages(d, S.si); S.ap = sp.l != null ? sp.l : sp.r; wgo('design'); }, { cls: 'pri big', icon: 'next' })]);
   }
   /* the privacy choice for photo details, right where photos are added (same stored choice as the privacy settings page) */
   function metaPanel() {
@@ -391,6 +402,7 @@
   function togglePick(id) {
     var i = S.picks.indexOf(id), max = S.pickMax || 1;
     if (i > -1) S.picks.splice(i, 1); else if (max === 1) S.picks = [id]; else if (S.picks.length < max) S.picks.push(id); else { toast('This layout has ' + max + (max === 1 ? ' photo' : ' photos') + '. Tap one to swap it out.'); return; }
+    if (S.onPick && S.screen === 'cover' && !document.querySelector('dialog.dlg[open]')) return S.onPick();   /* the cover step picks on the page */
     var m = document.querySelector('dialog.dlg'); var keep = m && m.querySelector('.gl'); if (keep) { var fresh = galleryBody(true); keep.replaceWith(fresh); var c = document.getElementById('pickcount'); if (c) c.textContent = pickLabel(); var sv = document.getElementById('picksave'); if (sv) sv.disabled = S.pickNeed && !S.picks.length; }
   }
   var pickLabel = function () { var max = S.pickMax || 1; return S.picks.length + (max > 1 ? ' of ' + max : '') + ' selected'; };
