@@ -18,8 +18,8 @@
     inner.appendChild(mk('b3-k'));
     for (var j = 0; j < 3; j++) { var bl = mk('b3-bl'); bl.style.setProperty('--j', j); inner.appendChild(bl); }
     for (var i = 0; i < lay; i++) { var p = mk('b3-pg' + (i === lay - 1 ? ' b3-last' : '')); p.style.setProperty('--i', i); inner.appendChild(p); }
-    var p1 = mk('b3-p1'); p1.appendChild(mk('', 'b')); p1.appendChild(mk('', 'i')); p1.appendChild(mk('', 'small')); inner.appendChild(p1);
-    for (var n = 0; n < 4; n++) { var lf = mk('b3-lf'); lf.style.setProperty('--n', n); lf.appendChild(mk('')); lf.appendChild(mk('')); inner.appendChild(lf); }
+    var p1 = mk('b3-p1'); p1.appendChild(mk('b3-pimg-w')); p1.appendChild(mk('', 'b')); p1.appendChild(mk('', 'i')); p1.appendChild(mk('', 'small')); inner.appendChild(p1);
+    for (var n = 0; n < 4; n++) { var lf = mk('b3-lf'); lf.style.setProperty('--n', n); lf.appendChild(mk('')); var lb = mk(''); if (n === 3) lb.appendChild(mk('b3-pimg-w b3-lfp')); lf.appendChild(lb); inner.appendChild(lf); }
     var door = mk('b3-door');
     for (var k = 0; k < 4; k++) { var dl = mk('b3-dl'); dl.style.setProperty('--j', k); door.appendChild(dl); }
     door.appendChild(mk('b3-ep'));
@@ -34,6 +34,8 @@
     var d = root.dataset, inner = root.shadowRoot.querySelector('.b3-in');
     var set = function (sel, v) { var e = inner.querySelector(sel); if (e && e.textContent !== v) e.textContent = v; };
     set('.b3-t', d.title || ''); set('.b3-s', d.sub || ''); set('.b3-sp i', d.title || ''); set('.b3-p1 b', d.title || ''); set('.b3-p1 small', d.sub || '');
+    var photo = function (host, url) { if (!host) return; var im = host.querySelector('img'); if (!url) { if (im) im.remove(); return; } if (!im || im.getAttribute('src') !== url) { if (im) im.remove(); im = document.createElement('img'); im.alt = ''; im.addEventListener('error', function () { im.remove(); }, { once: true }); im.src = url; host.appendChild(im); } };
+    photo(inner.querySelector('.b3-p1 .b3-pimg-w'), d.p1 || d.img || ''); photo(inner.querySelector('.b3-lfp'), d.p0 || d.img || '');
     var ph = inner.querySelector('.b3-ph'), src = d.img || '', im = ph.querySelector('img');
     if (!src) { if (im) im.remove(); } else if (!im || im.getAttribute('src') !== src) { if (im) im.remove(); im = document.createElement('img'); im.alt = ''; im.addEventListener('error', function () { im.remove(); }, { once: true }); im.src = src; ph.appendChild(im); }
     if (d.open != null && d.open !== '') root.style.setProperty('--o', String(Math.max(0, Math.min(1, +d.open || 0))));
@@ -55,8 +57,8 @@
   function mount(root) {
     if (root.__b3) return; root.__b3 = true; if (!root.shadowRoot) root.attachShadow({ mode: 'open' }); fill(root);
     if (root.hasAttribute('data-scroll-open')) { root.classList.add('b3-live'); live.push(root); onScroll(); }
-    var sig = function () { var d = root.dataset; return [root.style.getPropertyValue('--pg'), d.title, d.sub, d.img, d.open, root.shadowRoot && root.shadowRoot.querySelector('.b3-in') ? 1 : 0].join('|'); }, last = sig();
-    if (window.MutationObserver) new MutationObserver(function () { var n = sig(); if (n !== last) { last = n; fill(root); last = sig(); } }).observe(root, { attributes: true, attributeFilter: ['data-title', 'data-sub', 'data-img', 'data-open', 'style'], childList: false });
+    var sig = function () { var d = root.dataset; return [root.style.getPropertyValue('--pg'), d.title, d.sub, d.img, d.p0, d.p1, d.open, root.shadowRoot && root.shadowRoot.querySelector('.b3-in') ? 1 : 0].join('|'); }, last = sig();
+    if (window.MutationObserver) new MutationObserver(function () { var n = sig(); if (n !== last) { last = n; fill(root); last = sig(); } }).observe(root, { attributes: true, attributeFilter: ['data-title', 'data-sub', 'data-img', 'data-p0', 'data-p1', 'data-open', 'style'], childList: false });
   }
   function el(o) {
     o = o || {}; var r = mk('b3' + (o.hero ? ' b3-hero' : '')), st = r.style;
@@ -64,7 +66,7 @@
     if (o.ratio) st.setProperty('--ratio', o.ratio); if (o.pages) st.setProperty('--pg', o.pages); if (o.width) st.setProperty('--bw', o.width + 'px');
     if (o.cover) st.setProperty('--cv', o.cover); if (o.ink) st.setProperty('--ci', o.ink); if (o.spine) st.setProperty('--sp', o.spine);
     ['--ry', '--rx', '--rz'].forEach(function (k, i) { var v = [o.ry, o.rx, o.rz][i]; if (v != null) st.setProperty(k, v + 'deg'); });
-    r.dataset.title = o.title || ''; r.dataset.sub = o.sub || ''; r.dataset.img = o.img || '';
+    r.dataset.title = o.title || ''; r.dataset.sub = o.sub || ''; r.dataset.img = o.img || ''; if (o.p0) r.dataset.p0 = o.p0; if (o.p1) r.dataset.p1 = o.p1;
     if (o.scroll) r.setAttribute('data-scroll-open', o.scroll === true ? '' : o.scroll);
     if (o.open != null) r.dataset.open = o.open;
     mount(r); return r;
