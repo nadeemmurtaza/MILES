@@ -5,7 +5,7 @@
    --sp spine colour, --o how far the book is open (0 closed .. 1 open; the script sets it from scrolling). --bx/--by add mouse tilt. */
 :host { visibility: visible; --bw: 215px; --ratio: .8; --pg: 40; --o: 0; --cv: #12342b; --ci: #fff6f0; --lay: 20;
   --bh: calc(var(--bw) / var(--ratio));
-  --bd: calc(var(--bw) * (.055 + var(--pg) * .003));      /* thicker with every page */
+  --bd: calc(var(--bw) * (.044 + var(--pg) * .0024));      /* thicker with every page */
   --bt: max(3px, calc(var(--bw) * .02));                  /* hard board thickness */
   --in: max(3px, calc(var(--bw) * .022));   /* the cover board frames the paper, also when the book is open */                 /* the paper sits back from the board edges */
   --pr: max(4px, calc(var(--bd) - 2 * var(--bt) - 4.8px));
