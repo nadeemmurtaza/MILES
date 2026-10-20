@@ -275,3 +275,6 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 /* both bars stay where they are while the page scrolls: fixed to the screen, never part of the scrolling flow */
 .app > .top { position: fixed; inset-block-start: 10px; inset-inline: 12px; margin: 0; z-index: 40; }
 .app { padding-block-start: var(--topH, 84px); }
+/* the page tools bar sits fixed just above the Back / Next bar */
+.ds .tools { position: fixed; inset-block-end: calc(max(8px, env(safe-area-inset-bottom)) + 72px); inset-inline: 0; margin-inline: auto; inline-size: min(1156px, calc(100vw - 24px)); z-index: 34; }
+.ds { padding-block-end: 170px; }
