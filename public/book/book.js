@@ -185,7 +185,7 @@
     var cp = (d.pages[0].items.filter(function (i) { return i.t === 'img' && i.gid; })[0] || {}).gid, cg = cp && d.gallery.filter(function (g) { return g.id === cp; })[0];
     var size = SIZES.filter(function (z) { return z[0] === d.size; })[0];
     var cap = [ev ? ev[1] : 'Your book', size ? size[1] + ' ' + size[2] : null, d.count + ' pages'].filter(Boolean).join(' · ');
-    var book = window.MilesBook3D.el({ ratio: d.ratio || 0.8, pages: d.count || 40, width: S.compact ? 118 : 168, cover: cv[2], ink: cv[3], title: d.title || (ev ? ev[4] : 'Your title'), sub: d.sub || '', img: cg ? B.url(cg) : (ev ? ev[3] : ''), ry: back ? 152 : Math.round(-48 + prog * 30), rx: 8, back: d.author || '', scroll: back ? false : 'page', photos: d.gallery.filter(function (g) { return !g.sample || g.src; }).slice(0, 9).map(function (g) { return B.url(g); }).concat(EVENTS.map(function (e) { return e[3]; })), 'aria-label': (back ? 'The back cover of your book: ' : 'Your book so far: ') + cap });
+    var book = window.MilesBook3D.el({ ratio: d.ratio || 0.8, pages: d.count || 40, width: (S.compact || window.innerWidth < 1000) ? 118 : 168, cover: cv[2], ink: cv[3], title: d.title || (ev ? ev[4] : 'Your title'), sub: d.sub || '', img: cg ? B.url(cg) : (ev ? ev[3] : ''), ry: back ? 152 : Math.round(-48 + prog * 30), rx: 8, back: d.author || '', scroll: back ? false : 'page', photos: d.gallery.filter(function (g) { return !g.sample || g.src; }).slice(0, 9).map(function (g) { return B.url(g); }).concat(EVENTS.map(function (e) { return e[3]; })), 'aria-label': (back ? 'The back cover of your book: ' : 'Your book so far: ') + cap });
     return h('div', { class: 'wb' }, book, h('p', { class: 'wb-c' }, cap));
   }
   function refreshBook() { var el = document.querySelector('.wbk'); if (el) { el.textContent = ''; el.appendChild(wizBook()); } }
@@ -260,8 +260,9 @@
     var paint = function () {
       box.textContent = '';
       box.appendChild(h('div', { class: 'mpp-h' }, ic('lock', 22), h('div', null, h('b', null, 'Hidden details in your photos'), h('p', { class: 'ed-muted' }, 'Phone photos can carry the date, the place and the phone. Choose what we remove. You will see what each batch carries before it is added.'))));
-      var sw = function (key, label, icon, on, set) { return h('button', { type: 'button', class: 'mpp-r' + (on ? ' gone' : ' kept'), role: 'switch', 'aria-checked': String(on), onclick: function () { set(); paint(); } }, ic(icon, 18), h('span', null, label), h('b', null, on ? 'Remove' : 'Keep')); };
-      var line = h('div', { class: 'mpp-g' }, sw('all', 'Remove all details', 'trash', all(), function () { var to = !all(); rows.forEach(function (r) { prefs[r[0]] = to; }); B.setMetaPrefs(prefs); }));
+      /* the chip says what is true now ("Removed" / "Kept"); the button at its end says what pressing it does */
+      var sw = function (key, label, icon, on, set) { return h('button', { type: 'button', class: 'mpp-r' + (on ? ' gone' : ' kept'), role: 'switch', 'aria-checked': String(on), 'aria-label': label + ': ' + (on ? 'removed from your photos. Press to keep it.' : 'kept in your photos. Press to remove it.'), onclick: function () { set(); paint(); } }, ic(icon, 18), h('span', null, h('em', null, label), h('small', null, on ? 'Removed' : 'Kept')), h('b', null, on ? 'Keep it' : 'Remove it')); };
+      var line = h('div', { class: 'mpp-g' }, sw('all', 'All details', 'trash', all(), function () { var to = !all(); rows.forEach(function (r) { prefs[r[0]] = to; }); B.setMetaPrefs(prefs); }));
       rows.forEach(function (r) { line.appendChild(sw(r[0], r[1], r[2], prefs[r[0]], function () { prefs[r[0]] = !prefs[r[0]]; B.setMetaPrefs(prefs); })); });
       box.appendChild(line);
       box.appendChild(h('p', { class: 'mpp-n' }, ic('lock', 14), h('span', null, all() ? 'Everything is removed from new photos. Only the picture is kept.' : 'Some details are kept. You can change this any time in your privacy settings.')));
