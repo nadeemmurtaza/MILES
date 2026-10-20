@@ -273,11 +273,13 @@
         btn('Sign in or create an account', toSignIn, { cls: 'pri big', icon: 'next' }));
       return wizardShell('gallery', 'Your photos', 'Photos are kept private to you and the studio, so this step needs an account.', gate, [btn('Back', function () { wgo('dedication'); }, { icon: 'back' })]);
     }
-    var body = h('div', { class: 'gstep' }, metaPanel(), galleryBody(false));
-    return wizardShell('gallery', 'Add your photos', 'Add the photos you want to choose from. Everything stays private to you and the studio.', body,
+    var body = h('div', { class: 'gstep' }, galleryBody(false));
+    var shell = wizardShell('gallery', 'Add your photos', 'Add the photos you want to choose from. Everything stays private to you and the studio.', body,
       [btn('Back', function () { wgo('dedication'); }, { icon: 'back' }), h('span', { class: 'hint' }, S.doc.gallery.length + (S.doc.gallery.length === 1 ? ' photo' : ' photos')), btn('Next: design your book', function () { var d0 = S.doc; d0.setup = 3; S.si = 0;
         var c0 = d0.pages[0]; if (!c0.items.length) { var lay0 = B.LAYOUTS.cover[1 % B.LAYOUTS.cover.length], g0 = d0.gallery[0]; c0.layout = lay0.id; c0.items = B.buildItems(d0, lay0, c0.bg, g0 ? [g0.id] : []); persist(false); }   /* the cover starts with the title and the first photo; it is designed with the rest of the book */
  var sp0 = B.spreadPages(d0, 0); S.ap = sp0.l != null ? sp0.l : sp0.r; wgo('design'); }, { cls: 'pri big', icon: 'next' })]);
+    shell.querySelector('.wbk').appendChild(metaPanel());   /* the hidden-details choice lives under the 3D book, beside the photos */
+    return shell;
   }
 
   /* ------------------------------------------------------------ gallery (wizard, sheet and picker share this) */

@@ -264,3 +264,9 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 @media (max-width: 560px) { .wz .foot .hint { display: none; } .wz .foot .bt, .ds .nav .bt { padding-inline: 14px; } .wz .foot .bt:last-child, .ds .nav .bt:last-child { margin-inline-start: auto; } }
 .ds > *, .wz > * { min-inline-size: 0; } .wzh { max-inline-size: 100%; }
 .wz, .ds { padding-block-end: 90px; }   /* room under the pinned Back / Next bar */
+/* the hidden-details panel under the 3D book: narrow column, so rows stack their choice under the text; tall, so the column scrolls with the page */
+.wbk:has(.mpp) { position: static; justify-items: stretch; align-content: start; gap: 14px; }
+.wbk .mpp { padding: 12px; gap: 10px; } .wbk .mpp-h b { font-size: 17px; } .wbk .mpp-h p { font-size: 13px; }
+.wbk .mpp-r { flex-wrap: wrap; gap: 8px 10px; padding: 10px 12px; } .wbk .mpp-r span { flex: 1 1 calc(100% - 40px); } .wbk .mpp-sg { inline-size: 100%; } .wbk .mpp-o { flex: 1; min-block-size: 36px; }
+.wbk .mpp-n { font-size: 12px; }
+.wbk .mpp-r span { flex: 1 1 0; min-inline-size: 0; } .wbk .mpp-r > .ico, .wbk .mpp-r > svg { flex: none; inline-size: 20px; block-size: 20px; margin-block-start: 2px; }
