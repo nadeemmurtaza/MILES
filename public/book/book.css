@@ -292,3 +292,10 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 .ds .nav .tools .bt:hover { background: rgb(from var(--acc) r g b / .1); }
 .ds .nav .tools .bt[aria-pressed="true"], .ds .nav .tools .bt.on { background: var(--acc); color: var(--on); box-shadow: none; } .ds .nav .tools .bt.on .ico, .ds .nav .tools .bt[aria-pressed="true"] .ico { color: inherit; }
 .ds .nav .tools { padding-inline: 10px; border-inline: 1px solid var(--line); }
+/* no bar behind the bottom buttons: they float on the page, each with its own solid background */
+.wz .foot, .ds .nav { background: none; box-shadow: none; -webkit-backdrop-filter: none; backdrop-filter: none; padding-inline: 0; pointer-events: none; }
+.wz .foot > *, .ds .nav > * { pointer-events: auto; }
+.wz .foot .hint { display: none; }
+.wz .foot .bt:not(.pri), .ds .nav > .bt:not(.pri) { background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line), var(--shadow); }
+.wz .foot .bt.pri, .ds .nav > .bt.pri { box-shadow: var(--shadow); }
+.ds .nav .tools { border-inline: 0; padding-inline: 0; background: none; pointer-events: none; } .ds .nav .tools .bt { pointer-events: auto; box-shadow: inset 0 0 0 1.5px rgb(from var(--acc) r g b / .45), var(--shadow); }
