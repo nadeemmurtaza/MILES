@@ -634,8 +634,7 @@
       h('main', { class: 'ds', id: 'main' }, stepHeader('design'),
         h('div', { class: 'dh' }, h('div', null, h('h1', null, heading), h('p', { class: 'ed-muted' }, o1 ? 'Page ' + (S.ap + 1) + ' of ' + d.pages.length : 'Spread ' + (S.si + 1) + ' of ' + tot)), h('div', { class: 'pr' }, h('span', null, done + ' of ' + d.pages.length + ' pages done'), h('div', { class: 'pgbar', role: 'progressbar', 'aria-label': 'Pages done', 'aria-valuemin': '0', 'aria-valuemax': String(d.pages.length), 'aria-valuenow': String(done) }, h('i', { style: { inlineSize: Math.round(done / d.pages.length * 100) + '%' } })))),
         h('div', { class: 'stage' }, h('button', { type: 'button', class: 'turn prev', 'aria-label': o1 ? 'Previous page' : 'Turn back', onclick: function () { turn(-1); }, disabled: o1 ? S.ap === 0 : S.si === 0 }, ic('back', 26)), bk, h('button', { type: 'button', class: 'turn next', 'aria-label': o1 ? 'Next page' : 'Turn the page', onclick: function () { turn(1); }, disabled: o1 ? S.ap >= d.pages.length - 1 : S.si >= tot - 1 }, ic('next', 26))),
-        toolbar(),
-        h('div', { class: 'nav' }, btn('Back', function () { wgo('gallery'); }, { icon: 'back', title: 'Back to your photos' }), btn(allDone ? 'Done' : 'Mark done', function () { pgOnScreen.forEach(function (i) { d.pages[i].done = !allDone; }); persist(); render(); }, { icon: 'check', pressed: allDone, cls: allDone ? 'on' : '' }), nextLabel ? btn(nextLabel, function () { pgOnScreen.forEach(function (i) { d.pages[i].done = true; }); persist(false); turn(1); }, { cls: 'pri', icon: 'next', title: 'Mark done and turn to the next pages' }) : null)));
+        h('div', { class: 'nav' }, btn('Back', function () { wgo('gallery'); }, { icon: 'back', title: 'Back to your photos' }), toolbar(), btn(allDone ? 'Done' : 'Mark done', function () { pgOnScreen.forEach(function (i) { d.pages[i].done = !allDone; }); persist(); render(); }, { icon: 'check', pressed: allDone, cls: allDone ? 'on' : '' }), nextLabel ? btn(nextLabel, function () { pgOnScreen.forEach(function (i) { d.pages[i].done = true; }); persist(false); turn(1); }, { cls: 'pri', icon: 'next', title: 'Mark done and turn to the next pages' }) : null)));
   }
 
   /* contextual toolbar */
@@ -844,8 +843,9 @@
   var topRO = null;
   function pinBars() {
     var top = document.querySelector('.top'); if (!top) return;
-    var set = function () { document.documentElement.style.setProperty('--topH', (top.offsetHeight + 20) + 'px'); };
-    set(); if (window.ResizeObserver) { if (topRO) topRO.disconnect(); topRO = new ResizeObserver(set); topRO.observe(top); }
+    var bot = document.querySelector('.foot, .nav');
+    var set = function () { var st = document.documentElement.style; st.setProperty('--topH', (top.offsetHeight + 20) + 'px'); if (bot) st.setProperty('--botH', (bot.offsetHeight + 36) + 'px'); };
+    set(); if (window.ResizeObserver) { if (topRO) topRO.disconnect(); topRO = new ResizeObserver(set); topRO.observe(top); if (bot) topRO.observe(bot); }
   }
   /* ------------------------------------------------------------ main render and boot */
   function render() {

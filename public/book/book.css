@@ -278,3 +278,11 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 /* the page tools bar sits fixed just above the Back / Next bar */
 .ds .tools { position: fixed; inset-block-end: calc(max(8px, env(safe-area-inset-bottom)) + 72px); inset-inline: 0; margin-inline: auto; inline-size: min(1156px, calc(100vw - 24px)); z-index: 34; }
 .ds { padding-block-end: 170px; }
+/* one bottom bar on the Design step: Back, the page tools, Mark done, Next */
+.ds .nav .tools { position: static; inset: auto; inline-size: auto; margin: 0; flex: 1 1 0; min-inline-size: 0; padding: 0; background: none; box-shadow: none; z-index: auto; -webkit-backdrop-filter: none; backdrop-filter: none; }
+.ds .nav .tools .bt { min-block-size: 44px; }
+.ds .nav { gap: 10px; }
+.wz, .ds { padding-block-end: calc(var(--botH, 90px) + 14px); }
+@media (max-width: 760px) { .ds .nav { flex-wrap: wrap; } .ds .nav .tools { order: -1; flex: 1 1 100%; } .ds .nav .bt:not(.tools .bt):last-child { margin-inline-start: 0; } .ds .nav > .bt:nth-of-type(1) { margin-inline-end: auto; } }
+.ds .nav .tools > .hint { display: none; }
+@media (max-width: 760px) { .ds .nav { gap: 8px; } .ds .nav > .bt { flex: 1 1 0; min-inline-size: 0; padding-inline: 8px; margin: 0; } }
