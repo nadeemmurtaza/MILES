@@ -433,12 +433,14 @@
 
   /* ------------------------------------------------------------ design screen */
   function goto(s) { S.si = clamp(s, 0, B.spreadCount(S.doc) - 1); var sp = B.spreadPages(S.doc, S.si); S.ap = sp.r != null ? sp.r : sp.l; if (S.compact && sp.l != null && sp.r != null) S.ap = sp.l; S.sel = null; S.crop = null; render(); }
+  /* phones show one page, except while the spread has a photo across both pages: then both pages show together */
+  function one() { if (!S.compact) return false; var sp = B.spreadPages(S.doc, S.si); return !(sp.l != null && sp.r != null && (S.doc.spans[S.si] || []).length); }
   function shift(sp) { return sp.l == null ? -25 : (sp.r == null ? 25 : 0); }
   function turn(dir) {
     if (S.turning) return;
-    if (S.compact) { var np = clamp(S.ap + dir, 0, S.doc.pages.length - 1); if (np === S.ap) return; S.ap = np; S.si = B.spreadOf(S.doc, np); S.sel = null; render(); return; }
+    if (S.compact) { var cs = B.spreadPages(S.doc, S.si), np = clamp(one() ? S.ap + dir : (dir > 0 ? cs.r + 1 : cs.l - 1), 0, S.doc.pages.length - 1); if (np === S.ap || (!one() && (np === cs.l || np === cs.r))) return; S.ap = np; S.si = B.spreadOf(S.doc, np); S.sel = null; S.crop = null; render(); return; }
     var ns = S.si + dir; if (ns < 0 || ns >= B.spreadCount(S.doc)) return;
-    var bk = document.querySelector('.bk'); if (!bk || reduce()) { goto(ns); return; }
+    var bk = document.querySelector('.bk'); if (!bk || reduce() || S.compact) { goto(ns); return; }
     S.turning = true; S.sel = null; S.editing = null; S.crop = null;
     var cur = B.spreadPages(S.doc, S.si), nxt = B.spreadPages(S.doc, ns), inner = bk.querySelector('.bk-in');
     var side = function (i) { return i == null ? h('div', { class: 'bpg blank' }) : pageEl(i, false); };
@@ -470,20 +472,20 @@
     var el = h('div', { class: 'spanl' }); list.forEach(function (it) { el.appendChild(itemEl(it, 'span', true)); }); return el;
   }
   function screenDesign() {
-    var d = S.doc, tot = B.spreadCount(d), sp = B.spreadPages(d, S.si), done = d.pages.filter(function (p) { return p.done; }).length;
-    var heading = S.compact ? B.pageLabel(d, S.ap) : (S.si === 0 ? 'The cover' : (S.si === tot - 1 ? 'The back cover' : 'Pages ' + sp.l + ' and ' + sp.r));
-    var bk = h('div', { class: 'bk' + (S.draw.on ? ' draw-on' : '') + (S.compact ? ' single' : '') + (S.si === 0 ? ' closed r' : (S.si === tot - 1 ? ' closed l' : '')), style: { '--ratio': d.ratio } },
-      h('div', { class: 'bk-in', style: S.compact ? null : { transform: 'translateX(' + shift(sp) + '%)' } },
-        S.compact ? h('div', { class: 'side one' }, pageEl(S.ap, true))
+    var d = S.doc, tot = B.spreadCount(d), sp = B.spreadPages(d, S.si), o1 = one(), done = d.pages.filter(function (p) { return p.done; }).length;
+    var heading = o1 ? B.pageLabel(d, S.ap) : (S.si === 0 ? 'The cover' : (S.si === tot - 1 ? 'The back cover' : 'Pages ' + sp.l + ' and ' + sp.r));
+    var bk = h('div', { class: 'bk' + (S.draw.on ? ' draw-on' : '') + (o1 ? ' single' : '') + (S.si === 0 ? ' closed r' : (S.si === tot - 1 ? ' closed l' : '')), style: { '--ratio': d.ratio } },
+      h('div', { class: 'bk-in', style: o1 ? null : { transform: 'translateX(' + shift(sp) + '%)' } },
+        o1 ? h('div', { class: 'side one' }, pageEl(S.ap, true))
           : [h('div', { class: 'side l' + (sp.l == null ? ' none' : '') }, sp.l != null ? pageEl(sp.l, true, true) : null), h('div', { class: 'side r' + (sp.r == null ? ' none' : '') }, sp.r != null ? pageEl(sp.r, true, true) : null), spanLayer(sp), h('div', { class: 'spine', 'aria-hidden': 'true' })]));
     wire(bk);
-    var pgOnScreen = S.compact ? [S.ap] : [sp.l, sp.r].filter(function (x) { return x != null; });
+    var pgOnScreen = o1 ? [S.ap] : [sp.l, sp.r].filter(function (x) { return x != null; });
     var allDone = pgOnScreen.every(function (i) { return d.pages[i].done; });
-    var nextLabel = S.si >= tot - 1 && !S.compact ? null : (S.compact ? 'Next page' : 'Next pages');
+    var nextLabel = S.si >= tot - 1 && !o1 ? null : (o1 ? 'Next page' : 'Next pages');
     return h('div', { class: 'app' }, topbar(false), banner(),
       h('main', { class: 'ds', id: 'main' },
-        h('div', { class: 'dh' }, h('div', null, h('h1', null, heading), h('p', { class: 'ed-muted' }, S.compact ? 'Page ' + (S.ap + 1) + ' of ' + d.pages.length : 'Spread ' + (S.si + 1) + ' of ' + tot)), h('div', { class: 'pr' }, h('span', null, done + ' of ' + d.pages.length + ' pages done'), h('div', { class: 'pgbar', role: 'progressbar', 'aria-label': 'Pages done', 'aria-valuemin': '0', 'aria-valuemax': String(d.pages.length), 'aria-valuenow': String(done) }, h('i', { style: { inlineSize: Math.round(done / d.pages.length * 100) + '%' } })))),
-        h('div', { class: 'stage' }, h('button', { type: 'button', class: 'turn prev', 'aria-label': S.compact ? 'Previous page' : 'Turn back', onclick: function () { turn(-1); }, disabled: S.compact ? S.ap === 0 : S.si === 0 }, ic('back', 26)), bk, h('button', { type: 'button', class: 'turn next', 'aria-label': S.compact ? 'Next page' : 'Turn the page', onclick: function () { turn(1); }, disabled: S.compact ? S.ap >= d.pages.length - 1 : S.si >= tot - 1 }, ic('next', 26))),
+        h('div', { class: 'dh' }, h('div', null, h('h1', null, heading), h('p', { class: 'ed-muted' }, o1 ? 'Page ' + (S.ap + 1) + ' of ' + d.pages.length : 'Spread ' + (S.si + 1) + ' of ' + tot)), h('div', { class: 'pr' }, h('span', null, done + ' of ' + d.pages.length + ' pages done'), h('div', { class: 'pgbar', role: 'progressbar', 'aria-label': 'Pages done', 'aria-valuemin': '0', 'aria-valuemax': String(d.pages.length), 'aria-valuenow': String(done) }, h('i', { style: { inlineSize: Math.round(done / d.pages.length * 100) + '%' } })))),
+        h('div', { class: 'stage' }, h('button', { type: 'button', class: 'turn prev', 'aria-label': o1 ? 'Previous page' : 'Turn back', onclick: function () { turn(-1); }, disabled: o1 ? S.ap === 0 : S.si === 0 }, ic('back', 26)), bk, h('button', { type: 'button', class: 'turn next', 'aria-label': o1 ? 'Next page' : 'Turn the page', onclick: function () { turn(1); }, disabled: o1 ? S.ap >= d.pages.length - 1 : S.si >= tot - 1 }, ic('next', 26))),
         toolbar(),
         h('div', { class: 'nav' }, btn(allDone ? 'Done' : 'Mark done', function () { pgOnScreen.forEach(function (i) { d.pages[i].done = !allDone; }); persist(); render(); }, { icon: 'check', pressed: allDone, cls: allDone ? 'on' : '' }), nextLabel ? btn(nextLabel, function () { pgOnScreen.forEach(function (i) { d.pages[i].done = true; }); persist(false); turn(1); }, { cls: 'pri', icon: 'next', title: 'Mark done and turn to the next pages' }) : null)));
   }
@@ -491,7 +493,7 @@
   /* contextual toolbar */
   /* which of the two pages the tools below act on (a photo across both pages covers the page, so tapping it would not say) */
   function pageSwitch() {
-    var sp = B.spreadPages(S.doc, S.si); if (S.compact || sp.l == null || sp.r == null) return null;
+    var sp = B.spreadPages(S.doc, S.si); if (one() || sp.l == null || sp.r == null) return null;
     return h('div', { class: 'pgsw', role: 'group', 'aria-label': 'Page to work on' }, [[sp.l, 'Left page'], [sp.r, 'Right page']].map(function (x) { return h('button', { type: 'button', class: 'bt' + (S.ap === x[0] ? ' on' : ''), 'aria-pressed': String(S.ap === x[0]), onclick: function () { S.ap = x[0]; S.sel = null; render(); } }, h('span', null, x[1])); }));
   }
   function toolbar() {
@@ -503,7 +505,7 @@
       t.appendChild(btn('Colour & layout', function () { openFlow(S.ap); }, { icon: 'palette' }));
       t.appendChild(btn('Add photo', function () { pickOne(function (id) { addItem({ t: 'img', x: 20, y: 20, w: 50, h: 45, gid: id, fit: 'cover', r: 0, shape: 'rect', frame: 'none', zoom: 1, fx: 50, fy: 50 }); }); }, { icon: 'photo' }));
       t.appendChild(btn('Draw', function () { S.draw.on = true; S.sel = null; S.editing = null; render(); }, { icon: 'pencil' }));
-      if (S.compact && (d.spans[S.si] || []).length) t.appendChild(btn('Spread photo', function () { S.sel = d.spans[S.si][0].id; render(); }, { icon: 'photo' }));
+      if (one() && (d.spans[S.si] || []).length) t.appendChild(btn('Spread photo', function () { S.sel = d.spans[S.si][0].id; render(); }, { icon: 'photo' }));
       t.appendChild(btn('Shape text', function () { var p = d.pages[S.ap]; addItem({ t: 'text', x: 25, y: 30, w: 50, h: 40, text: 'Your words', size: 5, align: 'center', font: 'Fraunces', weight: 500, color: B.ink('#e0a030'), r: 0, shape: 'circle', fill: '#e0a030', line: 0 }, false); openShape(); }, { icon: 'shape' }));
       t.appendChild(btn('Add text', function () { var p = d.pages[S.ap]; addItem({ t: 'text', x: 15, y: 40, w: 70, h: 0, text: 'Type here', size: 5, align: 'center', font: 'Fraunces', weight: 400, color: B.ink(p.bg), r: 0 }, true); }, { icon: 'text' }));
       if (!sw1) t.appendChild(h('span', { class: 'hint' }, 'Tap a photo or text to move, resize or turn it. ' + B.pageLabel(d, S.ap) + ' is selected.'));
