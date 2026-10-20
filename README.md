@@ -176,3 +176,5 @@ The phone tab bar is private. It only appears on the signed-in customer's own pa
 On desktop the same rule applies: the icon rail, page list and editor-page strip exist only on private pages. Signed out (`miles.auth` = `out`), any private page, and the customer editor/gallery, sends you to the sign-in page. The rail has a Gallery icon like the phone bar.
 
 Private bar contents: tabs are Account, Orders (order history), Books, Gallery and Profile. "More" holds Settings, phone and WhatsApp, addresses, language and currency, notification choices, order history, receipts, invoices, balance, tracking, messages, privacy and sign out. New pages: `GL143-OrderHistory` and `GL144-Receipts` (built by `scripts/build-library-pages.mjs`).
+
+Storefront header on phones and small tablets (below 980px): logo, the "Start a book" button and the menu button. Language, dark mode and the cart (with its count) sit in a row at the top of the open menu (`public/shop-nav.js`). Desktop keeps everything in the bar.

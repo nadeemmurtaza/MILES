@@ -1,62 +1,46 @@
-/* Miles Retold · storefront bottom tab bar (phones and small tablets).
-   Same bar, sheet and look as the account pages (css/account-nav.css); only the links differ. */
+/* Miles Retold · storefront header on phones and small tablets (below 980px).
+   The bar keeps what matters: logo, the "Start a book" button and the menu button.
+   Language, dark mode and the cart move into the open menu. (No bottom bar on the storefront: see account-nav.js.) */
 (function () {
   'use strict';
-  /* The storefront has no bottom bar any more: Home, Books, Cart and Track order live in the header menu.
-     The bottom bar is private (account pages, signed in only), see account-nav.js. */
-  return;
-  var m = location.pathname.match(/\/(GL?)(\d+)-[^\/]*\.dc\.html$/);
-  if (!m) return;
-  var ed = m[1], cur = +m[2], dark = ed === 'G';
-  var FILE = { 1: 'Home', 2: 'Books', 3: 'Builder', 4: 'Cart', 5: 'Checkout', 6: 'Confirmed', 8: 'SignIn', 9: 'Account', 15: 'Story', 16: 'Lookbook', 17: 'Help', 18: 'Gifts', 19: 'Project195', 140: 'SiteMap' };
-  var href = function (n) { return ed + n + '-' + FILE[n] + '.dc.html'; };
+  var css = '@layer g{@media (max-width:980px){' +
+    '.nv2 .nva>.nst{display:inline-flex!important;align-items:center;justify-content:center;min-height:44px;padding:0 16px;font-size:14px;white-space:nowrap}' +
+    '.nv2 .nva>.thm,.nv2 .nva>.cart{display:none!important}' +
+    '.nv2 .nva{gap:8px}' +
+    '.mqk{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0 6px}' +
+    '.mqk a,.mqk button{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;min-height:72px;padding:10px 6px;border:0;border-radius:16px;background:rgb(from currentColor r g b / .07);box-shadow:inset 0 0 0 1px rgb(from currentColor r g b / .14);color:inherit;font:600 13px/1.2 inherit;text-decoration:none;cursor:pointer}' +
+    '.mqk svg{width:22px;height:22px}.mqk b{position:absolute;inset-block-start:8px;inset-inline-end:calc(50% - 22px);min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:var(--rust,#b5541f);color:#fff;font-size:11px;display:grid;place-items:center}' +
+    '}@media (min-width:981px){.mqk{display:none}}}';
+  var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+
   var I = {
-    home: '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>',
-    book: '<path d="M4 5.5c3-1.4 5.7-1.2 8 .8v12.7c-2.3-2-5-2.2-8-.8z"/><path d="M20 5.5c-3-1.4-5.7-1.2-8 .8v12.7c2.3-2 5-2.2 8-.8z"/>',
-    bag: '<path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>',
-    user: '<circle cx="12" cy="8" r="3.6"/><path d="M5 20c1-3.6 3.8-5.4 7-5.4s6 1.8 7 5.4"/>',
-    dots: '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>',
-    close: '<path d="M6 6l12 12M18 6L6 18"/>'
+    globe: '<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/>',
+    moon: '<path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/>',
+    bag: '<path d="M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/>'
   };
-  var svg = function (k, s) { return '<svg width="' + (s || 22) + '" height="' + (s || 22) + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[k] + '</svg>'; };
-  var TABS = [['home', 'Home', 1, [1]], ['book', 'Books', 2, [2, 3]], ['bag', 'Cart', 4, [4, 5, 6]], ['user', 'Account', 9, [8, 9]]];
-  var MORE = [16, 15, 18, 17, 19], LABEL = { 16: 'Lookbook', 15: 'Our story', 18: 'Gifts', 17: 'Help', 19: 'Project 195', 3: 'Start a book', 8: 'Sign in', 140: 'All pages' };
-  var inMore = MORE.indexOf(cur) > -1;
-  var twin = (dark ? 'GL' : 'G') + cur + '-' + FILE[cur] + '.dc.html';
-  var link = function (n, on) { return '<a href="' + href(n) + '"' + (on ? ' class="on" aria-current="page"' : '') + '>' + LABEL[n] + '</a>'; };
-  var moreHtml = '<div class="an-sg">Explore</div>' + MORE.map(function (n) { return link(n, n === cur); }).join('') +
-    '<div class="an-sg">Your book</div>' + link(3, false) + link(8, false) +
-    '<div class="an-sg">Elsewhere</div>' + link(140, false) + '<a href="' + twin + '">' + (dark ? 'Light theme' : 'Dark theme') + '</a>';
-  var root = document.createElement('div');
-  root.className = 'an-m';
-  root.innerHTML =
-    '<nav class="an-tabs" aria-label="Shop sections">' +
-    TABS.map(function (t) { var on = t[3].indexOf(cur) > -1; return '<a href="' + href(t[2]) + '"' + (on ? ' class="on" aria-current="page"' : '') + '>' + svg(t[0]) + (t[1] === 'Cart' ? '<i class="an-badge" hidden aria-hidden="true"></i>' : '') + '<span>' + t[1] + '</span></a>'; }).join('') +
-    '<button type="button" class="an-more' + (inMore ? ' on' : '') + '" aria-haspopup="dialog">' + svg('dots') + '<span>More</span></button></nav>' +
-    '<div class="an-scrim" hidden></div><div class="an-sheet" role="dialog" aria-modal="true" aria-label="More" hidden><div class="an-sh"><b>More</b><button type="button" class="an-x" aria-label="Close">' + svg('close', 18) + '</button></div><div class="an-sl">' + moreHtml + '</div></div>';
-  var sheet, scrim, last;
-  var open = function () { last = document.activeElement; sheet.hidden = scrim.hidden = false; requestAnimationFrame(function () { document.body.classList.add('an-sheet-on'); }); sheet.querySelector('.an-x').focus(); };
-  var close = function () { document.body.classList.remove('an-sheet-on'); setTimeout(function () { sheet.hidden = scrim.hidden = true; }, 260); if (last && last.focus) last.focus(); };
+  var svg = function (k) { return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + I[k] + '</svg>'; };
+
+  function fill() {
+    var mnu = document.querySelector('.nv2 .mnu');
+    if (!mnu || mnu.querySelector('.mqk')) return;
+    var nav = mnu.querySelector('nav'), thm = document.querySelector('.nv2 .nva a.thm'), cart = document.querySelector('.nv2 .nva a.cart'), lang = document.querySelector('.nv2 .nva [data-lang-toggle]');
+    if (!nav) return;
+    var row = document.createElement('div'); row.className = 'mqk'; row.setAttribute('role', 'group'); row.setAttribute('aria-label', 'Language, theme and cart');
+    var count = cart && cart.querySelector('b') ? cart.querySelector('b').textContent.trim() : '';
+    var dark = thm && /dark/i.test(thm.getAttribute('aria-label') || '');
+    var ar = lang && /EN/.test(lang.textContent);
+    row.innerHTML =
+      '<button type="button" data-no-i18n data-mq="lang">' + svg('globe') + '<span>' + (ar ? 'English' : 'العربية') + '</span></button>' +
+      (thm ? '<a href="' + thm.getAttribute('href') + '">' + svg(dark ? 'moon' : 'sun') + '<span>' + (dark ? 'Dark mode' : 'Light mode') + '</span></a>' : '') +
+      (cart ? '<a href="' + cart.getAttribute('href') + '" aria-label="Cart, ' + (count || 0) + ' items">' + svg('bag') + (count && count !== '0' ? '<b aria-hidden="true">' + count + '</b>' : '') + '<span>Cart</span></a>' : '');
+    nav.parentNode.insertBefore(row, nav.nextSibling);
+    var lb = row.querySelector('[data-mq="lang"]');
+    if (lb) lb.addEventListener('click', function () { var real = document.querySelector('.nv2 .nva [data-lang-toggle]'); if (real) real.click(); });
+  }
   var go = function () {
-    document.body.appendChild(root);
-    sheet = root.querySelector('.an-sheet'); scrim = root.querySelector('.an-scrim');
-    document.body.classList.add('an-m-on', 'an-tabs-on', 'an-shop');
-    if (ed === 'GL') document.body.classList.add('an-light');
-    root.addEventListener('click', function (e) {
-      if (e.target.closest('.an-more')) open();
-      else if (e.target.closest('.an-x') || e.target === scrim) close();
-    });
-    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !sheet.hidden) close(); });
-    /* mirror the cart count the page header shows */
-    var badge = root.querySelector('.an-badge'), tries = 0, watching = false;
-    var sync = function () {
-      var b = document.querySelector('.nav .cart b'), n = b ? b.textContent.trim() : '';
-      if (/^\d+$/.test(n) && n !== '0') { badge.textContent = n; badge.hidden = false; } else { n = '0'; badge.hidden = true; }
-      var cart = badge.parentNode; cart.setAttribute('aria-label', 'Cart, ' + n + (n === '1' ? ' item' : ' items'));   /* one clear name instead of a bare number */
-      if (b && !watching) { watching = true; new MutationObserver(sync).observe(b, { childList: true, characterData: true, subtree: true }); }
-      if (!/^\d+$/.test(n) && ++tries < 40) setTimeout(sync, 250);
-    };
-    sync();
+    fill();
+    if (window.MutationObserver) new MutationObserver(function () { fill(); }).observe(document.body, { childList: true, subtree: true });
   };
   if (document.body) go(); else document.addEventListener('DOMContentLoaded', go);
 })();
