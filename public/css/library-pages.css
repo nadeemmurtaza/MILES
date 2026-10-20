@@ -56,3 +56,12 @@
   .sm { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 2px; } .sm li[hidden], .sm-g[hidden] { display: none; }
   .sm a { display: flex; align-items: center; min-block-size: 44px; padding: 6px 10px; border-radius: 10px; color: inherit; text-decoration: none; font-weight: 600; font-size: 15px; overflow-wrap: anywhere; } .sm a:hover { background: var(--e-glass-2, var(--e-glass)); } .sm a:focus-visible { outline: 3px solid var(--e-acc); outline-offset: -2px; }
 }
+
+@layer g {
+  .oh-list { list-style: none; margin: 14px 0 0; padding: 0; display: grid; gap: 10px; }
+  .oh-i { display: grid; grid-template-columns: minmax(0, 1fr) auto auto; gap: 8px 16px; align-items: center; padding: 14px 16px; border-radius: 16px; background: var(--e-glass); box-shadow: inset 0 0 0 1px var(--e-line); }
+  .oh-m b { display: block; font-size: 16px; } .oh-m p { margin: 2px 0 0; font-size: 14px; opacity: .75; } .oh-m small { opacity: .65; font-size: 13px; }
+  .oh-st { padding: 4px 12px; border-radius: 999px; font: 700 12px/1.4 inherit; background: rgb(from currentColor r g b / .1); } .oh-st.now { background: rgb(from var(--gold, #e0a030) r g b / .22); } .oh-st.ok { background: rgb(from #3a9a6a r g b / .18); }
+  .oh-amt { font-variant-numeric: tabular-nums; } .oh-act { grid-column: 1 / -1; display: flex; flex-wrap: wrap; gap: 8px; }
+  @media (min-width: 760px) { .oh-i:has(.oh-st) { grid-template-columns: minmax(0, 1fr) auto auto auto; } .oh-i:has(.oh-st) .oh-act { grid-column: auto; } .oh-i:not(:has(.oh-st)) { grid-template-columns: minmax(0, 1fr) auto auto; } .oh-i:not(:has(.oh-st)) .oh-act { grid-column: auto; } }
+}

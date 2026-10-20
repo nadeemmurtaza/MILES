@@ -132,7 +132,7 @@ const titleOf = (n) => { const f = readdirSync(PUB).find((x) => new RegExp(`^G${
 const fileOf = (ed, n) => { const f = readdirSync(PUB).find((x) => new RegExp(`^G${n}-.*\\.dc\\.html$`).test(x)); return f ? ed + f.slice(1) : null; };
 const MAP = [
   ['Shop', 'The storefront: what a visitor sees before and while ordering.', [1, 2, 3, 4, 5, 6, 8, 15, 16, 17, 18, 19]],
-  ['My account', 'What a customer sees once they have an order.', [9, 10, 7, 11, 12, 13, 22, 24, 77, 14]],
+  ['My account', 'What a customer sees once they have an order.', [9, 10, 143, 7, 11, 12, 13, 22, 24, 144, 77, 14]],
   ['Live editor and photos', 'One editor and one photo gallery for the customer and the studio.', [['/book/editor.html?as=customer', 'Live editor (customer)'], ['/book/editor.html?as=customer&view=gallery', 'Photo gallery: what we hold, what was deleted, delete photos'], ['/book/editor.html?as=studio', 'Live editor (studio view)'], ['/book/editor.html?as=studio&view=gallery', 'Customer photo gallery (studio view, read-only)']]],
   ['Messages and settings', 'Updates, emails and the shared interface pieces.', [137, 138, 139]],
   ['Privacy and extras', 'Privacy, security and the editor extras (design previews).', [120, 121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131]],
@@ -160,9 +160,34 @@ const sitemap = (E) => {
   if (rest.length) groups.push(`<section class="ed-panel sm-g"><h2 class="dp-h2">More</h2><p class="ed-muted">Pages added since this list was written.</p><ul class="sm">${rest.map((n) => `<li><a href="${fileOf(E, n)}">${titleOf(n)}</a></li>`).join('')}</ul></section>`);
   return `<label class="fld sm-f"><span>Find a page</span><input id="sm-q" type="search" placeholder="Type to filter, for example proof, gallery or invoices" autocomplete="off"></label><p class="ed-muted" id="sm-n" aria-live="polite">${count} pages</p><div class="sm-grid">${groups.join('')}</div>`;
 };
+
+const ORDERS = [
+  { no: 'MR-1042', t: 'Honeymoon · Maldives', s: 'Portrait 8 × 10 · 40 pages', d: 'Ordered 14 Sep 2026', st: 'Proof ready', cls: 'now', amt: 'SAR 380', cur: true },
+  { no: 'MR-0877', t: 'London · April 2024', s: 'Landscape 10 × 8 · 32 pages', d: 'Delivered 2 May 2024', st: 'Delivered', cls: 'ok', amt: 'SAR 340' },
+  { no: 'MR-0731', t: 'Paris · July 2023', s: 'Portrait 8 × 10 · 28 pages', d: 'Delivered 14 Aug 2023', st: 'Delivered', cls: 'ok', amt: 'SAR 310' },
+  { no: 'MR-0512', t: 'Our wedding', s: 'Square 10 × 10 · 48 pages', d: 'Delivered 20 Jan 2023', st: 'Delivered', cls: 'ok', amt: 'SAR 420' }
+];
+const orderHistory = (E) => `<section class="ed-panel oh"><div class="dp-top"><div><h2 class="dp-h2">Your orders</h2><p class="ed-muted">${ORDERS.length} orders. The newest is first.</p></div><a class="ed-btn pri" href="${E}3-Builder.dc.html">Start a new book</a></div>
+<ul class="oh-list">${ORDERS.map((o) => `<li class="oh-i"><div class="oh-m"><b>${o.t}</b><p>${o.no} · ${o.s}</p><small>${o.d}</small></div><span class="oh-st ${o.cls}">${o.st}</span><b class="oh-amt">${o.amt}</b>
+<div class="oh-act">${o.cur ? `<a class="ed-btn sm" href="${E}10-Order.dc.html">Order details</a><a class="ed-btn sm" href="${E}13-Tracking.dc.html">Track</a>` : `<a class="ed-btn sm" href="${E}144-Receipts.dc.html">Receipt</a><a class="ed-btn sm" href="${E}24-Invoices.dc.html">Invoice</a><a class="ed-btn sm" href="${E}3-Builder.dc.html">Order again</a>`}</div></li>`).join('')}</ul></section>`;
+
+const RECEIPTS = [
+  ['R-2231', '14 Sep 2026', 'Deposit · Honeymoon · Maldives', 'MR-1042', 'Visa ending 4242', 'SAR 228'],
+  ['R-1904', '2 Apr 2024', 'Balance · London · April 2024', 'MR-0877', 'Apple Pay', 'SAR 170'],
+  ['R-1887', '18 Mar 2024', 'Deposit · London · April 2024', 'MR-0877', 'Apple Pay', 'SAR 170'],
+  ['R-1402', '30 Jul 2023', 'Balance · Paris · July 2023', 'MR-0731', 'Visa ending 4242', 'SAR 155'],
+  ['R-1388', '12 Jul 2023', 'Deposit · Paris · July 2023', 'MR-0731', 'Visa ending 4242', 'SAR 155'],
+  ['R-0930', '2 Jan 2023', 'Paid in full · Our wedding', 'MR-0512', 'Bank transfer', 'SAR 420']
+];
+const receipts = (E) => `<section class="ed-panel oh"><div class="dp-top"><div><h2 class="dp-h2">Receipts</h2><p class="ed-muted">A receipt for every payment you have made. Invoices with VAT details are on the <a href="${E}24-Invoices.dc.html">invoices page</a>.</p></div></div>
+<ul class="oh-list">${RECEIPTS.map((r) => `<li class="oh-i"><div class="oh-m"><b>${r[2]}</b><p>${r[0]} · ${r[3]} · ${r[4]}</p><small>${r[1]}</small></div><b class="oh-amt">${r[5]}</b>
+<div class="oh-act"><button type="button" class="ed-btn sm" data-toast="Receipt ${r[0]} would download as a PDF (design preview)">Download</button></div></li>`).join('')}</ul></section>`;
+
 const PAGES = [
   { n: 137, file: 'Notifications', title: 'Notifications', kicker: 'Messages', lead: 'Everything we tell you about your book in one place, and how you want to hear it.', body: notifications },
   { n: 138, file: 'EmailPreviews', title: 'Emails we send you', kicker: 'Messages', lead: 'What lands in your inbox at each step, in plain words. Each one is a real template the studio can send.', body: emails },
+  { n: 143, file: 'OrderHistory', title: 'Order history', kicker: 'Orders', lead: 'Every book you have ordered, with its receipt, invoice and a way to order it again.', body: orderHistory },
+  { n: 144, file: 'Receipts', title: 'Receipts', kicker: 'Billing', lead: 'Download a receipt for any payment.', body: receipts },
   { n: 140, file: 'SiteMap', title: 'All pages', kicker: 'Settings', lead: 'Every page in one place, grouped by who uses it. Light and dark follow the theme you chose.', body: sitemap },
   { n: 139, file: 'UiKit', title: 'Interface kit', kicker: 'Settings', lead: 'The small pieces every page shares: tooltips, loading placeholders, progress, confirmations and messages. Try each one.', body: kit }
 ];

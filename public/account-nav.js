@@ -12,8 +12,8 @@
   };
   var FILE = { 9: 'Account', 10: 'Order', 13: 'Tracking', 11: 'Proof', 7: 'Upload', 23: 'Editor', 22: 'Messages', 17: 'Help', 12: 'Balance', 24: 'Invoices', 77: 'Invoice', 14: 'Settings',
     101: 'EasyPhotos', 102: 'EasyPage', 103: 'EasyCover', 104: 'EasySend', 80: 'EdStoryboard', 81: 'EdPhotos', 82: 'EdLayouts', 83: 'EdText', 84: 'EdCover', 85: 'EdStyle', 86: 'EdFlipbook', 87: 'EdPrintCheck', 88: 'EdHistory', 89: 'EdSend', 100: 'EasyHome',
-    137: 'Notifications', 138: 'EmailPreviews', 139: 'UiKit', 140: 'SiteMap', 120: 'Privacy', 121: 'PrivateUpload', 122: 'ShareLinks', 123: 'Consent', 124: 'DeleteData', 125: 'AccessLog', 126: 'Security', 127: 'SmartAssist', 128: 'Approvals', 129: 'ArabicText', 130: 'TripMap', 131: 'Shortcuts', 8: 'SignIn', 1: 'Home' };
-  var href = function (n) { return n === 141 ? '/book/editor.html?as=customer&view=photos' : n === 142 ? '/book/editor.html?as=customer&view=gallery' : ed + n + '-' + FILE[n] + '.dc.html'; };   /* 141 and 142: the photo gallery in the live editor */
+    137: 'Notifications', 138: 'EmailPreviews', 139: 'UiKit', 140: 'SiteMap', 143: 'OrderHistory', 144: 'Receipts', 120: 'Privacy', 121: 'PrivateUpload', 122: 'ShareLinks', 123: 'Consent', 124: 'DeleteData', 125: 'AccessLog', 126: 'Security', 127: 'SmartAssist', 128: 'Approvals', 129: 'ArabicText', 130: 'TripMap', 131: 'Shortcuts', 8: 'SignIn', 1: 'Home' };
+  var href = function (n) { return n > 1400 ? ed + '14-Settings.dc.html#s' + (n - 1400) : n === 141 ? '/book/editor.html?as=customer&view=photos' : n === 142 ? '/book/editor.html?as=customer&view=gallery' : ed + n + '-' + FILE[n] + '.dc.html'; };   /* 141 and 142: the photo gallery in the live editor */
   var I = {
     home: '<path d="M4 11l8-7 8 7v9H4z"/><path d="M10 20v-6h4v6"/>',
     box: '<path d="M4 8l8-4 8 4v8l-8 4-8-4z"/><path d="M4 8l8 4 8-4M12 12v8"/>',
@@ -23,6 +23,7 @@
     gear: '<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1c.6.5 1.3.9 2 1.2L10 21h4l.5-2.6c.7-.3 1.4-.7 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"/>',
     sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/>',
     moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>', out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/>', site: '<path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/><circle cx="12" cy="12" r="9"/>',
+    user: '<circle cx="12" cy="8" r="3.6"/><path d="M5 20c1-3.6 3.8-5.4 7-5.4s6 1.8 7 5.4"/>',
     photo: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M3 17l5-4 4 3 3-2 6 4"/>',
     dots: '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>', up: '<path d="M6 15l6-6 6 6"/>', close: '<path d="M6 6l12 12M18 6L6 18"/>',
     next: '<path d="M9 6l6 6-6 6"/>', back: '<path d="M15 6l-6 6 6 6"/>'
@@ -31,18 +32,19 @@
   var L = function (list) { return list.map(function (n) { return [n, (N[n] || EXTRA[n])[1]]; }); };
   var EXTRA = {
     80: ['', 'Storyboard'], 81: ['', 'Photos'], 82: ['', 'Layouts'], 83: ['', 'Text'], 84: ['', 'Cover'], 85: ['', 'Style'], 86: ['', 'Flipbook'], 87: ['', 'Print check'], 88: ['', 'History'], 89: ['', 'Send'], 100: ['', 'Step by step'],
+    143: ['', 'Order history'], 144: ['', 'Receipts'], 1401: ['', 'Phone and WhatsApp'], 1402: ['', 'Addresses'], 1403: ['', 'Language and currency'], 1404: ['', 'Notification choices'],
     140: ['', 'All pages'], 141: ['', 'Photo gallery'], 142: ['', 'My photos and deletions'], 137: ['', 'Notifications'], 138: ['', 'Email previews'], 139: ['', 'Interface kit'],
     120: ['', 'Overview'], 121: ['', 'Protected upload'], 122: ['', 'Sharing'], 123: ['', 'Your choices'], 124: ['', 'Delete data'], 125: ['', 'Who has looked'], 126: ['', 'Sign-in & devices'],
     127: ['', 'Smart help'], 128: ['', 'Approvals'], 129: ['', 'Arabic captions'], 130: ['', 'Trip map'], 131: ['', 'Shortcuts & access']
   };
   /* rail: key, label, icon, first page, sub-menu title, groups of [page, label] */
   var S = [
-    ['order', 'Order', 'box', 9, 'My order', [['Overview', L([9, 10, 13, 11])]]],
+    ['order', 'Orders', 'box', 9, 'Orders', [['Your orders', L([9, 143, 10, 13, 11])]]],
     ['book', 'My book', 'book', 7, 'My book', [['Make the book', [[7, 'Photos'], [141, 'Photo gallery'], [23, 'Live editor'], [80, 'Classic editor'], [127, 'Editor extras']]]]],
     ['msg', 'Messages', 'chat', 22, 'Messages', [['Talk to us', L([22, 137, 138, 17])]]],
-    ['bill', 'Billing', 'card', 12, 'Billing', [['Payments', L([12, 24, 77])]]],
+    ['bill', 'Billing', 'card', 12, 'Billing', [['Payments', L([12, 144, 24, 77])]]],
     ['priv', 'Privacy', 'lock', 120, 'Privacy & security', [['Your photos', L([120, 142, 121, 122, 123, 124, 125, 126])]]],
-    ['set', 'Settings', 'gear', 14, 'Settings', [['Account', L([14, 139, 140])]]]
+    ['set', 'Profile', 'user', 14, 'Profile and settings', [['About you', L([14, 1401, 1402, 1403, 1404])], ['App', L([139, 140])]]]
   ];
   /* third level: pages that belong together under one entry of the second bar are shown as a horizontal bar under the header */
   var H3 = [
@@ -107,13 +109,14 @@
   /* the lower bar is private: only what belongs to the signed-in customer (account, orders, books, gallery, settings) */
   var signedOut = false; try { signedOut = localStorage.getItem('miles.auth') === 'out'; } catch (e) {}
   var byKey = {}; S.forEach(function (s) { byKey[s[0]] = s; });
-  var TABS = [['Account', 'home', 9, function () { return cur === 9; }], ['Orders', 'box', 10, function () { return cs === byKey.order && cur !== 9; }], ['Books', 'book', 7, function () { return cs === byKey.book; }], ['Gallery', 'photo', 141, function () { return false; }], ['Settings', 'gear', 14, function () { return cs === byKey.set; }]];
-  var MORE = [byKey.msg, byKey.bill, byKey.priv], inMore = MORE.indexOf(cs) > -1;
+  var TABS = [['Account', 'home', 9, function () { return cur === 9; }], ['Orders', 'box', 143, function () { return cs === byKey.order && cur !== 9; }], ['Books', 'book', 7, function () { return cs === byKey.book; }], ['Gallery', 'photo', 141, function () { return false; }], ['Profile', 'user', 14, function () { return cur === 14; }]];
+  var MORE = [byKey.msg, byKey.bill, byKey.priv], inMore = (MORE.indexOf(cs) > -1 || (cs === byKey.set && cur !== 14));
   var mroot = document.createElement('div');
   mroot.className = 'an-m';
   var sheetLinks = function (groups) { return groups.map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === 80 || p[0] === 127 ? ' data-keep' : '') + (isOn(p[0]) ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join(''); };
-  var moreHtml = '<div class="an-sg">More</div>' + MORE.map(function (s) { return '<a href="' + href(s[3]) + '"' + (s === cs ? ' class="on" aria-current="page"' : '') + '>' + s[1] + '</a>'; }).join('') +
-    '<div class="an-sg">Elsewhere</div><a href="' + twin + '">' + (dark ? 'Light theme' : 'Dark theme') + '</a><a href="' + href(1) + '">Back to the shop</a><a href="' + href(8) + '">Sign out</a>';
+  var mg = function (t, list) { return '<div class="an-sg">' + t + '</div>' + list.map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === cur ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); };
+  var moreHtml = mg('Settings', L([14, 1401, 1402, 1403, 1404])) + mg('Orders and money', L([143, 144, 24, 12, 13])) + mg('Messages and privacy', L([22, 137]).concat([[120, 'Privacy and security']], L([142]))) +
+    '<div class="an-sg">Elsewhere</div><a href="' + href(140) + '">All pages</a><a href="' + twin + '">' + (dark ? 'Light theme' : 'Dark theme') + '</a><a href="' + href(1) + '">Back to the shop</a><a href="' + href(8) + '">Sign out</a>';
   mroot.innerHTML =
     (NOCHIP ? '' : '<button type="button" class="an-chip" aria-haspopup="dialog">' + '<span>' + cs[4] + '</span><b>' + pageName + '</b>' + svg('up', 16) + '</button>') +
     ('<nav class="an-tabs" aria-label="Account sections">' +
