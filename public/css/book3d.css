@@ -66,3 +66,9 @@
 @media (max-width: 760px) { :host(.b3-hero) { --bw: 178px; } }
 @media (max-width: 420px) { :host(.b3-hero) { --bw: 152px; } }
 @media (prefers-reduced-motion: reduce) { .b3-in { transition: none; } .b3-f::after { animation: none; } }
+/* every book shape: photos fill the space the page leaves instead of keeping a fixed ratio */
+.b3-f { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+.b3-f > * { flex: none; max-inline-size: 100%; }
+.b3-f > .b3-ph { flex: 1 1 0; min-block-size: 0; aspect-ratio: auto; inline-size: 100%; max-block-size: 76%; box-sizing: border-box; }
+.b3-lf > * { grid-template-rows: minmax(0, 1fr); }
+.b3-lf .b3-pimg-w { inline-size: 100%; block-size: 100%; aspect-ratio: auto; max-inline-size: 100%; box-sizing: border-box; }
