@@ -152,9 +152,9 @@
       !wizard ? h('span', { id: 'savedat', class: 'saved hide-s', 'aria-live': 'polite' }, S.saved) : null,
       h('div', { class: 'sp' }),
       !wizard ? h('div', { class: 'tt' }, btn('', function () { restore(S.undo, S.redo); }, { icon: 'undo', aria: 'Undo', dis: !S.undo.length, cls: 'sq' }), btn('', function () { restore(S.redo, S.undo); }, { icon: 'redo', aria: 'Redo', dis: !S.redo.length, cls: 'sq' }),
-        btn('Overview', function () { openSheet('overview'); }, { icon: 'grid' }), btn('Photos', function () { openSheet('gallery'); }, { icon: 'photo' }), btn('', function () { openSheet('notes'); }, { icon: 'note', aria: 'Notes', cls: 'sq' + (d.notes.length ? ' dot' : '') }), btn('', function () { openSheet('settings'); }, { icon: 'gear', aria: 'Book settings', cls: 'sq' }),
+        btn('Overview', function () { openSheet('overview'); }, { icon: 'grid', dis: S.screen !== 'design', title: S.screen !== 'design' ? 'Available once you reach the Design step' : undefined }), btn('Photos', function () { openSheet('gallery'); }, { icon: 'photo' }), btn('', function () { openSheet('notes'); }, { icon: 'note', aria: 'Notes', cls: 'sq' + (d.notes.length ? ' dot' : '') }), btn('', function () { openSheet('settings'); }, { icon: 'gear', aria: 'Book settings', cls: 'sq' }),
         btn('', function () { var t = theme === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('miles.theme', t); } catch (e) {} setTheme(t); render(); }, { icon: theme === 'dark' ? 'sun' : 'moon', aria: theme === 'dark' ? 'Light theme' : 'Dark theme', cls: 'sq' })) : btn('', function () { var t = theme === 'dark' ? 'light' : 'dark'; try { localStorage.setItem('miles.theme', t); } catch (e) {} setTheme(t); render(); }, { icon: theme === 'dark' ? 'sun' : 'moon', aria: theme === 'dark' ? 'Light theme' : 'Dark theme', cls: 'sq' }),
-      !wizard ? (ROLE === 'studio' ? h('button', { type: 'button', class: 'bt pri send', onclick: function () { openSheet('review'); } }, ic('tick'), h('span', null, 'Review')) : h('button', { type: 'button', class: 'bt pri send', onclick: sendToStudio }, ic('send'), h('span', { class: 'lbl-l' }, 'Send to the studio'), h('span', { class: 'lbl-s' }, 'Send'))) : null);
+      !wizard ? (ROLE === 'studio' ? h('button', { type: 'button', class: 'bt pri send', onclick: function () { openSheet('review'); } }, ic('tick'), h('span', null, 'Review')) : h('button', { type: 'button', class: 'bt pri send', disabled: S.screen !== 'design', title: S.screen !== 'design' ? 'Finish the steps and design your book first' : null, onclick: sendToStudio }, ic('send'), h('span', { class: 'lbl-l' }, 'Send to the studio'), h('span', { class: 'lbl-s' }, 'Send'))) : null);
   }
   function setTheme(t) { document.documentElement.dataset.theme = t; document.documentElement.dataset.mui = t; }
   function banner() {
@@ -197,7 +197,7 @@
       h('ol', { class: 'steps', 'aria-label': 'Steps' }, WSTEPS.map(function (t, i) { return h('li', { class: i === idx ? 'now' : (i < idx ? 'done' : ''), 'aria-current': i === idx ? 'step' : null }, h('button', { type: 'button', class: 'stp', disabled: i === idx || i > reach, 'aria-label': 'Step ' + (i + 1) + ': ' + t[1], onclick: function () { wgo(t[0]); } }, h('i', null, i < idx ? ic('check', 14) : String(i + 1)), h('span', null, t[1]))); })));
   }
   function wizardShell(step, title, lead, body, foot) {
-    return h('div', { class: 'app wiz' }, topbar(true), h('main', { class: 'wz', id: 'main' },
+    return h('div', { class: 'app wiz' }, topbar(false), h('main', { class: 'wz', id: 'main' },
       stepHeader(step),
       h('div', { class: 'wgrid' }, h('aside', { class: 'wbk' }, wizBook()), h('section', { class: 'wbody' }, h('h1', null, title), h('p', { class: 'lead' }, lead), body, h('div', { class: 'foot' }, foot)))));
   }
@@ -633,7 +633,7 @@
         h('div', { class: 'dh' }, h('div', null, h('h1', null, heading), h('p', { class: 'ed-muted' }, o1 ? 'Page ' + (S.ap + 1) + ' of ' + d.pages.length : 'Spread ' + (S.si + 1) + ' of ' + tot)), h('div', { class: 'pr' }, h('span', null, done + ' of ' + d.pages.length + ' pages done'), h('div', { class: 'pgbar', role: 'progressbar', 'aria-label': 'Pages done', 'aria-valuemin': '0', 'aria-valuemax': String(d.pages.length), 'aria-valuenow': String(done) }, h('i', { style: { inlineSize: Math.round(done / d.pages.length * 100) + '%' } })))),
         h('div', { class: 'stage' }, h('button', { type: 'button', class: 'turn prev', 'aria-label': o1 ? 'Previous page' : 'Turn back', onclick: function () { turn(-1); }, disabled: o1 ? S.ap === 0 : S.si === 0 }, ic('back', 26)), bk, h('button', { type: 'button', class: 'turn next', 'aria-label': o1 ? 'Next page' : 'Turn the page', onclick: function () { turn(1); }, disabled: o1 ? S.ap >= d.pages.length - 1 : S.si >= tot - 1 }, ic('next', 26))),
         toolbar(),
-        h('div', { class: 'nav' }, btn(allDone ? 'Done' : 'Mark done', function () { pgOnScreen.forEach(function (i) { d.pages[i].done = !allDone; }); persist(); render(); }, { icon: 'check', pressed: allDone, cls: allDone ? 'on' : '' }), nextLabel ? btn(nextLabel, function () { pgOnScreen.forEach(function (i) { d.pages[i].done = true; }); persist(false); turn(1); }, { cls: 'pri', icon: 'next', title: 'Mark done and turn to the next pages' }) : null)));
+        h('div', { class: 'nav' }, btn('Back to photos', function () { wgo('gallery'); }, { icon: 'back' }), btn(allDone ? 'Done' : 'Mark done', function () { pgOnScreen.forEach(function (i) { d.pages[i].done = !allDone; }); persist(); render(); }, { icon: 'check', pressed: allDone, cls: allDone ? 'on' : '' }), nextLabel ? btn(nextLabel, function () { pgOnScreen.forEach(function (i) { d.pages[i].done = true; }); persist(false); turn(1); }, { cls: 'pri', icon: 'next', title: 'Mark done and turn to the next pages' }) : null)));
   }
 
   /* contextual toolbar */

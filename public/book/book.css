@@ -252,3 +252,5 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 .stp:disabled { cursor: default; } .steps li:not(.now):has(.stp:disabled) { opacity: .55; }
 .steps li:not(.now) .stp:not(:disabled):hover { background: rgb(0 0 0 / .06); }
 @media (max-width: 760px) { .steps li:not(.now) .stp { padding-inline-end: 6px; } }
+/* every step shares one shell: same bar, same width, same spacing */
+.wz { max-inline-size: 1180px; padding: 18px 12px calc(30px + env(safe-area-inset-bottom)); gap: 14px; }
