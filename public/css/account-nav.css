@@ -134,3 +134,9 @@ body.an-h3-on .ed-ws { display: none; }
   body.an-tabs-on .wa { bottom: calc(var(--an-tabh) + 12px); }
   body.an-tabs-on .toast { bottom: calc(var(--an-tabh) + 16px); }
 }
+
+/* studio: the tab bar only where the studio's own sidebars are hidden (900px and under) */
+@media (min-width: 901px) { .an-m.an-st { display: none; } body.an-studio.an-tabs-on { padding-block-end: 0; } }
+
+.an-h3 a.an-new { background: var(--gold); color: var(--forest-ink); }
+.an-h3 a.an-new:hover { filter: brightness(1.06); background: var(--gold); color: var(--forest-ink); }

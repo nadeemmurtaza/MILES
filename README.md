@@ -133,3 +133,20 @@ The shared UX library (`nadeemmurtaza/library`, 119 UX guidelines, 61 component 
 - **Third-level bar:** where a section has a group of related pages, they sit in a horizontal bar right under the header instead of a third sidebar (editor pages and editor extras; the Print check count is kept).
 - **New pages (design-only):** **Notifications** (G/GL137: latest updates plus a channel-by-event preference grid, offers off by default) and **Email previews** (G/GL138).
 - **Email templates:** `public/emails/*.html` (+ `.txt`): order confirmed, proof ready, balance due, shipped. Table-based, inline styles, `{{placeholders}}` (`customer_name`, `order_no`, `proof_url`, ...). `public/emails/preview/` has the same emails filled with sample values. Sending needs the backend; `node scripts/build-library-pages.mjs` rebuilds all of it.
+
+## One live editor for the customer and the studio
+
+`public/book/editor.html` is the only editor to link to now. Open it as `?as=customer` or `?as=studio`; both sides edit **the same book** (the book is kept in `localStorage` under `miles.book.v1`, photos in IndexedDB, so a change on one side shows on the other, in another tab, straight away). Every old "Live editor" / "Book editor" link on the customer and studio pages opens it (swapped at load in `ui-kit.js`); the classic editor is still there, under **Classic editor** in the second sidebar and the studio's More menu.
+
+The flow, one job per screen:
+
+1. **How many pages?** (20 to 80, the covers are extra).
+2. **Name your book:** title, caption, dedication, author line.
+3. **Your photos:** the gallery. Add photos, favourite them, remove them. It is also open at any time from the top bar.
+4. **Design the book, two pages at a time.** A 3D book starts closed on the cover. Tap a page: popup 1 is colour and layout, popup 2 is the gallery (pick the photos), then Save. Turn the page (button, arrow keys) to the next two pages and do the same. Phones show one page at a time.
+
+Everything on a page is free-form: photos and text boxes can be dragged anywhere, resized from the corners, turned with the round handle, brought forward or sent back. Text has font, size, colour, bold, italic and alignment. Arrow keys nudge a selected item, Enter edits it, Delete removes it. Overview shows all spreads with a tick for done ones; undo and redo cover everything.
+
+Studio side: the same editor plus a **Review** panel (empty pages, empty photo spots, photos that would print soft, pages not marked done), **Ask for changes** and **Mark ready for print**. The customer has **Send to the studio**. Status, notes and the review are shared.
+
+This is a prototype of the editor: nothing is sent to a server, and the sample photos only exist on the deployed site (offline they show as coloured blocks). The studio phone tab bar (`studio-nav.js`) is added the same way as the customer one.

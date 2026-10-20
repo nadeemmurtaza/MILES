@@ -32,3 +32,13 @@ for (const f of readdirSync(dir).filter((x) => /^GL?\d+-.*\.dc\.html$/.test(x)))
   writeFileSync(new URL(f, dir), h); w++;
 }
 console.log(`ui kit added to ${w} pages`);
+
+/* studio pages (the ones with the studio rail): the same tab bar on phones (studio-nav.js) */
+let q = 0;
+for (const f of readdirSync(dir).filter((x) => /^GL?\d+-.*\.dc\.html$/.test(x))) {
+  let h = readFileSync(new URL(f, dir), 'utf8');
+  if (!h.includes('<aside class="rail') || h.includes('/studio-nav.js')) continue;
+  h = h.replace('</head>', '<link rel="stylesheet" href="/css/account-nav.css">\n<script src="/studio-nav.js" defer></script>\n</head>');
+  writeFileSync(new URL(f, dir), h); q++;
+}
+console.log(`studio tab bar added to ${q} pages`);

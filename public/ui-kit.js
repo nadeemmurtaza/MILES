@@ -87,7 +87,18 @@
       b.setAttribute('data-tip', b.getAttribute('aria-label'));
     });
   }
-  var again = function () { basics(); tips(); setTimeout(tips, 900); setTimeout(tips, 2500); setTimeout(basics, 700); setTimeout(basics, 2000); };
+  /* one live editor for everyone: every link to the old customer canvas (23) or studio canvas (70) opens the new editor instead.
+     Pages that belong to the classic editor, and links marked data-keep, stay as they are. */
+  function reroute() {
+    var m = location.pathname.match(/GL?(\d+)-/), n = m ? +m[1] : 0;
+    if (n === 23 || n === 70 || (n >= 80 && n <= 104) || (n >= 110 && n <= 114)) return;
+    document.querySelectorAll('a[href]:not([data-keep])').forEach(function (a) {
+      var h = a.getAttribute('href') || '';
+      if (/(^|\/)GL?23-Editor\.dc\.html(#.*)?$/.test(h)) a.setAttribute('href', '/book/editor.html?as=customer');
+      else if (/(^|\/)GL?70-Editor\.dc\.html(#.*)?$/.test(h)) a.setAttribute('href', '/book/editor.html?as=studio');
+    });
+  }
+  var again = function () { basics(); tips(); reroute(); setTimeout(reroute, 500); setTimeout(reroute, 1500); setTimeout(reroute, 3000); setTimeout(tips, 900); setTimeout(tips, 2500); setTimeout(basics, 700); setTimeout(basics, 2000); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', again); else again();
 
   /* [data-toast="Message"] on any button shows a toast (data-toast-kind="good|bad") */

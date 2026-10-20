@@ -37,7 +37,7 @@
   /* rail: key, label, icon, first page, sub-menu title, groups of [page, label] */
   var S = [
     ['order', 'Order', 'box', 9, 'My order', [['Overview', L([9, 10, 13, 11])]]],
-    ['book', 'My book', 'book', 7, 'My book', [['Make the book', [[7, 'Photos'], [23, 'Live editor'], [127, 'Editor extras']]]]],
+    ['book', 'My book', 'book', 7, 'My book', [['Make the book', [[7, 'Photos'], [23, 'Live editor'], [80, 'Classic editor'], [127, 'Editor extras']]]]],
     ['msg', 'Messages', 'chat', 22, 'Messages', [['Talk to us', L([22, 137, 138, 17])]]],
     ['bill', 'Billing', 'card', 12, 'Billing', [['Payments', L([12, 24, 77])]]],
     ['priv', 'Privacy', 'lock', 120, 'Privacy & security', [['Your photos', L([120, 121, 122, 123, 124, 125, 126])]]],
@@ -45,13 +45,13 @@
   ];
   /* third level: pages that belong together under one entry of the second bar are shown as a horizontal bar under the header */
   var H3 = [
-    { key: 'ed', label: 'Editor pages', entry: 23, pages: [[100, 'Step by step'], [23, 'Canvas'], [80, 'Storyboard'], [81, 'Photos'], [82, 'Layouts'], [83, 'Text'], [84, 'Cover'], [85, 'Style'], [86, 'Flipbook'], [87, 'Print check'], [88, 'History'], [89, 'Send']] },
+    { key: 'ed', label: 'Editor pages', entry: 80, pages: [[100, 'Step by step'], [23, 'Canvas'], [80, 'Storyboard'], [81, 'Photos'], [82, 'Layouts'], [83, 'Text'], [84, 'Cover'], [85, 'Style'], [86, 'Flipbook'], [87, 'Print check'], [88, 'History'], [89, 'Send']] },
     { key: 'ex', label: 'Editor extras', entry: 127, pages: [[127, 'Smart help'], [128, 'Approvals'], [129, 'Arabic captions'], [130, 'Trip map'], [131, 'Shortcuts & access']] }
   ];
   var EASY = cur >= 100 && cur <= 104;                  /* step-by-step editing: phone-first, so the tab bar only */
   var look = EASY ? 100 : cur;
   var h3 = null; H3.forEach(function (g) { g.pages.forEach(function (p) { if (p[0] === look) h3 = g; }); });
-  var isOn = function (n) { return n === look || (h3 && n === h3.entry); };   /* the group's entry in the second bar lights up for any page inside it */
+  var isOn = function (n) { return n !== 23 && (n === look || (h3 && n === h3.entry)); };   /* 23 is the new live editor (its link is swapped at load), never highlighted here */   /* the group's entry in the second bar lights up for any page inside it */
   var cs = null;
   S.forEach(function (s) { s[5].forEach(function (g) { g[1].forEach(function (p) { if (isOn(p[0])) cs = s; }); }); });
   if (!cs) return;
@@ -74,7 +74,7 @@
     '<a class="an-rl" href="' + href(8) + '" title="Sign out">' + svg('out') + '<span>Sign out</span></a>' +
     '</aside>' +
     '<nav class="an-sub" aria-label="' + cs[4] + ' pages"><div class="an-sh"><b>' + cs[4] + '</b><button type="button" class="an-x" aria-label="Hide the page list" title="Hide the page list">' + svg('back') + '</button></div>' +
-    cs[5].map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (isOn(p[0]) ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join('') +
+    cs[5].map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === 80 || p[0] === 127 ? ' data-keep' : '') + (isOn(p[0]) ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join('') +
     '</nav>';
 
   var apply = function () {
@@ -104,7 +104,7 @@
   var TABS = S.slice(0, 4), MORE = S.slice(4), inMore = MORE.indexOf(cs) > -1;
   var mroot = document.createElement('div');
   mroot.className = 'an-m';
-  var sheetLinks = function (groups) { return groups.map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (isOn(p[0]) ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join(''); };
+  var sheetLinks = function (groups) { return groups.map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === 80 || p[0] === 127 ? ' data-keep' : '') + (isOn(p[0]) ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join(''); };
   var moreHtml = '<div class="an-sg">More</div>' + MORE.map(function (s) { return '<a href="' + href(s[3]) + '"' + (s === cs ? ' class="on" aria-current="page"' : '') + '>' + s[1] + '</a>'; }).join('') +
     '<div class="an-sg">Elsewhere</div><a href="' + twin + '">' + (dark ? 'Light theme' : 'Dark theme') + '</a><a href="' + href(1) + '">Back to the shop</a><a href="' + href(8) + '">Sign out</a>';
   mroot.innerHTML =
@@ -162,10 +162,10 @@
   if (h3 && !EASY) {
     var hb = document.createElement('nav');
     hb.className = 'an-h3'; hb.setAttribute('aria-label', h3.label);
-    hb.innerHTML = '<b>' + h3.label + '</b>' + h3.pages.map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === look ? ' aria-current="page"' : '') + '><span>' + p[1] + '</span><i class="an-h3b" hidden></i></a>'; }).join('');
+    hb.innerHTML = '<b>' + h3.label + '</b>' + (h3.key === 'ed' ? '<a class="an-new" href="/book/editor.html?as=customer" data-keep>Try the new live editor</a>' : '') + h3.pages.map(function (p) { return '<a href="' + href(p[0]) + '" data-keep' + (p[0] === look ? ' aria-current="page"' : '') + '><span>' + p[1] + '</span><i class="an-h3b" hidden></i></a>'; }).join('');
     var mirror = function () {   /* the editor pages show a count on Print check; keep it on the strip */
       h3.pages.forEach(function (p, i) {
-        var src = document.querySelector('.ed-ws a[href="' + href(p[0]) + '"] b'), dst = hb.querySelectorAll('a')[i].querySelector('.an-h3b');
+        var src = document.querySelector('.ed-ws a[href="' + href(p[0]) + '"] b'), dst = hb.querySelectorAll('a:not(.an-new)')[i].querySelector('.an-h3b');
         var t = src ? src.textContent.trim() : ''; dst.textContent = t; dst.hidden = !t;
       });
     };
