@@ -23,6 +23,7 @@
     gear: '<circle cx="12" cy="12" r="3"/><path d="M19 12a7 7 0 0 0-.1-1.2l2-1.6-2-3.4-2.4 1a7 7 0 0 0-2-1.2L14 3h-4l-.5 2.6a7 7 0 0 0-2 1.2l-2.4-1-2 3.4 2 1.6A7 7 0 0 0 5 12c0 .4 0 .8.1 1.2l-2 1.6 2 3.4 2.4-1c.6.5 1.3.9 2 1.2L10 21h4l.5-2.6c.7-.3 1.4-.7 2-1.2l2.4 1 2-3.4-2-1.6c.1-.4.1-.8.1-1.2z"/>',
     sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6L6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4L6 18M18 6l1.4-1.4"/>',
     moon: '<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>', out: '<path d="M15 4h4v16h-4M10 8l-4 4 4 4M6 12h11"/>', site: '<path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/><circle cx="12" cy="12" r="9"/>',
+    photo: '<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="10" r="1.6"/><path d="M3 17l5-4 4 3 3-2 6 4"/>',
     dots: '<circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/>', up: '<path d="M6 15l6-6 6 6"/>', close: '<path d="M6 6l12 12M18 6L6 18"/>',
     next: '<path d="M9 6l6 6-6 6"/>', back: '<path d="M15 6l-6 6 6 6"/>'
   };
@@ -101,7 +102,11 @@
   var NOCHIP = EASY || cur === 23 || (cur >= 80 && cur <= 89);   /* screens with their own bottom tools: tab bar only, no floating chip */
   var pageName = '';
   cs[5].forEach(function (g) { g[1].forEach(function (p) { if (isOn(p[0])) pageName = h3 ? (h3.pages.filter(function (q) { return q[0] === look; })[0] || p)[1] : p[1]; }); });
-  var TABS = S.slice(0, 4), MORE = S.slice(4), inMore = MORE.indexOf(cs) > -1;
+  /* the lower bar is private: only what belongs to the signed-in customer (account, orders, books, gallery, settings) */
+  var signedOut = false; try { signedOut = localStorage.getItem('miles.auth') === 'out'; } catch (e) {}
+  var byKey = {}; S.forEach(function (s) { byKey[s[0]] = s; });
+  var TABS = [['Account', 'home', 9, function () { return cur === 9; }], ['Orders', 'box', 10, function () { return cs === byKey.order && cur !== 9; }], ['Books', 'book', 7, function () { return cs === byKey.book; }], ['Gallery', 'photo', 141, function () { return false; }], ['Settings', 'gear', 14, function () { return cs === byKey.set; }]];
+  var MORE = [byKey.msg, byKey.bill, byKey.priv], inMore = MORE.indexOf(cs) > -1;
   var mroot = document.createElement('div');
   mroot.className = 'an-m';
   var sheetLinks = function (groups) { return groups.map(function (g) { return '<div class="an-sg">' + g[0] + '</div>' + g[1].map(function (p) { return '<a href="' + href(p[0]) + '"' + (p[0] === 80 || p[0] === 127 ? ' data-keep' : '') + (isOn(p[0]) ? ' class="on" aria-current="page"' : '') + '>' + p[1] + '</a>'; }).join(''); }).join(''); };
@@ -110,7 +115,7 @@
   mroot.innerHTML =
     (NOCHIP ? '' : '<button type="button" class="an-chip" aria-haspopup="dialog">' + '<span>' + cs[4] + '</span><b>' + pageName + '</b>' + svg('up', 16) + '</button>') +
     ('<nav class="an-tabs" aria-label="Account sections">' +
-      TABS.map(function (s) { return '<a href="' + href(s[3]) + '"' + (s === cs ? ' class="on" aria-current="true"' : '') + '>' + svg(s[2], 22) + '<span>' + s[1] + '</span></a>'; }).join('') +
+      TABS.map(function (t) { var on = t[3](); return '<a href="' + href(t[2]) + '"' + (on ? ' class="on" aria-current="true"' : '') + '>' + svg(t[1], 22) + '<span>' + t[0] + '</span></a>'; }).join('') +
       '<button type="button" class="an-more' + (inMore ? ' on' : '') + '" aria-haspopup="dialog">' + svg('dots', 22) + '<span>More</span></button></nav>') +
     '<div class="an-scrim" hidden></div><div class="an-sheet" role="dialog" aria-modal="true" aria-label="Pages" hidden><div class="an-sh"><b></b><button type="button" class="an-x" aria-label="Close">' + svg('close') + '</button></div><div class="an-sl"></div></div>';
 
@@ -156,7 +161,7 @@
       }, { passive: true });
     }
   };
-  if (document.body) goMobile(); else document.addEventListener('DOMContentLoaded', goMobile);
+  if (!signedOut) { if (document.body) goMobile(); else document.addEventListener('DOMContentLoaded', goMobile); }
 
   /* ---- third-level bar: a horizontal strip right under the header ---- */
   if (h3 && !EASY) {

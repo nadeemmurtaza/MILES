@@ -112,7 +112,24 @@
     var m = location.pathname.match(/\/(GL?)\d+-/); if (!m) return;
     var a = document.createElement('a'); a.href = m[1] + '140-SiteMap.dc.html'; a.textContent = 'All pages'; a.setAttribute('data-allpages', ''); s.appendChild(a);
   }
-  var again = function () { basics(); tips(); reroute(); footerLink(); studioLink(); setTimeout(function () { footerLink(); studioLink(); }, 700); setTimeout(footerLink, 2200); setTimeout(reroute, 500); setTimeout(reroute, 1500); setTimeout(reroute, 3000); setTimeout(tips, 900); setTimeout(tips, 2500); setTimeout(basics, 700); setTimeout(basics, 2000); };
+  /* prototype sign-in state: the sign-in page means signed out; pressing its buttons signs in. Private bars key off this. */
+  function auth() {
+    var set = function (v) { try { localStorage.setItem('miles.auth', v); } catch (e) {} };
+    var get = function () { try { return localStorage.getItem('miles.auth'); } catch (e) { return null; } };
+    if (/\/GL?8-SignIn\.dc\.html$/.test(location.pathname)) {
+      set('out');
+      document.addEventListener('click', function (e) { var t = e.target.closest && e.target.closest('main button, main a[href*="9-Account"], form button'); if (t) set('in'); }, true);
+      document.addEventListener('submit', function () { set('in'); }, true);
+    }
+    if (get() === 'in') document.querySelectorAll('a[href$="8-SignIn.dc.html"]').forEach(function (a) {
+      if (a.closest('.an, .an-m')) return;
+      var m = (a.getAttribute('href') || '').match(/^(GL?)8-/); if (!m) return;
+      a.setAttribute('href', m[1] + '9-Account.dc.html');
+      var t = a.querySelector('span') || a; var n = Array.prototype.filter.call(t.childNodes, function (c) { return c.nodeType === 3 && /sign in/i.test(c.textContent); })[0];
+      if (n) n.textContent = n.textContent.replace(/sign in/i, 'My account');
+    });
+  }
+  var again = function () { basics(); auth(); tips(); reroute(); footerLink(); studioLink(); setTimeout(function () { footerLink(); studioLink(); }, 700); setTimeout(footerLink, 2200); setTimeout(auth, 900); setTimeout(reroute, 500); setTimeout(reroute, 1500); setTimeout(reroute, 3000); setTimeout(tips, 900); setTimeout(tips, 2500); setTimeout(basics, 700); setTimeout(basics, 2000); };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', again); else again();
 
   /* [data-toast="Message"] on any button shows a toast (data-toast-kind="good|bad") */

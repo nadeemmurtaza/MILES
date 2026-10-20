@@ -168,3 +168,7 @@ Select a text box and tap **Shape**, or tap **Shape text** to start one: circle,
 ## All pages (site map)
 
 `GL140-SiteMap.dc.html` lists every page in groups (shop, account, live editor and photos, messages, privacy, classic editor, studio, design references) with a filter box. It is linked from the Settings sidebar, the storefront and studio "More" sheets, the studio second bar and the footer of every page (`ui-kit.js`). Rebuild it with `node scripts/build-library-pages.mjs`; pages not listed in its groups still appear under "More".
+
+## Private bottom bar
+
+The phone tab bar is private. It only appears on the signed-in customer's own pages (account, orders, books, settings, messages, billing, privacy) with Account, Orders, Books, Gallery, Settings and More. The storefront (home, books, lookbook, story, cart, help) has no bottom bar: Home, Books, Cart and Track order are in the header menu. Sign-in state in the prototype is `localStorage['miles.auth']`: opening the sign-in page signs out (the bar disappears), pressing its buttons signs in (the header's "Sign in" becomes "My account"). See `account-nav.js` and `ui-kit.js`.

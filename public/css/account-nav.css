@@ -140,3 +140,7 @@ body.an-h3-on .ed-ws { display: none; }
 
 .an-h3 a.an-new { background: var(--gold); color: var(--forest-ink); }
 .an-h3 a.an-new:hover { filter: brightness(1.06); background: var(--gold); color: var(--forest-ink); }
+
+@media (max-width: 1099px) {
+  .an-m:not(.an-st) .an-tabs { grid-template-columns: repeat(6, minmax(0, 1fr)); padding-inline: 2px; } .an-m:not(.an-st) .an-tabs a, .an-m:not(.an-st) .an-tabs button { font-size: 10px; min-inline-size: 0; }
+}

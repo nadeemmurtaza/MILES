@@ -2,6 +2,9 @@
    Same bar, sheet and look as the account pages (css/account-nav.css); only the links differ. */
 (function () {
   'use strict';
+  /* The storefront has no bottom bar any more: Home, Books, Cart and Track order live in the header menu.
+     The bottom bar is private (account pages, signed in only), see account-nav.js. */
+  return;
   var m = location.pathname.match(/\/(GL?)(\d+)-[^\/]*\.dc\.html$/);
   if (!m) return;
   var ed = m[1], cur = +m[2], dark = ed === 'G';
