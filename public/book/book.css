@@ -230,11 +230,13 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 .gstep { display: grid; gap: 16px; }
 .mpp { display: grid; gap: 12px; padding: 16px; border-radius: 18px; background: var(--card); box-shadow: inset 0 0 0 1.5px var(--line); }
 .mpp-h { display: flex; gap: 12px; align-items: flex-start; } .mpp-h .ico { color: var(--ok); margin-block-start: 2px; } .mpp-h b { font: 500 20px Fraunces, serif; } .mpp-h p { margin: 2px 0 0; }
-.mpp-g { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 8px; }
-.mpp-r { display: flex; align-items: center; gap: 10px; min-block-size: 52px; padding: 8px 10px 8px 12px; border: 0; border-radius: 12px; text-align: start; font: 700 14px Manrope, sans-serif; color: var(--ink); cursor: pointer; } .mpp-r span { flex: 1; display: grid; gap: 1px; min-inline-size: 0; } .mpp-r em { font-style: normal; } .mpp-r small { font: 600 12px Manrope, sans-serif; color: var(--mu); }
-.mpp-r.gone { background: rgb(31 122 77 / .1); box-shadow: inset 0 0 0 1.5px var(--ok); } .mpp-r.gone small { color: var(--ok); }
-.mpp-r.kept { background: rgb(0 0 0 / .04); box-shadow: inset 0 0 0 1.5px var(--line); }
-.mpp-r b { flex: none; padding: 6px 10px; border-radius: 999px; font-size: 12px; background: var(--card); box-shadow: inset 0 0 0 1.5px currentColor; } .mpp-r.gone b { color: var(--mu); } .mpp-r.kept b { color: var(--bad); }
+.mpp-g { display: grid; gap: 0; border-radius: 14px; box-shadow: inset 0 0 0 1.5px var(--line); overflow: hidden; }
+.mpp-r { display: flex; align-items: center; gap: 14px; padding: 12px 14px; color: var(--ink); } .mpp-r + .mpp-r { border-block-start: 1px solid var(--line); } .mpp-r.all { background: rgb(0 0 0 / .035); }
+.mpp-r > .ico, .mpp-r > svg { flex: none; color: var(--mu); } .mpp-r span { flex: 1; display: grid; gap: 2px; min-inline-size: 0; } .mpp-r em { font: 700 15px Manrope, sans-serif; font-style: normal; } .mpp-r small { font: 500 13px Manrope, sans-serif; color: var(--mu); }
+.mpp-sg { flex: none; display: inline-flex; padding: 3px; gap: 2px; border-radius: 999px; background: rgb(0 0 0 / .06); }
+.mpp-o { min-block-size: 38px; min-inline-size: 72px; padding: 0 14px; border: 0; border-radius: 999px; background: none; font: 700 13px Manrope, sans-serif; color: var(--mu); cursor: pointer; }
+.mpp-o.on.rm { background: var(--ok); color: #fff; } .mpp-o.on.kp { background: var(--ink); color: var(--card); }
+@media (max-width: 560px) { .mpp-r { flex-wrap: wrap; } .mpp-r span { flex-basis: calc(100% - 40px); } .mpp-sg { inline-size: 100%; } .mpp-o { flex: 1; } }
 .mpp-n { display: flex; gap: 8px; align-items: center; margin: 0; font-size: 13px; color: var(--mu); }
 
 /* a closed book (cover or back cover only): the white pages show as a stack under the board, thicker with more pages */
