@@ -272,3 +272,6 @@ dialog.dlg::backdrop { background: rgb(7 26 21 / .55); -webkit-backdrop-filter: 
 .wbk .mpp-r span { flex: 1 1 0; min-inline-size: 0; } .wbk .mpp-r > .ico, .wbk .mpp-r > svg { flex: none; inline-size: 20px; block-size: 20px; margin-block-start: 2px; }
 /* the Back / Next bar is always at the bottom edge of the screen, not wherever the content ends */
 .wz .foot, .ds .nav { position: fixed; inset-block-end: max(8px, env(safe-area-inset-bottom)); inset-inline: 0; margin-inline: auto; inline-size: min(1156px, calc(100vw - 24px)); margin-block-start: 0; z-index: 35; }
+/* both bars stay where they are while the page scrolls: fixed to the screen, never part of the scrolling flow */
+.app > .top { position: fixed; inset-block-start: 10px; inset-inline: 12px; margin: 0; z-index: 40; }
+.app { padding-block-start: var(--topH, 84px); }
